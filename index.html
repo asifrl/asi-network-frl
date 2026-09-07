@@ -25,7 +25,7 @@ nav{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  background:rgba(0,0,0,.95);
+  background:rgba(0,0,0,.96);
   border-bottom:1px solid #252525;
   z-index:1000;
 }
@@ -191,21 +191,13 @@ h2{
 }
 
 .pricing{
-  max-width:850px;
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:20px;
+  max-width:500px;
 }
 
 .price{
   padding:35px;
-  background:#111;
-  border:1px solid #333;
-}
-
-.price.featured{
   background:#191919;
-  border-color:#777;
+  border:1px solid #777;
 }
 
 .price h3{
@@ -246,7 +238,7 @@ footer{
 
 @media(max-width:800px){
   .navlinks{display:none}
-  .grid,.pricing{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr}
   .hero{padding-left:6%;padding-right:6%}
   section{padding-left:6%;padding-right:6%}
 }
@@ -269,6 +261,7 @@ footer{
 
 <header class="hero">
 <div class="hero-content">
+
 <div class="label">ASI NETWORK FRL ORIGINAL</div>
 
 <h1>
@@ -288,14 +281,18 @@ relationships, experiences and the moments that shape us.
 <a href="#episodes" class="btn primary">▶ WATCH NOW</a>
 <a href="https://square.link/u/0l47AY8p" class="btn secondary">SUBSCRIBE</a>
 </div>
+
 </div>
 </header>
 
 <section id="shows">
+
 <div class="label">FEATURED ORIGINAL</div>
+
 <h2>THE SHOW</h2>
 
 <div class="show">
+
 <div class="label">SEASON 1</div>
 
 <h3>
@@ -313,11 +310,14 @@ Season 1 is coming soon.
 <a href="#episodes" class="btn primary">
 VIEW EPISODES
 </a>
+
 </div>
 </section>
 
 <section id="episodes">
+
 <div class="label">FAMILY BEHIND THE TRAUMA</div>
+
 <h2>SEASON 1</h2>
 
 <div class="grid">
@@ -356,6 +356,7 @@ WATCH
 </section>
 
 <section>
+
 <div class="label">ASI NETWORK FRL</div>
 
 <h2>
@@ -370,7 +371,7 @@ COMING SOON.
 <h3>COMING SOON</h3>
 <p>New series coming soon.</p>
 <br>
-<a href="https://square.link/u/0l47AY8p" class="btn secondary">
+<a href="#subscribe" class="btn secondary">
 LEARN MORE
 </a>
 </div>
@@ -380,7 +381,7 @@ LEARN MORE
 <h3>COMING SOON</h3>
 <p>New series coming soon.</p>
 <br>
-<a href="https://square.link/u/0l47AY8p" class="btn secondary">
+<a href="#subscribe" class="btn secondary">
 LEARN MORE
 </a>
 </div>
@@ -390,7 +391,7 @@ LEARN MORE
 <h3>COMING SOON</h3>
 <p>New series coming soon.</p>
 <br>
-<a href="https://square.link/u/0l47AY8p" class="btn secondary">
+<a href="#subscribe" class="btn secondary">
 LEARN MORE
 </a>
 </div>
@@ -399,6 +400,7 @@ LEARN MORE
 </section>
 
 <section id="subscribe">
+
 <div class="label">ASI NETWORK FRL</div>
 
 <h2>SUBSCRIBE</h2>
@@ -406,30 +408,8 @@ LEARN MORE
 <div class="pricing">
 
 <div class="price">
-<h3>MONTHLY</h3>
 
-<div class="amount">
-$6.99
-</div>
-
-<p>per month</p>
-
-<ul>
-<li>✓ Watch ASI originals</li>
-<li>✓ New episodes</li>
-<li>✓ Cancel anytime</li>
-</ul>
-
-<a
-href="https://square.link/u/0l47AY8p"
-class="btn primary"
->
-SUBSCRIBE
-</a>
-</div>
-
-<div class="price featured">
-<h3>MEMBERSHIP</h3>
+<h3>ASI NETWORK FRL</h3>
 
 <div class="amount">
 $6.99
@@ -449,12 +429,14 @@ class="btn primary"
 >
 JOIN ASI NETWORK FRL
 </a>
+
 </div>
 
 </div>
 </section>
 
 <section id="about">
+
 <div class="label">ABOUT</div>
 
 <h2>ASI NETWORK FRL</h2>
@@ -483,6 +465,7 @@ EXPLORE THE SHOW
 </section>
 
 <section id="signin">
+
 <div class="label">MEMBERS</div>
 
 <h2>MEMBERSHIP</h2>
