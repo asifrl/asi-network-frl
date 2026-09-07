@@ -492,6 +492,93 @@ SUBSCRIBE NOW
 <footer>
 © 2026 ASI NETWORK FRL — FAMILY BEHIND THE TRAUMA
 </footer>
+<!-- ASI NETWORK FRL MEMBER LOGIN -->
+<div id="asi-auth" style="margin:40px auto;max-width:500px;padding:25px;border:1px solid #333;border-radius:12px;background:#111;color:#fff;font-family:Arial,sans-serif;">
+  <h2 style="margin-top:0;">ASI NETWORK FRL</h2>
+  <p>Create an account or log in to access your membership.</p>
 
+  <input id="asi-email" type="email" placeholder="Email"
+    style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box;">
+
+  <input id="asi-password" type="password" placeholder="Password"
+    style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box;">
+
+  <button onclick="asiSignUp()" style="padding:12px 18px;margin:6px 4px 6px 0;">
+    Create Account
+  </button>
+
+  <button onclick="asiLogin()" style="padding:12px 18px;margin:6px 0;">
+    Log In
+  </button>
+
+  <button id="asi-logout" onclick="asiLogout()" style="display:none;padding:12px 18px;margin-top:10px;">
+    Log Out
+  </button>
+
+  <p id="asi-status" style="margin-top:15px;"></p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  const ASI_SUPABASE_URL = "https://gvvtwwrjfscaunczptpv.supabase.co";
+
+  // Use the Supabase PUBLISHABLE/ANON key you copied earlier.
+const ASI_SUPABASE_KEY = "sb_publishable_iliNeR5tX_4X4KAh5ZjPpA_e6ueLnP-";
+
+  const asiSupabase = window.supabase.createClient(
+    ASI_SUPABASE_URL,
+    ASI_SUPABASE_KEY
+  );
+
+  async function asiSignUp() {
+    const email = document.getElementById("asi-email").value;
+    const password = document.getElementById("asi-password").value;
+    const status = document.getElementById("asi-status");
+
+    if (!email || !password) {
+      status.textContent = "Enter your email and password.";
+      return;
+    }
+
+    const { error } = await asiSupabase.auth.signUp({
+      email: email,
+      password: password
+    });
+
+    if (error) {
+      status.textContent = error.message;
+      return;
+    }
+
+    status.textContent =
+      "Account created. Check your email to confirm your account.";
+  }
+
+  async function asiLogin() {
+    const email = document.getElementById("asi-email").value;
+    const password = document.getElementById("asi-password").value;
+    const status = document.getElementById("asi-status");
+
+    const { data, error } = await asiSupabase.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
+
+    if (error) {
+      status.textContent = error.message;
+      return;
+    }
+
+    status.textContent = "You're logged in!";
+    document.getElementById("asi-logout").style.display = "inline-block";
+  }
+
+  async function asiLogout() {
+    await asiSupabase.auth.signOut();
+    document.getElementById("asi-status").textContent = "You are logged out.";
+    document.getElementById("asi-logout").style.display = "none";
+  }
+</script>
 </body>
 </html>
