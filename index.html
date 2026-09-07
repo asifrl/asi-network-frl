@@ -3,403 +3,503 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>ASI Network FRL</title>
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
-background:#070707;
-color:#fff;
-font-family:Arial,Helvetica,sans-serif;
+  background:#050505;
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
 }
-header{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-z-index:100;
-background:rgba(7,7,7,.92);
-backdrop-filter:blur(12px);
-border-bottom:1px solid #292929;
-}
-.nav{
-max-width:1200px;
-margin:auto;
-padding:18px 22px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-}
-.logo{
-font-size:19px;
-font-weight:900;
-letter-spacing:2px;
-}
-.logo span{color:#777}
+a{text-decoration:none;color:inherit}
+
 nav{
-display:flex;
-gap:22px;
+  position:fixed;
+  top:0;
+  width:100%;
+  z-index:1000;
+  height:72px;
+  padding:0 6%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:rgba(0,0,0,.9);
+  border-bottom:1px solid #222;
+  backdrop-filter:blur(12px);
 }
-nav a{
-color:#aaa;
-text-decoration:none;
-font-size:12px;
-font-weight:bold;
-letter-spacing:1px;
+
+.logo{
+  font-size:20px;
+  font-weight:900;
+  letter-spacing:2px;
 }
-nav a:hover{color:#fff}
+
+.navlinks{
+  display:flex;
+  gap:28px;
+  font-size:12px;
+  font-weight:bold;
+  letter-spacing:1px;
+  color:#aaa;
+}
+
+.navlinks a:hover{color:#fff}
+
+.signin{
+  border:1px solid #555;
+  padding:10px 18px;
+  border-radius:3px;
+}
+
 .hero{
-min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-padding:110px 22px 70px;
-background:
-radial-gradient(circle at 50% 35%,#353535 0%,#171717 24%,#090909 60%,#050505 100%);
+  min-height:100vh;
+  padding:140px 7% 80px;
+  display:flex;
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+  background:
+    linear-gradient(90deg,#000 0%,rgba(0,0,0,.88) 42%,rgba(0,0,0,.3) 100%),
+    radial-gradient(circle at 75% 45%,#444 0%,#171717 30%,#050505 65%);
 }
+
+.hero:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(0deg,#050505 0%,transparent 25%);
+  pointer-events:none;
+}
+
 .hero-content{
-max-width:900px;
+  max-width:720px;
+  position:relative;
+  z-index:2;
 }
-.badge{
-display:inline-block;
-border:1px solid #444;
-padding:9px 15px;
-border-radius:30px;
-font-size:10px;
-letter-spacing:3px;
-color:#aaa;
-margin-bottom:25px;
+
+.network{
+  font-size:12px;
+  letter-spacing:5px;
+  color:#999;
+  font-weight:bold;
+  margin-bottom:20px;
 }
-.hero h1{
-font-size:clamp(55px,13vw,125px);
-line-height:.84;
-font-weight:900;
-letter-spacing:-6px;
+
+h1{
+  font-size:clamp(55px,10vw,120px);
+  line-height:.84;
+  letter-spacing:-5px;
+  font-weight:900;
 }
-.hero h1 span{
-color:#777;
+
+.subtitle{
+  margin-top:28px;
+  font-size:clamp(22px,4vw,42px);
+  font-weight:bold;
+  color:#aaa;
+  letter-spacing:2px;
 }
-.hero p{
-max-width:650px;
-margin:30px auto;
-color:#aaa;
-font-size:16px;
-line-height:1.8;
+
+.description{
+  margin-top:20px;
+  max-width:600px;
+  color:#aaa;
+  font-size:17px;
+  line-height:1.7;
 }
+
 .buttons{
-display:flex;
-justify-content:center;
-gap:12px;
-flex-wrap:wrap;
+  display:flex;
+  gap:14px;
+  margin-top:30px;
+  flex-wrap:wrap;
 }
+
 .btn{
-display:inline-block;
-padding:16px 28px;
-border-radius:5px;
-text-decoration:none;
-font-weight:900;
-font-size:12px;
-letter-spacing:1px;
+  padding:15px 25px;
+  font-weight:900;
+  font-size:13px;
+  letter-spacing:1px;
+  border-radius:3px;
 }
+
 .primary{
-background:#fff;
-color:#000;
+  background:#fff;
+  color:#000;
 }
+
 .secondary{
-border:1px solid #555;
-color:#fff;
+  background:#222;
+  border:1px solid #555;
 }
+
 section{
-max-width:1200px;
-margin:auto;
-padding:90px 22px;
+  padding:90px 7%;
+  border-top:1px solid #1c1c1c;
 }
+
 .label{
-color:#666;
-font-size:10px;
-letter-spacing:4px;
-margin-bottom:12px;
+  color:#777;
+  font-size:11px;
+  letter-spacing:4px;
+  font-weight:bold;
+  margin-bottom:12px;
 }
+
 h2{
-font-size:42px;
-letter-spacing:-1px;
-margin-bottom:35px;
+  font-size:clamp(38px,6vw,70px);
+  line-height:1;
+  margin-bottom:35px;
 }
+
+.show-feature{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:25px;
+}
+
+.show-card{
+  min-height:420px;
+  padding:40px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  background:
+    linear-gradient(0deg,#050505 5%,transparent 75%),
+    linear-gradient(135deg,#333,#111);
+  border:1px solid #292929;
+}
+
+.show-card h3{
+  font-size:42px;
+  line-height:1;
+  margin-bottom:12px;
+}
+
+.show-card p{
+  color:#999;
+  max-width:500px;
+}
+
+.play{
+  display:inline-block;
+  margin-top:22px;
+  width:max-content;
+  padding:13px 20px;
+  background:#fff;
+  color:#000;
+  font-weight:bold;
+  font-size:12px;
+}
+
 .grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:18px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
 }
-.card{
-background:linear-gradient(145deg,#191919,#101010);
-border:1px solid #292929;
-border-radius:12px;
-padding:32px;
-min-height:210px;
-transition:.25s;
+
+.tile{
+  min-height:230px;
+  padding:25px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  background:linear-gradient(145deg,#252525,#0b0b0b);
+  border:1px solid #292929;
 }
-.card:hover{
-transform:translateY(-5px);
-border-color:#555;
+
+.tile small{
+  color:#777;
+  letter-spacing:2px;
+  margin-bottom:8px;
 }
-.icon{
-font-size:28px;
-margin-bottom:25px;
+
+.tile h3{
+  font-size:24px;
 }
-.card h3{
-font-size:19px;
-margin-bottom:12px;
+
+.tile p{
+  color:#888;
+  margin-top:7px;
+  font-size:14px;
 }
-.card p{
-color:#888;
-line-height:1.7;
-font-size:14px;
+
+.pricing{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+  max-width:850px;
 }
-.feature{
-background:#101010;
-border-top:1px solid #242424;
-border-bottom:1px solid #242424;
-}
-.feature-box{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:40px;
-align-items:center;
-}
-.feature h2{
-font-size:48px;
-}
-.feature p{
-color:#999;
-line-height:1.8;
-margin-bottom:25px;
-}
-.visual{
-height:330px;
-border:1px solid #333;
-border-radius:14px;
-background:
-linear-gradient(135deg,#303030,#151515 45%,#080808);
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-}
-.visual strong{
-font-size:45px;
-letter-spacing:-2px;
-}
-.membership{
-text-align:center;
-}
-.price-card{
-max-width:470px;
-margin:auto;
-padding:42px 30px;
-border:1px solid #444;
-border-radius:14px;
-background:#131313;
-}
-.price-card h3{
-letter-spacing:2px;
-}
+
 .price{
-font-size:38px;
-font-weight:900;
-margin:20px 0;
+  padding:40px;
+  background:#111;
+  border:1px solid #292929;
 }
-.price-card p{
-color:#888;
-line-height:1.7;
-margin-bottom:25px;
+
+.price.featured{
+  background:#1b1b1b;
+  border-color:#666;
 }
-.waitlist{
-opacity:.65;
-cursor:not-allowed;
+
+.price h3{
+  font-size:28px;
 }
+
+.amount{
+  font-size:42px;
+  font-weight:900;
+  margin:15px 0;
+}
+
+.price p{
+  color:#999;
+  margin-bottom:25px;
+}
+
+.price ul{
+  list-style:none;
+  color:#bbb;
+  line-height:2;
+  margin-bottom:25px;
+}
+
+.price li:before{
+  content:"✓ ";
+  color:#fff;
+}
+
 .about{
-border-top:1px solid #242424;
+  max-width:850px;
 }
-.about-text{
-max-width:780px;
-color:#999;
-line-height:1.9;
-font-size:16px;
+
+.about p{
+  color:#999;
+  font-size:18px;
+  line-height:1.8;
 }
+
 footer{
-border-top:1px solid #222;
-padding:45px 22px;
-text-align:center;
-color:#555;
-font-size:11px;
-letter-spacing:1px;
+  padding:45px 7%;
+  border-top:1px solid #222;
+  color:#666;
+  font-size:12px;
+  text-align:center;
+  letter-spacing:1px;
 }
+
 @media(max-width:800px){
-nav{display:none}
-.grid{
-grid-template-columns:1fr;
-}
-.feature-box{
-grid-template-columns:1fr;
-}
-.feature h2{
-font-size:38px;
-}
-.hero h1{
-letter-spacing:-3px;
-}
-section{
-padding:70px 20px;
-}
+  .navlinks{display:none}
+  .show-feature{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr}
+  .pricing{grid-template-columns:1fr}
+  .hero{padding-left:6%;padding-right:6%}
+  section{padding-left:6%;padding-right:6%}
 }
 </style>
 </head>
+
 <body>
-<header>
-<div class="nav">
-<div class="logo">
-ASI <span>NETWORK FRL</span>
-</div>
+
 <nav>
-<a href="#watch">WATCH</a>
-<a href="#music">MUSIC</a>
-<a href="#community">COMMUNITY</a>
-<a href="#membership">MEMBERSHIP</a>
+  <div class="logo">ASI NETWORK FRL</div>
+
+  <div class="navlinks">
+    <a href="#shows">SHOWS</a>
+    <a href="#episodes">EPISODES</a>
+    <a href="#subscribe">SUBSCRIBE</a>
+    <a href="#about">ABOUT</a>
+    <a href="#" class="signin">SIGN IN</a>
+  </div>
 </nav>
-</div>
+
+<header class="hero">
+
+  <div class="hero-content">
+
+    <div class="network">ASI NETWORK FRL ORIGINAL</div>
+
+    <h1>FAMILY<br>BEHIND<br>THE TRAUMA</h1>
+
+    <div class="subtitle">THE REALITY SERIES</div>
+
+    <p class="description">
+      A raw look inside family, relationships, experiences
+      and the moments that shape us.
+    </p>
+
+    <div class="buttons">
+      <a href="#episodes" class="btn primary">▶ WATCH NOW</a>
+      <a href="#subscribe" class="btn secondary">SUBSCRIBE</a>
+    </div>
+
+  </div>
+
 </header>
-<main>
-<section class="hero">
-<div class="hero-content">
-<div class="badge">
-ASI NETWORK FRL
-</div>
-<h1>
-BUILT<br>
-<span>DIFFERENT.</span>
-</h1>
-<p>
-A new home for creators, artists, entrepreneurs and people
-who are ready to build something bigger.
-</p>
-<div class="buttons">
-<a class="btn primary" href="#membership">
-JOIN THE NETWORK
-</a>
-<a class="btn secondary" href="#watch">
-EXPLORE
-</a>
-</div>
-</div>
+
+<section id="shows">
+
+  <div class="label">FEATURED ORIGINAL</div>
+
+  <h2>THE SHOW</h2>
+
+  <div class="show-feature">
+
+    <div class="show-card">
+      <div class="label">SEASON 1</div>
+      <h3>FAMILY BEHIND<br>THE TRAUMA</h3>
+      <p>
+        The flagship reality series from ASI Network FRL.
+        The story begins here.
+      </p>
+      <a href="#episodes" class="play">WATCH EPISODES</a>
+    </div>
+
+    <div class="show-card">
+      <div class="label">ASI NETWORK FRL</div>
+      <h3>ORIGINAL<br>PROGRAMMING</h3>
+      <p>
+        More original shows and stories are coming to
+        ASI Network FRL.
+      </p>
+    </div>
+
+  </div>
+
 </section>
-<section id="watch">
-<div class="label">ENTERTAINMENT</div>
-<h2>WATCH</h2>
-<div class="grid">
-<div class="card">
-<div class="icon">▶</div>
-<h3>ASI REALITY</h3>
-<p>
-Real stories. Real people. Real moments.
-Exclusive reality content from the ASI Network.
-</p>
-</div>
-<div class="card">
-<div class="icon">✦</div>
-<h3>EXCLUSIVE</h3>
-<p>
-Members will get access to original videos,
-behind-the-scenes footage and special content.
-</p>
-</div>
-<div class="card">
-<div class="icon">●</div>
-<h3>LIVE</h3>
-<p>
-Live streams, events and special moments
-coming directly from the network.
-</p>
-</div>
-</div>
+
+<section id="episodes">
+
+  <div class="label">FAMILY BEHIND THE TRAUMA</div>
+
+  <h2>SEASON 1</h2>
+
+  <div class="grid">
+
+    <div class="tile">
+      <small>EPISODE 01</small>
+      <h3>COMING SOON</h3>
+      <p>The beginning of the story.</p>
+    </div>
+
+    <div class="tile">
+      <small>EPISODE 02</small>
+      <h3>COMING SOON</h3>
+      <p>The story continues.</p>
+    </div>
+
+    <div class="tile">
+      <small>EPISODE 03</small>
+      <h3>COMING SOON</h3>
+      <p>More of the family story.</p>
+    </div>
+
+  </div>
+
 </section>
-<section id="music">
-<div class="label">MUSIC</div>
-<h2>THE SOUND</h2>
-<div class="grid">
-<div class="card">
-<div class="icon">♫</div>
-<h3>ASI FRL</h3>
-<p>
-Music, releases and upcoming projects from ASI FRL.
-</p>
-</div>
-<div class="card">
-<div class="icon">★</div>
-<h3>FEATURED ARTISTS</h3>
-<p>
-Discover independent artists and new talent
-inside the ASI Network.
-</p>
-</div>
-<div class="card">
-<div class="icon">+</div>
-<h3>NEW RELEASES</h3>
-<p>
-Stay connected with new music and upcoming drops.
-</p>
-</div>
-</div>
+
+<section>
+
+  <div class="label">BROWSE ASI NETWORK FRL</div>
+
+  <h2>MORE SHOWS<br>COMING SOON.</h2>
+
+  <div class="grid">
+
+    <div class="tile">
+      <small>ASI ORIGINAL</small>
+      <h3>COMING SOON</h3>
+      <p>New original series.</p>
+    </div>
+
+    <div class="tile">
+      <small>ASI ORIGINAL</small>
+      <h3>COMING SOON</h3>
+      <p>New original series.</p>
+    </div>
+
+    <div class="tile">
+      <small>ASI ORIGINAL</small>
+      <h3>COMING SOON</h3>
+      <p>New original series.</p>
+    </div>
+
+  </div>
+
 </section>
-<section class="feature" id="community">
-<div class="feature-box">
-<div>
-<div class="label">THE COMMUNITY</div>
-<h2>ONE NETWORK.<br>BIG OPPORTUNITIES.</h2>
-<p>
-ASI Network FRL brings creators, artists and entrepreneurs
-together under one platform. Connect, collaborate and grow.
-</p>
-<a class="btn secondary" href="#membership">
-BECOME A MEMBER
-</a>
-</div>
-<div class="visual">
-<strong>ASI<br>FRL</strong>
-</div>
-</div>
+
+<section id="subscribe">
+
+  <div class="label">WATCH ASI NETWORK FRL</div>
+
+  <h2>SUBSCRIBE.</h2>
+
+  <div class="pricing">
+
+    <div class="price">
+      <h3>MONTHLY</h3>
+      <div class="amount">$6.99</div>
+      <p>per month</p>
+
+      <ul>
+        <li>Watch ASI originals</li>
+        <li>New episodes</li>
+        <li>Cancel anytime</li>
+      </ul>
+
+      <a href="#" class="btn primary">SUBSCRIBE</a>
+    </div>
+
+    <div class="price featured">
+      <h3>ANNUAL</h3>
+      <div class="amount">$69.99</div>
+      <p>per year</p>
+
+      <ul>
+        <li>Watch ASI originals</li>
+        <li>New episodes</li>
+        <li>Best value</li>
+      </ul>
+
+      <a href="#" class="btn primary">SUBSCRIBE</a>
+    </div>
+
+  </div>
+
 </section>
-<section class="membership" id="membership">
-<div class="label">MEMBERSHIP</div>
-<h2>JOIN ASI NETWORK FRL</h2>
-<div class="price-card">
-<h3>MEMBERSHIP</h3>
-<div class="price">
-COMING SOON
-</div>
-<p>
-Exclusive content, community access, special experiences
-and more will be available to members.
-</p>
-<a class="btn primary waitlist" href="#">
-JOIN WAITLIST
-</a>
-</div>
+
+<section id="about">
+
+  <div class="label">ABOUT ASI NETWORK FRL</div>
+
+  <div class="about">
+
+    <h2>THIS IS<br>OUR STORY.</h2>
+
+    <p>
+      ASI Network FRL is an independent entertainment network
+      built to bring original reality programming and stories
+      directly to its audience.
+    </p>
+
+    <br>
+
+    <p>
+      Family Behind The Trauma is the first flagship series.
+      More original programming will be introduced as the
+      network grows.
+    </p>
+
+  </div>
+
 </section>
-<section class="about" id="about">
-<div class="label">ABOUT ASI FRL</div>
-<h2>MORE THAN A WEBSITE.</h2>
-<p class="about-text">
-ASI Network FRL is being built as a digital home for people
-with vision. A place where entertainment, music, creativity
-and entrepreneurship come together.
-<br><br>
-This is only the beginning.
-</p>
-</section>
-</main>
+
 <footer>
-© 2026 ASI NETWORK FRL — ALL RIGHTS RESERVED
+  © 2026 ASI NETWORK FRL — FAMILY BEHIND THE TRAUMA
 </footer>
+
 </body>
 </html>
