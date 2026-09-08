@@ -519,6 +519,17 @@ Send me episode and ASI Network FRL alerts by text.
 <button onclick="asiForgotPassword()" style="padding:12px 18px;margin:6px 0;">
 Forgot Password
 </button> 
+<div id="asi-reset-box" style="display:none;margin-top:12px;">
+<input id="asi-new-password" type="password" placeholder="New Password"
+style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box;">
+
+<input id="asi-confirm-password" type="password" placeholder="Confirm New Password"
+style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box;">
+
+<button onclick="asiUpdatePassword()" style="padding:12px 18px;margin:6px 0;">
+Update Password
+</button>
+</div>  
   <button id="asi-logout" onclick="asiLogout()" style="display:none;padding:12px 18px;margin-top:10px;">
     Log Out
   </button>
@@ -638,7 +649,47 @@ return;
 
 status.textContent = "Password reset link sent. Check your email.";
 }
+async function asiUpdatePassword() {
+const newPassword = document.getElementById("asi-new-password").value;
+const confirmPassword = document.getElementById("asi-confirm-password").value;
+const status = document.getElementById("asi-status");
 
+if (!newPassword || !confirmPassword) {
+status.textContent = "Enter and confirm your new password.";
+return;
+}
+
+if (newPassword !== confirmPassword) {
+status.textContent = "Passwords do not match.";
+return;
+}
+
+const { error } = await asiSupabase.auth.updateUser({
+password: newPassword
+});
+
+if (error) {
+status.textContent = error.message;
+return;
+}
+
+status.textContent = "Password updated. You can now log in.";
+document.getElementById("asi-reset-box").style.display = "none";
+}
+
+asiSupabase.auth.onAuthStateChange((event) => {
+if (event === "PASSWORD_RECOVERY") {
+document.getElementById("asi-reset-box").style.display = "block";
+document.getElementById("asi-status").textContent =
+"Enter your new password below.";
+}
+});
+0
+
+  
+
+
+  
   async function asiLogout() {
     await asiSupabase.auth.signOut();
     document.getElementById("asi-status").textContent = "You are logged out.";
