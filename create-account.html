@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Create Account | ASI Network FRL</title>
+
+<style>
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+body{
+min-height:100vh;
+background:radial-gradient(circle at top,#2a2a2a 0%,#111 35%,#050505 75%);
+color:#fff;
+font-family:Arial,Helvetica,sans-serif;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:30px 16px;
+}
+
+.wrap{
+width:100%;
+max-width:460px;
+}
+
+.brand{
+text-align:center;
+margin-bottom:26px;
+}
+
+.brand h1{
+font-size:28px;
+letter-spacing:2px;
+font-weight:900;
+}
+
+.brand p{
+margin-top:8px;
+color:#888;
+font-size:12px;
+letter-spacing:2px;
+}
+
+.card{
+background:#111;
+border:1px solid #333;
+padding:34px;
+border-radius:8px;
+box-shadow:0 20px 60px rgba(0,0,0,.45);
+}
+
+.card h2{
+text-align:center;
+font-size:28px;
+margin-bottom:10px;
+}
+
+.subtext{
+text-align:center;
+color:#888;
+font-size:14px;
+line-height:1.5;
+margin-bottom:28px;
+}
+
+.paid-notice{
+background:#181818;
+border:1px solid #444;
+padding:13px;
+margin-bottom:22px;
+border-radius:4px;
+color:#bbb;
+font-size:13px;
+line-height:1.5;
+text-align:center;
+}
+
+label{
+display:block;
+margin-bottom:7px;
+font-size:12px;
+font-weight:bold;
+color:#bbb;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="tel"]{
+width:100%;
+padding:14px;
+margin-bottom:16px;
+border:1px solid #3b3b3b;
+background:#090909;
+color:#fff;
+border-radius:4px;
+outline:none;
+font-size:15px;
+}
+
+input:focus{
+border-color:#888;
+}
+
+.checkbox-row{
+display:flex;
+align-items:flex-start;
+gap:10px;
+margin:4px 0 20px;
+color:#aaa;
+font-size:13px;
+line-height:1.5;
+}
+
+.checkbox-row input{
+margin-top:3px;
+}
+
+button{
+width:100%;
+padding:15px;
+border:none;
+border-radius:4px;
+background:#fff;
+color:#000;
+font-weight:900;
+font-size:13px;
+letter-spacing:1px;
+cursor:pointer;
+}
+
+button:hover{
+opacity:.88;
+}
+
+button:disabled{
+opacity:.5;
+cursor:not-allowed;
+}
+
+.status{
+display:none;
+margin-top:18px;
+padding:13px;
+background:#181818;
+border:1px solid #333;
+color:#ccc;
+text-align:center;
+line-height:1.5;
+font-size:13px;
+border-radius:4px;
+}
+
+.signin-box{
+margin-top:24px;
+padding-top:22px;
+border-top:1px solid #2d2d2d;
+text-align:center;
+}
+
+.signin-box p{
+color:#888;
+font-size:13px;
+margin-bottom:12px;
+}
+
+.signin-link{
+display:inline-block;
+color:#fff;
+border:1px solid #555;
+padding:11px 16px;
+border-radius:4px;
+font-size:12px;
+font-weight:bold;
+text-decoration:none;
+}
+
+.back{
+display:block;
+margin-top:22px;
+text-align:center;
+color:#777;
+font-size:12px;
+text-decoration:none;
+}
+
+.back:hover{
+color:#fff;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+<div class="brand">
+<h1>ASI NETWORK FRL</h1>
+<p>I SEE EVERYTHING</p>
+</div>
+
+<div class="card">
+
+<h2>Create Account</h2>
+
+<p class="subtext">
+Finished subscribing? Create your ASI Network FRL account below.
+</p>
+
+<div class="paid-notice">
+Use the same email address you used when purchasing your
+$5.99 ASI Network FRL subscription.
+</div>
+
+<label for="email">Email Address</label>
+<input
+id="email"
+type="email"
+placeholder="Email used at checkout"
+autocomplete="email"
+>
+
+<label for="password">Password</label>
+<input
+id="password"
+type="password"
+placeholder="Create a password"
+autocomplete="new-password"
+>
+
+<label for="confirm-password">Confirm Password</label>
+<input
+id="confirm-password"
+type="password"
+placeholder="Confirm your password"
+autocomplete="new-password"
+>
+
+<label for="phone">Phone Number</label>
+<input
+id="phone"
+type="tel"
+placeholder="Enter your phone number"
+autocomplete="tel"
+>
+
+<label class="checkbox-row">
+<input id="alerts" type="checkbox">
+
+<span>
+Send me ASI Network FRL text alerts and show updates.
+</span>
+</label>
+
+<button id="create-button" onclick="asiCreateAccount()">
+CREATE ACCOUNT
+</button>
+
+<div id="status" class="status"></div>
+
+<div class="signin-box">
+<p>Already have an account?</p>
+
+<a class="signin-link" href="/login.html">
+SIGN IN
+</a>
+</div>
+
+</div>
+
+<a class="back" href="/">
+← BACK TO ASI NETWORK FRL
+</a>
+
+</div>
+
+
+<script>
+
+const CREATE_ACCOUNT_URL =
+"https://gvvtwwrjfscaunczptpv.supabase.co/functions/v1/asi-verify-paid-email";
+
+const ASI_PUBLISHABLE_KEY =
+"sb_publishable_iliNeR5tX_4X4KAh5ZjPpA_e6ueLnP-E";
+
+
+function showStatus(message){
+
+const status =
+document.getElementById("status");
+
+status.style.display = "block";
+status.textContent = message;
+
+}
+
+
+async function asiCreateAccount(){
+
+const email =
+document
+.getElementById("email")
+.value
+.trim()
+.toLowerCase();
+
+const password =
+document.getElementById("password").value;
+
+const confirmPassword =
+document.getElementById("confirm-password").value;
+
+const phone =
+document.getElementById("phone").value.trim();
+
+const smsAlerts =
+document.getElementById("alerts").checked;
+
+const button =
+document.getElementById("create-button");
+
+
+if(!email || !password || !confirmPassword || !phone){
+
+showStatus(
+"Please complete all required fields."
+);
+
+return;
+}
+
+
+if(password.length < 8){
+
+showStatus(
+"Your password must be at least 8 characters."
+);
+
+return;
+}
+
+
+if(password !== confirmPassword){
+
+showStatus(
+"Your passwords do not match."
+);
+
+return;
+}
+
+
+button.disabled = true;
+button.textContent = "VERIFYING SUBSCRIPTION...";
+
+showStatus(
+"Checking your ASI Network FRL subscription..."
+);
+
+
+try{
+
+const response = await fetch(
+CREATE_ACCOUNT_URL,
+{
+method:"POST",
+
+headers:{
+"Content-Type":"application/json",
+"apikey":ASI_PUBLISHABLE_KEY
+},
+
+body:JSON.stringify({
+email:email,
+password:password,
+phone:phone,
+sms_alerts:smsAlerts
+})
+}
+);
+
+
+let result = {};
+
+try{
+result = await response.json();
+}catch(e){
+result = {};
+}
+
+
+if(!response.ok || result.success !== true){
+
+throw new Error(
+result.error ||
+"We could not verify your subscription."
+);
+
+}
+
+
+showStatus(
+"Your subscription is verified and your account has been created. Taking you to sign in..."
+);
+
+
+button.textContent = "ACCOUNT CREATED";
+
+
+setTimeout(function(){
+
+window.location.href = "/login.html";
+
+},1500);
+
+
+}catch(error){
+
+console.error(error);
+
+showStatus(
+error && error.message
+? error.message
+: "Unable to create your account."
+);
+
+button.disabled = false;
+button.textContent = "CREATE ACCOUNT";
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
