@@ -66,7 +66,7 @@ text-align:center;
 color:#888;
 font-size:14px;
 line-height:1.5;
-margin-bottom:28px;
+margin-bottom:22px;
 }
 
 .paid-notice{
@@ -209,19 +209,18 @@ color:#fff;
 <h2>Create Account</h2>
 
 <p class="subtext">
-Finished subscribing? Create your ASI Network FRL account below.
+Your payment will be verified before your ASI Network FRL account is created.
 </p>
 
-<div class="paid-notice">
-Use the same email address you used when purchasing your
-$5.99 ASI Network FRL subscription.
+<div class="paid-notice" id="paid-notice">
+Use the same email address you used when purchasing your $5.99 subscription.
 </div>
 
 <label for="email">Email Address</label>
 <input
 id="email"
 type="email"
-placeholder="Email used at checkout"
+placeholder="Email used at Square checkout"
 autocomplete="email"
 >
 
@@ -289,6 +288,23 @@ const ASI_PUBLISHABLE_KEY =
 "sb_publishable_iliNeR5tX_4X4KAh5ZjPpA_e6ueLnP-";
 
 
+/*
+Square adds the subscription ID to the URL
+after successful checkout.
+
+Example:
+create-account.html?subscriptionId=XXXXXXXX
+*/
+
+const urlParams =
+new URLSearchParams(window.location.search);
+
+const squareSubscriptionId =
+urlParams.get("subscriptionId") ||
+urlParams.get("subscription_id") ||
+"";
+
+
 function showStatus(message){
 
 const status =
@@ -296,6 +312,36 @@ document.getElementById("status");
 
 status.style.display = "block";
 status.textContent = message;
+
+}
+
+
+function checkCheckout(){
+
+const button =
+document.getElementById("create-button");
+
+const notice =
+document.getElementById("paid-notice");
+
+
+if(!squareSubscriptionId){
+
+notice.textContent =
+"We could not identify your Square checkout. Please create your account from the page Square sends you to after a successful subscription payment.";
+
+button.disabled = true;
+
+showStatus(
+"Missing Square subscription information. Please return through your successful checkout."
+);
+
+return;
+}
+
+
+notice.textContent =
+"Square checkout detected. Use the same email address you used when purchasing your $5.99 subscription.";
 
 }
 
@@ -323,6 +369,16 @@ document.getElementById("alerts").checked;
 
 const button =
 document.getElementById("create-button");
+
+
+if(!squareSubscriptionId){
+
+showStatus(
+"Your Square subscription could not be identified. Please return through the successful checkout page."
+);
+
+return;
+}
 
 
 if(!email || !password || !confirmPassword || !phone){
@@ -356,10 +412,10 @@ return;
 
 
 button.disabled = true;
-button.textContent = "VERIFYING SUBSCRIPTION...";
+button.textContent = "VERIFYING PAYMENT...";
 
 showStatus(
-"Checking your ASI Network FRL subscription..."
+"Checking your Square payment and subscription..."
 );
 
 
@@ -379,7 +435,8 @@ body:JSON.stringify({
 email:email,
 password:password,
 phone:phone,
-sms_alerts:smsAlerts
+sms_alerts:smsAlerts,
+subscription_id:squareSubscriptionId
 })
 }
 );
@@ -388,9 +445,13 @@ sms_alerts:smsAlerts
 let result = {};
 
 try{
+
 result = await response.json();
+
 }catch(e){
+
 result = {};
+
 }
 
 
@@ -398,25 +459,26 @@ if(!response.ok || result.success !== true){
 
 throw new Error(
 result.error ||
-"We could not verify your subscription."
+"We could not verify your Square payment."
 );
 
 }
 
 
+button.textContent =
+"ACCOUNT CREATED";
+
 showStatus(
-"Your subscription is verified and your account has been created. Taking you to sign in..."
+"Payment verified! Your ASI Network FRL account has been created. Taking you to Sign In..."
 );
-
-
-button.textContent = "ACCOUNT CREATED";
 
 
 setTimeout(function(){
 
-window.location.href = "/login.html";
+window.location.href =
+"/login.html";
 
-},1500);
+},1800);
 
 
 }catch(error){
@@ -430,11 +492,15 @@ error && error.message
 );
 
 button.disabled = false;
-button.textContent = "CREATE ACCOUNT";
+button.textContent =
+"CREATE ACCOUNT";
 
 }
 
 }
+
+
+checkCheckout();
 
 </script>
 
