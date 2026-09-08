@@ -603,33 +603,7 @@ status.textContent =
 document.getElementById("asi-logout").style.display = "inline-block";
 }
 
-try {
-const response = await fetch(
-"https://gvvtwwrjfscaunczptpv.supabase.co/functions/v1/asi-link-subscription",
-{
-method: "POST",
-headers: {
-"Authorization": `Bearer ${accessToken}`,
-"Content-Type": "application/json"
-}
-}
-);
 
-const result = await response.json();
-
-if (response.ok && result.active === true) {
-status.textContent = "You're logged in! Subscription ACTIVE.";
-} else {
-status.textContent =
-"You're logged in, but no active $5.99 subscription was found.";
-}
-} catch (err) {
-console.error(err);
-status.textContent =
-"You're logged in, but we couldn't verify your subscription.";
-}
-
-document.getElementById("asi-logout").style.display = "inline-block";
 
   async function asiLogout() {
     await asiSupabase.auth.signOut();
