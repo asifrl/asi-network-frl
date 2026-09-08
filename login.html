@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sign In | ASI Network FRL</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at top,#2a2a2a 0%,#111 35%,#050505 75%);
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:30px 16px;
+}
+
+.login-wrap{
+  width:100%;
+  max-width:430px;
+}
+
+.brand{
+  text-align:center;
+  margin-bottom:26px;
+}
+
+.brand h1{
+  font-size:28px;
+  letter-spacing:2px;
+  font-weight:900;
+}
+
+.brand p{
+  margin-top:8px;
+  color:#888;
+  font-size:12px;
+  letter-spacing:2px;
+}
+
+.card{
+  background:#111;
+  border:1px solid #333;
+  padding:34px;
+  border-radius:8px;
+  box-shadow:0 20px 60px rgba(0,0,0,.45);
+}
+
+.card h2{
+  text-align:center;
+  font-size:28px;
+  margin-bottom:10px;
+}
+
+.subtext{
+  text-align:center;
+  color:#888;
+  font-size:14px;
+  line-height:1.5;
+  margin-bottom:28px;
+}
+
+label{
+  display:block;
+  margin-bottom:7px;
+  font-size:12px;
+  font-weight:bold;
+  color:#bbb;
+}
+
+input{
+  width:100%;
+  padding:14px;
+  margin-bottom:16px;
+  border:1px solid #3b3b3b;
+  background:#090909;
+  color:#fff;
+  border-radius:4px;
+  outline:none;
+  font-size:15px;
+}
+
+input:focus{
+  border-color:#888;
+}
+
+button{
+  width:100%;
+  padding:15px;
+  border:none;
+  border-radius:4px;
+  background:#fff;
+  color:#000;
+  font-weight:900;
+  font-size:13px;
+  letter-spacing:1px;
+  cursor:pointer;
+}
+
+button:hover{
+  opacity:.88;
+}
+
+button:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+.forgot{
+  display:block;
+  text-align:center;
+  margin-top:18px;
+  color:#aaa;
+  font-size:13px;
+  cursor:pointer;
+}
+
+.forgot:hover{
+  color:#fff;
+}
+
+.status{
+  display:none;
+  margin-top:18px;
+  padding:12px;
+  background:#181818;
+  border:1px solid #333;
+  color:#ccc;
+  text-align:center;
+  line-height:1.5;
+  font-size:13px;
+  border-radius:4px;
+}
+
+.subscribe-box{
+  margin-top:24px;
+  padding-top:22px;
+  border-top:1px solid #2d2d2d;
+  text-align:center;
+}
+
+.subscribe-box p{
+  color:#888;
+  font-size:13px;
+  margin-bottom:12px;
+}
+
+.subscribe-link{
+  display:inline-block;
+  color:#fff;
+  border:1px solid #555;
+  padding:11px 16px;
+  border-radius:4px;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.back{
+  display:block;
+  margin-top:22px;
+  text-align:center;
+  color:#777;
+  font-size:12px;
+}
+
+.back:hover{
+  color:#fff;
+}
+
+#forgot-box{
+  display:none;
+  margin-top:18px;
+  padding-top:20px;
+  border-top:1px solid #333;
+}
+
+#forgot-box p{
+  color:#888;
+  font-size:13px;
+  line-height:1.5;
+  margin-bottom:12px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="login-wrap">
+
+  <div class="brand">
+    <h1>ASI NETWORK FRL</h1>
+    <p>I SEE EVERYTHING</p>
+  </div>
+
+  <div class="card">
+
+    <h2>Sign In</h2>
+
+    <p class="subtext">
+      Sign in to your ASI Network FRL account.
+      Your active subscription will be verified before access is granted.
+    </p>
+
+    <label for="email">Email Address</label>
+    <input
+      id="email"
+      type="email"
+      placeholder="Enter your email"
+      autocomplete="email"
+    >
+
+    <label for="password">Password</label>
+    <input
+      id="password"
+      type="password"
+      placeholder="Enter your password"
+      autocomplete="current-password"
+    >
+
+    <button id="login-button" onclick="asiLogin()">
+      SIGN IN
+    </button>
+
+    <span class="forgot" onclick="toggleForgot()">
+      Forgot Password?
+    </span>
+
+    <div id="forgot-box">
+
+      <p>
+        Enter your email address and we'll send you a secure password reset link.
+      </p>
+
+      <button onclick="asiForgotPassword()">
+        SEND RESET EMAIL
+      </button>
+
+    </div>
+
+    <div id="status" class="status"></div>
+
+    <div class="subscribe-box">
+      <p>Don't have an active subscription?</p>
+
+      <a
+        class="subscribe-link"
+        href="https://square.link/u/0l47AY8p"
+      >
+        SUBSCRIBE — $5.99/MONTH
+      </a>
+    </div>
+
+  </div>
+
+  <a class="back" href="/">
+    ← BACK TO ASI NETWORK FRL
+  </a>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const ASI_SUPABASE_URL =
+  "https://gvvtwwrjfscaunczptpv.supabase.co";
+
+/*
+PASTE YOUR EXISTING SUPABASE PUBLISHABLE KEY BELOW.
+
+This must be your publishable / anon-style browser key.
+
+DO NOT use:
+- service_role key
+- secret key
+- database password
+- Square secret
+*/
+
+const ASI_SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_iliNeR5tX_4X4KAh5ZjPpA_e6ueLnP-E";
+
+const asiSupabase = supabase.createClient(
+  ASI_SUPABASE_URL,
+  ASI_SUPABASE_PUBLISHABLE_KEY
+);
+
+function showStatus(message){
+  const status = document.getElementById("status");
+
+  status.style.display = "block";
+  status.textContent = message;
+}
+
+function toggleForgot(){
+
+  const box = document.getElementById("forgot-box");
+
+  if(box.style.display === "block"){
+    box.style.display = "none";
+  }else{
+    box.style.display = "block";
+  }
+
+}
+
+async function asiLogin(){
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const password =
+    document.getElementById("password").value;
+
+  const button =
+    document.getElementById("login-button");
+
+  if(!email || !password){
+
+    showStatus(
+      "Please enter your email address and password."
+    );
+
+    return;
+  }
+
+  button.disabled = true;
+  button.textContent = "SIGNING IN...";
+
+  showStatus("Checking your account...");
+
+  try{
+
+    const {
+      data,
+      error
+    } = await asiSupabase.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
+
+    if(error){
+      throw error;
+    }
+
+    if(!data.session){
+
+      throw new Error(
+        "We could not start your account session."
+      );
+
+    }
+
+    showStatus(
+      "Login successful. Checking your ASI Network FRL subscription..."
+    );
+
+    const token =
+      data.session.access_token;
+
+    const response = await fetch(
+      "https://gvvtwwrjfscaunczptpv.supabase.co/functions/v1/asi-link-subscription",
+      {
+        method:"POST",
+
+        headers:{
+          "Content-Type":"application/json",
+          "Authorization":"Bearer " + token
+        }
+      }
+    );
+
+    let result = {};
+
+    try{
+      result = await response.json();
+    }catch(e){
+      result = {};
+    }
+
+    if(!response.ok){
+
+      throw new Error(
+        result.error ||
+        "We could not verify your subscription."
+      );
+
+    }
+
+    if(result.active === true){
+
+      showStatus(
+        "Subscription active. Welcome back to ASI Network FRL."
+      );
+
+      setTimeout(function(){
+
+        window.location.href = "/members.html";
+
+      },900);
+
+      return;
+
+    }
+
+    await asiSupabase.auth.signOut();
+
+    showStatus(
+      "Your account was found, but there is no active ASI Network FRL subscription. Please subscribe or reactivate your membership."
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+    let message =
+      error && error.message
+      ? error.message
+      : "Unable to sign in.";
+
+    if(
+      message.toLowerCase().includes("invalid login") ||
+      message.toLowerCase().includes("invalid credentials")
+    ){
+
+      message =
+        "The email or password you entered is incorrect.";
+
+    }
+
+    if(
+      message.toLowerCase().includes("email not confirmed")
+    ){
+
+      message =
+        "Please confirm your email address before signing in.";
+
+    }
+
+    showStatus(message);
+
+  }finally{
+
+    button.disabled = false;
+    button.textContent = "SIGN IN";
+
+  }
+
+}
+
+async function asiForgotPassword(){
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  if(!email){
+
+    showStatus(
+      "Enter your email address first."
+    );
+
+    return;
+  }
+
+  showStatus(
+    "Sending your password reset email..."
+  );
+
+  try{
+
+    const { error } =
+      await asiSupabase.auth.resetPasswordForEmail(
+        email,
+        {
+          redirectTo:
+            window.location.origin + "/reset.html"
+        }
+      );
+
+    if(error){
+      throw error;
+    }
+
+    showStatus(
+      "Password reset email sent. Check your inbox and spam folder."
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+    showStatus(
+      error.message ||
+      "Unable to send the reset email."
+    );
+
+  }
+
+}
+
+document
+  .getElementById("password")
+  .addEventListener(
+    "keydown",
+    function(event){
+
+      if(event.key === "Enter"){
+        asiLogin();
+      }
+
+    }
+  );
+
+</script>
+
+</body>
+</html>
