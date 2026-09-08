@@ -639,7 +639,7 @@ return;
 }
 
 const { error } = await asiSupabase.auth.resetPasswordForEmail(email, {
-redirectTo: window.location.origin
+redirectTo: window.location.origin + "/?reset=1"
 });
 
 if (error) {
@@ -676,7 +676,12 @@ return;
 status.textContent = "Password updated. You can now log in.";
 document.getElementById("asi-reset-box").style.display = "none";
 }
-
+  
+if (new URLSearchParams(window.location.search).get("reset") === "1") {
+document.getElementById("asi-reset-box").style.display = "block";
+document.getElementById("asi-status").textContent =
+"Enter your new password below.";
+}
 asiSupabase.auth.onAuthStateChange((event) => {
 if (event === "PASSWORD_RECOVERY") {
 document.getElementById("asi-reset-box").style.display = "block";
