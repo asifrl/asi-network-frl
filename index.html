@@ -501,7 +501,13 @@ SUBSCRIBE NOW
     style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box;">
 
   <input id="asi-password" type="password" placeholder="Password"
-    style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box;">
+    <input id="asi-phone" type="tel" placeholder="Phone Number"
+style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box;">
+
+<label style="display:block;margin:10px 0;">
+<input id="asi-alerts" type="checkbox">
+Send me episode and ASI Network FRL alerts by text.
+</label>
 
   <button onclick="asiSignUp()" style="padding:12px 18px;margin:6px 4px 6px 0;">
     Create Account
@@ -510,7 +516,9 @@ SUBSCRIBE NOW
   <button onclick="asiLogin()" style="padding:12px 18px;margin:6px 0;">
     Log In
   </button>
-
+<button onclick="asiForgotPassword()" style="padding:12px 18px;margin:6px 0;">
+Forgot Password
+</button> 
   <button id="asi-logout" onclick="asiLogout()" style="display:none;padding:12px 18px;margin-top:10px;">
     Log Out
   </button>
@@ -534,18 +542,25 @@ const ASI_SUPABASE_KEY = "sb_publishable_iliNeR5tX_4X4KAh5ZjPpA_e6ueLnP-";
   async function asiSignUp() {
     const email = document.getElementById("asi-email").value;
     const password = document.getElementById("asi-password").value;
+    const phone = document.getElementById("asi-phone").value;
+const alerts = document.getElementById("asi-alerts").checked;
     const status = document.getElementById("asi-status");
 
-    if (!email || !password) {
-      status.textContent = "Enter your email and password.";
+    if (!email || !password || !phone) {
+    status.textContent = "Enter your email, password, and phone number.";
       return;
     }
 
     const { error } = await asiSupabase.auth.signUp({
-      email: email,
-      password: password
-    });
-
+email: email,
+password: password,
+options: {
+data: {
+phone: phone,
+alerts: alerts
+}
+}
+});
     if (error) {
       status.textContent = error.message;
       return;
@@ -603,7 +618,25 @@ status.textContent =
 document.getElementById("asi-logout").style.display = "inline-block";
 }
 
+async function asiForgotPassword() {
+const email = document.getElementById("asi-email").value;
+const status = document.getElementById("asi-status");
 
+if (!email) {
+status.textContent = "Enter your email first.";
+return;
+}
+
+const { error } = await asiSupabase.auth.resetPasswordForEmail(email, {
+redirectTo: window.location.origin
+});
+
+if (error) {
+status.textContent = error.message;
+return;
+}
+
+status.textContent = "Password reset link sent. Check your email.";
 
   async function asiLogout() {
     await asiSupabase.auth.signOut();
