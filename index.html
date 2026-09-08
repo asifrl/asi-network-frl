@@ -639,7 +639,7 @@ return;
 }
 
 const { error } = await asiSupabase.auth.resetPasswordForEmail(email, {
-redirectTo: window.location.origin + "/?reset=1"
+redirectTo: window.location.origin + "/reset.html"
 });
 
 if (error) {
