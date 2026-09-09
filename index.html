@@ -16,7 +16,6 @@ ASI Network FRL | Family Behind The Trauma
 
 
 <!-- MUX PLAYER -->
-
 <script
 type="module"
 src="https://cdn.jsdelivr.net/npm/@mux/mux-player"
@@ -24,7 +23,6 @@ src="https://cdn.jsdelivr.net/npm/@mux/mux-player"
 
 
 <!-- SUPABASE -->
-
 <script
 src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
 ></script>
@@ -59,84 +57,52 @@ NAVIGATION
 ========================= */
 
 nav{
-
 position:fixed;
-
 top:0;
 left:0;
-
 width:100%;
 height:72px;
-
 padding:0 6%;
-
 display:flex;
 align-items:center;
 justify-content:space-between;
-
 background:rgba(0,0,0,.92);
-
-border-bottom:
-1px solid rgba(255,255,255,.08);
-
+border-bottom:1px solid rgba(255,255,255,.08);
 backdrop-filter:blur(10px);
-
 z-index:1000;
-
 }
 
 .logo{
-
 font-size:19px;
-
 font-weight:900;
-
 letter-spacing:2px;
-
 }
 
 .navlinks{
-
 display:flex;
-
 align-items:center;
-
 gap:24px;
-
 }
 
 .navlinks a{
-
 font-size:12px;
-
 font-weight:900;
-
 letter-spacing:1px;
-
 color:#aaa;
-
 }
 
 .navlinks a:hover{
-
 color:#fff;
-
 }
 
 .signin{
-
 border:1px solid #666;
-
 padding:10px 16px;
-
 color:#fff!important;
-
 }
 
 .mobile-signin{
-
 display:none;
-
 }
 
 
@@ -145,19 +111,12 @@ HERO
 ========================= */
 
 .hero{
-
 position:relative;
-
 min-height:100vh;
-
 display:flex;
-
 align-items:flex-end;
-
 overflow:hidden;
-
-padding:
-140px 7% 85px;
+padding:140px 7% 85px;
 
 background:
 radial-gradient(
@@ -166,73 +125,45 @@ circle at 70% 35%,
 #151515 40%,
 #050505 75%
 );
-
 }
 
 
-/* TRAILER VIDEO CONTAINER */
+/* TRAILER */
 
 .hero-video{
-
 position:absolute;
-
 inset:0;
-
 overflow:hidden;
-
 z-index:0;
-
 opacity:0;
-
-transition:
-opacity 1s ease;
-
+transition:opacity 1s ease;
 }
 
 .hero-video.loaded{
-
 opacity:1;
-
 }
 
-
-/* MUX BACKGROUND PLAYER */
-
 .hero-video mux-player{
-
 position:absolute;
-
 top:50%;
 left:50%;
-
 width:100vw;
-
 height:56.25vw;
-
 min-width:177.78vh;
-
 min-height:100vh;
-
-transform:
-translate(-50%,-50%);
-
+transform:translate(-50%,-50%);
 pointer-events:none;
 
 --controls:none;
-
 --media-object-fit:cover;
-
 }
 
 
-/* DARK CINEMATIC OVERLAY */
+/* DARK OVERLAY */
 
 .hero-overlay{
-
 position:absolute;
-
 inset:0;
-
 z-index:1;
 
 background:
@@ -252,179 +183,108 @@ rgba(5,5,5,.38) 25%,
 rgba(5,5,5,.08) 65%,
 rgba(5,5,5,.18) 100%
 );
-
 }
 
 
 /* HERO CONTENT */
 
 .hero-content{
-
 position:relative;
-
 z-index:2;
-
 max-width:760px;
-
 }
 
 .label{
-
 color:#aaa;
-
 font-size:11px;
-
 font-weight:900;
-
 letter-spacing:4px;
-
 margin-bottom:16px;
-
 }
 
 .hero h1{
-
-font-size:
-clamp(55px,10vw,115px);
-
+font-size:clamp(55px,10vw,115px);
 line-height:.84;
-
 letter-spacing:-5px;
-
 font-weight:900;
-
-text-shadow:
-0 4px 25px rgba(0,0,0,.75);
-
+text-shadow:0 4px 25px rgba(0,0,0,.75);
 }
 
 .subtitle{
-
 margin-top:28px;
-
-font-size:
-clamp(22px,4vw,40px);
-
+font-size:clamp(22px,4vw,40px);
 font-weight:900;
-
 letter-spacing:2px;
-
 }
 
 .description{
-
 max-width:620px;
-
 margin-top:20px;
-
 color:#ccc;
-
 font-size:17px;
-
 line-height:1.7;
-
-text-shadow:
-0 2px 8px rgba(0,0,0,.9);
-
+text-shadow:0 2px 8px rgba(0,0,0,.9);
 }
 
 .buttons{
-
 display:flex;
-
 flex-wrap:wrap;
-
 gap:12px;
-
 margin-top:30px;
-
 }
 
 .btn{
-
 display:inline-block;
-
 padding:15px 24px;
-
 border-radius:4px;
-
 font-size:12px;
-
 font-weight:900;
-
 letter-spacing:1px;
-
 transition:.2s;
-
 }
 
 .btn:hover{
-
 opacity:.85;
-
 }
 
 .primary{
-
 background:#fff;
-
 color:#000;
-
 }
 
 .secondary{
-
-background:
-rgba(25,25,25,.82);
-
+background:rgba(25,25,25,.82);
 color:#fff;
-
 border:1px solid #666;
-
 backdrop-filter:blur(5px);
-
 }
 
 
-/* SOUND BUTTON */
+/* SOUND */
 
 .sound-button{
-
 position:absolute;
-
 right:5%;
-
 bottom:55px;
-
 z-index:3;
 
 width:50px;
-
 height:50px;
 
 border-radius:50%;
+border:1px solid rgba(255,255,255,.55);
 
-border:
-1px solid rgba(255,255,255,.55);
-
-background:
-rgba(0,0,0,.58);
-
+background:rgba(0,0,0,.58);
 color:#fff;
 
 cursor:pointer;
-
 font-size:19px;
 
 display:none;
-
 }
 
 .sound-button:hover{
-
-background:
-rgba(255,255,255,.15);
-
+background:rgba(255,255,255,.15);
 }
 
 
@@ -433,249 +293,221 @@ SECTIONS
 ========================= */
 
 section{
-
-padding:
-90px 7%;
-
-border-top:
-1px solid #202020;
-
+padding:90px 7%;
+border-top:1px solid #202020;
 }
 
 section h2{
-
 margin-bottom:32px;
-
-font-size:
-clamp(40px,6vw,70px);
-
+font-size:clamp(40px,6vw,70px);
 line-height:1;
-
 }
 
 
-/* FEATURED SHOW */
+/* =========================
+FEATURED SHOW
+========================= */
 
 .show{
-
 min-height:430px;
-
 padding:40px;
 
 display:flex;
-
 flex-direction:column;
-
 justify-content:flex-end;
 
 background:
-
 linear-gradient(
 0deg,
 #080808,
 #292929
 );
 
-border:
-1px solid #303030;
-
+border:1px solid #303030;
 }
 
 .show h3{
-
 font-size:42px;
-
 line-height:1;
-
 margin-bottom:15px;
-
 }
 
 .show p{
-
 max-width:650px;
-
 color:#999;
-
 line-height:1.7;
-
 }
 
 
-/* GRID */
+/* =========================
+EPISODES
+========================= */
 
 .grid{
-
 display:grid;
-
-grid-template-columns:
-repeat(3,1fr);
-
+grid-template-columns:repeat(3,1fr);
 gap:18px;
-
 }
 
 .card{
-
-min-height:245px;
-
+min-height:280px;
 padding:25px;
 
 display:flex;
-
 flex-direction:column;
-
 justify-content:flex-end;
 
 background:
-
 linear-gradient(
 145deg,
 #242424,
 #0b0b0b
 );
 
-border:
-1px solid #292929;
+border:1px solid #292929;
 
+position:relative;
+overflow:hidden;
+}
+
+.card-thumbnail{
+position:absolute;
+inset:0;
+z-index:0;
+}
+
+.card-thumbnail img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.card-shade{
+position:absolute;
+inset:0;
+z-index:1;
+
+background:
+linear-gradient(
+0deg,
+rgba(0,0,0,.97) 0%,
+rgba(0,0,0,.7) 50%,
+rgba(0,0,0,.15) 100%
+);
+}
+
+.card-content{
+position:relative;
+z-index:2;
 }
 
 .card small{
-
-color:#777;
-
+color:#aaa;
 letter-spacing:2px;
-
 margin-bottom:8px;
-
+display:block;
+font-weight:900;
 }
 
 .card h3{
-
 font-size:24px;
-
 }
 
 .card p{
-
-color:#888;
-
+color:#aaa;
 font-size:14px;
-
 margin-top:8px;
+line-height:1.5;
+}
 
+.episodes-message{
+color:#888;
+font-size:15px;
+line-height:1.7;
+}
+
+.episode-watch{
+margin-top:20px;
 }
 
 
-/* SUBSCRIPTION */
+/* =========================
+SUBSCRIPTION
+========================= */
 
 .pricing{
-
 max-width:520px;
-
 }
 
 .price{
-
 padding:38px;
-
 background:#151515;
-
 border:1px solid #777;
-
 }
 
 .price h3{
-
 font-size:28px;
-
 }
 
 .amount{
-
 margin-top:12px;
-
 font-size:48px;
-
 font-weight:900;
-
 }
 
 .month{
-
 color:#999;
-
 margin-top:4px;
-
 }
 
 .price ul{
-
 margin:24px 0;
-
 list-style:none;
-
 color:#aaa;
-
 line-height:2.1;
-
 }
 
 
-/* EXISTING MEMBERS */
+/* =========================
+EXISTING MEMBERS
+========================= */
 
 .member-box{
-
 max-width:650px;
-
 padding:35px;
-
 border:1px solid #333;
-
 background:#111;
-
 }
 
 .member-box p{
-
 color:#999;
-
 line-height:1.7;
-
 margin-bottom:22px;
-
 }
 
 
-/* ABOUT */
+/* =========================
+ABOUT
+========================= */
 
 .about{
-
 max-width:800px;
-
 color:#999;
-
 font-size:18px;
-
 line-height:1.8;
-
 }
 
 
-/* FOOTER */
+/* =========================
+FOOTER
+========================= */
 
 footer{
-
 padding:45px 7%;
-
 border-top:1px solid #222;
-
 color:#666;
-
 font-size:12px;
-
 text-align:center;
-
 }
 
 
@@ -690,55 +522,35 @@ display:none;
 }
 
 .mobile-signin{
-
 display:block;
-
 border:1px solid #555;
-
 padding:9px 13px;
-
 font-size:11px;
-
 font-weight:bold;
-
 }
 
 .grid{
-
 grid-template-columns:1fr;
-
 }
 
 .hero{
-
 min-height:90vh;
-
 padding-left:6%;
-
 padding-right:6%;
-
 }
 
 .hero h1{
-
 letter-spacing:-3px;
-
 }
 
 section{
-
 padding-left:6%;
-
 padding-right:6%;
-
 }
 
 .sound-button{
-
 right:18px;
-
 bottom:25px;
-
 }
 
 }
@@ -760,7 +572,6 @@ NAVIGATION
 <div class="logo">
 ASI NETWORK FRL
 </div>
-
 
 <div class="navlinks">
 
@@ -808,27 +619,18 @@ HERO
 <header class="hero">
 
 
-<!-- DYNAMIC MUX TRAILER -->
-
 <div
 id="hero-video"
 class="hero-video"
 >
 
 <mux-player
-
 id="asi-trailer"
-
 autoplay
-
 muted
-
 loop
-
 playsinline
-
 preload="auto"
-
 >
 </mux-player>
 
@@ -839,90 +641,58 @@ preload="auto"
 </div>
 
 
-
 <div class="hero-content">
 
-
 <div class="label">
-
 ASI NETWORK FRL ORIGINAL
-
 </div>
-
 
 <h1>
-
 FAMILY<br>
-
 BEHIND<br>
-
 THE TRAUMA
-
 </h1>
 
-
 <div class="subtitle">
-
 THE REALITY SERIES
-
 </div>
 
-
 <p class="description">
-
 A raw reality series centered around family,
 relationships, experiences and the moments
 that shape us.
-
 </p>
 
 
 <div class="buttons">
 
-
 <a
-href="/login.html"
+href="#episodes"
 class="btn primary"
 >
-
 ▶ WATCH NOW
-
 </a>
-
 
 <a
 href="https://square.link/u/0l47AY8p"
 class="btn secondary"
 >
-
 SUBSCRIBE — $5.99
-
 </a>
 
-
 </div>
 
-
 </div>
-
 
 
 <button
-
 id="sound-button"
-
 class="sound-button"
-
 onclick="toggleTrailerSound()"
-
 aria-label="Turn trailer sound on or off"
-
 >
-
 🔇
-
 </button>
-
 
 </header>
 
@@ -934,311 +704,77 @@ FEATURED SHOW
 
 <section id="shows">
 
-
 <div class="label">
-
 FEATURED ORIGINAL
-
 </div>
 
-
 <h2>
-
 THE SHOW
-
 </h2>
 
 
 <div class="show">
 
-
 <div class="label">
-
 SEASON 1
-
 </div>
 
-
 <h3>
-
 FAMILY BEHIND<br>
-
 THE TRAUMA
-
 </h3>
 
-
 <p>
-
 The flagship reality series from
 ASI Network FRL.
-
 Unfiltered stories.
 Real life.
 Real family.
-
 </p>
 
-
 <br>
-
 
 <a
 href="#episodes"
 class="btn primary"
 >
-
 VIEW EPISODES
-
 </a>
 
-
 </div>
-
 
 </section>
 
 
 
 <!-- =====================
-EPISODES
+DYNAMIC EPISODES
 ===================== -->
 
 <section id="episodes">
 
-
 <div class="label">
-
 FAMILY BEHIND THE TRAUMA
-
 </div>
 
-
 <h2>
-
 SEASON 1
-
 </h2>
 
 
-<div class="grid">
-
-
-
-<div class="card">
-
-
-<small>
-
-EPISODE 01
-
-</small>
-
-
-<h3>
-
-COMING SOON
-
-</h3>
-
-
-<p>
-
-The beginning of the story.
-
-</p>
-
-
-<br>
-
-
-<a
-href="/login.html"
-class="btn secondary"
+<div
+id="homepage-episodes"
+class="grid"
 >
-
-▶ WATCH
-
-</a>
-
-
 </div>
 
 
-
-<div class="card">
-
-
-<small>
-
-EPISODE 02
-
-</small>
-
-
-<h3>
-
-COMING SOON
-
-</h3>
-
-
-<p>
-
-The story continues.
-
-</p>
-
-
-<br>
-
-
-<a
-href="/login.html"
-class="btn secondary"
+<div
+id="episodes-message"
+class="episodes-message"
 >
-
-▶ WATCH
-
-</a>
-
-
+Loading episodes...
 </div>
-
-
-
-<div class="card">
-
-
-<small>
-
-EPISODE 03
-
-</small>
-
-
-<h3>
-
-COMING SOON
-
-</h3>
-
-
-<p>
-
-More of the family story.
-
-</p>
-
-
-<br>
-
-
-<a
-href="/login.html"
-class="btn secondary"
->
-
-▶ WATCH
-
-</a>
-
-
-</div>
-
-
-</div>
-
-
-</section>
-
-
-
-<!-- =====================
-UPCOMING ORIGINALS
-===================== -->
-
-<section>
-
-
-<div class="label">
-
-ASI NETWORK FRL
-
-</div>
-
-
-<h2>
-
-MORE ORIGINALS<br>
-
-COMING SOON.
-
-</h2>
-
-
-<div class="grid">
-
-
-
-<div class="card">
-
-<small>
-ASI ORIGINAL
-</small>
-
-<h3>
-COMING SOON
-</h3>
-
-<p>
-New original series coming
-to ASI Network FRL.
-</p>
-
-</div>
-
-
-
-<div class="card">
-
-<small>
-ASI ORIGINAL
-</small>
-
-<h3>
-COMING SOON
-</h3>
-
-<p>
-More original reality programming.
-</p>
-
-</div>
-
-
-
-<div class="card">
-
-<small>
-ASI ORIGINAL
-</small>
-
-<h3>
-COMING SOON
-</h3>
-
-<p>
-More stories.
-More reality.
-More ASI.
-</p>
-
-</div>
-
-
-</div>
-
 
 </section>
 
@@ -1250,47 +786,30 @@ SUBSCRIBE
 
 <section id="subscribe">
 
-
 <div class="label">
-
 START WATCHING
-
 </div>
 
-
 <h2>
-
 SUBSCRIBE
-
 </h2>
 
 
 <div class="pricing">
 
-
 <div class="price">
 
-
 <h3>
-
 ASI NETWORK FRL
-
 </h3>
 
-
 <div class="amount">
-
 $5.99
-
 </div>
-
 
 <div class="month">
-
 per month
-
 </div>
-
 
 <ul>
 
@@ -1299,11 +818,15 @@ per month
 </li>
 
 <li>
-✓ Watch new episodes
+✓ Watch every published episode
 </li>
 
 <li>
-✓ Member access
+✓ Member-only access
+</li>
+
+<li>
+✓ New episodes added automatically
 </li>
 
 <li>
@@ -1314,23 +837,15 @@ per month
 
 
 <a
-
 href="https://square.link/u/0l47AY8p"
-
 class="btn primary"
-
 >
-
 SUBSCRIBE NOW
-
 </a>
 
-
 </div>
 
-
 </div>
-
 
 </section>
 
@@ -1342,49 +857,32 @@ EXISTING MEMBERS
 
 <section>
 
-
 <div class="label">
-
 EXISTING MEMBERS
-
 </div>
 
-
 <h2>
-
 ALREADY SUBSCRIBED?
-
 </h2>
 
 
 <div class="member-box">
 
-
 <p>
-
 Sign in to your ASI Network FRL account.
-
 Your active membership will be verified
 before subscriber content is unlocked.
-
 </p>
 
 
 <a
-
 href="/login.html"
-
 class="btn primary"
-
 >
-
 SIGN IN
-
 </a>
 
-
 </div>
-
 
 </section>
 
@@ -1396,49 +894,35 @@ ABOUT
 
 <section id="about">
 
-
 <div class="label">
-
 ABOUT
-
 </div>
 
-
 <h2>
-
 ASI NETWORK FRL
-
 </h2>
 
 
 <div class="about">
 
-
 <p>
-
 ASI Network FRL is an independent
 entertainment network built around
 original reality programming,
 real people and unfiltered stories.
-
 </p>
-
 
 <br>
 
-
 <p>
-
 Family Behind The Trauma is the
-flagship ASI Network FRL reality series,
-with additional original programming
-planned for the network.
-
+flagship ASI Network FRL reality series.
+New episodes and additional original
+programming will be released directly
+through the network.
 </p>
 
-
 </div>
-
 
 </section>
 
@@ -1464,74 +948,52 @@ SUPABASE
 ============================ */
 
 const ASI_SUPABASE_URL =
-
 "https://gvvtwwrjfscaunczptpv.supabase.co";
 
-
 const ASI_SUPABASE_PUBLISHABLE_KEY =
-
 "sb_publishable_iliNeR5tX_4X4KAh5ZjPpA_e6ueLnP-";
 
 
 const asiSupabase =
-
 supabase.createClient(
-
 ASI_SUPABASE_URL,
-
 ASI_SUPABASE_PUBLISHABLE_KEY
-
 );
 
 
 
 /* ============================
-LOAD CURRENT HOMEPAGE TRAILER
+LOAD HOMEPAGE TRAILER
 ============================ */
 
 async function loadHomepageTrailer(){
 
-
 try{
 
-
 const {
-
 data,
-
 error
-
-} = await asiSupabase
-
+} =
+await asiSupabase
 .from("site_settings")
-
 .select(
 "homepage_trailer_playback_id"
 )
-
 .eq(
 "id",
 1
 )
-
 .maybeSingle();
 
 
-
 if(error){
-
 throw error;
-
 }
 
 
-
 if(
-
 !data ||
-
 !data.homepage_trailer_playback_id
-
 ){
 
 console.log(
@@ -1539,52 +1001,38 @@ console.log(
 );
 
 return;
-
 }
 
 
-
 const playbackId =
-
-data.homepage_trailer_playback_id
-.trim();
-
+data.homepage_trailer_playback_id.trim();
 
 
 const trailer =
-
 document.getElementById(
 "asi-trailer"
 );
 
 
 const heroVideo =
-
 document.getElementById(
 "hero-video"
 );
 
 
 const soundButton =
-
 document.getElementById(
 "sound-button"
 );
 
 
-
 trailer.setAttribute(
-
 "playback-id",
-
 playbackId
-
 );
 
 
-
 trailer.muted = true;
-
 
 
 heroVideo.classList.add(
@@ -1592,10 +1040,8 @@ heroVideo.classList.add(
 );
 
 
-
 soundButton.style.display =
 "block";
-
 
 
 try{
@@ -1611,84 +1057,297 @@ console.log(
 }
 
 
-
 }catch(error){
-
 
 console.error(
 "Could not load homepage trailer:",
 error
 );
 
-
 }
-
 
 }
 
 
 
 /* ============================
-SOUND CONTROL
+LOAD REAL PUBLISHED EPISODES
+============================ */
+
+async function loadHomepageEpisodes(){
+
+const container =
+document.getElementById(
+"homepage-episodes"
+);
+
+const message =
+document.getElementById(
+"episodes-message"
+);
+
+
+try{
+
+
+/*
+Find Season 1 for
+Family Behind The Trauma.
+*/
+
+const {
+data:season,
+error:seasonError
+} =
+await asiSupabase
+.from("seasons")
+.select("id")
+.eq("season_number",1)
+.eq("is_published",true)
+.limit(1)
+.maybeSingle();
+
+
+if(seasonError){
+throw seasonError;
+}
+
+
+if(!season){
+
+message.textContent =
+"Episodes will be available here.";
+
+return;
+}
+
+
+
+/*
+Only retrieve episodes that
+actually exist AND are published.
+*/
+
+const {
+data:episodes,
+error:episodesError
+} =
+await asiSupabase
+.from("episodes")
+.select(
+"id,episode_number,title,description,thumbnail_url"
+)
+.eq(
+"season_id",
+season.id
+)
+.eq(
+"is_published",
+true
+)
+.order(
+"episode_number",
+{
+ascending:true
+}
+);
+
+
+if(episodesError){
+throw episodesError;
+}
+
+
+if(
+!episodes ||
+episodes.length === 0
+){
+
+message.textContent =
+"Episodes will be available here.";
+
+return;
+}
+
+
+/*
+We found real published episodes.
+Remove the loading message.
+*/
+
+message.style.display =
+"none";
+
+
+container.innerHTML =
+episodes.map(
+episode => {
+
+
+const episodeNumber =
+String(
+episode.episode_number
+).padStart(
+2,
+"0"
+);
+
+
+const title =
+episode.title ||
+`Episode ${episode.episode_number}`;
+
+
+const description =
+episode.description ||
+"ASI Network FRL Original";
+
+
+const thumbnail =
+episode.thumbnail_url
+?
+`
+<div class="card-thumbnail">
+
+<img
+src="${episode.thumbnail_url}"
+alt="${escapeHtml(title)}"
+>
+
+</div>
+
+<div class="card-shade">
+</div>
+`
+:
+"";
+
+
+return `
+<div class="card">
+
+${thumbnail}
+
+<div class="card-content">
+
+<small>
+EPISODE ${episodeNumber}
+</small>
+
+<h3>
+${escapeHtml(title)}
+</h3>
+
+<p>
+${escapeHtml(description)}
+</p>
+
+<div class="episode-watch">
+
+<a
+href="/watch.html?episode=${episode.episode_number}"
+class="btn secondary"
+>
+▶ WATCH
+</a>
+
+</div>
+
+</div>
+
+</div>
+`;
+
+}
+).join("");
+
+
+}catch(error){
+
+console.error(
+"Could not load homepage episodes:",
+error
+);
+
+
+message.textContent =
+"Episodes are temporarily unavailable.";
+
+}
+
+}
+
+
+
+/* ============================
+SAFE TEXT
+============================ */
+
+function escapeHtml(value){
+
+return String(value)
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
+
+
+
+/* ============================
+TRAILER SOUND
 ============================ */
 
 function toggleTrailerSound(){
 
-
 const trailer =
-
 document.getElementById(
 "asi-trailer"
 );
 
 
 const button =
-
 document.getElementById(
 "sound-button"
 );
 
 
-
 if(trailer.muted){
 
-
 trailer.muted = false;
-
 
 button.textContent =
 "🔊";
 
-
 }else{
 
-
 trailer.muted = true;
-
 
 button.textContent =
 "🔇";
 
-
 }
-
 
 }
 
 
 
 /* ============================
-START
+START SITE
 ============================ */
 
 window.addEventListener(
-
 "DOMContentLoaded",
+async () => {
 
-loadHomepageTrailer
+loadHomepageTrailer();
 
+loadHomepageEpisodes();
+
+}
 );
-
 
 </script>
 
