@@ -131,8 +131,8 @@ font-weight:900;
 ASI NETWORK FRL
 </div>
 
-<a href="/">
-← BACK TO NETWORK
+<a href="/members.html">
+← BACK TO EPISODES
 </a>
 
 </header>
@@ -194,14 +194,20 @@ const MUX_TOKEN_FUNCTION =
 ASI_SUPABASE_URL +
 "/functions/v1/asi-mux-playback-token";
 
+
 async function loadEpisode(){
 
 const status =
 document.getElementById("status");
 
+const player =
+document.getElementById("asi-player");
+
 try{
 
-/* CHECK LOGIN */
+/* ==============================
+CHECK LOGIN
+============================== */
 
 const {
 data:{
@@ -216,11 +222,15 @@ window.location.href =
 "/login.html";
 
 return;
-
 }
 
 
-/* CHECK ACTIVE SUBSCRIPTION */
+/* ==============================
+VERIFY / LINK SUBSCRIPTION
+============================== */
+
+status.textContent =
+"Verifying your ASI Network FRL membership...";
 
 const subscriptionResponse =
 await fetch(
@@ -232,6 +242,9 @@ headers:{
 "Authorization":
 "Bearer " +
 session.access_token,
+
+"apikey":
+ASI_SUPABASE_PUBLISHABLE_KEY,
 
 "Content-Type":
 "application/json"
@@ -250,7 +263,151 @@ subscriptionResult.active !== true
 status.innerHTML =
 `
 <div class="error">
-An active ASI Network FRL subscription is required.
+Your ASI Network FRL subscription is not active.
+</div>
+
+<a
+class="button"
+href="https://square.link/u/0l47AY8p"
+>
+SUBSCRIBE — $5.99/MONTH
+</a>
+`;
+
+return;
+}
+
+
+/* ==============================
+GET EPISODE NUMBER
+============================== */
+
+const params =
+new URLSearchParams(
+window.location.search
+);
+
+const episodeNumber =
+Number(
+params.get("episode") || "1"
+);
+
+if(
+!Number.isInteger(episodeNumber) ||
+episodeNumber < 1
+){
+
+throw new Error(
+"Invalid episode."
+);
+
+}
+
+
+/* ==============================
+FIND PUBLISHED EPISODE
+============================== */
+
+status.textContent =
+"Loading episode...";
+
+const {
+data:episode,
+error:episodeError
+} =
+await asiSupabase
+.from("episodes")
+.select(
+"id,title,description,episode_number,is_published"
+)
+.eq(
+"episode_number",
+episodeNumber
+)
+.eq(
+"is_published",
+true
+)
+.maybeSingle();
+
+if(episodeError){
+
+throw episodeError;
+
+}
+
+if(!episode){
+
+throw new Error(
+"Episode not found or is not available yet."
+);
+
+}
+
+
+/* ==============================
+DISPLAY EPISODE INFO
+============================== */
+
+document.getElementById(
+"episode-title"
+).textContent =
+episode.title ||
+`Episode ${episode.episode_number}`;
+
+document.getElementById(
+"episode-description"
+).textContent =
+episode.description ||
+"ASI Network FRL Original";
+
+
+/* ==============================
+REQUEST SECURE MUX TOKEN
+============================== */
+
+status.textContent =
+"Authorizing secure playback...";
+
+const tokenResponse =
+await fetch(
+MUX_TOKEN_FUNCTION,
+{
+method:"POST",
+
+headers:{
+"Authorization":
+"Bearer " +
+session.access_token,
+
+"apikey":
+ASI_SUPABASE_PUBLISHABLE_KEY,
+
+"Content-Type":
+"application/json"
+},
+
+body:JSON.stringify({
+
+episodeId:
+episode.id
+
+})
+}
+);
+
+const tokenResult =
+await tokenResponse.json();
+
+
+if(!tokenResponse.ok){
+
+if(tokenResponse.status === 403){
+
+status.innerHTML =
+`
+<div class="error">
+An active ASI Network FRL subscription is required to watch this episode.
 </div>
 
 <a
@@ -265,158 +422,43 @@ return;
 
 }
 
-
-/* GET EPISODE NUMBER FROM URL */
-
-const params =
-new URLSearchParams(
-window.location.search
-);
-
-const episodeNumber =
-Number(
-params.get("episode") || "1"
-);
-
-
-/* FIND EPISODE */
-
-const {
-data:episode,
-error:episodeError
-} =
-await asiSupabase
-.from("episodes")
-.select(
-"id,title,description,video_id,episode_number,is_published"
-)
-.eq(
-"episode_number",
-episodeNumber
-)
-.maybeSingle();
-
-
-if(episodeError){
-
-throw episodeError;
-
-}
-
-
-if(!episode){
-
-status.textContent =
-"Episode not found.";
-
-return;
-
-}
-
-
-document.getElementById(
-"episode-title"
-).textContent =
-episode.title ||
-"ASI Network FRL Episode";
-
-
-document.getElementById(
-"episode-description"
-).textContent =
-episode.description ||
-"";
-
-
-/*
-We will keep Episode 1 unpublished
-until the secure playback system
-is completely tested.
-
-For now, owner testing is allowed.
-*/
-
-
-/* REQUEST SHORT-LIVED MUX TOKEN */
-
-const tokenResponse =
-await fetch(
-MUX_TOKEN_FUNCTION,
-{
-method:"POST",
-
-headers:{
-"Authorization":
-"Bearer " +
-session.access_token,
-
-"Content-Type":
-"application/json"
-},
-
-body:JSON.stringify({
-episode_id:
-episode.id
-})
-}
-);
-
-
-const tokenResult =
-await tokenResponse.json();
-
-
-if(!tokenResponse.ok){
-
 throw new Error(
 tokenResult.error ||
-"Could not authorize video playback."
+"Could not authorize secure video playback."
 );
 
 }
 
 
+/* ==============================
+CHECK TOKEN RESPONSE
+============================== */
+
 if(
-!tokenResult.playback_id ||
+!tokenResult.playbackId ||
 !tokenResult.token
 ){
 
 throw new Error(
-"Playback authorization is incomplete."
+"Secure playback authorization was incomplete."
 );
 
 }
 
 
-/* LOAD SIGNED MUX VIDEO */
-
-const player =
-document.getElementById(
-"asi-player"
-);
-
+/* ==============================
+LOAD SIGNED MUX VIDEO
+============================== */
 
 player.setAttribute(
 "playback-id",
-tokenResult.playback_id
+tokenResult.playbackId
 );
-
 
 player.setAttribute(
 "playback-token",
 tokenResult.token
 );
-
-
-if(tokenResult.thumbnail_token){
-
-player.setAttribute(
-"thumbnail-token",
-tokenResult.thumbnail_token
-);
-
-}
-
 
 status.style.display =
 "none";
@@ -433,16 +475,15 @@ status.innerHTML =
 `
 <div class="error">
 We couldn't load this episode.
-</div>
-
-<br>
-
+<br><br>
 ${error.message}
+</div>
 `;
 
 }
 
 }
+
 
 window.addEventListener(
 "DOMContentLoaded",
