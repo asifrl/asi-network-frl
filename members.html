@@ -1,454 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Members | ASI Network FRL</title>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 *{
 box-sizing:border-box;
-margin:0;
-padding:0;
 }
 
 body{
+margin:0;
 background:#050505;
-color:#fff;
+color:white;
 font-family:Arial,Helvetica,sans-serif;
 }
 
-a{
-text-decoration:none;
-color:inherit;
-}
-
-nav{
-position:sticky;
-top:0;
-z-index:1000;
-min-height:72px;
+header{
+height:72px;
 padding:0 6%;
 display:flex;
-align-items:center;
 justify-content:space-between;
-background:#090909;
-border-bottom:1px solid #252525;
+align-items:center;
+background:#080808;
+border-bottom:1px solid #222;
 }
 
 .logo{
 font-weight:900;
 letter-spacing:2px;
-font-size:18px;
-}
-
-.nav-right{
-display:flex;
-align-items:center;
-gap:12px;
-}
-
-.member-status{
-color:#888;
-font-size:12px;
-}
-
-.logout{
-border:1px solid #555;
-background:#111;
-color:#fff;
-padding:10px 14px;
-border-radius:4px;
-cursor:pointer;
-font-weight:bold;
-}
-
-.hero{
-min-height:520px;
-padding:90px 7% 70px;
-display:flex;
-align-items:flex-end;
-background:
-linear-gradient(
-0deg,
-#050505 0%,
-rgba(5,5,5,.65) 45%,
-rgba(5,5,5,.2) 100%
-),
-radial-gradient(
-circle at 75% 40%,
-#454545,
-#1b1b1b 35%,
-#080808 70%
-);
-}
-
-.hero-content{
-max-width:760px;
-}
-
-.label{
-color:#888;
-font-size:11px;
-font-weight:900;
-letter-spacing:4px;
-margin-bottom:15px;
-}
-
-h1{
-font-size:clamp(48px,8vw,92px);
-line-height:.9;
-font-weight:900;
-letter-spacing:-3px;
-}
-
-.hero p{
-max-width:620px;
-color:#aaa;
-line-height:1.7;
-margin-top:20px;
-font-size:16px;
-}
-
-.btn{
-display:inline-block;
-margin-top:24px;
-padding:14px 22px;
-border-radius:4px;
-font-size:12px;
-font-weight:900;
-letter-spacing:1px;
-background:#fff;
-color:#000;
-}
-
-section{
-padding:70px 7%;
-border-top:1px solid #1f1f1f;
-}
-
-section h2{
-font-size:clamp(34px,5vw,56px);
-margin-bottom:26px;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:18px;
-}
-
-.episode-card{
-min-height:265px;
-padding:24px;
-border:1px solid #292929;
-background:linear-gradient(145deg,#242424,#0b0b0b);
-display:flex;
-flex-direction:column;
-justify-content:flex-end;
-}
-
-.episode-card small{
-color:#777;
-letter-spacing:2px;
-margin-bottom:8px;
-}
-
-.episode-card h3{
-font-size:24px;
-}
-
-.episode-card p{
-color:#8b8b8b;
-margin-top:8px;
-line-height:1.5;
-font-size:14px;
-}
-
-.watch{
-margin-top:18px;
-padding:12px 16px;
-border:1px solid #555;
-background:#161616;
-color:#fff;
-display:inline-block;
-width:max-content;
-font-size:12px;
-font-weight:900;
-cursor:pointer;
-}
-
-.locked-message{
-display:none;
-max-width:650px;
-margin:50px auto;
-padding:30px;
-border:1px solid #444;
-background:#111;
-text-align:center;
-}
-
-.locked-message h2{
-margin-bottom:12px;
-}
-
-.locked-message p{
-color:#999;
-line-height:1.6;
-}
-
-.loading{
-min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-color:#aaa;
-font-size:14px;
-}
-
-#member-content{
-display:none;
-}
-
-footer{
-padding:40px 7%;
-border-top:1px solid #222;
-color:#666;
-text-align:center;
-font-size:12px;
-}
-
-@media(max-width:800px){
-.grid{
-grid-template-columns:1fr;
-}
-
-.member-status{
-display:none;
 }
 
 nav{
-padding:0 4%;
+display:flex;
+align-items:center;
+gap:20px;
+}
+
+nav a,
+nav button{
+color:#aaa;
+background:none;
+border:0;
+text-decoration:none;
+cursor:pointer;
+font-size:12px;
+font-weight:800;
 }
 
 .hero{
-padding-left:6%;
-padding-right:6%;
+padding:65px 6% 35px;
 }
 
-section{
-padding-left:6%;
-padding-right:6%;
+.eyebrow{
+font-size:11px;
+letter-spacing:3px;
+font-weight:900;
+color:#888;
 }
+
+h1{
+font-size:clamp(38px,6vw,72px);
+margin:10px 0;
 }
+
+.hero p{
+color:#aaa;
+max-width:700px;
+line-height:1.7;
+}
+
+.content{
+padding:20px 6% 80px;
+}
+
+.section-title{
+font-size:24px;
+margin-bottom:25px;
+}
+
+.episodes{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+gap:24px;
+}
+
+.episode-card{
+background:#111;
+border:1px solid #222;
+overflow:hidden;
+}
+
+.thumbnail{
+width:100%;
+aspect-ratio:16/9;
+background:#1a1a1a;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#666;
+overflow:hidden;
+}
+
+.thumbnail img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.episode-info{
+padding:20px;
+}
+
+.episode-number{
+color:#888;
+font-size:11px;
+letter-spacing:2px;
+font-weight:900;
+}
+
+.episode-title{
+font-size:20px;
+margin:8px 0;
+}
+
+.episode-description{
+color:#999;
+font-size:14px;
+line-height:1.5;
+min-height:42px;
+}
+
+.watch-button{
+display:inline-block;
+margin-top:15px;
+padding:12px 18px;
+background:white;
+color:black;
+text-decoration:none;
+font-size:12px;
+font-weight:900;
+}
+
+#status{
+padding:25px 0;
+color:#aaa;
+}
+
+.locked{
+max-width:600px;
+background:#111;
+border:1px solid #222;
+padding:30px;
+}
+
+.subscribe-button{
+display:inline-block;
+margin-top:15px;
+padding:13px 20px;
+background:white;
+color:black;
+text-decoration:none;
+font-weight:900;
+font-size:12px;
+}
+
 </style>
 </head>
 
 <body>
 
-<div id="loading" class="loading">
-Verifying your ASI Network FRL membership...
-</div>
-
-<div id="locked" class="locked-message">
-<h2>Membership Required</h2>
-
-<p id="locked-text">
-You need an active ASI Network FRL subscription to access this page.
-</p>
-
-<a
-class="btn"
-href="https://square.link/u/0l47AY8p"
->
-SUBSCRIBE — $5.99
-</a>
-
-<br>
-
-<a
-class="btn"
-style="background:#222;color:#fff;border:1px solid #555;"
-href="/login.html"
->
-SIGN IN
-</a>
-</div>
-
-<div id="member-content">
-
-<nav>
+<header>
 
 <div class="logo">
 ASI NETWORK FRL
 </div>
 
-<div class="nav-right">
-
-<div id="member-email" class="member-status">
-ACTIVE MEMBER
-</div>
-
-<button class="logout" onclick="asiLogout()">
-LOG OUT
-</button>
-
-</div>
-
+<nav>
+<a href="/">HOME</a>
+<button id="logout-button">LOG OUT</button>
 </nav>
 
+</header>
 
-<header class="hero">
+<section class="hero">
 
-<div class="hero-content">
-
-<div class="label">
+<div class="eyebrow">
 ASI NETWORK FRL ORIGINAL
 </div>
 
 <h1>
-FAMILY<br>
-BEHIND<br>
-THE TRAUMA
+Family Behind The Trauma
 </h1>
 
 <p>
-Welcome to ASI Network FRL. Your membership is active.
-Watch original episodes and subscriber-only content here.
+An unfiltered family reality series revealing real life,
+real relationships, and the stories behind the trauma.
 </p>
-
-<a href="#episodes" class="btn">
-▶ START WATCHING
-</a>
-
-</div>
-
-</header>
-
-
-<section id="episodes">
-
-<div class="label">
-FAMILY BEHIND THE TRAUMA
-</div>
-
-<h2>
-SEASON 1
-</h2>
-
-<div class="grid">
-
-<div class="episode-card">
-
-<small>
-EPISODE 01
-</small>
-
-<h3>
-COMING SOON
-</h3>
-
-<p>
-The beginning of the story.
-</p>
-
-<button class="watch" onclick="episodeComingSoon()">
-▶ WATCH
-</button>
-
-</div>
-
-
-<div class="episode-card">
-
-<small>
-EPISODE 02
-</small>
-
-<h3>
-COMING SOON
-</h3>
-
-<p>
-The story continues.
-</p>
-
-<button class="watch" onclick="episodeComingSoon()">
-▶ WATCH
-</button>
-
-</div>
-
-
-<div class="episode-card">
-
-<small>
-EPISODE 03
-</small>
-
-<h3>
-COMING SOON
-</h3>
-
-<p>
-More from Family Behind The Trauma.
-</p>
-
-<button class="watch" onclick="episodeComingSoon()">
-▶ WATCH
-</button>
-
-</div>
-
-</div>
 
 </section>
 
+<section class="content">
 
-<section>
-
-<div class="label">
-ASI ORIGINALS
-</div>
-
-<h2>
-MORE COMING SOON
+<h2 class="section-title">
+Season 1
 </h2>
 
-<div class="grid">
-
-<div class="episode-card">
-<small>ASI ORIGINAL</small>
-<h3>COMING SOON</h3>
-<p>New original programming is on the way.</p>
+<div id="status">
+Checking your membership...
 </div>
 
-<div class="episode-card">
-<small>ASI ORIGINAL</small>
-<h3>COMING SOON</h3>
-<p>More reality. More stories. More ASI.</p>
-</div>
-
-<div class="episode-card">
-<small>ASI ORIGINAL</small>
-<h3>COMING SOON</h3>
-<p>Subscriber-only content coming soon.</p>
-</div>
-
-</div>
+<div
+id="episodes"
+class="episodes"
+></div>
 
 </section>
-
-
-<footer>
-© 2026 ASI NETWORK FRL — MEMBER ACCESS
-</footer>
-
-</div>
-
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
@@ -458,140 +230,260 @@ const ASI_SUPABASE_URL =
 const ASI_SUPABASE_PUBLISHABLE_KEY =
 "sb_publishable_iliNeR5tX_4X4KAh5ZjPpA_e6ueLnP-";
 
-const asiSupabase = supabase.createClient(
+const asiSupabase =
+supabase.createClient(
 ASI_SUPABASE_URL,
 ASI_SUPABASE_PUBLISHABLE_KEY
 );
 
-
-function showLocked(message){
-
-document.getElementById("loading").style.display = "none";
-
-document.getElementById("member-content").style.display = "none";
-
-document.getElementById("locked").style.display = "block";
-
-if(message){
-document.getElementById("locked-text").textContent = message;
-}
-
-}
+const LINK_SUBSCRIPTION_FUNCTION =
+ASI_SUPABASE_URL +
+"/functions/v1/asi-link-subscription";
 
 
-async function verifyMember(){
+async function loadMembers(){
+
+const status =
+document.getElementById("status");
+
+const episodesContainer =
+document.getElementById("episodes");
 
 try{
 
+/* CHECK LOGIN */
+
 const {
-data,
-error
-} = await asiSupabase.auth.getSession();
-
-
-if(error){
-throw error;
+data:{
+session
 }
+} =
+await asiSupabase.auth.getSession();
 
+if(!session){
 
-if(!data.session){
-
-showLocked(
-"Please sign in with an active ASI Network FRL membership."
-);
+window.location.href =
+"/login.html";
 
 return;
 }
 
 
-const token =
-data.session.access_token;
+/* CHECK ACTIVE SUBSCRIPTION */
 
+status.textContent =
+"Verifying your ASI Network FRL membership...";
 
-const response = await fetch(
-"https://gvvtwwrjfscaunczptpv.supabase.co/functions/v1/asi-link-subscription",
+const subscriptionResponse =
+await fetch(
+LINK_SUBSCRIPTION_FUNCTION,
 {
 method:"POST",
 
 headers:{
-"Content-Type":"application/json",
-"Authorization":"Bearer " + token
+"Authorization":
+"Bearer " +
+session.access_token,
+
+"apikey":
+ASI_SUPABASE_PUBLISHABLE_KEY,
+
+"Content-Type":
+"application/json"
 }
 }
 );
 
-
-let result = {};
-
-try{
-result = await response.json();
-}catch(e){
-result = {};
-}
+const subscriptionResult =
+await subscriptionResponse.json();
 
 
-if(!response.ok || result.active !== true){
+if(
+!subscriptionResponse.ok ||
+subscriptionResult.active !== true
+){
 
-await asiSupabase.auth.signOut();
+status.innerHTML =
+`
+<div class="locked">
 
-showLocked(
-"Your ASI Network FRL subscription is not active. Please subscribe or reactivate your membership."
-);
+<h2>
+Subscription Required
+</h2>
+
+<p>
+Your ASI Network FRL membership
+is not currently active.
+</p>
+
+<a
+class="subscribe-button"
+href="https://square.link/u/0l47AY8p"
+>
+SUBSCRIBE — $5.99/MONTH
+</a>
+
+</div>
+`;
 
 return;
 }
 
 
-document.getElementById("loading").style.display = "none";
+/* LOAD PUBLISHED EPISODES */
 
-document.getElementById("locked").style.display = "none";
+status.textContent =
+"Loading episodes...";
 
-document.getElementById("member-content").style.display = "block";
+const {
+data:episodes,
+error
+} =
+await asiSupabase
+.from("episodes")
+.select(
+"id,episode_number,title,description,thumbnail_url,is_published"
+)
+.eq(
+"is_published",
+true
+)
+.order(
+"episode_number",
+{
+ascending:true
+}
+);
+
+
+if(error){
+
+throw error;
+
+}
 
 
 if(
-data.session.user &&
-data.session.user.email
+!episodes ||
+episodes.length === 0
 ){
 
-document.getElementById("member-email").textContent =
-data.session.user.email;
+status.textContent =
+"No episodes have been published yet.";
+
+return;
+}
+
+
+status.style.display =
+"none";
+
+
+/* BUILD EPISODE CARDS */
+
+episodesContainer.innerHTML =
+episodes.map(
+episode => {
+
+const title =
+episode.title ||
+`Episode ${episode.episode_number}`;
+
+const description =
+episode.description ||
+"ASI Network FRL Original";
+
+const thumbnail =
+episode.thumbnail_url
+?
+`
+<img
+src="${episode.thumbnail_url}"
+alt="${title}"
+>
+`
+:
+`
+<span>
+ASI NETWORK FRL
+</span>
+`;
+
+
+return `
+<article class="episode-card">
+
+<div class="thumbnail">
+${thumbnail}
+</div>
+
+<div class="episode-info">
+
+<div class="episode-number">
+EPISODE ${episode.episode_number}
+</div>
+
+<h3 class="episode-title">
+${title}
+</h3>
+
+<div class="episode-description">
+${description}
+</div>
+
+<a
+class="watch-button"
+href="/watch.html?episode=${episode.episode_number}"
+>
+WATCH NOW
+</a>
+
+</div>
+
+</article>
+`;
 
 }
+).join("");
 
 
 }catch(error){
 
 console.error(error);
 
-showLocked(
-"We could not verify your membership. Please sign in again."
-);
+status.innerHTML =
+`
+We couldn't load your episodes.
+<br><br>
+${error.message}
+`;
 
 }
 
 }
 
 
-async function asiLogout(){
+/* LOG OUT */
+
+document
+.getElementById("logout-button")
+.addEventListener(
+"click",
+async () => {
 
 await asiSupabase.auth.signOut();
 
-window.location.href = "/login.html";
+window.location.href =
+"/login.html";
 
 }
-
-
-function episodeComingSoon(){
-
-alert(
-"This episode is coming soon to ASI Network FRL."
 );
 
-}
 
-
-verifyMember();
+window.addEventListener(
+"DOMContentLoaded",
+loadMembers
+);
 
 </script>
 
