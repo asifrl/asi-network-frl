@@ -1,250 +1,358 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 
 <meta
 name="viewport"
 content="width=device-width, initial-scale=1.0"
->
+/>
 
-<title>
-Watch | ASI Network FRL
-</title>
+<title>Watch | ASI Network FRL</title>
 
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- Mux Player -->
 <script
-type="module"
 src="https://cdn.jsdelivr.net/npm/@mux/mux-player"
 ></script>
 
-<script
-src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-></script>
-
 <style>
-
-*{
-box-sizing:border-box;
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
 }
 
-body{
-margin:0;
-background:#050505;
-color:#fff;
-font-family:Arial,Helvetica,sans-serif;
+body {
+background: #050505;
+color: white;
+font-family: Arial, Helvetica, sans-serif;
+min-height: 100vh;
 }
 
-header{
-height:70px;
-padding:0 6%;
-display:flex;
-align-items:center;
-justify-content:space-between;
-border-bottom:1px solid #222;
-background:#080808;
+header {
+background: #000;
+border-bottom: 1px solid #292929;
+padding: 18px 5%;
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 20px;
 }
 
-.logo{
-font-weight:900;
-letter-spacing:2px;
+.logo {
+font-size: 22px;
+font-weight: 900;
+letter-spacing: 1px;
 }
 
-header a{
-color:#aaa;
-text-decoration:none;
-font-size:12px;
-font-weight:bold;
+.logo span {
+color: #a8a8a8;
 }
 
-main{
-max-width:1200px;
-margin:auto;
-padding:55px 6%;
+header a {
+color: white;
+text-decoration: none;
+font-size: 14px;
+font-weight: bold;
 }
 
-.label{
-font-size:11px;
-letter-spacing:3px;
-color:#888;
-font-weight:900;
+main {
+width: min(1200px, 94%);
+margin: 40px auto 70px;
 }
 
-h1{
-font-size:clamp(34px,5vw,64px);
-margin:10px 0;
+.back-link {
+display: inline-block;
+color: #bdbdbd;
+text-decoration: none;
+margin-bottom: 25px;
+font-size: 14px;
 }
 
-.description{
-color:#aaa;
-line-height:1.7;
-max-width:800px;
-margin-bottom:30px;
+.back-link:hover {
+color: white;
 }
 
-.player-wrap{
-width:100%;
-aspect-ratio:16/9;
-background:#000;
-border:1px solid #222;
-display:flex;
-align-items:center;
-justify-content:center;
+.eyebrow {
+color: #9e9e9e;
+text-transform: uppercase;
+letter-spacing: 2px;
+font-size: 12px;
+font-weight: bold;
+margin-bottom: 10px;
 }
 
-mux-player{
-width:100%;
-height:100%;
+h1 {
+font-size: clamp(30px, 5vw, 58px);
+line-height: 1.05;
+margin-bottom: 15px;
 }
 
-#status{
-padding:30px;
-text-align:center;
-color:#aaa;
+#episodeDescription {
+color: #bcbcbc;
+line-height: 1.7;
+max-width: 850px;
+margin-bottom: 30px;
 }
 
-.error{
-color:#fff;
+.player-wrap {
+width: 100%;
+background: #0d0d0d;
+border: 1px solid #292929;
+min-height: 300px;
+display: flex;
+align-items: center;
+justify-content: center;
 }
 
-.button{
-display:inline-block;
-margin-top:18px;
-padding:13px 20px;
-background:#fff;
-color:#000;
-text-decoration:none;
-font-size:12px;
-font-weight:900;
+mux-player {
+width: 100%;
+aspect-ratio: 16 / 9;
+--media-object-fit: contain;
 }
 
+#loading {
+padding: 70px 20px;
+text-align: center;
+color: #aaa;
+}
+
+#errorBox {
+display: none;
+padding: 60px 25px;
+text-align: center;
+width: 100%;
+}
+
+#errorBox h2 {
+margin-bottom: 10px;
+font-size: 20px;
+}
+
+#errorMessage {
+color: #bdbdbd;
+line-height: 1.6;
+}
+
+.subscribe-button {
+display: inline-block;
+margin-top: 25px;
+background: white;
+color: black;
+text-decoration: none;
+padding: 14px 24px;
+font-weight: 900;
+border-radius: 4px;
+}
+
+@media (max-width: 700px) {
+main {
+margin-top: 25px;
+}
+
+header {
+padding: 15px 4%;
+}
+
+.logo {
+font-size: 18px;
+}
+}
 </style>
-
 </head>
 
 <body>
 
 <header>
-
 <div class="logo">
-ASI NETWORK FRL
+ASI NETWORK <span>FRL</span>
 </div>
 
 <a href="/members.html">
-← BACK TO EPISODES
+MEMBERS
 </a>
-
 </header>
 
 <main>
 
-<div class="label">
+<a
+href="/members.html"
+class="back-link"
+>
+← Back to Episodes
+</a>
+
+<div class="eyebrow">
 ASI NETWORK FRL ORIGINAL
 </div>
 
-<h1 id="episode-title">
+<h1 id="episodeTitle">
 Loading Episode...
 </h1>
 
-<p
-id="episode-description"
-class="description"
->
-Verifying your membership and loading this episode.
+<p id="episodeDescription">
+Please wait while your episode loads.
 </p>
 
 <div class="player-wrap">
 
-<div id="status">
-Checking subscriber access...
+<div id="loading">
+Checking your membership and loading your episode...
+</div>
+
+<div id="errorBox">
+
+<h2>
+We couldn't load this episode.
+</h2>
+
+<p id="errorMessage"></p>
+
+<div id="subscribeArea"></div>
+
 </div>
 
 <mux-player
-id="asi-player"
+id="player"
 controls
-playsinline
 style="display:none;"
->
-</mux-player>
+></mux-player>
 
 </div>
 
 </main>
 
-<script>
 
-const ASI_SUPABASE_URL =
+<script>
+const SUPABASE_URL =
 "https://gvvtwwrjfscaunczptpv.supabase.co";
 
-const ASI_SUPABASE_PUBLISHABLE_KEY =
+/*
+IMPORTANT:
+Keep your EXISTING Supabase publishable key below.
+
+If your current watch.html already contains your real
+publishable key, paste that same publishable key here.
+
+Do NOT use your secret/service-role key.
+*/
+
+const SUPABASE_PUBLISHABLE_KEY =
 "sb_publishable_iliNeR5tX_4X4KAh5ZjPpA_e6ueLnP-";
 
-const asiSupabase =
+
+const supabaseClient =
 supabase.createClient(
-ASI_SUPABASE_URL,
-ASI_SUPABASE_PUBLISHABLE_KEY
+SUPABASE_URL,
+SUPABASE_PUBLISHABLE_KEY
 );
 
-const LINK_SUBSCRIPTION_FUNCTION =
-ASI_SUPABASE_URL +
-"/functions/v1/asi-link-subscription";
 
-const MUX_TOKEN_FUNCTION =
-ASI_SUPABASE_URL +
-"/functions/v1/asi-mux-playback-token";
+const loading =
+document.getElementById("loading");
 
+const errorBox =
+document.getElementById("errorBox");
 
-async function loadEpisode(){
+const errorMessage =
+document.getElementById("errorMessage");
 
-const status =
-document.getElementById("status");
+const subscribeArea =
+document.getElementById("subscribeArea");
 
 const player =
-document.getElementById("asi-player");
+document.getElementById("player");
 
-try{
+const episodeTitle =
+document.getElementById("episodeTitle");
 
-/* ==============================
-CHECK LOGIN
-============================== */
+const episodeDescription =
+document.getElementById("episodeDescription");
+
+
+function showError(
+message,
+showSubscribe = false
+) {
+
+loading.style.display = "none";
+player.style.display = "none";
+
+errorBox.style.display = "block";
+
+errorMessage.textContent = message;
+
+subscribeArea.innerHTML = "";
+
+if (showSubscribe) {
+
+subscribeArea.innerHTML = `
+<a
+class="subscribe-button"
+href="https://square.link/u/0l47AY8p"
+>
+SUBSCRIBE — $5.99/MONTH
+</a>
+`;
+
+}
+
+}
+
+
+async function startEpisode() {
+
+try {
+
+/*
+GET CURRENT LOGIN SESSION
+*/
 
 const {
-data:{
-session
-}
+data: sessionData,
+error: sessionError
 } =
-await asiSupabase.auth.getSession();
+await supabaseClient.auth.getSession();
 
-if(!session){
+
+if (sessionError) {
+throw sessionError;
+}
+
+
+const session =
+sessionData.session;
+
+
+if (!session) {
 
 window.location.href =
 "/login.html";
 
 return;
+
 }
 
 
-/* ==============================
+/*
 VERIFY / LINK SUBSCRIPTION
-============================== */
+*/
 
-status.textContent =
-"Verifying your ASI Network FRL membership...";
-
-const subscriptionResponse =
+const linkResponse =
 await fetch(
-LINK_SUBSCRIPTION_FUNCTION,
+`${SUPABASE_URL}/functions/v1/asi-link-subscription`,
 {
-method:"POST",
+method: "POST",
 
-headers:{
+headers: {
 "Authorization":
-"Bearer " +
-session.access_token,
+`Bearer ${session.access_token}`,
 
 "apikey":
-ASI_SUPABASE_PUBLISHABLE_KEY,
+SUPABASE_PUBLISHABLE_KEY,
 
 "Content-Type":
 "application/json"
@@ -252,35 +360,33 @@ ASI_SUPABASE_PUBLISHABLE_KEY,
 }
 );
 
-const subscriptionResult =
-await subscriptionResponse.json();
 
-if(
-!subscriptionResponse.ok ||
-subscriptionResult.active !== true
-){
+const linkResult =
+await linkResponse.json();
 
-status.innerHTML =
-`
-<div class="error">
-Your ASI Network FRL subscription is not active.
-</div>
 
-<a
-class="button"
-href="https://square.link/u/0l47AY8p"
->
-SUBSCRIBE — $5.99/MONTH
-</a>
-`;
+if (
+!linkResponse.ok ||
+!linkResult.active
+) {
+
+showError(
+linkResult.error ||
+"An active ASI Network FRL subscription is required to watch this episode.",
+true
+);
 
 return;
+
 }
 
 
-/* ==============================
-GET EPISODE NUMBER
-============================== */
+/*
+GET EPISODE NUMBER FROM URL
+
+Example:
+watch.html?episode=1
+*/
 
 const params =
 new URLSearchParams(
@@ -289,36 +395,31 @@ window.location.search
 
 const episodeNumber =
 Number(
-params.get("episode") || "1"
+params.get("episode")
 );
 
-if(
-!Number.isInteger(episodeNumber) ||
-episodeNumber < 1
-){
+
+if (!episodeNumber) {
 
 throw new Error(
-"Invalid episode."
+"Episode number is missing."
 );
 
 }
 
 
-/* ==============================
-FIND PUBLISHED EPISODE
-============================== */
-
-status.textContent =
-"Loading episode...";
+/*
+LOAD PUBLISHED EPISODE
+*/
 
 const {
-data:episode,
-error:episodeError
+data: episode,
+error: episodeError
 } =
-await asiSupabase
+await supabaseClient
 .from("episodes")
 .select(
-"id,title,description,episode_number,is_published"
+"id, episode_number, title, description, video_id, is_published"
 )
 .eq(
 "episode_number",
@@ -330,168 +431,136 @@ true
 )
 .maybeSingle();
 
-if(episodeError){
 
+if (episodeError) {
 throw episodeError;
-
 }
 
-if(!episode){
+
+if (!episode) {
 
 throw new Error(
-"Episode not found or is not available yet."
+"This episode is not available."
 );
 
 }
 
 
-/* ==============================
-DISPLAY EPISODE INFO
-============================== */
+/*
+SHOW EPISODE INFORMATION
+*/
 
-document.getElementById(
-"episode-title"
-).textContent =
+episodeTitle.textContent =
 episode.title ||
 `Episode ${episode.episode_number}`;
 
-document.getElementById(
-"episode-description"
-).textContent =
+
+episodeDescription.textContent =
 episode.description ||
 "ASI Network FRL Original";
 
 
-/* ==============================
-REQUEST SECURE MUX TOKEN
-============================== */
-
-status.textContent =
-"Authorizing secure playback...";
+/*
+ASK SECURE EDGE FUNCTION
+FOR MUX PLAYBACK TOKEN
+*/
 
 const tokenResponse =
 await fetch(
-MUX_TOKEN_FUNCTION,
+`${SUPABASE_URL}/functions/v1/asi-mux-playback-token`,
 {
-method:"POST",
+method: "POST",
 
-headers:{
+headers: {
 "Authorization":
-"Bearer " +
-session.access_token,
+`Bearer ${session.access_token}`,
 
 "apikey":
-ASI_SUPABASE_PUBLISHABLE_KEY,
+SUPABASE_PUBLISHABLE_KEY,
 
 "Content-Type":
 "application/json"
 },
 
-body:JSON.stringify({
-
-episodeId:
-episode.id
-
+body: JSON.stringify({
+episodeId: episode.id
 })
 }
 );
+
 
 const tokenResult =
 await tokenResponse.json();
 
 
-if(!tokenResponse.ok){
-
-if(tokenResponse.status === 403){
-
-status.innerHTML =
-`
-<div class="error">
-An active ASI Network FRL subscription is required to watch this episode.
-</div>
-
-<a
-class="button"
-href="https://square.link/u/0l47AY8p"
->
-SUBSCRIBE — $5.99/MONTH
-</a>
-`;
-
-return;
-
-}
+if (!tokenResponse.ok) {
 
 throw new Error(
 tokenResult.error ||
-"Could not authorize secure video playback."
+"Secure playback could not be authorized."
 );
 
 }
 
 
-/* ==============================
-CHECK TOKEN RESPONSE
-============================== */
-
-if(
+if (
 !tokenResult.playbackId ||
 !tokenResult.token
-){
+) {
 
 throw new Error(
-"Secure playback authorization was incomplete."
+"Secure playback information is missing."
 );
 
 }
 
 
-/* ==============================
-LOAD SIGNED MUX VIDEO
-============================== */
+/*
+IMPORTANT FIX:
 
-player.setAttribute(
-"playback-id",
-tokenResult.playbackId
-);
+Give Mux Player the EXACT playback ID
+returned by our secure server.
 
-player.setAttribute(
-"playback-token",
-tokenResult.token
-);
+Then give it the matching signed token.
+*/
 
-status.style.display =
+player.playbackId =
+tokenResult.playbackId;
+
+player.playbackToken =
+tokenResult.token;
+
+
+/*
+SHOW PLAYER
+*/
+
+loading.style.display =
+"none";
+
+errorBox.style.display =
 "none";
 
 player.style.display =
 "block";
 
 
-}catch(error){
+} catch (error) {
 
 console.error(error);
 
-status.innerHTML =
-`
-<div class="error">
-We couldn't load this episode.
-<br><br>
-${error.message}
-</div>
-`;
-
-}
-
-}
-
-
-window.addEventListener(
-"DOMContentLoaded",
-loadEpisode
+showError(
+error?.message ||
+"Something went wrong while loading this episode."
 );
 
+}
+
+}
+
+
+startEpisode();
 </script>
 
 </body>
-
 </html>
