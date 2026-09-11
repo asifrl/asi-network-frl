@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
 
 <meta
@@ -9,11 +10,62 @@ name="viewport"
 content="width=device-width, initial-scale=1.0"
 >
 
-<title>ASI Network FRL</title>
+<!-- =========================
+GOOGLE SEO
+========================= -->
+
+<title>ASI Network FRL | Family Behind The Trauma & Original Reality Entertainment</title>
+
+<meta
+name="description"
+content="Watch ASI Network FRL original reality entertainment, including Family Behind The Trauma. Subscribe for exclusive episodes, original series, and new ASI Network FRL content."
+>
+
+<meta
+name="keywords"
+content="ASI Network FRL, Family Behind The Trauma, ASI FRL, reality show, reality TV, original reality series, independent streaming network"
+>
+
+<meta
+name="robots"
+content="index, follow"
+>
+
+<link
+rel="canonical"
+href="https://asinetworkfrl.com/"
+>
+
+
+<!-- SOCIAL / GOOGLE PREVIEW -->
+
+<meta
+property="og:title"
+content="ASI Network FRL | Original Reality Entertainment"
+>
+
+<meta
+property="og:description"
+content="Watch Family Behind The Trauma and original reality entertainment exclusively on ASI Network FRL."
+>
+
+<meta
+property="og:type"
+content="website"
+>
+
+<meta
+property="og:url"
+content="https://asinetworkfrl.com/"
+>
+
+
+<!-- SUPABASE -->
 
 <script
 src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
 ></script>
+
 
 <style>
 
@@ -40,7 +92,7 @@ color:inherit;
 
 
 /* =========================
-NAV
+NAVIGATION
 ========================= */
 
 nav{
@@ -93,6 +145,7 @@ display:flex;
 align-items:flex-end;
 position:relative;
 overflow:hidden;
+
 background:
 linear-gradient(
 90deg,
@@ -105,6 +158,7 @@ circle at 75% 35%,
 rgba(255,255,255,.08),
 transparent 32%
 );
+
 border-bottom:1px solid rgba(255,255,255,.08);
 }
 
@@ -112,12 +166,14 @@ border-bottom:1px solid rgba(255,255,255,.08);
 content:"";
 position:absolute;
 inset:0;
+
 background:
 linear-gradient(
 0deg,
 #050505 0%,
 transparent 35%
 );
+
 pointer-events:none;
 }
 
@@ -262,9 +318,11 @@ linear-gradient(
 #101010,
 #181818
 );
+
 border:1px solid #262626;
 padding:40px;
 min-height:280px;
+
 display:flex;
 flex-direction:column;
 justify-content:flex-end;
@@ -314,12 +372,14 @@ border-color:#565656;
 .episode-image{
 width:100%;
 aspect-ratio:16/9;
+
 background:
 linear-gradient(
 135deg,
 #181818,
 #2d2d2d
 );
+
 display:flex;
 align-items:center;
 justify-content:center;
@@ -336,11 +396,13 @@ object-fit:cover;
 .placeholder-art{
 position:absolute;
 inset:0;
+
 display:flex;
 align-items:center;
 justify-content:center;
 flex-direction:column;
 gap:10px;
+
 background:
 radial-gradient(
 circle at center,
@@ -421,12 +483,14 @@ SUBSCRIBE
 .subscribe{
 padding:95px 7%;
 text-align:center;
+
 background:
 linear-gradient(
 180deg,
 #0a0a0a,
 #050505
 );
+
 border-top:1px solid #222;
 border-bottom:1px solid #222;
 }
@@ -474,6 +538,7 @@ padding:35px 7%;
 border-top:1px solid #222;
 color:#777;
 font-size:12px;
+
 display:flex;
 justify-content:space-between;
 gap:20px;
@@ -528,11 +593,16 @@ padding:75px 6%;
 }
 
 </style>
+
 </head>
 
 
 <body>
 
+
+<!-- =========================
+NAVIGATION
+========================= -->
 
 <nav>
 
@@ -561,6 +631,7 @@ SIGN IN
 </div>
 
 </nav>
+
 
 
 <!-- =========================
@@ -669,6 +740,7 @@ you don't normally get to see.
 
 </div>
 
+
 <div class="show-panel">
 
 <div class="section-title-small">
@@ -676,13 +748,13 @@ ASI NETWORK FRL
 </div>
 
 <h3>
-More Originals Coming
+Original Entertainment
 </h3>
 
 <p>
-New original shows, new cast members and new
-stories will be added to ASI Network FRL as
-the network grows.
+ASI Network FRL brings viewers original reality
+programming, exclusive stories and new series
+from the ASI Network.
 </p>
 
 </div>
@@ -712,8 +784,8 @@ Episodes
 
 <p class="show-description">
 Watch published episodes of Family Behind The Trauma.
-New episodes appear here automatically when they are
-released.
+New episodes appear here automatically when they
+are released.
 </p>
 
 <div id="episodeArea">
@@ -792,23 +864,29 @@ class="about"
 ABOUT THE NETWORK
 </div>
 
-<h2 style="
+<h2
+style="
 font-size:38px;
 margin-bottom:20px;
-">
+"
+>
 ASI Network FRL
 </h2>
 
 <p>
-ASI Network FRL is an independent subscription-based
-entertainment network featuring original reality
-programming, exclusive stories and new series created
-for the ASI audience.
+ASI Network FRL is an independent
+subscription-based entertainment network featuring
+original reality programming, exclusive stories and
+new series created for the ASI audience.
 </p>
 
 </section>
 
 
+
+<!-- =========================
+FOOTER
+========================= -->
 
 <footer>
 
@@ -824,6 +902,10 @@ I SEE EVERYTHING 👁️
 
 
 
+<!-- =========================
+SUPABASE / EPISODES
+========================= -->
+
 <script>
 
 const SUPABASE_URL =
@@ -831,14 +913,16 @@ const SUPABASE_URL =
 
 
 /*
-Use the SAME publishable key already
-used in your current index.html.
+IMPORTANT:
 
-DO NOT use a service-role key.
+Paste the SAME Supabase publishable key
+already being used in your current index.html.
+
+DO NOT use your service-role key.
 */
 
 const SUPABASE_PUBLISHABLE_KEY =
-"sb_publishable_iliNeR5tX_4X4KAh5ZjPpA_e6ueLnP-";
+"PASTE_YOUR_EXISTING_SUPABASE_PUBLISHABLE_KEY_HERE";
 
 
 const supabaseClient =
@@ -871,6 +955,8 @@ document.getElementById("episodeArea");
 try{
 
 
+/* FIND SHOW */
+
 const {
 data: show,
 error: showError
@@ -900,6 +986,8 @@ return;
 }
 
 
+
+/* FIND PUBLISHED SEASONS */
 
 const {
 data: seasons,
@@ -947,6 +1035,8 @@ return;
 episodeArea.innerHTML = "";
 
 
+
+/* LOAD EPISODES */
 
 for(
 const season
@@ -998,6 +1088,7 @@ continue;
 }
 
 
+
 const seasonBlock =
 document.createElement("div");
 
@@ -1047,6 +1138,9 @@ card.className =
 "episode-card";
 
 
+
+/* EPISODE THUMBNAIL */
+
 const imageHtml =
 episode.thumbnail_url
 
@@ -1089,6 +1183,14 @@ ORIGINAL SERIES
 
 
 
+/*
+If a finished Mux video is attached,
+the Watch Now button appears.
+
+If no video is attached yet,
+viewers see Coming Soon instead.
+*/
+
 const actionHtml =
 episode.video_id
 
@@ -1120,26 +1222,36 @@ ${imageHtml}
 <div class="episode-body">
 
 <div class="episode-number">
+
 EPISODE ${String(
 episode.episode_number
 ).padStart(2,"0")}
+
 </div>
 
+
 <div class="episode-title">
+
 ${escapeHtml(
 episode.title ||
 `Episode ${episode.episode_number}`
 )}
+
 </div>
 
+
 <div class="episode-description">
+
 ${escapeHtml(
 episode.description ||
 "ASI Network FRL Original"
 )}
+
 </div>
 
+
 ${actionHtml}
+
 
 </div>
 `;
@@ -1164,6 +1276,7 @@ seasonBlock
 }
 
 
+
 if(
 episodeArea.children.length === 0
 ){
@@ -1175,6 +1288,7 @@ episodeArea.innerHTML =
 
 
 }
+
 catch(error){
 
 console.error(error);
@@ -1195,6 +1309,1321 @@ Episodes could not be loaded.
 loadEpisodes();
 
 </script>
+
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<!-- =========================
+GOOGLE SEO
+========================= -->
+
+<title>ASI Network FRL | Family Behind The Trauma & Original Reality Entertainment</title>
+
+<meta
+name="description"
+content="Watch ASI Network FRL original reality entertainment, including Family Behind The Trauma. Subscribe for exclusive episodes, original series, and new ASI Network FRL content."
+>
+
+<meta
+name="keywords"
+content="ASI Network FRL, Family Behind The Trauma, ASI FRL, reality show, reality TV, original reality series, independent streaming network"
+>
+
+<meta
+name="robots"
+content="index, follow"
+>
+
+<link
+rel="canonical"
+href="https://asinetworkfrl.com/"
+>
+
+
+<!-- SOCIAL / GOOGLE PREVIEW -->
+
+<meta
+property="og:title"
+content="ASI Network FRL | Original Reality Entertainment"
+>
+
+<meta
+property="og:description"
+content="Watch Family Behind The Trauma and original reality entertainment exclusively on ASI Network FRL."
+>
+
+<meta
+property="og:type"
+content="website"
+>
+
+<meta
+property="og:url"
+content="https://asinetworkfrl.com/"
+>
+
+
+<!-- SUPABASE -->
+
+<script
+src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+
+<style>
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+background:#050505;
+color:#fff;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+a{
+text-decoration:none;
+color:inherit;
+}
+
+
+/* =========================
+NAVIGATION
+========================= */
+
+nav{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:72px;
+padding:0 6%;
+display:flex;
+align-items:center;
+justify-content:space-between;
+background:rgba(0,0,0,.96);
+border-bottom:1px solid rgba(255,255,255,.08);
+z-index:1000;
+}
+
+.logo{
+font-size:21px;
+font-weight:900;
+letter-spacing:1.5px;
+}
+
+.logo span{
+color:#8b8b8b;
+}
+
+.nav-links{
+display:flex;
+gap:28px;
+align-items:center;
+font-size:13px;
+font-weight:800;
+letter-spacing:1px;
+}
+
+.nav-links a:hover{
+color:#aaa;
+}
+
+
+/* =========================
+HERO
+========================= */
+
+.hero{
+min-height:85vh;
+padding:145px 7% 80px;
+display:flex;
+align-items:flex-end;
+position:relative;
+overflow:hidden;
+
+background:
+linear-gradient(
+90deg,
+rgba(0,0,0,1) 0%,
+rgba(0,0,0,.92) 45%,
+rgba(10,10,10,.72) 100%
+),
+radial-gradient(
+circle at 75% 35%,
+rgba(255,255,255,.08),
+transparent 32%
+);
+
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.hero::after{
+content:"";
+position:absolute;
+inset:0;
+
+background:
+linear-gradient(
+0deg,
+#050505 0%,
+transparent 35%
+);
+
+pointer-events:none;
+}
+
+.hero-content{
+position:relative;
+z-index:2;
+max-width:900px;
+}
+
+.eyebrow{
+font-size:12px;
+letter-spacing:5px;
+font-weight:900;
+color:#9a9a9a;
+margin-bottom:18px;
+}
+
+.hero h1{
+font-size:clamp(52px,8vw,110px);
+line-height:.88;
+font-weight:900;
+text-transform:uppercase;
+margin-bottom:24px;
+}
+
+.hero h2{
+font-size:clamp(18px,2vw,28px);
+letter-spacing:2px;
+text-transform:uppercase;
+margin-bottom:16px;
+}
+
+.hero p{
+max-width:720px;
+font-size:16px;
+line-height:1.7;
+color:#b7b7b7;
+margin-bottom:30px;
+}
+
+.hero-meta{
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+margin-bottom:28px;
+font-size:12px;
+font-weight:900;
+letter-spacing:1px;
+color:#aaa;
+}
+
+.hero-meta span{
+border:1px solid #333;
+padding:8px 11px;
+}
+
+.hero-buttons{
+display:flex;
+gap:14px;
+flex-wrap:wrap;
+}
+
+.btn{
+padding:15px 24px;
+font-size:13px;
+font-weight:900;
+letter-spacing:.8px;
+border:1px solid #fff;
+transition:.2s;
+display:inline-block;
+}
+
+.btn-primary{
+background:#fff;
+color:#000;
+}
+
+.btn-primary:hover{
+background:#d9d9d9;
+}
+
+.btn-outline{
+background:transparent;
+color:#fff;
+}
+
+.btn-outline:hover{
+background:#fff;
+color:#000;
+}
+
+
+/* =========================
+SECTIONS
+========================= */
+
+.section{
+padding:75px 7%;
+}
+
+.section-dark{
+background:#080808;
+}
+
+.section-title-small{
+font-size:12px;
+letter-spacing:4px;
+color:#888;
+font-weight:900;
+margin-bottom:10px;
+}
+
+.section h2{
+font-size:clamp(32px,5vw,60px);
+line-height:1;
+margin-bottom:18px;
+}
+
+.show-description{
+color:#aaa;
+max-width:800px;
+line-height:1.7;
+margin-bottom:42px;
+}
+
+
+/* =========================
+SHOW FEATURE
+========================= */
+
+.show-feature{
+display:grid;
+grid-template-columns:1.1fr .9fr;
+gap:28px;
+align-items:stretch;
+}
+
+.show-panel{
+background:
+linear-gradient(
+135deg,
+#101010,
+#181818
+);
+
+border:1px solid #262626;
+padding:40px;
+min-height:280px;
+
+display:flex;
+flex-direction:column;
+justify-content:flex-end;
+}
+
+.show-panel h3{
+font-size:36px;
+margin-bottom:12px;
+}
+
+.show-panel p{
+color:#aaa;
+line-height:1.7;
+}
+
+
+/* =========================
+EPISODES
+========================= */
+
+.season-title{
+font-size:25px;
+margin-bottom:24px;
+text-transform:uppercase;
+letter-spacing:2px;
+}
+
+.episode-grid{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(280px,1fr));
+gap:24px;
+}
+
+.episode-card{
+background:#0d0d0d;
+border:1px solid #252525;
+overflow:hidden;
+transition:.22s;
+}
+
+.episode-card:hover{
+transform:translateY(-4px);
+border-color:#565656;
+}
+
+.episode-image{
+width:100%;
+aspect-ratio:16/9;
+
+background:
+linear-gradient(
+135deg,
+#181818,
+#2d2d2d
+);
+
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+position:relative;
+}
+
+.episode-image img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.placeholder-art{
+position:absolute;
+inset:0;
+
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+gap:10px;
+
+background:
+radial-gradient(
+circle at center,
+rgba(255,255,255,.08),
+rgba(0,0,0,.2) 42%,
+rgba(0,0,0,.65) 100%
+);
+}
+
+.placeholder-art strong{
+font-size:19px;
+letter-spacing:2px;
+}
+
+.placeholder-art span{
+font-size:11px;
+letter-spacing:3px;
+color:#8d8d8d;
+}
+
+.episode-body{
+padding:22px;
+}
+
+.episode-number{
+font-size:11px;
+letter-spacing:3px;
+font-weight:900;
+color:#888;
+margin-bottom:10px;
+}
+
+.episode-title{
+font-size:21px;
+font-weight:900;
+margin-bottom:11px;
+}
+
+.episode-description{
+font-size:14px;
+line-height:1.6;
+color:#aaa;
+min-height:44px;
+}
+
+.episode-status{
+display:inline-block;
+margin-top:20px;
+border:1px solid #444;
+padding:10px 14px;
+font-size:11px;
+font-weight:900;
+letter-spacing:1.5px;
+color:#b5b5b5;
+text-transform:uppercase;
+}
+
+.watch-button{
+display:inline-block;
+margin-top:20px;
+background:#fff;
+color:#000;
+padding:12px 18px;
+font-size:12px;
+font-weight:900;
+letter-spacing:.8px;
+}
+
+.watch-button:hover{
+background:#ccc;
+}
+
+
+/* =========================
+SUBSCRIBE
+========================= */
+
+.subscribe{
+padding:95px 7%;
+text-align:center;
+
+background:
+linear-gradient(
+180deg,
+#0a0a0a,
+#050505
+);
+
+border-top:1px solid #222;
+border-bottom:1px solid #222;
+}
+
+.subscribe h2{
+font-size:clamp(34px,6vw,68px);
+margin-bottom:18px;
+}
+
+.subscribe p{
+color:#aaa;
+max-width:650px;
+margin:0 auto 28px;
+line-height:1.7;
+}
+
+.price{
+font-size:24px;
+font-weight:900;
+margin-bottom:28px;
+}
+
+
+/* =========================
+ABOUT
+========================= */
+
+.about{
+padding:80px 7%;
+max-width:1000px;
+}
+
+.about p{
+color:#aaa;
+line-height:1.8;
+}
+
+
+/* =========================
+FOOTER
+========================= */
+
+footer{
+padding:35px 7%;
+border-top:1px solid #222;
+color:#777;
+font-size:12px;
+
+display:flex;
+justify-content:space-between;
+gap:20px;
+flex-wrap:wrap;
+}
+
+
+/* =========================
+MOBILE
+========================= */
+
+@media(max-width:800px){
+
+nav{
+padding:0 5%;
+}
+
+.nav-links{
+gap:15px;
+}
+
+.nav-links a:nth-child(1),
+.nav-links a:nth-child(2){
+display:none;
+}
+
+.hero{
+min-height:76vh;
+padding:130px 6% 70px;
+}
+
+.hero h1{
+font-size:52px;
+}
+
+.section{
+padding:60px 6%;
+}
+
+.show-feature{
+grid-template-columns:1fr;
+}
+
+.show-panel{
+padding:28px;
+}
+
+.subscribe{
+padding:75px 6%;
+}
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+NAVIGATION
+========================= -->
+
+<nav>
+
+<div class="logo">
+ASI NETWORK <span>FRL</span>
+</div>
+
+<div class="nav-links">
+
+<a href="#shows">
+SHOWS
+</a>
+
+<a href="#episodes">
+EPISODES
+</a>
+
+<a href="#subscribe">
+SUBSCRIBE
+</a>
+
+<a href="/login.html">
+SIGN IN
+</a>
+
+</div>
+
+</nav>
+
+
+
+<!-- =========================
+HERO
+========================= -->
+
+<section class="hero">
+
+<div class="hero-content">
+
+<div class="eyebrow">
+ASI NETWORK FRL ORIGINAL
+</div>
+
+<h1>
+FAMILY<br>
+BEHIND<br>
+THE TRAUMA
+</h1>
+
+<h2>
+Original Reality Series
+</h2>
+
+<div class="hero-meta">
+
+<span>
+SEASON 1
+</span>
+
+<span>
+REALITY
+</span>
+
+<span>
+ASI ORIGINAL
+</span>
+
+</div>
+
+<p>
+An unfiltered reality series centered around
+family, relationships, conflict, healing and the
+real experiences behind the people you see on screen.
+</p>
+
+<div class="hero-buttons">
+
+<a
+href="#episodes"
+class="btn btn-primary"
+>
+VIEW EPISODES
+</a>
+
+<a
+href="#subscribe"
+class="btn btn-outline"
+>
+SUBSCRIBE — $5.99
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+SHOWS
+========================= -->
+
+<section
+id="shows"
+class="section section-dark"
+>
+
+<div class="section-title-small">
+ASI ORIGINALS
+</div>
+
+<h2>
+Featured Series
+</h2>
+
+<div class="show-feature">
+
+<div class="show-panel">
+
+<div class="section-title-small">
+ORIGINAL REALITY SERIES
+</div>
+
+<h3>
+Family Behind The Trauma
+</h3>
+
+<p>
+Real family. Real conflict. Real stories.
+Family Behind The Trauma follows the people,
+relationships and experiences behind the moments
+you don't normally get to see.
+</p>
+
+</div>
+
+
+<div class="show-panel">
+
+<div class="section-title-small">
+ASI NETWORK FRL
+</div>
+
+<h3>
+Original Entertainment
+</h3>
+
+<p>
+ASI Network FRL brings viewers original reality
+programming, exclusive stories and new series
+from the ASI Network.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+EPISODES
+========================= -->
+
+<section
+id="episodes"
+class="section"
+>
+
+<div class="section-title-small">
+STREAMING
+</div>
+
+<h2>
+Episodes
+</h2>
+
+<p class="show-description">
+Watch published episodes of Family Behind The Trauma.
+New episodes appear here automatically when they
+are released.
+</p>
+
+<div id="episodeArea">
+
+<p style="color:#777;">
+Loading episodes...
+</p>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+SUBSCRIBE
+========================= -->
+
+<section
+id="subscribe"
+class="subscribe"
+>
+
+<div class="section-title-small">
+JOIN ASI NETWORK FRL
+</div>
+
+<h2>
+Watch ASI Originals
+</h2>
+
+<p>
+Subscribe for access to original reality
+entertainment, exclusive episodes and future
+ASI Network FRL shows.
+</p>
+
+<div class="price">
+$5.99 / MONTH
+</div>
+
+<a
+href="https://square.link/u/0l47AY8p"
+class="btn btn-primary"
+>
+SUBSCRIBE NOW
+</a>
+
+<br><br>
+
+<a
+href="/login.html"
+style="
+font-size:13px;
+color:#aaa;
+text-decoration:underline;
+"
+>
+Already subscribed? Sign in
+</a>
+
+</section>
+
+
+
+<!-- =========================
+ABOUT
+========================= -->
+
+<section
+id="about"
+class="about"
+>
+
+<div class="section-title-small">
+ABOUT THE NETWORK
+</div>
+
+<h2
+style="
+font-size:38px;
+margin-bottom:20px;
+"
+>
+ASI Network FRL
+</h2>
+
+<p>
+ASI Network FRL is an independent
+subscription-based entertainment network featuring
+original reality programming, exclusive stories and
+new series created for the ASI audience.
+</p>
+
+</section>
+
+
+
+<!-- =========================
+FOOTER
+========================= -->
+
+<footer>
+
+<div>
+© 2026 ASI NETWORK FRL
+</div>
+
+<div>
+I SEE EVERYTHING 👁️
+</div>
+
+</footer>
+
+
+
+<!-- =========================
+SUPABASE / EPISODES
+========================= -->
+
+<script>
+
+const SUPABASE_URL =
+"https://gvvtwwrjfscaunczptpv.supabase.co";
+
+
+/*
+IMPORTANT:
+
+Paste the SAME Supabase publishable key
+already being used in your current index.html.
+
+DO NOT use your service-role key.
+*/
+
+const SUPABASE_PUBLISHABLE_KEY =
+"sb_publishable_iliNeR5tX_4X4KAh5ZjPpA_e6ueLnP-";
+
+
+const supabaseClient =
+supabase.createClient(
+SUPABASE_URL,
+SUPABASE_PUBLISHABLE_KEY
+);
+
+
+
+function escapeHtml(value){
+
+return String(value ?? "")
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
+
+
+
+async function loadEpisodes(){
+
+const episodeArea =
+document.getElementById("episodeArea");
+
+
+try{
+
+
+/* FIND SHOW */
+
+const {
+data: show,
+error: showError
+} =
+await supabaseClient
+.from("shows")
+.select("id,title")
+.eq(
+"title",
+"Family Behind The Trauma"
+)
+.maybeSingle();
+
+
+if(showError){
+throw showError;
+}
+
+
+if(!show){
+
+episodeArea.innerHTML =
+"<p>No show found.</p>";
+
+return;
+
+}
+
+
+
+/* FIND PUBLISHED SEASONS */
+
+const {
+data: seasons,
+error: seasonError
+} =
+await supabaseClient
+.from("seasons")
+.select(
+"id,season_number,title,is_published"
+)
+.eq(
+"show_id",
+show.id
+)
+.eq(
+"is_published",
+true
+)
+.order(
+"season_number",
+{
+ascending:true
+}
+);
+
+
+if(seasonError){
+throw seasonError;
+}
+
+
+if(
+!seasons ||
+seasons.length === 0
+){
+
+episodeArea.innerHTML =
+"<p>No seasons are available yet.</p>";
+
+return;
+
+}
+
+
+episodeArea.innerHTML = "";
+
+
+
+/* LOAD EPISODES */
+
+for(
+const season
+of seasons
+){
+
+
+const {
+data: episodes,
+error: episodeError
+} =
+await supabaseClient
+.from("episodes")
+.select(`
+id,
+episode_number,
+title,
+description,
+thumbnail_url,
+video_id,
+is_published
+`)
+.eq(
+"season_id",
+season.id
+)
+.eq(
+"is_published",
+true
+)
+.order(
+"episode_number",
+{
+ascending:true
+}
+);
+
+
+if(episodeError){
+throw episodeError;
+}
+
+
+if(
+!episodes ||
+episodes.length === 0
+){
+continue;
+}
+
+
+
+const seasonBlock =
+document.createElement("div");
+
+
+seasonBlock.style.marginBottom =
+"55px";
+
+
+const seasonHeading =
+document.createElement("h3");
+
+
+seasonHeading.className =
+"season-title";
+
+
+seasonHeading.textContent =
+season.title ||
+`Season ${season.season_number}`;
+
+
+seasonBlock.appendChild(
+seasonHeading
+);
+
+
+const grid =
+document.createElement("div");
+
+
+grid.className =
+"episode-grid";
+
+
+
+for(
+const episode
+of episodes
+){
+
+
+const card =
+document.createElement("div");
+
+
+card.className =
+"episode-card";
+
+
+
+/* EPISODE THUMBNAIL */
+
+const imageHtml =
+episode.thumbnail_url
+
+?
+
+`
+<div class="episode-image">
+
+<img
+src="${escapeHtml(
+episode.thumbnail_url
+)}"
+alt="${escapeHtml(
+episode.title
+)}"
+>
+
+</div>
+`
+
+:
+
+`
+<div class="episode-image">
+
+<div class="placeholder-art">
+
+<strong>
+ASI NETWORK FRL
+</strong>
+
+<span>
+ORIGINAL SERIES
+</span>
+
+</div>
+
+</div>
+`;
+
+
+
+/*
+If a finished Mux video is attached,
+the Watch Now button appears.
+
+If no video is attached yet,
+viewers see Coming Soon instead.
+*/
+
+const actionHtml =
+episode.video_id
+
+?
+
+`
+<a
+class="watch-button"
+href="/watch.html?episode=${episode.episode_number}"
+>
+WATCH NOW
+</a>
+`
+
+:
+
+`
+<div class="episode-status">
+COMING SOON
+</div>
+`;
+
+
+
+card.innerHTML = `
+
+${imageHtml}
+
+<div class="episode-body">
+
+<div class="episode-number">
+
+EPISODE ${String(
+episode.episode_number
+).padStart(2,"0")}
+
+</div>
+
+
+<div class="episode-title">
+
+${escapeHtml(
+episode.title ||
+`Episode ${episode.episode_number}`
+)}
+
+</div>
+
+
+<div class="episode-description">
+
+${escapeHtml(
+episode.description ||
+"ASI Network FRL Original"
+)}
+
+</div>
+
+
+${actionHtml}
+
+
+</div>
+`;
+
+
+grid.appendChild(
+card
+);
+
+}
+
+
+seasonBlock.appendChild(
+grid
+);
+
+
+episodeArea.appendChild(
+seasonBlock
+);
+
+}
+
+
+
+if(
+episodeArea.children.length === 0
+){
+
+episodeArea.innerHTML =
+"<p>No published episodes are available.</p>";
+
+}
+
+
+}
+
+catch(error){
+
+console.error(error);
+
+episodeArea.innerHTML =
+`
+<p style="color:#999;">
+Episodes could not be loaded.
+</p>
+`;
+
+}
+
+}
+
+
+
+loadEpisodes();
+
+</script>
+
 
 </body>
 </html>
