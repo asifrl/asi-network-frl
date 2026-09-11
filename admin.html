@@ -71,12 +71,21 @@ margin-top:3px;
 letter-spacing:1px;
 }
 
+.header-actions{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.home-btn,
 .logout-btn{
 background:transparent;
 color:#fff;
 border:1px solid rgba(255,255,255,.3);
 padding:10px 16px;
 border-radius:6px;
+text-decoration:none;
+font-size:13px;
 }
 
 main{
@@ -118,6 +127,8 @@ color:#000;
 font-weight:800;
 padding:13px 20px;
 border-radius:7px;
+text-decoration:none;
+display:inline-block;
 }
 
 .dashboard{
@@ -137,6 +148,12 @@ margin-bottom:8px;
 
 .top-title h1{
 font-size:clamp(30px,5vw,52px);
+}
+
+.owner-note{
+margin-top:10px;
+opacity:.5;
+font-size:13px;
 }
 
 .stats{
@@ -302,6 +319,14 @@ font-size:14px;
 padding:15px 0;
 }
 
+.error-text{
+color:#fff;
+opacity:.7;
+font-size:13px;
+margin-top:12px;
+line-height:1.5;
+}
+
 @media(max-width:760px){
 
 header{
@@ -325,6 +350,16 @@ grid-template-columns:1fr;
 grid-column:auto;
 }
 
+.header-actions{
+gap:6px;
+}
+
+.home-btn,
+.logout-btn{
+padding:9px 11px;
+font-size:11px;
+}
+
 }
 
 </style>
@@ -340,6 +375,17 @@ ASI NETWORK FRL
 <span>OWNER ADMIN</span>
 </div>
 
+<div class="header-actions">
+
+<a
+id="homeBtn"
+class="home-btn"
+href="/"
+style="display:none;"
+>
+HOME
+</a>
+
 <button
 id="logoutBtn"
 class="logout-btn"
@@ -347,6 +393,8 @@ style="display:none;"
 >
 LOG OUT
 </button>
+
+</div>
 
 </header>
 
@@ -357,25 +405,33 @@ Checking administrator access...
 </div>
 
 
-<div id="loginRequired" class="access-card" style="display:none;">
+<div
+id="loginRequired"
+class="access-card"
+style="display:none;"
+>
 
 <h1>Admin Sign In Required</h1>
 
 <p>
-Sign in through the ASI Network FRL login page before accessing the owner dashboard.
+Sign in with your authorized ASI Network FRL administrator account.
 </p>
 
-<button
+<a
 class="primary-btn"
-onclick="window.location.href='/login.html'"
+href="/login.html?redirect=/admin.html"
 >
 SIGN IN
-</button>
+</a>
 
 </div>
 
 
-<div id="notAdmin" class="access-card" style="display:none;">
+<div
+id="notAdmin"
+class="access-card"
+style="display:none;"
+>
 
 <h1>Administrator Access Only</h1>
 
@@ -383,23 +439,35 @@ SIGN IN
 This area is restricted to authorized ASI Network FRL administrators.
 </p>
 
-<button
+<a
 class="primary-btn"
-onclick="window.location.href='/'"
+href="/"
 >
 RETURN HOME
-</button>
+</a>
+
+<div
+id="adminError"
+class="error-text"
+></div>
 
 </div>
 
 
-<div id="dashboard" class="dashboard">
+<div
+id="dashboard"
+class="dashboard"
+>
 
 <div class="top-title">
 
 <p>ASI NETWORK FRL</p>
 
 <h1>Content Dashboard</h1>
+
+<div class="owner-note">
+Private owner management area
+</div>
 
 </div>
 
@@ -450,12 +518,15 @@ placeholder="Describe the series..."
 disabled
 ></textarea>
 
-<button class="action-btn" disabled>
+<button
+class="action-btn"
+disabled
+>
 CREATE SHOW
 </button>
 
 <p class="notice">
-We will activate this after the secure admin backend is connected.
+Secure show creation will be activated in the next stage.
 </p>
 
 </section>
@@ -483,12 +554,15 @@ placeholder="1"
 disabled
 >
 
-<button class="action-btn" disabled>
+<button
+class="action-btn"
+disabled
+>
 CREATE SEASON
 </button>
 
 <p class="notice">
-This will connect directly to your existing Supabase shows and seasons tables.
+This will connect to your existing shows and seasons database.
 </p>
 
 </section>
@@ -499,7 +573,7 @@ This will connect directly to your existing Supabase shows and seasons tables.
 <h2>Upload New Episode</h2>
 
 <p class="panel-subtitle">
-Eventually this section will upload your finished show directly to Mux and attach it to ASI Network FRL automatically.
+This area will let you upload a finished episode directly to Mux and attach it to ASI Network FRL without manually editing your database.
 </p>
 
 <div class="grid">
@@ -561,11 +635,17 @@ disabled
 </div>
 
 <label>
-<input type="checkbox" disabled>
+<input
+type="checkbox"
+disabled
+>
 Publish when processing is complete
 </label>
 
-<button class="action-btn" disabled>
+<button
+class="action-btn"
+disabled
+>
 UPLOAD EPISODE
 </button>
 
@@ -584,7 +664,10 @@ UPLOAD EPISODE
 Episodes currently stored in your ASI Network FRL database.
 </p>
 
-<div id="episodeList" class="episode-list">
+<div
+id="episodeList"
+class="episode-list"
+>
 
 <div class="empty">
 Loading episodes...
@@ -607,8 +690,9 @@ Loading episodes...
 const SUPABASE_URL =
 "https://gvvtwwrjfscaunczptpv.supabase.co";
 
+
 const SUPABASE_PUBLISHABLE_KEY =
-"sb_publishable_iliNeR5tX_4X4KAh5ZjPpA_e6ueLnP-E";
+"sb_publishable_iliNeR5tX_4X4KAh5ZjPpA_e6ueLnP-";
 
 
 const supabaseClient =
@@ -633,21 +717,43 @@ document.getElementById("dashboard");
 const logoutBtn =
 document.getElementById("logoutBtn");
 
+const homeBtn =
+document.getElementById("homeBtn");
+
+const adminError =
+document.getElementById("adminError");
+
 
 async function loadAdmin(){
+
+try{
 
 const {
 data:{
 session
-}
+},
+error:sessionError
 } =
-await supabaseClient.auth.getSession();
+await supabaseClient
+.auth
+.getSession();
+
+
+if(sessionError){
+
+throw sessionError;
+
+}
 
 
 if(!session){
 
-loading.style.display="none";
-loginRequired.style.display="block";
+loading.style.display =
+"none";
+
+loginRequired.style.display =
+"block";
+
 return;
 
 }
@@ -657,22 +763,9 @@ const user =
 session.user;
 
 
-/*
-IMPORTANT:
-
-The secure administrator check will use
-a Supabase "admins" table.
-
-We will create that table in the next step.
-
-Only accounts placed in that table will
-be allowed to use the real upload controls.
-*/
-
-
 const {
 data:admin,
-error:adminError
+error:adminLookupError
 } =
 await supabaseClient
 .from("admins")
@@ -681,21 +774,71 @@ await supabaseClient
 .maybeSingle();
 
 
-loading.style.display="none";
+loading.style.display =
+"none";
 
 
-if(adminError || !admin){
+if(adminLookupError){
 
-notAdmin.style.display="block";
+console.error(
+"Admin lookup error:",
+adminLookupError
+);
+
+notAdmin.style.display =
+"block";
+
+adminError.textContent =
+"Administrator verification failed.";
+
 return;
 
 }
 
 
-dashboard.style.display="block";
-logoutBtn.style.display="block";
+if(!admin){
+
+notAdmin.style.display =
+"block";
+
+adminError.textContent =
+"This signed-in account is not listed as an ASI Network FRL administrator.";
+
+return;
+
+}
+
+
+dashboard.style.display =
+"block";
+
+logoutBtn.style.display =
+"block";
+
+homeBtn.style.display =
+"inline-block";
+
 
 await loadDashboard();
+
+
+}catch(error){
+
+console.error(
+"Admin page error:",
+error
+);
+
+loading.style.display =
+"none";
+
+notAdmin.style.display =
+"block";
+
+adminError.textContent =
+"Unable to verify administrator access.";
+
+}
 
 }
 
@@ -711,26 +854,43 @@ await Promise.all([
 
 supabaseClient
 .from("shows")
-.select("*",{count:"exact",head:true}),
+.select("*",{
+count:"exact",
+head:true
+}),
 
 supabaseClient
 .from("seasons")
-.select("*",{count:"exact",head:true}),
+.select("*",{
+count:"exact",
+head:true
+}),
 
 supabaseClient
 .from("episodes")
-.select("*",{count:"exact",head:true})
+.select("*",{
+count:"exact",
+head:true
+})
 
 ]);
 
 
-document.getElementById("showCount").textContent =
+document
+.getElementById("showCount")
+.textContent =
 showsResult.count ?? 0;
 
-document.getElementById("seasonCount").textContent =
+
+document
+.getElementById("seasonCount")
+.textContent =
 seasonsResult.count ?? 0;
 
-document.getElementById("episodeCount").textContent =
+
+document
+.getElementById("episodeCount")
+.textContent =
 episodesResult.count ?? 0;
 
 
@@ -747,14 +907,26 @@ title,
 video_id,
 is_published
 `)
-.order("episode_number");
+.order(
+"episode_number",
+{
+ascending:true
+}
+);
 
 
 const list =
-document.getElementById("episodeList");
+document.getElementById(
+"episodeList"
+);
 
 
 if(error){
+
+console.error(
+"Episode load error:",
+error
+);
 
 list.innerHTML =
 '<div class="empty">Unable to load episodes.</div>';
@@ -764,7 +936,10 @@ return;
 }
 
 
-if(!episodes || episodes.length===0){
+if(
+!episodes ||
+episodes.length === 0
+){
 
 list.innerHTML =
 '<div class="empty">No episodes created yet.</div>';
@@ -775,17 +950,21 @@ return;
 
 
 list.innerHTML =
-episodes.map(episode=>{
+episodes
+.map(
+episode=>{
 
-const status =
+const videoStatus =
 episode.video_id
 ? "VIDEO ATTACHED"
 : "NO VIDEO";
 
-const published =
+
+const publishStatus =
 episode.is_published
 ? "PUBLISHED"
 : "DRAFT";
+
 
 return `
 
@@ -795,24 +974,26 @@ return `
 
 <strong>
 Episode ${episode.episode_number}
-${escapeHtml(episode.title || "")}
+${episode.title ? " — " + escapeHtml(episode.title) : ""}
 </strong>
 
 <span>
-${published}
+${publishStatus}
 </span>
 
 </div>
 
 <div class="badge">
-${status}
+${videoStatus}
 </div>
 
 </div>
 
 `;
 
-}).join("");
+}
+)
+.join("");
 
 }
 
@@ -830,13 +1011,18 @@ return String(value)
 }
 
 
-logoutBtn.addEventListener(
+logoutBtn
+.addEventListener(
 "click",
 async()=>{
 
-await supabaseClient.auth.signOut();
+await supabaseClient
+.auth
+.signOut();
 
-window.location.href="/login.html";
+window.location.replace(
+"/login.html"
+);
 
 }
 );
