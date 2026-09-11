@@ -1,25 +1,17 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
->
+<title>ASI Network FRL | Admin</title>
 
-<title>ASI Network FRL | Owner Admin</title>
+<meta name="robots" content="noindex,nofollow">
 
-<meta name="robots" content="noindex, nofollow">
-
-<script
-src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
 *{
 box-sizing:border-box;
 margin:0;
@@ -28,9 +20,14 @@ padding:0;
 
 body{
 background:#050505;
-color:white;
+color:#fff;
 font-family:Arial,Helvetica,sans-serif;
 min-height:100vh;
+}
+
+a{
+color:inherit;
+text-decoration:none;
 }
 
 button,
@@ -44,89 +41,75 @@ button{
 cursor:pointer;
 }
 
-a{
-color:inherit;
-text-decoration:none;
-}
-
 header{
 height:72px;
 padding:0 5%;
-background:#000;
-border-bottom:1px solid #222;
 display:flex;
 align-items:center;
 justify-content:space-between;
+background:#000;
+border-bottom:1px solid #222;
 position:sticky;
 top:0;
-z-index:100;
+z-index:50;
 }
 
-.brand{
+.logo{
 font-weight:900;
 letter-spacing:2px;
 }
 
-.brand small{
+.logo small{
 display:block;
 font-size:10px;
 opacity:.5;
 margin-top:3px;
 }
 
-.header-actions{
+.top-actions{
 display:flex;
 gap:10px;
 }
 
-.header-btn{
-border:1px solid #444;
-background:#080808;
+.top-btn{
+background:#090909;
 color:#fff;
-padding:10px 15px;
+border:1px solid #444;
 border-radius:6px;
+padding:10px 15px;
 font-size:12px;
 }
 
 main{
-width:min(1250px,92%);
-margin:38px auto 80px;
+width:min(1200px,92%);
+margin:35px auto 80px;
 }
 
-.loading{
+#loading{
+text-align:center;
 padding:100px 20px;
-text-align:center;
-opacity:.65;
+opacity:.7;
 }
 
-.access-box{
+.message-box{
 display:none;
-max-width:500px;
-margin:90px auto;
+max-width:520px;
+margin:80px auto;
+padding:30px;
 background:#101010;
-border:1px solid #292929;
+border:1px solid #2a2a2a;
 border-radius:12px;
-padding:35px;
 text-align:center;
 }
 
-.access-box h1{
+.message-box h2{
 margin-bottom:12px;
 }
 
-.access-box p{
+.message-box p{
 opacity:.65;
 line-height:1.5;
-margin-bottom:25px;
-}
-
-.primary-link{
-display:inline-block;
-background:#fff;
-color:#000;
-padding:13px 20px;
-font-weight:900;
-border-radius:6px;
+margin-bottom:20px;
 }
 
 #dashboard{
@@ -134,43 +117,42 @@ display:none;
 }
 
 .hero{
-margin-bottom:32px;
+margin-bottom:30px;
 }
 
-.eyebrow{
-font-size:11px;
+.hero small{
 letter-spacing:3px;
 opacity:.5;
-margin-bottom:8px;
 }
 
 .hero h1{
-font-size:clamp(32px,5vw,54px);
+font-size:clamp(32px,5vw,52px);
+margin-top:8px;
 }
 
 .hero p{
-opacity:.5;
 margin-top:8px;
+opacity:.55;
 }
 
 .stats{
 display:grid;
 grid-template-columns:repeat(3,1fr);
-gap:16px;
-margin-bottom:30px;
+gap:15px;
+margin-bottom:25px;
 }
 
 .stat{
-border:1px solid #222;
-background:#0d0d0d;
 padding:22px;
+border:1px solid #222;
 border-radius:10px;
+background:#0d0d0d;
 }
 
-.stat small{
+.stat span{
 display:block;
-opacity:.5;
 font-size:11px;
+opacity:.5;
 margin-bottom:8px;
 }
 
@@ -178,51 +160,50 @@ margin-bottom:8px;
 font-size:30px;
 }
 
-.layout{
+.grid{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:22px;
+gap:20px;
 }
 
 .panel{
-background:#0e0e0e;
 border:1px solid #222;
+background:#0d0d0d;
 border-radius:12px;
-padding:25px;
+padding:24px;
 }
 
-.full{
+.panel.full{
 grid-column:1/-1;
 }
 
 .panel h2{
-font-size:21px;
-margin-bottom:5px;
+margin-bottom:6px;
 }
 
-.panel-note{
+.note{
 font-size:13px;
 opacity:.5;
 line-height:1.5;
-margin-bottom:20px;
+margin-bottom:18px;
 }
 
 label{
 display:block;
+margin:15px 0 7px;
 font-size:12px;
 font-weight:800;
-margin:16px 0 7px;
 }
 
 input,
 textarea,
 select{
 width:100%;
-background:#050505;
 border:1px solid #333;
-border-radius:6px;
+background:#050505;
 color:#fff;
 padding:13px;
+border-radius:6px;
 outline:none;
 }
 
@@ -237,63 +218,74 @@ select:focus{
 border-color:#888;
 }
 
-.action-btn{
+.action{
 width:100%;
 margin-top:18px;
-padding:14px;
 border:0;
+padding:14px;
 border-radius:6px;
 background:#fff;
 color:#000;
 font-weight:900;
 }
 
-.action-btn:disabled{
+.action:disabled{
 opacity:.35;
 cursor:not-allowed;
 }
 
-.secondary-btn{
-width:100%;
-margin-top:10px;
-padding:12px;
-border:1px solid #444;
-border-radius:6px;
-background:#090909;
-color:#fff;
-font-weight:800;
-}
-
 .status{
 display:none;
-margin-top:15px;
+margin-top:14px;
 padding:12px;
 border:1px solid #333;
+background:#070707;
 border-radius:6px;
-background:#080808;
 font-size:13px;
 line-height:1.5;
 }
 
-.video-box{
-border:1px dashed #444;
-background:#060606;
+.manage-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:22px;
+}
+
+.check-row{
+display:flex;
+gap:10px;
+align-items:center;
+margin-top:18px;
+}
+
+.check-row input{
+width:auto;
+}
+
+.check-row label{
+margin:0;
+}
+
+.file-box{
+margin-top:7px;
+padding:30px 20px;
+border:1px dashed #555;
 border-radius:8px;
-padding:28px;
+background:#060606;
 text-align:center;
 cursor:pointer;
 }
 
-.video-box:hover{
+.file-box:hover{
 border-color:#fff;
 }
 
-.video-box strong{
+.file-box strong{
 display:block;
 margin-bottom:7px;
 }
 
-.video-box span{
+.file-box span{
 font-size:12px;
 opacity:.5;
 }
@@ -302,47 +294,43 @@ opacity:.5;
 display:none;
 }
 
-.file-name{
-font-size:12px;
+#videoFileName{
 margin-top:10px;
+font-size:12px;
 opacity:.75;
 word-break:break-all;
 }
 
-.progress-wrap{
+.progress{
 display:none;
 margin-top:15px;
 }
 
-.progress-track{
+.track{
+width:100%;
 height:10px;
 background:#222;
 border-radius:20px;
 overflow:hidden;
 }
 
-.progress-bar{
+.bar{
 width:0%;
 height:100%;
 background:#fff;
 }
 
-.progress-label{
+#progressText{
 font-size:12px;
 opacity:.6;
 margin-top:7px;
 }
 
-.episode-list{
-margin-top:10px;
-}
-
 .episode-row{
+padding:15px 0;
 border-bottom:1px solid #222;
-padding:16px 0;
 display:flex;
 justify-content:space-between;
-align-items:center;
 gap:15px;
 }
 
@@ -355,98 +343,60 @@ display:block;
 margin-bottom:5px;
 }
 
-.episode-row span{
-font-size:12px;
+.episode-row small{
 opacity:.5;
 }
 
 .badges{
 display:flex;
-gap:7px;
+gap:6px;
+align-items:center;
 flex-wrap:wrap;
 justify-content:flex-end;
 }
 
 .badge{
-border:1px solid #333;
-border-radius:50px;
 padding:6px 9px;
+border:1px solid #444;
+border-radius:30px;
 font-size:10px;
 font-weight:900;
 }
 
-.badge.live{
-border-color:#777;
-}
-
-.manage-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:22px;
-}
-
-.checkbox-row{
-display:flex;
-align-items:center;
-gap:10px;
-margin-top:18px;
-}
-
-.checkbox-row input{
-width:auto;
-}
-
-.empty{
-padding:15px 0;
-font-size:13px;
-opacity:.5;
-}
-
 @media(max-width:800px){
-
 .stats,
-.layout,
+.grid,
 .manage-grid{
 grid-template-columns:1fr;
 }
 
-.full{
+.panel.full{
 grid-column:auto;
 }
 
 header{
 padding:0 4%;
 }
-
 }
-
 </style>
-
 </head>
 
 <body>
 
 <header>
 
-<div class="brand">
+<div class="logo">
 ASI NETWORK FRL
 <small>OWNER ADMIN</small>
 </div>
 
-<div class="header-actions">
+<div class="top-actions">
 
-<a
-class="header-btn"
-href="/"
->
+<a href="/" class="top-btn">
 HOME
 </a>
 
-<button
-id="logoutBtn"
-class="header-btn"
-style="display:none;"
->
+<button id="logoutBtn" class="top-btn" style="display:none;">
 LOG OUT
 </button>
 
@@ -454,52 +404,38 @@ LOG OUT
 
 </header>
 
+
 <main>
 
-<div
-id="loading"
-class="loading"
->
+<div id="loading">
 Checking administrator access...
 </div>
 
 
-<div
-id="loginRequired"
-class="access-box"
->
+<div id="loginBox" class="message-box">
 
-<h1>Admin Sign In Required</h1>
+<h2>Admin Sign In Required</h2>
 
 <p>
-Sign in with your authorized ASI Network FRL administrator account.
+Sign in with your ASI Network FRL administrator account.
 </p>
 
-<a
-class="primary-link"
-href="/login.html?redirect=/admin.html"
->
+<a href="/login.html?redirect=/admin.html" class="top-btn">
 SIGN IN
 </a>
 
 </div>
 
 
-<div
-id="notAdmin"
-class="access-box"
->
+<div id="deniedBox" class="message-box">
 
-<h1>Administrator Access Only</h1>
+<h2>Administrator Access Only</h2>
 
-<p>
-This area is restricted to ASI Network FRL administrators.
+<p id="deniedText">
+This account does not have administrator access.
 </p>
 
-<a
-class="primary-link"
-href="/"
->
+<a href="/" class="top-btn">
 RETURN HOME
 </a>
 
@@ -508,429 +444,270 @@ RETURN HOME
 
 <div id="dashboard">
 
-<section class="hero">
+<div class="hero">
 
-<div class="eyebrow">
-ASI NETWORK FRL
-</div>
+<small>ASI NETWORK FRL</small>
 
-<h1>
-Content Management
-</h1>
+<h1>Content Dashboard</h1>
 
 <p>
-Manage your shows, seasons, episodes and video releases.
+Manage your shows, seasons, episodes and finished video uploads.
 </p>
 
-</section>
+</div>
 
 
-<section class="stats">
+<div class="stats">
 
 <div class="stat">
-<small>SHOWS</small>
+<span>SHOWS</span>
 <strong id="showCount">0</strong>
 </div>
 
 <div class="stat">
-<small>SEASONS</small>
+<span>SEASONS</span>
 <strong id="seasonCount">0</strong>
 </div>
 
 <div class="stat">
-<small>EPISODES</small>
+<span>EPISODES</span>
 <strong id="episodeCount">0</strong>
 </div>
 
-</section>
+</div>
 
 
-<div class="layout">
+<div class="grid">
 
-
-<!-- ==============================
-ADD SHOW
-============================== -->
 
 <section class="panel">
 
 <h2>Add Show</h2>
 
-<p class="panel-note">
-Create a new ASI Network FRL original series.
+<p class="note">
+Create another original series on ASI Network FRL.
 </p>
 
-<label>
-Show Title
-</label>
+<label>Show Title</label>
 
 <input
-id="newShowTitle"
+id="showTitle"
 type="text"
-placeholder="Example: Family Behind The Trauma"
+placeholder="Show title"
 >
 
-
-<label>
-Description
-</label>
+<label>Description</label>
 
 <textarea
-id="newShowDescription"
-placeholder="Describe the series..."
+id="showDescription"
+placeholder="Show description"
 ></textarea>
 
-
-<label>
-Cover / Thumbnail URL
-</label>
+<label>Thumbnail URL</label>
 
 <input
-id="newShowThumbnail"
+id="showThumbnail"
 type="url"
-placeholder="Optional image URL"
+placeholder="Optional"
 >
 
-
-<button
-id="createShowBtn"
-class="action-btn"
->
+<button id="createShowBtn" class="action">
 CREATE SHOW
 </button>
 
-<div
-id="showStatus"
-class="status"
-></div>
+<div id="showStatus" class="status"></div>
 
 </section>
 
-
-<!-- ==============================
-ADD SEASON
-============================== -->
 
 <section class="panel">
 
 <h2>Add Season</h2>
 
-<p class="panel-note">
-Create a new season under one of your existing shows.
+<p class="note">
+Add a new season to an existing show.
 </p>
 
-<label>
-Show
-</label>
+<label>Show</label>
 
-<select id="seasonShowSelect">
-
-<option value="">
-Select show
-</option>
-
+<select id="seasonShow">
+<option value="">Select show</option>
 </select>
 
-
-<label>
-Season Number
-</label>
+<label>Season Number</label>
 
 <input
-id="newSeasonNumber"
+id="seasonNumber"
 type="number"
 min="1"
 placeholder="1"
 >
 
-
-<label>
-Season Title
-</label>
+<label>Season Title</label>
 
 <input
-id="newSeasonTitle"
+id="seasonTitle"
 type="text"
 placeholder="Optional"
 >
 
-
-<button
-id="createSeasonBtn"
-class="action-btn"
->
+<button id="createSeasonBtn" class="action">
 CREATE SEASON
 </button>
 
-<div
-id="seasonStatus"
-class="status"
-></div>
+<div id="seasonStatus" class="status"></div>
 
 </section>
 
-
-<!-- ==============================
-ADD EPISODE
-============================== -->
 
 <section class="panel full">
 
 <h2>Add Episode</h2>
 
-<p class="panel-note">
-Create an episode record first. You can upload the finished video later.
+<p class="note">
+Create the episode record before attaching the finished video.
 </p>
 
 <div class="manage-grid">
 
 <div>
 
-<label>
-Show
-</label>
+<label>Show</label>
 
-<select id="episodeShowSelect">
-
-<option value="">
-Select show
-</option>
-
+<select id="episodeShow">
+<option value="">Select show</option>
 </select>
 
+<label>Season</label>
 
-<label>
-Season
-</label>
-
-<select
-id="newEpisodeSeason"
-disabled
->
-
-<option value="">
-Select season
-</option>
-
+<select id="episodeSeason" disabled>
+<option value="">Select season</option>
 </select>
 
-
-<label>
-Episode Number
-</label>
+<label>Episode Number</label>
 
 <input
-id="newEpisodeNumber"
+id="episodeNumber"
 type="number"
 min="1"
 placeholder="1"
 >
 
-
 </div>
 
 
 <div>
 
-<label>
-Episode Title
-</label>
+<label>Episode Title</label>
 
 <input
-id="newEpisodeTitle"
+id="episodeTitle"
 type="text"
 placeholder="Episode title"
 >
 
-
-<label>
-Description
-</label>
+<label>Description</label>
 
 <textarea
-id="newEpisodeDescription"
-placeholder="Episode description..."
+id="episodeDescription"
+placeholder="Episode description"
 ></textarea>
 
-
-<label>
-Episode Thumbnail URL
-</label>
+<label>Thumbnail URL</label>
 
 <input
-id="newEpisodeThumbnail"
+id="episodeThumbnail"
 type="url"
-placeholder="Optional image URL"
+placeholder="Optional"
 >
-
 
 </div>
 
 </div>
 
-
-<button
-id="createEpisodeBtn"
-class="action-btn"
->
+<button id="createEpisodeBtn" class="action">
 CREATE EPISODE
 </button>
 
-<div
-id="episodeCreateStatus"
-class="status"
-></div>
+<div id="episodeStatus" class="status"></div>
 
 </section>
 
 
-<!-- ==============================
-MANAGE EXISTING EPISODE
-============================== -->
-
 <section class="panel full">
 
-<h2>Manage Episode</h2>
+<h2>Manage Existing Episode</h2>
 
-<p class="panel-note">
-Edit episode information, publish it, or attach a finished video.
+<p class="note">
+Select an episode to edit it, publish it or upload its finished video.
 </p>
-
 
 <div class="manage-grid">
 
 <div>
 
-<label>
-Show
-</label>
+<label>Show</label>
 
 <select id="manageShow">
-
-<option value="">
-Select show
-</option>
-
+<option value="">Select show</option>
 </select>
 
+<label>Season</label>
 
-<label>
-Season
-</label>
-
-<select
-id="manageSeason"
-disabled
->
-
-<option value="">
-Select season
-</option>
-
+<select id="manageSeason" disabled>
+<option value="">Select season</option>
 </select>
 
+<label>Episode</label>
 
-<label>
-Episode
-</label>
-
-<select
-id="manageEpisode"
-disabled
->
-
-<option value="">
-Select episode
-</option>
-
+<select id="manageEpisode" disabled>
+<option value="">Select episode</option>
 </select>
 
+<label>Episode Title</label>
 
-<label>
-Episode Title
-</label>
+<input id="editTitle" type="text">
 
-<input
-id="editEpisodeTitle"
-type="text"
->
+<label>Description</label>
 
+<textarea id="editDescription"></textarea>
 
-<label>
-Description
-</label>
+<label>Thumbnail URL</label>
 
-<textarea
-id="editEpisodeDescription"
-></textarea>
+<input id="editThumbnail" type="url">
 
+<div class="check-row">
 
-<label>
-Thumbnail URL
-</label>
+<input id="editPublished" type="checkbox">
 
-<input
-id="editEpisodeThumbnail"
-type="url"
->
-
-
-<div class="checkbox-row">
-
-<input
-id="editEpisodePublished"
-type="checkbox"
->
-
-<label
-for="editEpisodePublished"
-style="margin:0;"
->
+<label for="editPublished">
 Published
 </label>
 
 </div>
 
-
-<button
-id="saveEpisodeBtn"
-class="action-btn"
-disabled
->
+<button id="saveEpisodeBtn" class="action" disabled>
 SAVE EPISODE
 </button>
 
-<div
-id="editStatus"
-class="status"
-></div>
+<div id="editStatus" class="status"></div>
 
 </div>
 
 
 <div>
 
-<label>
-Finished Episode Video
-</label>
+<label>Finished Episode Video</label>
 
-<div
-id="videoPicker"
-class="video-box"
->
+<div id="videoPicker" class="file-box">
 
-<strong>
-UPLOAD FINISHED EPISODE
-</strong>
+<strong>UPLOAD FINISHED EPISODE</strong>
 
 <span>
-Choose MP4, MOV or another video file
+Click here to choose your video
 </span>
 
-<div
-id="videoFileName"
-class="file-name"
-></div>
+<div id="videoFileName"></div>
 
 </div>
 
@@ -940,56 +717,25 @@ type="file"
 accept="video/*"
 >
 
-
-<button
-id="uploadVideoBtn"
-class="action-btn"
-disabled
->
+<button id="uploadVideoBtn" class="action" disabled>
 UPLOAD VIDEO TO MUX
 </button>
 
 
-<div
-id="progressWrap"
-class="progress-wrap"
->
+<div id="progressBox" class="progress">
 
-<div class="progress-track">
-
-<div
-id="progressBar"
-class="progress-bar"
-></div>
-
+<div class="track">
+<div id="progressBar" class="bar"></div>
 </div>
 
-<div
-id="progressLabel"
-class="progress-label"
->
+<div id="progressText">
 0%
 </div>
 
 </div>
 
 
-<div
-id="uploadStatus"
-class="status"
-></div>
-
-
-<p
-style="
-font-size:12px;
-opacity:.45;
-line-height:1.5;
-margin-top:14px;
-"
->
-Videos are uploaded directly to Mux using your secure Supabase Edge Function.
-</p>
+<div id="uploadStatus" class="status"></div>
 
 </div>
 
@@ -998,27 +744,16 @@ Videos are uploaded directly to Mux using your secure Supabase Edge Function.
 </section>
 
 
-<!-- ==============================
-EXISTING EPISODES
-============================== -->
-
 <section class="panel full">
 
 <h2>Existing Episodes</h2>
 
-<p class="panel-note">
-Everything currently stored in your ASI Network FRL database.
+<p class="note">
+Current episode records inside ASI Network FRL.
 </p>
 
-<div
-id="episodeList"
-class="episode-list"
->
-
-<div class="empty">
+<div id="episodeList">
 Loading episodes...
-</div>
-
 </div>
 
 </section>
@@ -1033,60 +768,33 @@ Loading episodes...
 
 <script>
 
-/* ==============================
-SUPABASE
-============================== */
-
 const SUPABASE_URL =
 "https://gvvtwwrjfscaunczptpv.supabase.co";
 
-
-const SUPABASE_PUBLISHABLE_KEY =
+const SUPABASE_KEY =
 "sb_publishable_iliNeR5tX_4X4KAh5ZjPpA_e6ueLnP-";
 
-
 const db =
-supabase.createClient(
+window.supabase.createClient(
 SUPABASE_URL,
-SUPABASE_PUBLISHABLE_KEY
+SUPABASE_KEY
 );
 
 
 let shows = [];
 let seasons = [];
 let episodes = [];
-
 let selectedVideo = null;
 
 
-/* ==============================
-ELEMENTS
-============================== */
+/* -----------------------------
+HELPERS
+----------------------------- */
 
-const loading =
-document.getElementById("loading");
+function showStatus(id,message){
 
-const loginRequired =
-document.getElementById("loginRequired");
-
-const notAdmin =
-document.getElementById("notAdmin");
-
-const dashboard =
-document.getElementById("dashboard");
-
-const logoutBtn =
-document.getElementById("logoutBtn");
-
-
-/* ==============================
-STATUS HELPER
-============================== */
-
-function status(
-element,
-message
-){
+const element =
+document.getElementById(id);
 
 element.style.display =
 "block";
@@ -1097,18 +805,39 @@ message;
 }
 
 
-/* ==============================
-ADMIN CHECK
-============================== */
+function escapeHtml(value){
 
-async function init(){
+const div =
+document.createElement("div");
 
-const {
-data:{
-session
+div.textContent =
+value ?? "";
+
+return div.innerHTML;
+
 }
-} =
+
+
+/* -----------------------------
+ADMIN LOGIN CHECK
+----------------------------- */
+
+async function initializeAdmin(){
+
+const loading =
+document.getElementById("loading");
+
+try{
+
+const sessionResult =
 await db.auth.getSession();
+
+if(sessionResult.error){
+throw sessionResult.error;
+}
+
+const session =
+sessionResult.data.session;
 
 
 if(!session){
@@ -1116,7 +845,8 @@ if(!session){
 loading.style.display =
 "none";
 
-loginRequired.style.display =
+document.getElementById("loginBox")
+.style.display =
 "block";
 
 return;
@@ -1124,10 +854,7 @@ return;
 }
 
 
-const {
-data:admin,
-error
-} =
+const adminResult =
 await db
 .from("admins")
 .select("user_id")
@@ -1138,13 +865,23 @@ session.user.id
 .maybeSingle();
 
 
+if(adminResult.error){
+
+throw new Error(
+"Admin check failed: " +
+adminResult.error.message
+);
+
+}
+
+
+if(!adminResult.data){
+
 loading.style.display =
 "none";
 
-
-if(error || !admin){
-
-notAdmin.style.display =
+document.getElementById("deniedBox")
+.style.display =
 "block";
 
 return;
@@ -1152,59 +889,90 @@ return;
 }
 
 
-dashboard.style.display =
+loading.style.display =
+"none";
+
+document.getElementById("dashboard")
+.style.display =
 "block";
 
-logoutBtn.style.display =
+document.getElementById("logoutBtn")
+.style.display =
 "block";
 
 
-await reloadEverything();
+await loadEverything();
+
+
+}catch(error){
+
+console.error(
+"Admin initialization error:",
+error
+);
+
+loading.style.display =
+"none";
+
+document.getElementById("deniedText")
+.textContent =
+error.message ||
+"Administrator verification failed.";
+
+document.getElementById("deniedBox")
+.style.display =
+"block";
+
+}
 
 }
 
 
-/* ==============================
-LOAD ALL DATA
-============================== */
+/* -----------------------------
+LOAD DATABASE CONTENT
+----------------------------- */
 
-async function reloadEverything(){
+async function loadEverything(){
 
-const [
-showResult,
-seasonResult,
-episodeResult
-] =
-await Promise.all([
-
-db
+const showResult =
+await db
 .from("shows")
 .select("*")
-.order("created_at"),
-
-db
-.from("seasons")
-.select("*")
-.order("season_number"),
-
-db
-.from("episodes")
-.select("*")
-.order("episode_number")
-
-]);
+.order("created_at",{
+ascending:true
+});
 
 
 if(showResult.error){
-console.error(showResult.error);
+throw showResult.error;
 }
+
+
+const seasonResult =
+await db
+.from("seasons")
+.select("*")
+.order("season_number",{
+ascending:true
+});
+
 
 if(seasonResult.error){
-console.error(seasonResult.error);
+throw seasonResult.error;
 }
 
+
+const episodeResult =
+await db
+.from("episodes")
+.select("*")
+.order("episode_number",{
+ascending:true
+});
+
+
 if(episodeResult.error){
-console.error(episodeResult.error);
+throw episodeResult.error;
 }
 
 
@@ -1218,109 +986,91 @@ episodes =
 episodeResult.data || [];
 
 
-document
-.getElementById("showCount")
+document.getElementById("showCount")
 .textContent =
 shows.length;
 
-
-document
-.getElementById("seasonCount")
+document.getElementById("seasonCount")
 .textContent =
 seasons.length;
 
-
-document
-.getElementById("episodeCount")
+document.getElementById("episodeCount")
 .textContent =
 episodes.length;
 
 
-populateShowMenus();
+fillShowMenus();
 
-renderEpisodes();
+renderEpisodeList();
 
 }
 
 
-/* ==============================
+/* -----------------------------
 SHOW MENUS
-============================== */
+----------------------------- */
 
-function populateShowMenus(){
+function fillShowMenus(){
 
-const html =
+const options =
+shows.map(show => {
 
-'<option value="">Select show</option>' +
-
-shows.map(
-show => `
-
+return `
 <option value="${show.id}">
-${escapeHTML(show.title)}
+${escapeHtml(show.title)}
 </option>
+`;
 
-`
-).join("");
+}).join("");
 
 
-document
-.getElementById("seasonShowSelect")
+[
+"seasonShow",
+"episodeShow",
+"manageShow"
+]
+.forEach(id => {
+
+document.getElementById(id)
 .innerHTML =
-html;
+'<option value="">Select show</option>' +
+options;
 
-
-document
-.getElementById("episodeShowSelect")
-.innerHTML =
-html;
-
-
-document
-.getElementById("manageShow")
-.innerHTML =
-html;
+});
 
 }
 
 
-/* ==============================
+/* -----------------------------
 CREATE SHOW
-============================== */
+----------------------------- */
 
 document
 .getElementById("createShowBtn")
 .addEventListener(
 "click",
-async()=>{
+async function(){
 
 const title =
 document
-.getElementById("newShowTitle")
+.getElementById("showTitle")
 .value.trim();
-
 
 const description =
 document
-.getElementById("newShowDescription")
+.getElementById("showDescription")
 .value.trim();
-
 
 const thumbnail =
 document
-.getElementById("newShowThumbnail")
+.getElementById("showThumbnail")
 .value.trim();
-
-
-const statusBox =
-document
-.getElementById("showStatus");
 
 
 if(!title){
 
-status(
-statusBox,
+showStatus(
+"showStatus",
 "Enter a show title."
 );
 
@@ -1329,20 +1079,18 @@ return;
 }
 
 
-status(
-statusBox,
+showStatus(
+"showStatus",
 "Creating show..."
 );
 
 
-const {
-error
-} =
+const result =
 await db
 .from("shows")
 .insert({
 
-title,
+title:title,
 
 description:
 description || null,
@@ -1350,19 +1098,16 @@ description || null,
 thumbnail_url:
 thumbnail || null,
 
-is_published:
-false
+is_published:false
 
 });
 
 
-if(error){
+if(result.error){
 
-console.error(error);
-
-status(
-statusBox,
-error.message
+showStatus(
+"showStatus",
+result.error.message
 );
 
 return;
@@ -1370,71 +1115,58 @@ return;
 }
 
 
-status(
-statusBox,
+showStatus(
+"showStatus",
 "Show created successfully."
 );
 
 
-document
-.getElementById("newShowTitle")
+document.getElementById("showTitle")
 .value = "";
 
-document
-.getElementById("newShowDescription")
+document.getElementById("showDescription")
 .value = "";
 
-document
-.getElementById("newShowThumbnail")
+document.getElementById("showThumbnail")
 .value = "";
 
 
-await reloadEverything();
+await loadEverything();
 
 }
 );
 
 
-/* ==============================
+/* -----------------------------
 CREATE SEASON
-============================== */
+----------------------------- */
 
 document
 .getElementById("createSeasonBtn")
 .addEventListener(
 "click",
-async()=>{
+async function(){
 
 const showId =
-document
-.getElementById("seasonShowSelect")
+document.getElementById("seasonShow")
 .value;
 
-
-const number =
+const seasonNumber =
 Number(
-document
-.getElementById("newSeasonNumber")
+document.getElementById("seasonNumber")
 .value
 );
 
-
 const title =
-document
-.getElementById("newSeasonTitle")
+document.getElementById("seasonTitle")
 .value.trim();
 
 
-const statusBox =
-document
-.getElementById("seasonStatus");
+if(!showId || !seasonNumber){
 
-
-if(!showId || !number){
-
-status(
-statusBox,
-"Choose a show and season number."
+showStatus(
+"seasonStatus",
+"Choose a show and enter the season number."
 );
 
 return;
@@ -1442,41 +1174,35 @@ return;
 }
 
 
-status(
-statusBox,
+showStatus(
+"seasonStatus",
 "Creating season..."
 );
 
 
-const {
-error
-} =
+const result =
 await db
 .from("seasons")
 .insert({
 
-show_id:
-showId,
+show_id:showId,
 
 season_number:
-number,
+seasonNumber,
 
 title:
 title || null,
 
-is_published:
-false
+is_published:false
 
 });
 
 
-if(error){
+if(result.error){
 
-console.error(error);
-
-status(
-statusBox,
-error.message
+showStatus(
+"seasonStatus",
+result.error.message
 );
 
 return;
@@ -1484,46 +1210,42 @@ return;
 }
 
 
-status(
-statusBox,
+showStatus(
+"seasonStatus",
 "Season created successfully."
 );
 
 
-await reloadEverything();
+await loadEverything();
 
 }
 );
 
 
-/* ==============================
-NEW EPISODE SHOW
-============================== */
+/* -----------------------------
+NEW EPISODE SHOW SELECT
+----------------------------- */
 
 document
-.getElementById("episodeShowSelect")
+.getElementById("episodeShow")
 .addEventListener(
 "change",
-()=>{
+function(){
 
 const showId =
-document
-.getElementById("episodeShowSelect")
-.value;
+this.value;
+
+const menu =
+document.getElementById("episodeSeason");
 
 
-const seasonSelect =
-document
-.getElementById("newEpisodeSeason");
-
-
-seasonSelect.innerHTML =
+menu.innerHTML =
 '<option value="">Select season</option>';
 
 
 if(!showId){
 
-seasonSelect.disabled =
+menu.disabled =
 true;
 
 return;
@@ -1531,89 +1253,81 @@ return;
 }
 
 
-const matches =
+const matching =
 seasons.filter(
 season =>
 season.show_id === showId
 );
 
 
-seasonSelect.innerHTML +=
+matching.forEach(
+season => {
 
-matches.map(
-season => `
+const option =
+document.createElement("option");
 
-<option value="${season.id}">
-Season ${season.season_number}
-</option>
+option.value =
+season.id;
 
-`
-).join("");
+option.textContent =
+"Season " +
+season.season_number;
+
+menu.appendChild(option);
+
+}
+);
 
 
-seasonSelect.disabled =
+menu.disabled =
 false;
 
 }
 );
 
 
-/* ==============================
+/* -----------------------------
 CREATE EPISODE
-============================== */
+----------------------------- */
 
 document
 .getElementById("createEpisodeBtn")
 .addEventListener(
 "click",
-async()=>{
+async function(){
 
 const seasonId =
-document
-.getElementById("newEpisodeSeason")
+document.getElementById("episodeSeason")
 .value;
 
-
-const number =
+const episodeNumber =
 Number(
-document
-.getElementById("newEpisodeNumber")
+document.getElementById("episodeNumber")
 .value
 );
 
-
 const title =
-document
-.getElementById("newEpisodeTitle")
+document.getElementById("episodeTitle")
 .value.trim();
-
 
 const description =
-document
-.getElementById("newEpisodeDescription")
+document.getElementById("episodeDescription")
 .value.trim();
-
 
 const thumbnail =
-document
-.getElementById("newEpisodeThumbnail")
+document.getElementById("episodeThumbnail")
 .value.trim();
-
-
-const statusBox =
-document
-.getElementById("episodeCreateStatus");
 
 
 if(
 !seasonId ||
-!number ||
+!episodeNumber ||
 !title
 ){
 
-status(
-statusBox,
-"Choose a season and enter an episode number and title."
+showStatus(
+"episodeStatus",
+"Choose a season and enter the episode number and title."
 );
 
 return;
@@ -1621,15 +1335,13 @@ return;
 }
 
 
-status(
-statusBox,
+showStatus(
+"episodeStatus",
 "Creating episode..."
 );
 
 
-const {
-error
-} =
+const result =
 await db
 .from("episodes")
 .insert({
@@ -1638,9 +1350,9 @@ season_id:
 seasonId,
 
 episode_number:
-number,
+episodeNumber,
 
-title,
+title:title,
 
 description:
 description || null,
@@ -1648,22 +1360,18 @@ description || null,
 thumbnail_url:
 thumbnail || null,
 
-video_id:
-null,
+video_id:null,
 
-is_published:
-false
+is_published:false
 
 });
 
 
-if(error){
+if(result.error){
 
-console.error(error);
-
-status(
-statusBox,
-error.message
+showStatus(
+"episodeStatus",
+result.error.message
 );
 
 return;
@@ -1671,57 +1379,48 @@ return;
 }
 
 
-status(
-statusBox,
+showStatus(
+"episodeStatus",
 "Episode created successfully."
 );
 
 
-await reloadEverything();
+await loadEverything();
 
 }
 );
 
 
-/* ==============================
-MANAGE SHOW
-============================== */
+/* -----------------------------
+MANAGE SHOW SELECT
+----------------------------- */
 
 document
 .getElementById("manageShow")
 .addEventListener(
 "change",
-()=>{
+function(){
 
 const showId =
-document
-.getElementById("manageShow")
-.value;
-
+this.value;
 
 const seasonMenu =
-document
-.getElementById("manageSeason");
-
+document.getElementById("manageSeason");
 
 const episodeMenu =
-document
-.getElementById("manageEpisode");
+document.getElementById("manageEpisode");
 
 
 seasonMenu.innerHTML =
 '<option value="">Select season</option>';
 
-
 episodeMenu.innerHTML =
 '<option value="">Select episode</option>';
-
 
 episodeMenu.disabled =
 true;
 
-
-clearManagedEpisode();
+clearEpisodeEditor();
 
 
 if(!showId){
@@ -1734,24 +1433,30 @@ return;
 }
 
 
-const matches =
+const matching =
 seasons.filter(
 season =>
 season.show_id === showId
 );
 
 
-seasonMenu.innerHTML +=
+matching.forEach(
+season => {
 
-matches.map(
-season => `
+const option =
+document.createElement("option");
 
-<option value="${season.id}">
-Season ${season.season_number}
-</option>
+option.value =
+season.id;
 
-`
-).join("");
+option.textContent =
+"Season " +
+season.season_number;
+
+seasonMenu.appendChild(option);
+
+}
+);
 
 
 seasonMenu.disabled =
@@ -1761,32 +1466,27 @@ false;
 );
 
 
-/* ==============================
-MANAGE SEASON
-============================== */
+/* -----------------------------
+MANAGE SEASON SELECT
+----------------------------- */
 
 document
 .getElementById("manageSeason")
 .addEventListener(
 "change",
-()=>{
+function(){
 
 const seasonId =
-document
-.getElementById("manageSeason")
-.value;
-
+this.value;
 
 const episodeMenu =
-document
-.getElementById("manageEpisode");
+document.getElementById("manageEpisode");
 
 
 episodeMenu.innerHTML =
 '<option value="">Select episode</option>';
 
-
-clearManagedEpisode();
+clearEpisodeEditor();
 
 
 if(!seasonId){
@@ -1799,24 +1499,32 @@ return;
 }
 
 
-const matches =
+const matching =
 episodes.filter(
 episode =>
 episode.season_id === seasonId
 );
 
 
-episodeMenu.innerHTML +=
+matching.forEach(
+episode => {
 
-matches.map(
-episode => `
+const option =
+document.createElement("option");
 
-<option value="${episode.id}">
-Episode ${episode.episode_number} — ${escapeHTML(episode.title || "")}
-</option>
+option.value =
+episode.id;
 
-`
-).join("");
+option.textContent =
+"Episode " +
+episode.episode_number +
+" — " +
+(episode.title || "");
+
+episodeMenu.appendChild(option);
+
+}
+);
 
 
 episodeMenu.disabled =
@@ -1826,72 +1534,62 @@ false;
 );
 
 
-/* ==============================
-MANAGE EPISODE
-============================== */
+/* -----------------------------
+MANAGE EPISODE SELECT
+----------------------------- */
 
 document
 .getElementById("manageEpisode")
 .addEventListener(
 "change",
-()=>{
+function(){
 
 const episode =
-getManagedEpisode();
+getSelectedEpisode();
 
 
 if(!episode){
 
-clearManagedEpisode();
+clearEpisodeEditor();
 
 return;
 
 }
 
 
-document
-.getElementById("editEpisodeTitle")
+document.getElementById("editTitle")
 .value =
 episode.title || "";
 
-
-document
-.getElementById("editEpisodeDescription")
+document.getElementById("editDescription")
 .value =
 episode.description || "";
 
-
-document
-.getElementById("editEpisodeThumbnail")
+document.getElementById("editThumbnail")
 .value =
 episode.thumbnail_url || "";
 
-
-document
-.getElementById("editEpisodePublished")
+document.getElementById("editPublished")
 .checked =
 episode.is_published === true;
 
 
-document
-.getElementById("saveEpisodeBtn")
+document.getElementById("saveEpisodeBtn")
 .disabled =
 false;
 
 
-updateUploadButton();
+updateVideoButton();
 
 }
 );
 
 
-function getManagedEpisode(){
+function getSelectedEpisode(){
 
 const id =
-document
-.getElementById("manageEpisode")
+document.getElementById("manageEpisode")
 .value;
-
 
 return episodes.find(
 episode =>
@@ -1901,47 +1599,41 @@ episode.id === id
 }
 
 
-function clearManagedEpisode(){
+function clearEpisodeEditor(){
 
-document
-.getElementById("editEpisodeTitle")
+document.getElementById("editTitle")
 .value = "";
 
-document
-.getElementById("editEpisodeDescription")
+document.getElementById("editDescription")
 .value = "";
 
-document
-.getElementById("editEpisodeThumbnail")
+document.getElementById("editThumbnail")
 .value = "";
 
-document
-.getElementById("editEpisodePublished")
+document.getElementById("editPublished")
 .checked = false;
 
-document
-.getElementById("saveEpisodeBtn")
+document.getElementById("saveEpisodeBtn")
 .disabled = true;
 
-document
-.getElementById("uploadVideoBtn")
+document.getElementById("uploadVideoBtn")
 .disabled = true;
 
 }
 
 
-/* ==============================
+/* -----------------------------
 SAVE EPISODE
-============================== */
+----------------------------- */
 
 document
 .getElementById("saveEpisodeBtn")
 .addEventListener(
 "click",
-async()=>{
+async function(){
 
 const episode =
-getManagedEpisode();
+getSelectedEpisode();
 
 
 if(!episode){
@@ -1949,58 +1641,36 @@ return;
 }
 
 
-const title =
-document
-.getElementById("editEpisodeTitle")
-.value.trim();
-
-
-const description =
-document
-.getElementById("editEpisodeDescription")
-.value.trim();
-
-
-const thumbnail =
-document
-.getElementById("editEpisodeThumbnail")
-.value.trim();
-
-
-const published =
-document
-.getElementById("editEpisodePublished")
-.checked;
-
-
-const statusBox =
-document
-.getElementById("editStatus");
-
-
-status(
-statusBox,
+showStatus(
+"editStatus",
 "Saving episode..."
 );
 
 
-const {
-error
-} =
+const result =
 await db
 .from("episodes")
 .update({
 
-title,
+title:
+document
+.getElementById("editTitle")
+.value.trim(),
 
 description:
-description || null,
+document
+.getElementById("editDescription")
+.value.trim() || null,
 
 thumbnail_url:
-thumbnail || null,
+document
+.getElementById("editThumbnail")
+.value.trim() || null,
 
 is_published:
-published
+document
+.getElementById("editPublished")
+.checked
 
 })
 .eq(
@@ -2009,13 +1679,11 @@ episode.id
 );
 
 
-if(error){
+if(result.error){
 
-console.error(error);
-
-status(
-statusBox,
-error.message
+showStatus(
+"editStatus",
+result.error.message
 );
 
 return;
@@ -2023,48 +1691,47 @@ return;
 }
 
 
-status(
-statusBox,
+showStatus(
+"editStatus",
 "Episode saved successfully."
 );
 
 
-await reloadEverything();
+await loadEverything();
 
 }
 );
 
 
-/* ==============================
-VIDEO FILE
-============================== */
+/* -----------------------------
+VIDEO PICKER
+----------------------------- */
 
-const videoPicker =
-document.getElementById("videoPicker");
-
-
-const videoInput =
-document.getElementById("videoInput");
-
-
-videoPicker
+document
+.getElementById("videoPicker")
 .addEventListener(
 "click",
-()=>{
+function(){
 
-videoInput.click();
+document
+.getElementById("videoInput")
+.click();
 
 }
 );
 
 
-videoInput
+document
+.getElementById("videoInput")
 .addEventListener(
 "change",
-()=>{
+function(){
 
 selectedVideo =
-videoInput.files?.[0] || null;
+this.files &&
+this.files.length
+? this.files[0]
+: null;
 
 
 document
@@ -2075,41 +1742,41 @@ selectedVideo
 : "";
 
 
-updateUploadButton();
+updateVideoButton();
 
 }
 );
 
 
-function updateUploadButton(){
+function updateVideoButton(){
+
+const episode =
+getSelectedEpisode();
+
 
 document
 .getElementById("uploadVideoBtn")
 .disabled =
 !(
-getManagedEpisode() &&
+episode &&
 selectedVideo
 );
 
 }
 
 
-/* ==============================
-MUX UPLOAD
-============================== */
+/* -----------------------------
+START MUX UPLOAD
+----------------------------- */
 
 document
 .getElementById("uploadVideoBtn")
 .addEventListener(
 "click",
-uploadVideo
-);
-
-
-async function uploadVideo(){
+async function(){
 
 const episode =
-getManagedEpisode();
+getSelectedEpisode();
 
 
 if(
@@ -2121,44 +1788,36 @@ return;
 
 
 const button =
-document
-.getElementById("uploadVideoBtn");
-
-
-const statusBox =
-document
-.getElementById("uploadStatus");
+document.getElementById("uploadVideoBtn");
 
 
 button.disabled =
 true;
 
-
 button.textContent =
-"PREPARING...";
+"PREPARING UPLOAD...";
 
 
-status(
-statusBox,
-"Preparing secure Mux upload..."
+showStatus(
+"uploadStatus",
+"Creating secure Mux upload..."
 );
 
 
 try{
 
 
-const {
-data:{
-session
-}
-} =
+const sessionResult =
 await db.auth.getSession();
+
+const session =
+sessionResult.data.session;
 
 
 if(!session){
 
 throw new Error(
-"Admin session expired."
+"Your admin login expired. Sign in again."
 );
 
 }
@@ -2166,14 +1825,11 @@ throw new Error(
 
 const response =
 await fetch(
-
 SUPABASE_URL +
 "/functions/v1/asi-mux-upload",
-
 {
 
-method:
-"POST",
+method:"POST",
 
 headers:{
 
@@ -2185,7 +1841,7 @@ headers:{
 session.access_token,
 
 "apikey":
-SUPABASE_PUBLISHABLE_KEY
+SUPABASE_KEY
 
 },
 
@@ -2193,59 +1849,52 @@ body:
 JSON.stringify({
 
 episodeId:
-episode.id,
-
-title:
-episode.title ||
-`Episode ${episode.episode_number}`
+episode.id
 
 })
 
 }
-
 );
 
 
-const result =
+const data =
 await response.json();
 
 
 if(!response.ok){
 
 throw new Error(
-
-result.error ||
-"Unable to create Mux upload."
-
+data.error ||
+"Could not prepare the Mux upload."
 );
 
 }
 
 
-if(!result.uploadUrl){
+if(!data.uploadUrl){
 
 throw new Error(
-"No Mux upload URL was returned."
+"Mux did not return an upload URL."
 );
 
 }
 
 
-status(
-statusBox,
-"Uploading video directly to Mux..."
+showStatus(
+"uploadStatus",
+"Uploading video to Mux..."
 );
 
 
-await sendFileToMux(
-result.uploadUrl,
+await uploadFile(
+data.uploadUrl,
 selectedVideo
 );
 
 
-status(
-statusBox,
-"Upload complete. Mux is processing the video."
+showStatus(
+"uploadStatus",
+"Upload complete. Mux is now processing the video. Do not delete the episode record."
 );
 
 
@@ -2257,17 +1906,14 @@ button.textContent =
 
 console.error(error);
 
-
-status(
-statusBox,
+showStatus(
+"uploadStatus",
 error.message ||
-"Video upload failed."
+"Upload failed."
 );
-
 
 button.disabled =
 false;
-
 
 button.textContent =
 "UPLOAD VIDEO TO MUX";
@@ -2275,19 +1921,20 @@ button.textContent =
 }
 
 }
+);
 
 
-/* ==============================
-UPLOAD PROGRESS
-============================== */
+/* -----------------------------
+UPLOAD FILE WITH PROGRESS
+----------------------------- */
 
-function sendFileToMux(
+function uploadFile(
 url,
 file
 ){
 
 return new Promise(
-(resolve,reject)=>{
+(resolve,reject) => {
 
 const xhr =
 new XMLHttpRequest();
@@ -2307,29 +1954,22 @@ file.type ||
 );
 
 
-const wrap =
-document
-.getElementById("progressWrap");
+const progressBox =
+document.getElementById("progressBox");
+
+const progressBar =
+document.getElementById("progressBar");
+
+const progressText =
+document.getElementById("progressText");
 
 
-const bar =
-document
-.getElementById("progressBar");
-
-
-const label =
-document
-.getElementById("progressLabel");
-
-
-wrap.style.display =
+progressBox.style.display =
 "block";
 
 
-xhr.upload
-.addEventListener(
-"progress",
-event=>{
+xhr.upload.onprogress =
+function(event){
 
 if(!event.lengthComputable){
 return;
@@ -2338,25 +1978,23 @@ return;
 
 const percent =
 Math.round(
-(event.loaded /
-event.total) *
+event.loaded /
+event.total *
 100
 );
 
 
-bar.style.width =
+progressBar.style.width =
 percent + "%";
 
-
-label.textContent =
+progressText.textContent =
 percent + "%";
 
-}
-);
+};
 
 
 xhr.onload =
-()=>{
+function(){
 
 if(
 xhr.status >= 200 &&
@@ -2369,7 +2007,7 @@ resolve();
 
 reject(
 new Error(
-"Mux upload failed."
+"Video upload to Mux failed."
 )
 );
 
@@ -2379,11 +2017,11 @@ new Error(
 
 
 xhr.onerror =
-()=>{
+function(){
 
 reject(
 new Error(
-"Network error during Mux upload."
+"Network error while uploading video."
 )
 );
 
@@ -2398,63 +2036,94 @@ xhr.send(file);
 }
 
 
-/* ==============================
+/* -----------------------------
 EPISODE LIST
-============================== */
+----------------------------- */
 
-function renderEpisodes(){
+function renderEpisodeList(){
 
-const list =
+const container =
 document.getElementById("episodeList");
 
 
 if(!episodes.length){
 
-list.innerHTML =
-'<div class="empty">No episodes yet.</div>';
+container.innerHTML =
+"<p>No episodes currently exist.</p>";
 
 return;
 
 }
 
 
-list.innerHTML =
-
+container.innerHTML =
 episodes.map(
-episode => `
+episode => {
+
+return `
 
 <div class="episode-row">
 
 <div>
 
 <strong>
-Episode ${episode.episode_number} — ${escapeHTML(episode.title || "")}
+Episode ${episode.episode_number} — ${escapeHtml(episode.title || "")}
 </strong>
 
-<span>
-${episode.is_published
-? "PUBLISHED"
-: "DRAFT"
-}
-</span>
+<small>
+${episode.is_published ? "PUBLISHED" : "DRAFT"}
+</small>
 
 </div>
 
 <div class="badges">
 
-<div class="badge">
-${episode.video_id
-? "VIDEO ATTACHED"
-: "NO VIDEO"
-}
+<span class="badge">
+${episode.video_id ? "VIDEO ATTACHED" : "NO VIDEO"}
+</span>
+
+<span class="badge">
+${episode.is_published ? "LIVE" : "NOT LIVE"}
+</span>
+
 </div>
 
-<div class="badge ${episode.is_published ? "live" : ""}">
-${episode.is_published
-? "LIVE"
-: "NOT LIVE"
-}
 </div>
-...
 
-[Message clipped]  Entire message not available offline
+`;
+
+}
+).join("");
+
+}
+
+
+/* -----------------------------
+LOGOUT
+----------------------------- */
+
+document
+.getElementById("logoutBtn")
+.addEventListener(
+"click",
+async function(){
+
+await db.auth.signOut();
+
+window.location.href =
+"/login.html";
+
+}
+);
+
+
+/* -----------------------------
+START
+----------------------------- */
+
+initializeAdmin();
+
+</script>
+
+</body>
+</html>
