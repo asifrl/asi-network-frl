@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
 
 <meta
@@ -88,22 +87,44 @@ HERO
 ========================= */
 
 .hero{
-min-height:82vh;
-padding:150px 7% 80px;
+min-height:85vh;
+padding:145px 7% 80px;
 display:flex;
-align-items:center;
+align-items:flex-end;
+position:relative;
+overflow:hidden;
 background:
 linear-gradient(
 90deg,
 rgba(0,0,0,1) 0%,
-rgba(0,0,0,.96) 50%,
-rgba(10,10,10,.88) 100%
+rgba(0,0,0,.92) 45%,
+rgba(10,10,10,.72) 100%
+),
+radial-gradient(
+circle at 75% 35%,
+rgba(255,255,255,.08),
+transparent 32%
 );
 border-bottom:1px solid rgba(255,255,255,.08);
 }
 
+.hero::after{
+content:"";
+position:absolute;
+inset:0;
+background:
+linear-gradient(
+0deg,
+#050505 0%,
+transparent 35%
+);
+pointer-events:none;
+}
+
 .hero-content{
-max-width:850px;
+position:relative;
+z-index:2;
+max-width:900px;
 }
 
 .eyebrow{
@@ -111,7 +132,7 @@ font-size:12px;
 letter-spacing:5px;
 font-weight:900;
 color:#9a9a9a;
-margin-bottom:20px;
+margin-bottom:18px;
 }
 
 .hero h1{
@@ -119,22 +140,38 @@ font-size:clamp(52px,8vw,110px);
 line-height:.88;
 font-weight:900;
 text-transform:uppercase;
-margin-bottom:28px;
+margin-bottom:24px;
 }
 
 .hero h2{
-font-size:clamp(18px,2vw,29px);
+font-size:clamp(18px,2vw,28px);
 letter-spacing:2px;
 text-transform:uppercase;
-margin-bottom:18px;
+margin-bottom:16px;
 }
 
 .hero p{
 max-width:720px;
 font-size:16px;
 line-height:1.7;
-color:#b5b5b5;
+color:#b7b7b7;
 margin-bottom:30px;
+}
+
+.hero-meta{
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+margin-bottom:28px;
+font-size:12px;
+font-weight:900;
+letter-spacing:1px;
+color:#aaa;
+}
+
+.hero-meta span{
+border:1px solid #333;
+padding:8px 11px;
 }
 
 .hero-buttons{
@@ -174,7 +211,7 @@ color:#000;
 
 
 /* =========================
-SHOWS / EPISODES
+SECTIONS
 ========================= */
 
 .section{
@@ -203,8 +240,50 @@ margin-bottom:18px;
 color:#aaa;
 max-width:800px;
 line-height:1.7;
-margin-bottom:45px;
+margin-bottom:42px;
 }
+
+
+/* =========================
+SHOW FEATURE
+========================= */
+
+.show-feature{
+display:grid;
+grid-template-columns:1.1fr .9fr;
+gap:28px;
+align-items:stretch;
+}
+
+.show-panel{
+background:
+linear-gradient(
+135deg,
+#101010,
+#181818
+);
+border:1px solid #262626;
+padding:40px;
+min-height:280px;
+display:flex;
+flex-direction:column;
+justify-content:flex-end;
+}
+
+.show-panel h3{
+font-size:36px;
+margin-bottom:12px;
+}
+
+.show-panel p{
+color:#aaa;
+line-height:1.7;
+}
+
+
+/* =========================
+EPISODES
+========================= */
 
 .season-title{
 font-size:25px;
@@ -216,20 +295,20 @@ letter-spacing:2px;
 .episode-grid{
 display:grid;
 grid-template-columns:
-repeat(auto-fit,minmax(260px,1fr));
+repeat(auto-fit,minmax(280px,1fr));
 gap:24px;
 }
 
 .episode-card{
-background:#101010;
+background:#0d0d0d;
 border:1px solid #252525;
 overflow:hidden;
-transition:.2s;
+transition:.22s;
 }
 
 .episode-card:hover{
-transform:translateY(-3px);
-border-color:#555;
+transform:translateY(-4px);
+border-color:#565656;
 }
 
 .episode-image{
@@ -238,13 +317,14 @@ aspect-ratio:16/9;
 background:
 linear-gradient(
 135deg,
-#151515,
-#2a2a2a
+#181818,
+#2d2d2d
 );
 display:flex;
 align-items:center;
 justify-content:center;
 overflow:hidden;
+position:relative;
 }
 
 .episode-image img{
@@ -253,11 +333,32 @@ height:100%;
 object-fit:cover;
 }
 
-.placeholder-logo{
-font-size:18px;
-font-weight:900;
+.placeholder-art{
+position:absolute;
+inset:0;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+gap:10px;
+background:
+radial-gradient(
+circle at center,
+rgba(255,255,255,.08),
+rgba(0,0,0,.2) 42%,
+rgba(0,0,0,.65) 100%
+);
+}
+
+.placeholder-art strong{
+font-size:19px;
 letter-spacing:2px;
-color:#777;
+}
+
+.placeholder-art span{
+font-size:11px;
+letter-spacing:3px;
+color:#8d8d8d;
 }
 
 .episode-body{
@@ -273,7 +374,7 @@ margin-bottom:10px;
 }
 
 .episode-title{
-font-size:20px;
+font-size:21px;
 font-weight:900;
 margin-bottom:11px;
 }
@@ -283,6 +384,18 @@ font-size:14px;
 line-height:1.6;
 color:#aaa;
 min-height:44px;
+}
+
+.episode-status{
+display:inline-block;
+margin-top:20px;
+border:1px solid #444;
+padding:10px 14px;
+font-size:11px;
+font-weight:900;
+letter-spacing:1.5px;
+color:#b5b5b5;
+text-transform:uppercase;
 }
 
 .watch-button{
@@ -300,15 +413,6 @@ letter-spacing:.8px;
 background:#ccc;
 }
 
-.no-video{
-margin-top:20px;
-font-size:11px;
-letter-spacing:1.4px;
-font-weight:800;
-color:#777;
-text-transform:uppercase;
-}
-
 
 /* =========================
 SUBSCRIBE
@@ -317,7 +421,12 @@ SUBSCRIBE
 .subscribe{
 padding:95px 7%;
 text-align:center;
-background:#0b0b0b;
+background:
+linear-gradient(
+180deg,
+#0a0a0a,
+#050505
+);
 border-top:1px solid #222;
 border-bottom:1px solid #222;
 }
@@ -376,10 +485,14 @@ flex-wrap:wrap;
 MOBILE
 ========================= */
 
-@media(max-width:760px){
+@media(max-width:800px){
 
 nav{
 padding:0 5%;
+}
+
+.nav-links{
+gap:15px;
 }
 
 .nav-links a:nth-child(1),
@@ -388,8 +501,8 @@ display:none;
 }
 
 .hero{
-min-height:auto;
-padding:135px 6% 75px;
+min-height:76vh;
+padding:130px 6% 70px;
 }
 
 .hero h1{
@@ -400,6 +513,14 @@ font-size:52px;
 padding:60px 6%;
 }
 
+.show-feature{
+grid-template-columns:1fr;
+}
+
+.show-panel{
+padding:28px;
+}
+
 .subscribe{
 padding:75px 6%;
 }
@@ -407,16 +528,11 @@ padding:75px 6%;
 }
 
 </style>
-
 </head>
 
 
 <body>
 
-
-<!-- =========================
-NAV
-========================= -->
 
 <nav>
 
@@ -449,7 +565,6 @@ SIGN IN
 
 <!-- =========================
 HERO
-NO TRAILER / NO VIDEO
 ========================= -->
 
 <section class="hero">
@@ -470,11 +585,26 @@ THE TRAUMA
 Original Reality Series
 </h2>
 
+<div class="hero-meta">
+
+<span>
+SEASON 1
+</span>
+
+<span>
+REALITY
+</span>
+
+<span>
+ASI ORIGINAL
+</span>
+
+</div>
+
 <p>
-An unfiltered look at family, relationships,
-experiences, conflict, healing and real life.
-Watch original episodes exclusively on
-ASI Network FRL.
+An unfiltered reality series centered around
+family, relationships, conflict, healing and the
+real experiences behind the people you see on screen.
 </p>
 
 <div class="hero-buttons">
@@ -502,7 +632,7 @@ SUBSCRIBE — $5.99
 
 
 <!-- =========================
-SHOW
+SHOWS
 ========================= -->
 
 <section
@@ -511,19 +641,53 @@ class="section section-dark"
 >
 
 <div class="section-title-small">
-ASI ORIGINAL
+ASI ORIGINALS
 </div>
 
 <h2>
-Family Behind The Trauma
+Featured Series
 </h2>
 
-<p class="show-description">
-Family Behind The Trauma follows real family
-experiences with an unfiltered look at the
-relationships, emotions and moments behind
-the story.
+<div class="show-feature">
+
+<div class="show-panel">
+
+<div class="section-title-small">
+ORIGINAL REALITY SERIES
+</div>
+
+<h3>
+Family Behind The Trauma
+</h3>
+
+<p>
+Real family. Real conflict. Real stories.
+Family Behind The Trauma follows the people,
+relationships and experiences behind the moments
+you don't normally get to see.
 </p>
+
+</div>
+
+<div class="show-panel">
+
+<div class="section-title-small">
+ASI NETWORK FRL
+</div>
+
+<h3>
+More Originals Coming
+</h3>
+
+<p>
+New original shows, new cast members and new
+stories will be added to ASI Network FRL as
+the network grows.
+</p>
+
+</div>
+
+</div>
 
 </section>
 
@@ -539,12 +703,18 @@ class="section"
 >
 
 <div class="section-title-small">
-WATCH
+STREAMING
 </div>
 
 <h2>
 Episodes
 </h2>
+
+<p class="show-description">
+Watch published episodes of Family Behind The Trauma.
+New episodes appear here automatically when they are
+released.
+</p>
 
 <div id="episodeArea">
 
@@ -568,7 +738,7 @@ class="subscribe"
 >
 
 <div class="section-title-small">
-ASI NETWORK FRL
+JOIN ASI NETWORK FRL
 </div>
 
 <h2>
@@ -576,9 +746,9 @@ Watch ASI Originals
 </h2>
 
 <p>
-Subscribe to ASI Network FRL for access
-to original reality entertainment,
-exclusive episodes and future ASI shows.
+Subscribe for access to original reality
+entertainment, exclusive episodes and future
+ASI Network FRL shows.
 </p>
 
 <div class="price">
@@ -619,7 +789,7 @@ class="about"
 >
 
 <div class="section-title-small">
-ABOUT
+ABOUT THE NETWORK
 </div>
 
 <h2 style="
@@ -630,10 +800,10 @@ ASI Network FRL
 </h2>
 
 <p>
-ASI Network FRL is an independent
-subscription-based entertainment network
-featuring original reality programming,
-real stories and exclusive content.
+ASI Network FRL is an independent subscription-based
+entertainment network featuring original reality
+programming, exclusive stories and new series created
+for the ASI audience.
 </p>
 
 </section>
@@ -661,12 +831,10 @@ const SUPABASE_URL =
 
 
 /*
-IMPORTANT:
+Use the SAME publishable key already
+used in your current index.html.
 
-Paste the SAME Supabase publishable key
-already used in your current ASI website.
-
-DO NOT put a service-role key here.
+DO NOT use a service-role key.
 */
 
 const SUPABASE_PUBLISHABLE_KEY =
@@ -703,10 +871,6 @@ document.getElementById("episodeArea");
 try{
 
 
-/* =========================
-GET FAMILY BEHIND THE TRAUMA
-========================= */
-
 const {
 data: show,
 error: showError
@@ -736,9 +900,6 @@ return;
 }
 
 
-/* =========================
-GET PUBLISHED SEASONS
-========================= */
 
 const {
 data: seasons,
@@ -786,9 +947,6 @@ return;
 episodeArea.innerHTML = "";
 
 
-/* =========================
-LOAD EPISODES FOR EACH SEASON
-========================= */
 
 for(
 const season
@@ -896,6 +1054,7 @@ episode.thumbnail_url
 
 `
 <div class="episode-image">
+
 <img
 src="${escapeHtml(
 episode.thumbnail_url
@@ -904,6 +1063,7 @@ alt="${escapeHtml(
 episode.title
 )}"
 >
+
 </div>
 `
 
@@ -911,22 +1071,23 @@ episode.title
 
 `
 <div class="episode-image">
-<div class="placeholder-logo">
+
+<div class="placeholder-art">
+
+<strong>
 ASI NETWORK FRL
+</strong>
+
+<span>
+ORIGINAL SERIES
+</span>
+
 </div>
+
 </div>
 `;
 
 
-/*
-If video_id is empty,
-the episode record stays visible,
-but WATCH is hidden.
-
-When you upload the new video
-and add its Playback ID to video_id,
-the WATCH button automatically returns.
-*/
 
 const actionHtml =
 episode.video_id
@@ -945,10 +1106,11 @@ WATCH NOW
 :
 
 `
-<div class="no-video">
-Video not currently attached
+<div class="episode-status">
+COMING SOON
 </div>
 `;
+
 
 
 card.innerHTML = `
@@ -980,7 +1142,6 @@ episode.description ||
 ${actionHtml}
 
 </div>
-
 `;
 
 
@@ -1034,7 +1195,6 @@ Episodes could not be loaded.
 loadEpisodes();
 
 </script>
-
 
 </body>
 </html>
