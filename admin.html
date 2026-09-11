@@ -1,353 +1,1037 @@
-import { createClient } from "npm:@supabase/supabase-js@2";
+<!DOCTYPE html>
+<html lang="en">
 
-const corsHeaders = {
-"Access-Control-Allow-Origin": "https://asinetworkfrl.com",
-"Access-Control-Allow-Headers":
-"authorization, x-client-info, apikey, content-type",
-"Access-Control-Allow-Methods": "POST, OPTIONS",
-};
+<head>
 
-Deno.serve(async (req) => {
+<meta charset="UTF-8">
 
-if (req.method === "OPTIONS") {
-return new Response("ok", {
-headers: corsHeaders,
-});
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>ASI Network FRL | Admin</title>
+
+<meta name="robots" content="noindex, nofollow">
+
+<script
+src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+<style>
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
 }
 
-try {
-
-const authHeader =
-req.headers.get("Authorization");
-
-if (!authHeader?.startsWith("Bearer ")) {
-return new Response(
-JSON.stringify({
-error: "Unauthorized",
-}),
-{
-status: 401,
-headers: {
-...corsHeaders,
-"Content-Type": "application/json",
-},
+body{
+background:#050505;
+color:#fff;
+font-family:Arial,Helvetica,sans-serif;
+min-height:100vh;
 }
+
+button,
+input,
+textarea,
+select{
+font:inherit;
+}
+
+button{
+cursor:pointer;
+}
+
+header{
+height:72px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 6%;
+background:#000;
+border-bottom:1px solid rgba(255,255,255,.1);
+position:sticky;
+top:0;
+z-index:50;
+}
+
+.logo{
+font-size:20px;
+font-weight:900;
+letter-spacing:2px;
+}
+
+.logo span{
+opacity:.55;
+font-size:12px;
+display:block;
+margin-top:3px;
+letter-spacing:1px;
+}
+
+.header-actions{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.home-btn,
+.logout-btn{
+background:transparent;
+color:#fff;
+border:1px solid rgba(255,255,255,.3);
+padding:10px 16px;
+border-radius:6px;
+text-decoration:none;
+font-size:13px;
+}
+
+main{
+width:min(1200px,92%);
+margin:40px auto 80px;
+}
+
+.loading{
+text-align:center;
+padding:100px 20px;
+font-size:16px;
+opacity:.7;
+}
+
+.access-card{
+max-width:480px;
+margin:80px auto;
+background:#111;
+border:1px solid rgba(255,255,255,.12);
+border-radius:12px;
+padding:32px;
+text-align:center;
+}
+
+.access-card h1{
+margin-bottom:12px;
+}
+
+.access-card p{
+opacity:.7;
+line-height:1.6;
+margin-bottom:24px;
+}
+
+.primary-btn{
+border:none;
+background:#fff;
+color:#000;
+font-weight:800;
+padding:13px 20px;
+border-radius:7px;
+text-decoration:none;
+display:inline-block;
+}
+
+.dashboard{
+display:none;
+}
+
+.top-title{
+margin-bottom:34px;
+}
+
+.top-title p{
+opacity:.55;
+font-size:13px;
+letter-spacing:2px;
+margin-bottom:8px;
+}
+
+.top-title h1{
+font-size:clamp(30px,5vw,52px);
+}
+
+.owner-note{
+margin-top:10px;
+opacity:.5;
+font-size:13px;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:16px;
+margin-bottom:32px;
+}
+
+.stat{
+background:#111;
+border:1px solid rgba(255,255,255,.1);
+border-radius:10px;
+padding:22px;
+}
+
+.stat small{
+opacity:.55;
+display:block;
+margin-bottom:9px;
+}
+
+.stat strong{
+font-size:28px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:22px;
+}
+
+.panel{
+background:#101010;
+border:1px solid rgba(255,255,255,.1);
+border-radius:12px;
+padding:25px;
+}
+
+.panel.full{
+grid-column:1 / -1;
+}
+
+.panel h2{
+font-size:20px;
+margin-bottom:6px;
+}
+
+.panel-subtitle{
+opacity:.55;
+font-size:14px;
+margin-bottom:22px;
+line-height:1.5;
+}
+
+label{
+display:block;
+font-size:13px;
+font-weight:700;
+margin:18px 0 8px;
+}
+
+input,
+textarea,
+select{
+width:100%;
+background:#080808;
+border:1px solid rgba(255,255,255,.16);
+border-radius:7px;
+padding:13px;
+color:#fff;
+outline:none;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+border-color:#fff;
+}
+
+textarea{
+min-height:100px;
+resize:vertical;
+}
+
+.file-box{
+border:1px dashed rgba(255,255,255,.25);
+background:#080808;
+padding:28px;
+border-radius:8px;
+text-align:center;
+margin-top:8px;
+}
+
+.file-box p{
+opacity:.6;
+font-size:13px;
+margin-top:7px;
+}
+
+.action-btn{
+width:100%;
+border:none;
+background:#fff;
+color:#000;
+font-weight:900;
+padding:14px;
+border-radius:7px;
+margin-top:20px;
+}
+
+.action-btn:disabled{
+opacity:.35;
+cursor:not-allowed;
+}
+
+.notice{
+margin-top:18px;
+font-size:13px;
+opacity:.55;
+line-height:1.6;
+}
+
+.episode-list{
+margin-top:18px;
+}
+
+.episode-row{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:15px;
+padding:17px 0;
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.episode-row:last-child{
+border-bottom:none;
+}
+
+.episode-info strong{
+display:block;
+margin-bottom:5px;
+}
+
+.episode-info span{
+font-size:13px;
+opacity:.55;
+}
+
+.badge{
+font-size:11px;
+font-weight:800;
+padding:6px 9px;
+border-radius:30px;
+background:rgba(255,255,255,.12);
+white-space:nowrap;
+}
+
+.empty{
+opacity:.55;
+font-size:14px;
+padding:15px 0;
+}
+
+.error-text{
+color:#fff;
+opacity:.7;
+font-size:13px;
+margin-top:12px;
+line-height:1.5;
+}
+
+@media(max-width:760px){
+
+header{
+padding:0 4%;
+}
+
+main{
+width:92%;
+margin-top:28px;
+}
+
+.stats{
+grid-template-columns:1fr;
+}
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.panel.full{
+grid-column:auto;
+}
+
+.header-actions{
+gap:6px;
+}
+
+.home-btn,
+.logout-btn{
+padding:9px 11px;
+font-size:11px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+ASI NETWORK FRL
+<span>OWNER ADMIN</span>
+</div>
+
+<div class="header-actions">
+
+<a
+id="homeBtn"
+class="home-btn"
+href="/"
+style="display:none;"
+>
+HOME
+</a>
+
+<button
+id="logoutBtn"
+class="logout-btn"
+style="display:none;"
+>
+LOG OUT
+</button>
+
+</div>
+
+</header>
+
+<main>
+
+<div id="loading" class="loading">
+Checking administrator access...
+</div>
+
+
+<div
+id="loginRequired"
+class="access-card"
+style="display:none;"
+>
+
+<h1>Admin Sign In Required</h1>
+
+<p>
+Sign in with your authorized ASI Network FRL administrator account.
+</p>
+
+<a
+class="primary-btn"
+href="/login.html?redirect=/admin.html"
+>
+SIGN IN
+</a>
+
+</div>
+
+
+<div
+id="notAdmin"
+class="access-card"
+style="display:none;"
+>
+
+<h1>Administrator Access Only</h1>
+
+<p>
+This area is restricted to authorized ASI Network FRL administrators.
+</p>
+
+<a
+class="primary-btn"
+href="/"
+>
+RETURN HOME
+</a>
+
+<div
+id="adminError"
+class="error-text"
+></div>
+
+</div>
+
+
+<div
+id="dashboard"
+class="dashboard"
+>
+
+<div class="top-title">
+
+<p>ASI NETWORK FRL</p>
+
+<h1>Content Dashboard</h1>
+
+<div class="owner-note">
+Private owner management area
+</div>
+
+</div>
+
+
+<div class="stats">
+
+<div class="stat">
+<small>SHOWS</small>
+<strong id="showCount">—</strong>
+</div>
+
+<div class="stat">
+<small>SEASONS</small>
+<strong id="seasonCount">—</strong>
+</div>
+
+<div class="stat">
+<small>EPISODES</small>
+<strong id="episodeCount">—</strong>
+</div>
+
+</div>
+
+
+<div class="grid">
+
+
+<section class="panel">
+
+<h2>Add Show</h2>
+
+<p class="panel-subtitle">
+Create another original series for ASI Network FRL.
+</p>
+
+<label>Show Title</label>
+
+<input
+type="text"
+placeholder="Example: Family Behind The Trauma"
+disabled
+>
+
+<label>Description</label>
+
+<textarea
+placeholder="Describe the series..."
+disabled
+></textarea>
+
+<button
+class="action-btn"
+disabled
+>
+CREATE SHOW
+</button>
+
+<p class="notice">
+Secure show creation will be activated in the next stage.
+</p>
+
+</section>
+
+
+<section class="panel">
+
+<h2>Add Season</h2>
+
+<p class="panel-subtitle">
+Create a new season under one of your shows.
+</p>
+
+<label>Show</label>
+
+<select disabled>
+<option>Select show</option>
+</select>
+
+<label>Season Number</label>
+
+<input
+type="number"
+placeholder="1"
+disabled
+>
+
+<button
+class="action-btn"
+disabled
+>
+CREATE SEASON
+</button>
+
+<p class="notice">
+This will connect to your existing shows and seasons database.
+</p>
+
+</section>
+
+
+<section class="panel full">
+
+<h2>Upload New Episode</h2>
+
+<p class="panel-subtitle">
+This area will let you upload a finished episode directly to Mux and attach it to ASI Network FRL without manually editing your database.
+</p>
+
+<div class="grid">
+
+<div>
+
+<label>Show</label>
+
+<select disabled>
+<option>Select show</option>
+</select>
+
+<label>Season</label>
+
+<select disabled>
+<option>Select season</option>
+</select>
+
+<label>Episode Number</label>
+
+<input
+type="number"
+placeholder="1"
+disabled
+>
+
+<label>Episode Title</label>
+
+<input
+type="text"
+placeholder="Episode title"
+disabled
+>
+
+<label>Description</label>
+
+<textarea
+placeholder="Episode description..."
+disabled
+></textarea>
+
+</div>
+
+
+<div>
+
+<label>Episode Thumbnail</label>
+
+<div class="file-box">
+<strong>UPLOAD THUMBNAIL</strong>
+<p>JPG or PNG</p>
+</div>
+
+<label>Episode Video</label>
+
+<div class="file-box">
+<strong>UPLOAD FINISHED EPISODE</strong>
+<p>Video will upload securely to Mux.</p>
+</div>
+
+<label>
+<input
+type="checkbox"
+disabled
+>
+Publish when processing is complete
+</label>
+
+<button
+class="action-btn"
+disabled
+>
+UPLOAD EPISODE
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section class="panel full">
+
+<h2>Existing Episodes</h2>
+
+<p class="panel-subtitle">
+Episodes currently stored in your ASI Network FRL database.
+</p>
+
+<div
+id="episodeList"
+class="episode-list"
+>
+
+<div class="empty">
+Loading episodes...
+</div>
+
+</div>
+
+</section>
+
+
+</div>
+
+</div>
+
+</main>
+
+
+<script>
+
+const SUPABASE_URL =
+"https://gvvtwwrjfscaunczptpv.supabase.co";
+
+
+const SUPABASE_PUBLISHABLE_KEY =
+"sb_publishable_iliNeR5tX_4X4KAh5ZjPpA_e6ueLnP-";
+
+
+const supabaseClient =
+supabase.createClient(
+SUPABASE_URL,
+SUPABASE_PUBLISHABLE_KEY
 );
-}
-
-const accessToken =
-authHeader.replace("Bearer ", "");
 
 
-const supabaseUrl =
-Deno.env.get("SUPABASE_URL");
+const loading =
+document.getElementById("loading");
 
-const supabaseSecret =
-Deno.env.get("ASI_SUPABASE_SECRET_KEY");
+const loginRequired =
+document.getElementById("loginRequired");
 
-const muxTokenId =
-Deno.env.get("MUX_ACCESS_TOKEN_ID");
+const notAdmin =
+document.getElementById("notAdmin");
 
-const muxTokenSecret =
-Deno.env.get("MUX_ACCESS_TOKEN_SECRET");
+const dashboard =
+document.getElementById("dashboard");
 
+const logoutBtn =
+document.getElementById("logoutBtn");
 
-if (
-!supabaseUrl ||
-!supabaseSecret ||
-!muxTokenId ||
-!muxTokenSecret
-) {
-throw new Error(
-"Required server secrets are missing."
-);
-}
+const homeBtn =
+document.getElementById("homeBtn");
+
+const adminError =
+document.getElementById("adminError");
 
 
-const supabaseAdmin =
-createClient(
-supabaseUrl,
-supabaseSecret
-);
+async function loadAdmin(){
 
-
-/* =========================
-VERIFY USER
-========================= */
+try{
 
 const {
-data: userData,
-error: userError,
-} =
-await supabaseAdmin.auth.getUser(
-accessToken
-);
-
-
-if (
-userError ||
-!userData?.user
-) {
-return new Response(
-JSON.stringify({
-error: "Invalid login session.",
-}),
-{
-status: 401,
-headers: {
-...corsHeaders,
-"Content-Type": "application/json",
+data:{
+session
 },
+error:sessionError
+} =
+await supabaseClient
+.auth
+.getSession();
+
+
+if(sessionError){
+
+throw sessionError;
+
 }
-);
+
+
+if(!session){
+
+loading.style.display =
+"none";
+
+loginRequired.style.display =
+"block";
+
+return;
+
 }
 
 
 const user =
-userData.user;
+session.user;
 
-
-/* =========================
-VERIFY ADMIN
-========================= */
 
 const {
-data: admin,
-error: adminError,
+data:admin,
+error:adminLookupError
 } =
-await supabaseAdmin
+await supabaseClient
 .from("admins")
 .select("user_id")
-.eq("user_id", user.id)
+.eq("user_id",user.id)
 .maybeSingle();
 
 
-if (
-adminError ||
-!admin
-) {
-return new Response(
-JSON.stringify({
-error:
-"Administrator access required.",
-}),
-{
-status: 403,
-headers: {
-...corsHeaders,
-"Content-Type": "application/json",
-},
-}
+loading.style.display =
+"none";
+
+
+if(adminLookupError){
+
+console.error(
+"Admin lookup error:",
+adminLookupError
 );
+
+notAdmin.style.display =
+"block";
+
+adminError.textContent =
+"Administrator verification failed.";
+
+return;
+
 }
 
 
-/* =========================
-READ REQUEST
-========================= */
+if(!admin){
 
-const body =
-await req.json();
+notAdmin.style.display =
+"block";
 
+adminError.textContent =
+"This signed-in account is not listed as an ASI Network FRL administrator.";
 
-const episodeId =
-body?.episodeId;
+return;
 
-const title =
-body?.title || "ASI Network FRL Episode";
-
-
-if (!episodeId) {
-return new Response(
-JSON.stringify({
-error:
-"Episode ID is required.",
-}),
-{
-status: 400,
-headers: {
-...corsHeaders,
-"Content-Type": "application/json",
-},
 }
+
+
+dashboard.style.display =
+"block";
+
+logoutBtn.style.display =
+"block";
+
+homeBtn.style.display =
+"inline-block";
+
+
+await loadDashboard();
+
+
+}catch(error){
+
+console.error(
+"Admin page error:",
+error
 );
+
+loading.style.display =
+"none";
+
+notAdmin.style.display =
+"block";
+
+adminError.textContent =
+"Unable to verify administrator access.";
+
+}
+
 }
 
 
-/* =========================
-VERIFY EPISODE EXISTS
-========================= */
+async function loadDashboard(){
+
+const [
+showsResult,
+seasonsResult,
+episodesResult
+] =
+await Promise.all([
+
+supabaseClient
+.from("shows")
+.select("*",{
+count:"exact",
+head:true
+}),
+
+supabaseClient
+.from("seasons")
+.select("*",{
+count:"exact",
+head:true
+}),
+
+supabaseClient
+.from("episodes")
+.select("*",{
+count:"exact",
+head:true
+})
+
+]);
+
+
+document
+.getElementById("showCount")
+.textContent =
+showsResult.count ?? 0;
+
+
+document
+.getElementById("seasonCount")
+.textContent =
+seasonsResult.count ?? 0;
+
+
+document
+.getElementById("episodeCount")
+.textContent =
+episodesResult.count ?? 0;
+
 
 const {
-data: episode,
-error: episodeError,
+data:episodes,
+error
 } =
-await supabaseAdmin
+await supabaseClient
 .from("episodes")
 .select(`
 id,
 episode_number,
 title,
-video_id
+video_id,
+is_published
 `)
-.eq("id", episodeId)
-.maybeSingle();
-
-
-if (
-episodeError ||
-!episode
-) {
-return new Response(
-JSON.stringify({
-error:
-"Episode was not found.",
-}),
+.order(
+"episode_number",
 {
-status: 404,
-headers: {
-...corsHeaders,
-"Content-Type": "application/json",
-},
-}
-);
-}
-
-
-/* =========================
-CREATE MUX DIRECT UPLOAD
-========================= */
-
-const basicAuth =
-btoa(
-`${muxTokenId}:${muxTokenSecret}`
-);
-
-
-const muxResponse =
-await fetch(
-"https://api.mux.com/video/v1/uploads",
-{
-method: "POST",
-
-headers: {
-"Authorization":
-`Basic ${basicAuth}`,
-
-"Content-Type":
-"application/json",
-},
-
-body: JSON.stringify({
-
-cors_origin:
-"https://asinetworkfrl.com",
-
-timeout:
-7200,
-
-new_asset_settings: {
-
-playback_policies: [
-"signed"
-],
-
-passthrough:
-episodeId,
-
-meta: {
-title:
-title,
-external_id:
-episodeId,
-},
-
-},
-
-}),
+ascending:true
 }
 );
 
 
-const muxResult =
-await muxResponse.json();
+const list =
+document.getElementById(
+"episodeList"
+);
 
 
-if (!muxResponse.ok) {
+if(error){
 
 console.error(
-"Mux upload creation failed:",
-muxResult
-);
-
-return new Response(
-JSON.stringify({
-error:
-"Mux could not create the upload.",
-}),
-{
-status: 500,
-headers: {
-...corsHeaders,
-"Content-Type": "application/json",
-},
-}
-);
-}
-
-
-/* =========================
-RETURN TEMPORARY UPLOAD URL
-========================= */
-
-return new Response(
-JSON.stringify({
-
-success: true,
-
-uploadId:
-muxResult.data.id,
-
-uploadUrl:
-muxResult.data.url,
-
-episodeId:
-episodeId,
-
-}),
-{
-status: 200,
-headers: {
-...corsHeaders,
-"Content-Type": "application/json",
-},
-}
-);
-
-
-} catch (error) {
-
-console.error(
-"ASI Mux upload error:",
+"Episode load error:",
 error
 );
 
-return new Response(
-JSON.stringify({
-error:
-error instanceof Error
-? error.message
-: "Unexpected upload error.",
-}),
-{
-status: 500,
-headers: {
-...corsHeaders,
-"Content-Type": "application/json",
-},
+list.innerHTML =
+'<div class="empty">Unable to load episodes.</div>';
+
+return;
+
 }
+
+
+if(
+!episodes ||
+episodes.length === 0
+){
+
+list.innerHTML =
+'<div class="empty">No episodes created yet.</div>';
+
+return;
+
+}
+
+
+list.innerHTML =
+episodes
+.map(
+episode=>{
+
+const videoStatus =
+episode.video_id
+? "VIDEO ATTACHED"
+: "NO VIDEO";
+
+
+const publishStatus =
+episode.is_published
+? "PUBLISHED"
+: "DRAFT";
+
+
+return `
+
+<div class="episode-row">
+
+<div class="episode-info">
+
+<strong>
+Episode ${episode.episode_number}
+${episode.title ? " — " + escapeHtml(episode.title) : ""}
+</strong>
+
+<span>
+${publishStatus}
+</span>
+
+</div>
+
+<div class="badge">
+${videoStatus}
+</div>
+
+</div>
+
+`;
+
+}
+)
+.join("");
+
+}
+
+
+function escapeHtml(value){
+
+return String(value)
+
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
+
+
+logoutBtn
+.addEventListener(
+"click",
+async()=>{
+
+await supabaseClient
+.auth
+.signOut();
+
+window.location.replace(
+"/login.html"
 );
 
 }
+);
 
-});
+
+loadAdmin();
+
+</script>
+
+</body>
+
+</html>
