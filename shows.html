@@ -7,7 +7,10 @@
 
 <title>Shows | ASI Network FRL</title>
 
-<meta name="robots" content="noindex,nofollow">
+<meta
+name="description"
+content="Browse ASI Network FRL original reality shows."
+>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -22,6 +25,7 @@ margin:0;
 background:#050505;
 color:#fff;
 font-family:Arial,Helvetica,sans-serif;
+min-height:100vh;
 }
 
 a{
@@ -38,7 +42,7 @@ padding:0 4%;
 display:flex;
 align-items:center;
 gap:26px;
-background:rgba(5,5,5,.97);
+background:rgba(5,5,5,.98);
 border-bottom:1px solid #222;
 }
 
@@ -63,6 +67,7 @@ flex:1;
 .nav a{
 font-size:12px;
 font-weight:900;
+white-space:nowrap;
 }
 
 .nav a:hover{
@@ -71,6 +76,9 @@ opacity:.7;
 
 .right{
 margin-left:auto;
+display:flex;
+gap:10px;
+align-items:center;
 }
 
 .btn{
@@ -85,6 +93,21 @@ background:#111;
 color:#fff;
 font-size:12px;
 font-weight:900;
+cursor:pointer;
+}
+
+.btn:hover{
+background:#1a1a1a;
+}
+
+.btn.primary{
+background:#fff;
+color:#000;
+border-color:#fff;
+}
+
+.btn.primary:hover{
+background:#e9e9e9;
 }
 
 main{
@@ -104,15 +127,22 @@ font-weight:900;
 }
 
 .hero h1{
-font-size:clamp(46px,7vw,82px);
+font-size:clamp(48px,7vw,82px);
 line-height:.95;
 margin:10px 0 18px;
 }
 
 .hero p{
-max-width:680px;
+max-width:700px;
 color:#bbb;
 line-height:1.65;
+}
+
+.hero-actions{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:22px;
 }
 
 .grid{
@@ -163,12 +193,6 @@ flex-wrap:wrap;
 margin-top:16px;
 }
 
-.btn.primary{
-background:#fff;
-color:#000;
-border-color:#fff;
-}
-
 .empty{
 grid-column:1/-1;
 padding:28px;
@@ -176,19 +200,6 @@ border:1px solid #222;
 background:#0d0d0d;
 color:#888;
 border-radius:8px;
-}
-
-.loading{
-min-height:75vh;
-display:grid;
-place-items:center;
-color:#999;
-font-weight:900;
-letter-spacing:2px;
-}
-
-#app{
-display:none;
 }
 
 footer{
@@ -216,6 +227,10 @@ width:100%;
 overflow-x:auto;
 }
 
+.right{
+margin-left:auto;
+}
+
 .grid{
 grid-template-columns:
 repeat(2,minmax(0,1fr));
@@ -241,21 +256,11 @@ font-size:48px;
 
 <body>
 
-<div
-id="loading"
-class="loading"
->
-CHECKING MEMBER ACCESS...
-</div>
-
-
-<div id="app">
-
 <header>
 
 <a
 class="logo"
-href="/members.html"
+href="/"
 >
 ASI NETWORK <span>FRL</span> 👁️
 </a>
@@ -263,7 +268,7 @@ ASI NETWORK <span>FRL</span> 👁️
 
 <nav class="nav">
 
-<a href="/members.html">
+<a href="/">
 HOME
 </a>
 
@@ -271,8 +276,16 @@ HOME
 SHOWS
 </a>
 
-<a href="/members.html#episodes">
+<a href="/#episodes">
 EPISODES
+</a>
+
+<a href="https://square.link/u/0l47AY8p">
+SUBSCRIBE
+</a>
+
+<a href="mailto:support@asinetworkfrl.com">
+SUPPORT
 </a>
 
 </nav>
@@ -281,10 +294,20 @@ EPISODES
 <div class="right">
 
 <a
+id="signInButton"
 class="btn"
-href="/members.html"
+href="/login.html"
 >
-ACCOUNT
+SIGN IN
+</a>
+
+<a
+id="memberButton"
+class="btn primary"
+href="/members.html"
+style="display:none;"
+>
+MEMBER ACCESS
 </a>
 
 </div>
@@ -297,7 +320,7 @@ ACCOUNT
 <section class="hero">
 
 <div class="eyebrow">
-ASI NETWORK FRL
+ASI NETWORK FRL ORIGINALS
 </div>
 
 <h1>
@@ -305,21 +328,39 @@ SHOWS
 </h1>
 
 <p>
-Every ASI Network FRL original lives here.
-When a new show is added from the Admin Dashboard,
-it will automatically appear on this page.
+Browse ASI Network FRL original programming.
+You do not need an account to explore our shows.
+An active subscription is only required when you choose to watch full episodes.
 </p>
+
+<div class="hero-actions">
+
+<a
+class="btn primary"
+href="https://square.link/u/0l47AY8p"
+>
+SUBSCRIBE • $5.99/MO
+</a>
+
+<a
+class="btn"
+href="/login.html"
+>
+MEMBER SIGN IN
+</a>
+
+</div>
 
 </section>
 
 
 <div
-id="grid"
+id="showGrid"
 class="grid"
 >
 
 <div class="empty">
-Loading shows...
+Loading ASI Network FRL shows...
 </div>
 
 </div>
@@ -339,8 +380,6 @@ support@asinetworkfrl.com
 
 </footer>
 
-</div>
-
 
 <script>
 
@@ -359,9 +398,6 @@ SUPABASE_KEY
 );
 
 
-let session = null;
-
-
 function escapeHtml(value){
 
 return String(value ?? "")
@@ -374,134 +410,51 @@ return String(value ?? "")
 }
 
 
-async function hasAccess(){
+/* =========================
+SESSION-AWARE NAVIGATION
+========================= */
 
-const sessionResult =
+async function loadSession(){
+
+const result =
 await sb.auth.getSession();
 
 
-session =
-sessionResult.data.session;
+const session =
+result.data.session;
 
 
-if(!session){
-
-return false;
-
-}
-
-
-const adminResult =
-await sb
-.from("admins")
-.select("user_id")
-.eq(
-"user_id",
-session.user.id
-)
-.maybeSingle();
-
-
-if(
-!adminResult.error &&
-adminResult.data
-){
-
-return true;
-
-}
-
-
-const response =
-await fetch(
-`${SUPABASE_URL}/functions/v1/asi-link-subscription`,
-{
-
-method:"POST",
-
-headers:{
-
-"Authorization":
-`Bearer ${session.access_token}`,
-
-"apikey":
-SUPABASE_KEY,
-
-"Content-Type":
-"application/json"
-
-},
-
-body:
-JSON.stringify({})
-
-}
-);
-
-
-let result = {};
-
-
-try{
-
-result =
-await response.json();
-
-}
-catch(error){}
-
-
-const status =
-String(
-result.status || ""
-).toUpperCase();
-
-
-return (
-
-response.ok &&
-
-(
-result.active === true ||
-result.isActive === true ||
-status === "ACTIVE"
-)
-
-);
-
-}
-
-
-async function initialize(){
-
-try{
-
-const allowed =
-await hasAccess();
-
-
-if(!allowed){
-
-window.location.replace(
-"/login.html"
-);
-
-return;
-
-}
-
+if(session){
 
 document
-.getElementById("loading")
+.getElementById("signInButton")
 .style.display =
 "none";
 
 
 document
-.getElementById("app")
+.getElementById("memberButton")
 .style.display =
-"block";
+"inline-flex";
 
+}
+
+}
+
+
+/* =========================
+PUBLIC SHOW CATALOG
+========================= */
+
+async function loadShows(){
+
+const grid =
+document.getElementById(
+"showGrid"
+);
+
+
+try{
 
 const result =
 await sb
@@ -515,34 +468,15 @@ ascending:true
 );
 
 
+if(result.error){
+
+throw result.error;
+
+}
+
+
 const shows =
 result.data || [];
-
-
-renderShows(shows);
-
-
-}catch(error){
-
-console.error(
-"Shows page error:",
-error
-);
-
-
-window.location.replace(
-"/login.html"
-);
-
-}
-
-}
-
-
-function renderShows(shows){
-
-const grid =
-document.getElementById("grid");
 
 
 if(!shows.length){
@@ -550,7 +484,7 @@ if(!shows.length){
 grid.innerHTML =
 `
 <div class="empty">
-No shows have been published yet.
+New ASI Network FRL originals are coming soon.
 </div>
 `;
 
@@ -560,10 +494,10 @@ return;
 
 
 grid.innerHTML =
-shows
-.map(show => {
+shows.map(
+show => {
 
-const thumbnailStyle =
+const imageStyle =
 show.thumbnail_url
 ?
 `background-image:url('${escapeHtml(show.thumbnail_url)}')`
@@ -576,7 +510,7 @@ return `
 
 <div
 class="thumb"
-style="${thumbnailStyle}"
+style="${imageStyle}"
 >
 👁️
 </div>
@@ -600,7 +534,7 @@ show.description ||
 class="btn primary"
 href="/show.html?id=${encodeURIComponent(show.id)}"
 >
-OPEN SHOW
+VIEW SHOW
 </a>
 
 </div>
@@ -610,13 +544,34 @@ OPEN SHOW
 </article>
 `;
 
-})
-.join("");
+}
+).join("");
+
+
+}catch(error){
+
+console.error(
+"Public shows error:",
+error
+);
+
+
+grid.innerHTML =
+`
+<div class="empty">
+Shows are temporarily unavailable.
+Please check back soon.
+</div>
+`;
+
+}
 
 }
 
 
-initialize();
+loadSession();
+
+loadShows();
 
 </script>
 
