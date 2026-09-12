@@ -1,172 +1,795 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-  <title>Reset Password | ASI Network FRL</title>
+<title>Reset Password | ASI Network FRL</title>
 
-  <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: #050505;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      box-sizing: border-box;
-    }
+<meta name="robots" content="noindex,nofollow">
 
-    .reset-card {
-      width: 100%;
-      max-width: 430px;
-      background: #111;
-      border: 1px solid #333;
-      border-radius: 16px;
-      padding: 30px;
-      box-sizing: border-box;
-    }
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    h1 {
-      margin-top: 0;
-      font-size: 30px;
-    }
+<style>
 
-    p {
-      color: #bbb;
-      line-height: 1.5;
-    }
+*{
+box-sizing:border-box;
+}
 
-    input {
-      width: 100%;
-      padding: 14px;
-      margin: 8px 0;
-      box-sizing: border-box;
-      border-radius: 8px;
-      border: 1px solid #444;
-      background: #181818;
-      color: #fff;
-      font-size: 16px;
-    }
+body{
+margin:0;
+min-height:100vh;
+display:grid;
+place-items:center;
+padding:24px;
+background:
+radial-gradient(circle at top,#262626,#090909 55%);
+color:#fff;
+font-family:Arial,Helvetica,sans-serif;
+}
 
-    button {
-      width: 100%;
-      padding: 14px;
-      margin-top: 12px;
-      border: 0;
-      border-radius: 8px;
-      background: #fff;
-      color: #000;
-      font-weight: bold;
-      font-size: 16px;
-      cursor: pointer;
-    }
+a{
+color:inherit;
+text-decoration:none;
+}
 
-    #status {
-      margin-top: 15px;
-      color: #ddd;
-    }
-  </style>
+button,
+input{
+font:inherit;
+}
+
+.page{
+width:min(460px,100%);
+}
+
+.logo{
+display:block;
+text-align:center;
+font-weight:900;
+letter-spacing:2px;
+margin-bottom:22px;
+}
+
+.logo span{
+color:#888;
+font-weight:500;
+}
+
+.box{
+padding:32px;
+background:#111;
+border:1px solid #333;
+border-radius:12px;
+box-shadow:0 25px 70px rgba(0,0,0,.55);
+}
+
+.eyebrow{
+font-size:11px;
+letter-spacing:3px;
+font-weight:900;
+color:#888;
+margin-bottom:10px;
+}
+
+h1{
+margin:0 0 10px;
+font-size:34px;
+}
+
+.intro{
+color:#999;
+line-height:1.6;
+margin:0 0 24px;
+font-size:14px;
+}
+
+label{
+display:block;
+margin:15px 0 7px;
+font-size:12px;
+font-weight:900;
+color:#aaa;
+}
+
+input{
+width:100%;
+padding:14px;
+border-radius:7px;
+border:1px solid #3a3a3a;
+background:#080808;
+color:#fff;
+outline:none;
+}
+
+input:focus{
+border-color:#888;
+}
+
+.password-row{
+position:relative;
+}
+
+.password-row input{
+padding-right:72px;
+}
+
+.toggle-password{
+position:absolute;
+right:10px;
+top:50%;
+transform:translateY(-50%);
+border:0;
+background:transparent;
+color:#999;
+font-size:11px;
+font-weight:900;
+cursor:pointer;
+}
+
+.btn{
+width:100%;
+min-height:46px;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:0 18px;
+border-radius:7px;
+border:1px solid #444;
+background:#111;
+color:#fff;
+font-size:12px;
+font-weight:900;
+cursor:pointer;
+}
+
+.btn.primary{
+background:#fff;
+color:#000;
+border-color:#fff;
+}
+
+.btn:disabled{
+opacity:.55;
+cursor:not-allowed;
+}
+
+.actions{
+display:grid;
+gap:10px;
+margin-top:22px;
+}
+
+#status{
+display:none;
+margin-top:18px;
+padding:13px;
+background:#181818;
+border:1px solid #333;
+border-radius:7px;
+color:#ccc;
+font-size:13px;
+line-height:1.5;
+}
+
+#status.success{
+border-color:#31533b;
+}
+
+#status.error{
+border-color:#5b3030;
+}
+
+.small-links{
+display:flex;
+justify-content:space-between;
+gap:14px;
+flex-wrap:wrap;
+margin-top:20px;
+font-size:12px;
+color:#777;
+}
+
+.small-links a:hover{
+color:#fff;
+}
+
+.hidden{
+display:none !important;
+}
+
+@media(max-width:500px){
+
+.box{
+padding:25px 20px;
+}
+
+h1{
+font-size:30px;
+}
+
+}
+
+</style>
 </head>
 
 <body>
 
-  <div class="reset-card">
-    <h1>ASI NETWORK FRL</h1>
+<div class="page">
 
-    <p>Create your new password below.</p>
+<a class="logo" href="/">
+ASI NETWORK <span>FRL</span> 👁️
+</a>
 
-    <input
-      id="new-password"
-      type="password"
-      placeholder="New Password"
-    >
+<div class="box">
 
-    <input
-      id="confirm-password"
-      type="password"
-      placeholder="Confirm New Password"
-    >
+<div class="eyebrow">
+ACCOUNT SECURITY
+</div>
 
-    <button onclick="updatePassword()">
-      Update Password
-    </button>
+<h1 id="pageTitle">
+Create New Password
+</h1>
 
-    <p id="status">Verifying your reset link...</p>
-  </div>
+<p id="pageIntro" class="intro">
+Choose a new password for your ASI Network FRL account.
+</p>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <script>
-    const SUPABASE_URL =
-      "https://gvvtwwrjfscaunczptpv.supabase.co";
+<div id="resetForm">
 
-    const SUPABASE_PUBLISHABLE_KEY =
-      "sb_publishable_iliNeR5tX_4X4KAh5ZjPpA_e6ueLnP-";
+<label for="newPassword">
+New Password
+</label>
 
-    const asiSupabase = window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_PUBLISHABLE_KEY
-    );
+<div class="password-row">
 
-    const status = document.getElementById("status");
+<input
+id="newPassword"
+type="password"
+autocomplete="new-password"
+placeholder="Enter a new password"
+>
 
-    asiSupabase.auth.onAuthStateChange((event) => {
-      if (event === "PASSWORD_RECOVERY") {
-        status.textContent =
-          "Reset link verified. Enter your new password.";
-      }
-    });
+<button
+id="toggleNewPassword"
+class="toggle-password"
+type="button"
+>
+SHOW
+</button>
 
-    async function updatePassword() {
-      const newPassword =
-        document.getElementById("new-password").value;
+</div>
 
-      const confirmPassword =
-        document.getElementById("confirm-password").value;
 
-      if (!newPassword || !confirmPassword) {
-        status.textContent =
-          "Enter and confirm your new password.";
-        return;
-      }
+<label for="confirmPassword">
+Confirm New Password
+</label>
 
-      if (newPassword !== confirmPassword) {
-        status.textContent =
-          "Passwords do not match.";
-        return;
-      }
+<div class="password-row">
 
-      if (newPassword.length < 6) {
-        status.textContent =
-          "Password must be at least 6 characters.";
-        return;
-      }
+<input
+id="confirmPassword"
+type="password"
+autocomplete="new-password"
+placeholder="Confirm your new password"
+>
 
-      status.textContent = "Updating password...";
+<button
+id="toggleConfirmPassword"
+class="toggle-password"
+type="button"
+>
+SHOW
+</button>
 
-      const { error } = await asiSupabase.auth.updateUser({
-        password: newPassword
-      });
+</div>
 
-      if (error) {
-        status.textContent = error.message;
-        return;
-      }
 
-      await asiSupabase.auth.signOut();
+<div class="actions">
 
-      status.textContent =
-        "Password updated successfully. Redirecting to login...";
+<button
+id="updatePasswordButton"
+class="btn primary"
+type="button"
+>
+UPDATE PASSWORD
+</button>
 
-      setTimeout(() => {
-        window.location.href = "/";
-      }, 2000);
-    }
-  </script>
+</div>
+
+</div>
+
+
+<div id="successView" class="hidden">
+
+<p class="intro">
+Your password has been updated successfully.
+You can now sign in with your new password.
+</p>
+
+<div class="actions">
+
+<a
+class="btn primary"
+href="/login.html"
+>
+GO TO SIGN IN
+</a>
+
+</div>
+
+</div>
+
+
+<div id="invalidView" class="hidden">
+
+<p class="intro">
+This password reset link is invalid or has expired.
+Please request a new secure reset email.
+</p>
+
+<div class="actions">
+
+<a
+class="btn primary"
+href="/login.html?forgot=1"
+>
+REQUEST NEW RESET EMAIL
+</a>
+
+</div>
+
+</div>
+
+
+<div id="status"></div>
+
+
+<div class="small-links">
+
+<a href="/">
+← Back Home
+</a>
+
+<a href="mailto:support@asinetworkfrl.com">
+Need Help?
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+const SUPABASE_URL =
+"https://gvvtwwrjfscaunczptpv.supabase.co";
+
+
+const SUPABASE_KEY =
+"sb_publishable_iliNeR5tX_4X4KAh5ZjPpA_e6ueLnP-";
+
+
+const sb =
+supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+
+const newPasswordInput =
+document.getElementById("newPassword");
+
+const confirmPasswordInput =
+document.getElementById("confirmPassword");
+
+const updatePasswordButton =
+document.getElementById("updatePasswordButton");
+
+const statusBox =
+document.getElementById("status");
+
+
+function showStatus(
+message,
+type = ""
+){
+
+statusBox.style.display =
+"block";
+
+statusBox.textContent =
+message;
+
+statusBox.className =
+type;
+
+}
+
+
+function clearStatus(){
+
+statusBox.style.display =
+"none";
+
+statusBox.textContent =
+"";
+
+statusBox.className =
+"";
+
+}
+
+
+function showInvalid(){
+
+document
+.getElementById("resetForm")
+.classList.add("hidden");
+
+document
+.getElementById("successView")
+.classList.add("hidden");
+
+document
+.getElementById("invalidView")
+.classList.remove("hidden");
+
+document
+.getElementById("pageTitle")
+.textContent =
+"Reset Link Expired";
+
+document
+.getElementById("pageIntro")
+.textContent =
+"We couldn't verify this password reset session.";
+
+clearStatus();
+
+}
+
+
+function showSuccess(){
+
+document
+.getElementById("resetForm")
+.classList.add("hidden");
+
+document
+.getElementById("invalidView")
+.classList.add("hidden");
+
+document
+.getElementById("successView")
+.classList.remove("hidden");
+
+document
+.getElementById("pageTitle")
+.textContent =
+"Password Updated";
+
+document
+.getElementById("pageIntro")
+.textContent =
+"Your ASI Network FRL account is ready.";
+
+clearStatus();
+
+}
+
+
+/* =========================
+SHOW / HIDE PASSWORDS
+========================= */
+
+document
+.getElementById("toggleNewPassword")
+.addEventListener(
+"click",
+function(){
+
+const showing =
+newPasswordInput.type === "text";
+
+newPasswordInput.type =
+showing
+?
+"password"
+:
+"text";
+
+this.textContent =
+showing
+?
+"SHOW"
+:
+"HIDE";
+
+}
+);
+
+
+document
+.getElementById("toggleConfirmPassword")
+.addEventListener(
+"click",
+function(){
+
+const showing =
+confirmPasswordInput.type === "text";
+
+confirmPasswordInput.type =
+showing
+?
+"password"
+:
+"text";
+
+this.textContent =
+showing
+?
+"SHOW"
+:
+"HIDE";
+
+}
+);
+
+
+/* =========================
+VERIFY RESET SESSION
+========================= */
+
+async function verifyRecoverySession(){
+
+try{
+
+const url =
+new URL(window.location.href);
+
+
+/*
+Supabase may return recovery information
+in either the query string or URL hash.
+The client library processes these automatically,
+but we still verify that a usable session exists.
+*/
+
+
+const {
+data,
+error
+} =
+await sb.auth.getSession();
+
+
+if(error){
+
+throw error;
+
+}
+
+
+if(
+data &&
+data.session &&
+data.session.user
+){
+
+return true;
+
+}
+
+
+/*
+Give Supabase a brief moment to process
+the recovery link before declaring it invalid.
+*/
+
+await new Promise(
+resolve =>
+setTimeout(resolve,700)
+);
+
+
+const retry =
+await sb.auth.getSession();
+
+
+if(
+retry.error ||
+!retry.data.session
+){
+
+showInvalid();
+
+return false;
+
+}
+
+
+return true;
+
+
+}catch(error){
+
+console.error(
+"Recovery session error:",
+error
+);
+
+showInvalid();
+
+return false;
+
+}
+
+}
+
+
+/* =========================
+UPDATE PASSWORD
+========================= */
+
+updatePasswordButton
+.addEventListener(
+"click",
+async function(){
+
+clearStatus();
+
+
+const newPassword =
+newPasswordInput.value;
+
+const confirmPassword =
+confirmPasswordInput.value;
+
+
+if(!newPassword || !confirmPassword){
+
+showStatus(
+"Enter and confirm your new password.",
+"error"
+);
+
+return;
+
+}
+
+
+if(newPassword.length < 8){
+
+showStatus(
+"Your new password must be at least 8 characters.",
+"error"
+);
+
+return;
+
+}
+
+
+if(newPassword !== confirmPassword){
+
+showStatus(
+"Your passwords do not match.",
+"error"
+);
+
+return;
+
+}
+
+
+this.disabled =
+true;
+
+this.textContent =
+"UPDATING PASSWORD...";
+
+
+try{
+
+const sessionCheck =
+await sb.auth.getSession();
+
+
+if(
+sessionCheck.error ||
+!sessionCheck.data.session
+){
+
+showInvalid();
+
+return;
+
+}
+
+
+const {
+error
+} =
+await sb.auth.updateUser({
+password:newPassword
+});
+
+
+if(error){
+
+throw error;
+
+}
+
+
+/*
+Sign out after resetting so the user
+must sign in again with the new password.
+*/
+
+await sb.auth.signOut();
+
+
+showSuccess();
+
+
+}catch(error){
+
+console.error(
+"Password update error:",
+error
+);
+
+
+showStatus(
+error.message ||
+"Unable to update your password. Please request a new reset link.",
+"error"
+);
+
+
+this.disabled =
+false;
+
+this.textContent =
+"UPDATE PASSWORD";
+
+}
+
+}
+);
+
+
+/* =========================
+HANDLE RECOVERY EVENTS
+========================= */
+
+sb.auth.onAuthStateChange(
+async function(event,session){
+
+if(
+event === "PASSWORD_RECOVERY"
+){
+
+clearStatus();
+
+}
+
+}
+);
+
+
+/* =========================
+INITIALIZE
+========================= */
+
+verifyRecoverySession();
+
+</script>
 
 </body>
 </html>
