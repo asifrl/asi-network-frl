@@ -1,13 +1,23 @@
- <!doctype html>
+<!doctype html>
 <html lang="en">
 
 <head>
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Member Account | ASI Network FRL</title>
+<meta
+name="viewport"
+content="width=device-width,initial-scale=1"
+>
 
-<meta name="robots" content="noindex,nofollow">
+<title>
+Member Account | ASI Network FRL
+</title>
+
+<meta
+name="robots"
+content="noindex,nofollow"
+>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -42,6 +52,7 @@ font:inherit;
 button{
 cursor:pointer;
 }
+
 
 /* =========================
 HEADER
@@ -119,12 +130,9 @@ color:#000;
 border-color:#fff;
 }
 
-.btn.primary:hover{
-background:#e8e8e8;
-}
 
 /* =========================
-ACCOUNT MENU
+ACCOUNT
 ========================= */
 
 .account-wrap{
@@ -176,6 +184,7 @@ background:#1d1d1d;
 display:none;
 }
 
+
 /* =========================
 LOADING
 ========================= */
@@ -191,13 +200,14 @@ font-weight:900;
 letter-spacing:2px;
 }
 
-/* =========================
-MAIN
-========================= */
-
 #memberApp{
 display:none;
 }
+
+
+/* =========================
+MAIN
+========================= */
 
 main{
 width:min(1240px,92%);
@@ -251,6 +261,7 @@ border-radius:50%;
 background:#fff;
 }
 
+
 /* =========================
 QUICK LINKS
 ========================= */
@@ -281,8 +292,9 @@ font-size:12px;
 line-height:1.5;
 }
 
+
 /* =========================
-SECTIONS
+CONTENT
 ========================= */
 
 .section{
@@ -373,6 +385,7 @@ border-radius:8px;
 color:#888;
 }
 
+
 /* =========================
 MODAL
 ========================= */
@@ -452,6 +465,7 @@ font-size:13px;
 line-height:1.5;
 }
 
+
 /* =========================
 FOOTER
 ========================= */
@@ -467,8 +481,9 @@ gap:15px;
 flex-wrap:wrap;
 }
 
+
 /* =========================
-RESPONSIVE
+MOBILE
 ========================= */
 
 @media(max-width:900px){
@@ -486,11 +501,13 @@ overflow-x:auto;
 }
 
 .quick-grid{
-grid-template-columns:repeat(2,minmax(0,1fr));
+grid-template-columns:
+repeat(2,minmax(0,1fr));
 }
 
 .grid{
-grid-template-columns:repeat(2,minmax(0,1fr));
+grid-template-columns:
+repeat(2,minmax(0,1fr));
 }
 
 }
@@ -513,10 +530,12 @@ padding:0 12px;
 }
 
 </style>
+
 </head>
 
 
 <body>
+
 
 <header>
 
@@ -645,6 +664,7 @@ VERIFYING MEMBER ACCESS...
 
 <main>
 
+
 <section class="hero">
 
 <div class="eyebrow">
@@ -661,10 +681,13 @@ exclusive programming and subscriber-only episodes.
 </p>
 
 <div class="member-badge">
+
 <span class="member-dot"></span>
+
 <span id="memberStatus">
 MEMBER ACCESS ACTIVE
 </span>
+
 </div>
 
 </section>
@@ -676,38 +699,69 @@ MEMBER ACCESS ACTIVE
 class="quick-card"
 href="/shows.html"
 >
-<strong>Browse Shows</strong>
-<span>Explore all ASI Network FRL originals.</span>
+<strong>
+Browse Shows
+</strong>
+
+<span>
+Explore all ASI Network FRL originals.
+</span>
 </a>
+
 
 <a
 class="quick-card"
 href="#continueWatching"
 >
-<strong>Continue Watching</strong>
-<span>Return to episodes you recently opened.</span>
+<strong>
+Continue Watching
+</strong>
+
+<span>
+Return to episodes you recently opened.
+</span>
 </a>
+
 
 <a
 class="quick-card"
 href="#myList"
 >
-<strong>My List</strong>
-<span>Your saved ASI Network content.</span>
+<strong>
+My List
+</strong>
+
+<span>
+Your saved ASI Network content.
+</span>
 </a>
+
 
 <button
 id="settingsCardButton"
 class="quick-card"
 type="button"
-style="color:#fff;text-align:left;cursor:pointer;"
+style="
+color:#fff;
+text-align:left;
+cursor:pointer;
+"
 >
-<strong>Account Settings</strong>
-<span>Manage your login and password.</span>
+
+<strong>
+Account Settings
+</strong>
+
+<span>
+Manage your login and password.
+</span>
+
 </button>
 
 </section>
 
+
+<!-- CONTINUE WATCHING -->
 
 <section
 id="continueWatching"
@@ -732,13 +786,15 @@ class="grid"
 >
 
 <div class="empty">
-Your recent episodes will appear here.
+Checking your recent episodes...
 </div>
 
 </div>
 
 </section>
 
+
+<!-- LATEST -->
 
 <section class="section">
 
@@ -768,6 +824,8 @@ Loading published episodes...
 </section>
 
 
+<!-- MY LIST -->
+
 <section
 id="myList"
 class="section"
@@ -787,13 +845,15 @@ class="grid"
 >
 
 <div class="empty">
-You haven't saved anything yet.
+Checking your saved content...
 </div>
 
 </div>
 
 </section>
 
+
+<!-- HISTORY -->
 
 <section
 id="watchHistory"
@@ -814,21 +874,20 @@ class="grid"
 >
 
 <div class="empty">
-Your watch history will appear here.
+Checking your watch history...
 </div>
 
 </div>
 
 </section>
 
+
 </main>
 
 </div>
 
 
-<!-- =========================
-ACCOUNT SETTINGS MODAL
-========================= -->
+<!-- ACCOUNT SETTINGS -->
 
 <div
 id="settingsModal"
@@ -927,14 +986,8 @@ support@asinetworkfrl.com
 const SUPABASE_URL =
 "https://gvvtwwrjfscaunczptpv.supabase.co";
 
-
 const SUPABASE_KEY =
 "sb_publishable_iliNeR5tX_4X4KAh5ZjPpA_e6ueLnP-";
-
-
-const SQUARE_CHECKOUT =
-"https://square.link/u/0l47AY8p";
-
 
 const sb =
 supabase.createClient(
@@ -942,9 +995,8 @@ SUPABASE_URL,
 SUPABASE_KEY
 );
 
-
-let session = null;
-let user = null;
+let currentSession = null;
+let currentUser = null;
 let isAdmin = false;
 
 
@@ -964,13 +1016,16 @@ return String(value ?? "")
 }
 
 
-function getStorageArray(key){
+function getStorageArray(
+key
+){
 
 try{
 
 const value =
 JSON.parse(
-localStorage.getItem(key) || "[]"
+localStorage.getItem(key) ||
+"[]"
 );
 
 return Array.isArray(value)
@@ -989,24 +1044,145 @@ return [];
 }
 
 
+function saveStorageArray(
+key,
+items
+){
+
+try{
+
+localStorage.setItem(
+key,
+JSON.stringify(items)
+);
+
+}
+catch(error){}
+
+}
+
+
+/*
+Saved items have historically been
+stored as objects.
+
+This also supports plain ID strings
+in case one is ever stored that way.
+*/
+
+function savedItemId(
+item
+){
+
+if(
+typeof item === "string"
+){
+
+return item;
+
+}
+
+return (
+item?.id ||
+item?.episode_id ||
+item?.episodeId ||
+""
+);
+
+}
+
+
 /* =========================
-AUTHORIZATION
+CARD
 ========================= */
 
-async function authorizeMember(){
+function episodeCard(
+episode,
+metaText = ""
+){
+
+const thumbnailStyle =
+episode.thumbnail_url
+?
+`background-image:url('${escapeHtml(
+episode.thumbnail_url
+)}')`
+:
+"";
+
+
+return `
+<article class="card">
+
+<div
+class="thumb"
+style="${thumbnailStyle}"
+>
+${episode.thumbnail_url ? "" : "▶"}
+</div>
+
+<div class="card-body">
+
+<div class="meta">
+${escapeHtml(
+metaText ||
+`EPISODE ${episode.episode_number || ""}`
+)}
+</div>
+
+<h3>
+${escapeHtml(
+episode.title ||
+`Episode ${episode.episode_number || ""}`
+)}
+</h3>
+
+<p>
+${escapeHtml(
+episode.description ||
+"ASI Network FRL Original"
+)}
+</p>
+
+<div class="card-actions">
+
+<a
+class="btn primary"
+href="/watch.html?id=${encodeURIComponent(
+episode.id
+)}"
+>
+WATCH
+</a>
+
+</div>
+
+</div>
+
+</article>
+`;
+
+}
+
+
+/* =========================
+SESSION
+========================= */
+
+async function verifyAccess(){
 
 const authResult =
 await sb.auth.getSession();
 
 
-session =
+currentSession =
 authResult.data.session;
 
 
-if(!session){
+if(!currentSession){
 
 window.location.replace(
-"/login.html?redirect=/members.html"
+"/login.html"
 );
 
 return false;
@@ -1014,23 +1190,23 @@ return false;
 }
 
 
-user =
-session.user;
+currentUser =
+currentSession.user;
 
 
 document
 .getElementById("accountEmail")
 .textContent =
-user.email || "";
+currentUser.email || "";
 
 
 document
 .getElementById("settingsEmail")
 .textContent =
-user.email || "";
+currentUser.email || "";
 
 
-/* CHECK ADMIN */
+/* ADMIN */
 
 const adminResult =
 await sb
@@ -1038,7 +1214,7 @@ await sb
 .select("user_id")
 .eq(
 "user_id",
-user.id
+currentUser.id
 )
 .maybeSingle();
 
@@ -1059,7 +1235,7 @@ document
 document
 .getElementById("memberStatus")
 .textContent =
-"ADMIN ACCESS ACTIVE";
+"ADMINISTRATOR ACCESS";
 
 
 return true;
@@ -1067,7 +1243,7 @@ return true;
 }
 
 
-/* VERIFY ACTIVE SUBSCRIPTION */
+/* NORMAL MEMBER */
 
 try{
 
@@ -1082,14 +1258,14 @@ method:"POST",
 
 headers:{
 
-"Content-Type":
-"application/json",
-
 "Authorization":
-`Bearer ${session.access_token}`,
+`Bearer ${currentSession.access_token}`,
 
 "apikey":
-SUPABASE_KEY
+SUPABASE_KEY,
+
+"Content-Type":
+"application/json"
 
 },
 
@@ -1101,12 +1277,12 @@ JSON.stringify({})
 );
 
 
-let membership = {};
+let result = {};
 
 
 try{
 
-membership =
+result =
 await response.json();
 
 }
@@ -1115,15 +1291,15 @@ catch(error){}
 
 const status =
 String(
-membership.status || ""
+result.status || ""
 ).toUpperCase();
 
 
 const active =
 response.ok &&
 (
-membership.active === true ||
-membership.isActive === true ||
+result.active === true ||
+result.isActive === true ||
 status === "ACTIVE"
 );
 
@@ -1143,12 +1319,6 @@ return false;
 }
 
 
-document
-.getElementById("memberStatus")
-.textContent =
-"MEMBER ACCESS ACTIVE";
-
-
 return true;
 
 
@@ -1156,7 +1326,7 @@ return true;
 catch(error){
 
 console.error(
-"Membership verification error:",
+"Membership verification failed:",
 error
 );
 
@@ -1165,7 +1335,7 @@ await sb.auth.signOut();
 
 
 window.location.replace(
-"/login.html"
+"/login.html?inactive=1"
 );
 
 
@@ -1177,30 +1347,415 @@ return false;
 
 
 /* =========================
+FETCH VALID EPISODES
+========================= */
+
+async function getValidEpisodes(
+savedItems
+){
+
+const ids =
+[
+...new Set(
+savedItems
+.map(savedItemId)
+.filter(Boolean)
+)
+];
+
+
+if(!ids.length){
+
+return [];
+
+}
+
+
+const result =
+await sb
+.from("episodes")
+.select(
+"id,season_id,episode_number,title,description,thumbnail_url,is_published"
+)
+.in(
+"id",
+ids
+)
+.eq(
+"is_published",
+true
+);
+
+
+if(result.error){
+
+console.error(
+"Saved episode validation error:",
+result.error
+);
+
+return [];
+
+}
+
+
+const episodes =
+result.data || [];
+
+
+/*
+Preserve the local-storage ordering.
+*/
+
+const map =
+new Map(
+episodes.map(
+episode => [
+episode.id,
+episode
+]
+)
+);
+
+
+return ids
+.map(
+id =>
+map.get(id)
+)
+.filter(Boolean);
+
+}
+
+
+/* =========================
+CLEAN CONTINUE WATCHING
+========================= */
+
+async function loadContinueWatching(){
+
+const grid =
+document.getElementById(
+"continueGrid"
+);
+
+
+const saved =
+getStorageArray(
+"asi_watch_history"
+);
+
+
+const valid =
+await getValidEpisodes(
+saved
+);
+
+
+/*
+Rewrite local storage with ONLY
+episodes that still exist and are
+published.
+
+This permanently removes deleted
+content like the old TEST SHOW card.
+*/
+
+saveStorageArray(
+"asi_watch_history",
+valid.map(
+episode => {
+
+const old =
+saved.find(
+item =>
+savedItemId(item) === episode.id
+);
+
+
+return {
+
+id:
+episode.id,
+
+title:
+episode.title,
+
+episode_number:
+episode.episode_number,
+
+watched_at:
+old?.watched_at ||
+new Date().toISOString()
+
+};
+
+}
+)
+);
+
+
+if(!valid.length){
+
+grid.innerHTML =
+`
+<div class="empty">
+You don't have anything in Continue Watching yet.
+</div>
+`;
+
+return;
+
+}
+
+
+grid.innerHTML =
+valid
+.slice(0,8)
+.map(
+episode =>
+episodeCard(
+episode,
+`EPISODE ${episode.episode_number || ""}`
+)
+)
+.join("");
+
+}
+
+
+/* =========================
+WATCH HISTORY
+========================= */
+
+async function loadHistory(){
+
+const grid =
+document.getElementById(
+"historyGrid"
+);
+
+
+const saved =
+getStorageArray(
+"asi_watch_history"
+);
+
+
+const valid =
+await getValidEpisodes(
+saved
+);
+
+
+if(!valid.length){
+
+grid.innerHTML =
+`
+<div class="empty">
+Your watch history is empty.
+</div>
+`;
+
+return;
+
+}
+
+
+grid.innerHTML =
+valid.map(
+episode =>
+episodeCard(
+episode,
+`WATCHED • EPISODE ${episode.episode_number || ""}`
+)
+)
+.join("");
+
+}
+
+
+/* =========================
+MY LIST CLEANUP
+========================= */
+
+async function loadMyList(){
+
+const grid =
+document.getElementById(
+"myListGrid"
+);
+
+
+const saved =
+getStorageArray(
+"asi_my_list"
+);
+
+
+const valid =
+await getValidEpisodes(
+saved
+);
+
+
+/*
+Remove deleted/unpublished episodes
+from the saved list automatically.
+*/
+
+saveStorageArray(
+"asi_my_list",
+valid.map(
+episode => ({
+
+id:
+episode.id,
+
+title:
+episode.title,
+
+episode_number:
+episode.episode_number
+
+})
+)
+);
+
+
+if(!valid.length){
+
+grid.innerHTML =
+`
+<div class="empty">
+You haven't saved any available episodes yet.
+</div>
+`;
+
+return;
+
+}
+
+
+grid.innerHTML =
+valid.map(
+episode =>
+episodeCard(
+episode,
+`MY LIST • EPISODE ${episode.episode_number || ""}`
+)
+)
+.join("");
+
+}
+
+
+/* =========================
+LATEST EPISODES
+========================= */
+
+async function loadLatest(){
+
+const grid =
+document.getElementById(
+"latestGrid"
+);
+
+
+try{
+
+const result =
+await sb
+.from("episodes")
+.select(
+"id,season_id,episode_number,title,description,thumbnail_url,is_published,created_at"
+)
+.eq(
+"is_published",
+true
+)
+.order(
+"created_at",
+{
+ascending:false
+}
+)
+.limit(8);
+
+
+if(result.error){
+
+throw result.error;
+
+}
+
+
+const episodes =
+result.data || [];
+
+
+if(!episodes.length){
+
+grid.innerHTML =
+`
+<div class="empty">
+New episodes are coming soon.
+</div>
+`;
+
+return;
+
+}
+
+
+grid.innerHTML =
+episodes.map(
+episode =>
+episodeCard(
+episode,
+`EPISODE ${episode.episode_number || ""}`
+)
+)
+.join("");
+
+
+}
+catch(error){
+
+console.error(
+"Latest episodes error:",
+error
+);
+
+
+grid.innerHTML =
+`
+<div class="empty">
+Latest episodes are temporarily unavailable.
+</div>
+`;
+
+}
+
+}
+
+
+/* =========================
 ACCOUNT MENU
 ========================= */
 
-const accountButton =
-document.getElementById(
-"accountButton"
-);
-
-
-const accountMenu =
-document.getElementById(
-"accountMenu"
-);
-
-
-accountButton.addEventListener(
+document
+.getElementById("accountButton")
+.addEventListener(
 "click",
 function(event){
 
 event.stopPropagation();
 
-accountMenu
-.classList
-.toggle("show");
+
+document
+.getElementById("accountMenu")
+.classList.toggle("show");
 
 }
 );
@@ -1210,14 +1765,187 @@ document.addEventListener(
 "click",
 function(event){
 
+const menu =
+document.getElementById(
+"accountMenu"
+);
+
+
+const button =
+document.getElementById(
+"accountButton"
+);
+
+
 if(
-!accountMenu.contains(event.target) &&
-!accountButton.contains(event.target)
+!menu.contains(event.target) &&
+!button.contains(event.target)
 ){
 
-accountMenu
-.classList
-.remove("show");
+menu.classList.remove(
+"show"
+);
+
+}
+
+}
+);
+
+
+/* =========================
+SETTINGS
+========================= */
+
+function openSettings(){
+
+document
+.getElementById("accountMenu")
+.classList.remove("show");
+
+
+document
+.getElementById("settingsModal")
+.classList.add("show");
+
+}
+
+
+document
+.getElementById("settingsMenuButton")
+.addEventListener(
+"click",
+openSettings
+);
+
+
+document
+.getElementById("settingsCardButton")
+.addEventListener(
+"click",
+openSettings
+);
+
+
+document
+.getElementById("closeSettingsButton")
+.addEventListener(
+"click",
+function(){
+
+document
+.getElementById("settingsModal")
+.classList.remove("show");
+
+}
+);
+
+
+document
+.getElementById("settingsModal")
+.addEventListener(
+"click",
+function(event){
+
+if(
+event.target === this
+){
+
+this.classList.remove(
+"show"
+);
+
+}
+
+}
+);
+
+
+/* =========================
+PASSWORD RESET
+========================= */
+
+document
+.getElementById("resetPasswordButton")
+.addEventListener(
+"click",
+async function(){
+
+if(!currentUser?.email){
+
+return;
+
+}
+
+
+const button =
+this;
+
+
+button.disabled =
+true;
+
+
+button.textContent =
+"SENDING...";
+
+
+const message =
+document.getElementById(
+"settingsMessage"
+);
+
+
+try{
+
+const result =
+await sb.auth
+.resetPasswordForEmail(
+currentUser.email,
+{
+
+redirectTo:
+window.location.origin +
+"/reset.html"
+
+}
+);
+
+
+if(result.error){
+
+throw result.error;
+
+}
+
+
+message.style.display =
+"block";
+
+
+message.textContent =
+"Password reset email sent. Check your inbox and spam folder.";
+
+
+}
+catch(error){
+
+message.style.display =
+"block";
+
+
+message.textContent =
+error.message ||
+"Unable to send password reset email.";
+
+}
+finally{
+
+button.disabled =
+false;
+
+
+button.textContent =
+"SEND PASSWORD RESET EMAIL";
 
 }
 
@@ -1247,608 +1975,15 @@ window.location.replace(
 
 
 /* =========================
-ACCOUNT SETTINGS
-========================= */
-
-const settingsModal =
-document.getElementById(
-"settingsModal"
-);
-
-
-function openSettings(){
-
-settingsModal
-.classList
-.add("show");
-
-
-accountMenu
-.classList
-.remove("show");
-
-}
-
-
-function closeSettings(){
-
-settingsModal
-.classList
-.remove("show");
-
-}
-
-
-document
-.getElementById("settingsMenuButton")
-.addEventListener(
-"click",
-openSettings
-);
-
-
-document
-.getElementById("settingsCardButton")
-.addEventListener(
-"click",
-openSettings
-);
-
-
-document
-.getElementById("closeSettingsButton")
-.addEventListener(
-"click",
-closeSettings
-);
-
-
-settingsModal.addEventListener(
-"click",
-function(event){
-
-if(event.target === settingsModal){
-
-closeSettings();
-
-}
-
-}
-);
-
-
-/* =========================
-PASSWORD RESET
-========================= */
-
-document
-.getElementById("resetPasswordButton")
-.addEventListener(
-"click",
-async function(){
-
-const button =
-document.getElementById(
-"resetPasswordButton"
-);
-
-
-const message =
-document.getElementById(
-"settingsMessage"
-);
-
-
-button.disabled = true;
-
-
-button.textContent =
-"SENDING...";
-
-
-message.style.display =
-"none";
-
-
-try{
-
-const result =
-await sb.auth
-.resetPasswordForEmail(
-
-user.email,
-
-{
-
-redirectTo:
-window.location.origin +
-"/reset.html"
-
-}
-
-);
-
-
-if(result.error){
-
-throw result.error;
-
-}
-
-
-message.textContent =
-"Password reset email sent. Check your inbox and spam folder.";
-
-
-message.style.display =
-"block";
-
-
-}
-catch(error){
-
-console.error(
-"Reset email error:",
-error
-);
-
-
-message.textContent =
-"We couldn't send the reset email right now. Please try again.";
-
-
-message.style.display =
-"block";
-
-
-}
-finally{
-
-button.disabled = false;
-
-
-button.textContent =
-"SEND PASSWORD RESET EMAIL";
-
-}
-
-}
-);
-
-
-/* =========================
-LOAD LATEST EPISODES
-========================= */
-
-async function loadLatestEpisodes(){
-
-const grid =
-document.getElementById(
-"latestGrid"
-);
-
-
-try{
-
-const result =
-await sb
-.from("episodes")
-.select(
-"id,episode_number,title,description,thumbnail_url,is_published"
-)
-.eq(
-"is_published",
-true
-)
-.order(
-"episode_number",
-{
-ascending:false
-}
-)
-.limit(8);
-
-
-if(result.error){
-
-throw result.error;
-
-}
-
-
-const episodes =
-result.data || [];
-
-
-if(!episodes.length){
-
-grid.innerHTML =
-`
-<div class="empty">
-Published episodes are coming soon.
-</div>
-`;
-
-return;
-
-}
-
-
-grid.innerHTML =
-episodes.map(
-episode =>
-episodeCard(
-episode,
-true
-)
-).join("");
-
-
-}
-catch(error){
-
-console.error(
-"Latest episodes error:",
-error
-);
-
-
-grid.innerHTML =
-`
-<div class="empty">
-Episodes are temporarily unavailable.
-</div>
-`;
-
-}
-
-}
-
-
-/* =========================
-EPISODE CARD
-========================= */
-
-function episodeCard(
-episode,
-showSaveButton = false
-){
-
-const id =
-episode.id ||
-episode.episodeId ||
-"";
-
-
-const episodeNumber =
-episode.episode_number ||
-episode.episodeNumber ||
-"";
-
-
-const title =
-episode.title ||
-(
-episodeNumber
-?
-`Episode ${episodeNumber}`
-:
-"ASI Network Episode"
-);
-
-
-const description =
-episode.description ||
-"ASI Network FRL Original";
-
-
-const thumbnail =
-episode.thumbnail_url ||
-episode.thumbnailUrl ||
-"";
-
-
-const thumbStyle =
-thumbnail
-?
-`background-image:url('${escapeHtml(thumbnail)}')`
-:
-"";
-
-
-const saveButton =
-showSaveButton && id
-?
-`
-<button
-class="btn"
-type="button"
-onclick="saveEpisode('${escapeHtml(id)}','${escapeHtml(title)}','${escapeHtml(description)}','${escapeHtml(thumbnail)}','${escapeHtml(episodeNumber)}')"
->
-+ MY LIST
-</button>
-`
-:
-"";
-
-
-return `
-<article class="card">
-
-<div
-class="thumb"
-style="${thumbStyle}"
->
-▶
-</div>
-
-<div class="card-body">
-
-<div class="meta">
-${episodeNumber ? `EPISODE ${escapeHtml(episodeNumber)}` : "ASI NETWORK FRL"}
-</div>
-
-<h3>
-${escapeHtml(title)}
-</h3>
-
-<p>
-${escapeHtml(description)}
-</p>
-
-<div class="card-actions">
-
-${id
-?
-`
-<a
-class="btn primary"
-href="/watch.html?id=${encodeURIComponent(id)}"
->
-WATCH
-</a>
-`
-:
-""
-}
-
-${saveButton}
-
-</div>
-
-</div>
-
-</article>
-`;
-
-}
-
-
-/* =========================
-MY LIST
-========================= */
-
-window.saveEpisode =
-function(
-id,
-title,
-description,
-thumbnail,
-episodeNumber
-){
-
-let list =
-getStorageArray(
-"asi_my_list"
-);
-
-
-const exists =
-list.some(
-item =>
-item.id === id
-);
-
-
-if(!exists){
-
-list.unshift({
-
-id,
-title,
-description,
-thumbnail_url:thumbnail,
-episode_number:episodeNumber
-
-});
-
-
-localStorage.setItem(
-"asi_my_list",
-JSON.stringify(list)
-);
-
-}
-
-
-renderMyList();
-
-};
-
-
-function renderMyList(){
-
-const grid =
-document.getElementById(
-"myListGrid"
-);
-
-
-const list =
-getStorageArray(
-"asi_my_list"
-);
-
-
-if(!list.length){
-
-grid.innerHTML =
-`
-<div class="empty">
-You haven't saved anything yet.
-</div>
-`;
-
-return;
-
-}
-
-
-grid.innerHTML =
-list.map(
-episode =>
-episodeCard(
-episode,
-false
-)
-).join("");
-
-}
-
-
-/* =========================
-WATCH HISTORY
-========================= */
-
-function getWatchHistory(){
-
-const possibleKeys = [
-
-"asi_watch_history",
-
-"watch_history",
-
-"asiWatchHistory"
-
-];
-
-
-for(
-const key of possibleKeys
-){
-
-const data =
-getStorageArray(key);
-
-
-if(data.length){
-
-return data;
-
-}
-
-}
-
-
-return [];
-
-}
-
-
-function renderHistory(){
-
-const grid =
-document.getElementById(
-"historyGrid"
-);
-
-
-const history =
-getWatchHistory();
-
-
-if(!history.length){
-
-grid.innerHTML =
-`
-<div class="empty">
-Your watch history will appear here after you open episodes.
-</div>
-`;
-
-return;
-
-}
-
-
-grid.innerHTML =
-history
-.slice(0,12)
-.map(
-episode =>
-episodeCard(
-episode,
-false
-)
-)
-.join("");
-
-}
-
-
-/* =========================
-CONTINUE WATCHING
-========================= */
-
-function renderContinueWatching(){
-
-const grid =
-document.getElementById(
-"continueGrid"
-);
-
-
-const history =
-getWatchHistory();
-
-
-if(!history.length){
-
-grid.innerHTML =
-`
-<div class="empty">
-Start watching an episode and it will appear here.
-</div>
-`;
-
-return;
-
-}
-
-
-grid.innerHTML =
-history
-.slice(0,4)
-.map(
-episode =>
-episodeCard(
-episode,
-false
-)
-)
-.join("");
-
-}
-
-
-/* =========================
 INITIALIZE
 ========================= */
 
 async function initialize(){
 
+try{
+
 const allowed =
-await authorizeMember();
+await verifyAccess();
 
 
 if(!allowed){
@@ -1857,6 +1992,11 @@ return;
 
 }
 
+
+/*
+Display member app once access is
+confirmed.
+*/
 
 document
 .getElementById("loadingScreen")
@@ -1870,14 +2010,41 @@ document
 "block";
 
 
-await loadLatestEpisodes();
+/*
+Run cleanup and page loading.
+
+Deleted episodes disappear
+automatically from browser history.
+*/
+
+await Promise.all([
+
+loadContinueWatching(),
+
+loadHistory(),
+
+loadMyList(),
+
+loadLatest()
+
+]);
 
 
-renderMyList();
+}
+catch(error){
 
-renderHistory();
+console.error(
+"Member page initialization error:",
+error
+);
 
-renderContinueWatching();
+
+document
+.getElementById("loadingScreen")
+.textContent =
+"We couldn't load your ASI Network FRL account right now.";
+
+}
 
 }
 
@@ -1887,4 +2054,5 @@ initialize();
 </script>
 
 </body>
+
 </html>
