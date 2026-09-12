@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
@@ -41,6 +42,7 @@ button{
 font:inherit;
 cursor:pointer;
 }
+
 
 /* =========================
 NAVIGATION
@@ -123,8 +125,9 @@ border-color:#fff;
 background:#e8e8e8;
 }
 
+
 /* =========================
-AUTH LOADING STATE
+AUTH STATE
 ========================= */
 
 #navSubscribe,
@@ -147,6 +150,7 @@ visibility:hidden;
 #membershipSection.auth-ready{
 visibility:visible;
 }
+
 
 /* =========================
 ACCOUNT MENU
@@ -201,6 +205,7 @@ background:#1d1d1d;
 display:none;
 }
 
+
 /* =========================
 SHOW HERO
 ========================= */
@@ -213,7 +218,9 @@ margin:0 auto 90px;
 .show-hero{
 padding:70px 0 45px;
 display:grid;
-grid-template-columns:minmax(0,1.4fr) minmax(260px,.6fr);
+grid-template-columns:
+minmax(0,1.4fr)
+minmax(260px,.6fr);
 gap:38px;
 align-items:center;
 }
@@ -258,6 +265,7 @@ display:grid;
 place-items:center;
 font-size:52px;
 }
+
 
 /* =========================
 SEASONS + EPISODES
@@ -353,6 +361,7 @@ border-radius:8px;
 color:#888;
 }
 
+
 /* =========================
 MEMBERSHIP CTA
 ========================= */
@@ -362,7 +371,8 @@ margin-top:70px;
 padding:55px 25px;
 text-align:center;
 border:1px solid #222;
-background:linear-gradient(135deg,#111,#080808);
+background:
+linear-gradient(135deg,#111,#080808);
 border-radius:12px;
 }
 
@@ -386,6 +396,7 @@ flex-wrap:wrap;
 margin-top:24px;
 }
 
+
 /* =========================
 LOADING / ERROR
 ========================= */
@@ -397,6 +408,8 @@ place-items:center;
 color:#999;
 font-weight:900;
 letter-spacing:2px;
+text-align:center;
+padding:40px;
 }
 
 #errorView{
@@ -415,7 +428,9 @@ margin:0 0 12px;
 #errorView p{
 color:#999;
 line-height:1.6;
+max-width:550px;
 }
+
 
 /* =========================
 FOOTER
@@ -431,6 +446,7 @@ justify-content:space-between;
 gap:15px;
 flex-wrap:wrap;
 }
+
 
 /* =========================
 RESPONSIVE
@@ -482,6 +498,7 @@ padding:0 12px;
 }
 
 </style>
+
 </head>
 
 
@@ -495,6 +512,7 @@ href="/"
 >
 ASI NETWORK <span>FRL</span> 👁️
 </a>
+
 
 <nav class="nav">
 
@@ -626,7 +644,8 @@ Show Unavailable
 </h2>
 
 <p>
-This ASI Network FRL show could not be loaded.
+This show is not currently available on ASI Network FRL.
+It may be unpublished, removed, or not yet released.
 </p>
 
 <a
@@ -818,6 +837,7 @@ return String(value ?? "")
 
 }
 
+
 function revealMembershipSection(){
 
 document
@@ -861,7 +881,7 @@ document
 currentUser.email || "";
 
 
-/* CHECK ADMIN */
+/* ADMIN CHECK */
 
 const adminResult =
 await sb
@@ -890,7 +910,7 @@ return;
 }
 
 
-/* CHECK SUBSCRIPTION */
+/* SUBSCRIPTION CHECK */
 
 try{
 
@@ -992,7 +1012,7 @@ showVisitorState();
 
 
 /* =========================
-VISITOR STATE
+VISITOR
 ========================= */
 
 function showVisitorState(){
@@ -1148,7 +1168,7 @@ revealMembershipSection();
 
 
 /* =========================
-SIGNED IN BUT INACTIVE
+SIGNED-IN INACTIVE
 ========================= */
 
 function showSignedInInactiveState(){
@@ -1293,7 +1313,7 @@ window.location.replace(
 
 
 /* =========================
-LOAD SHOW
+LOAD PUBLISHED SHOW
 ========================= */
 
 async function loadShow(){
@@ -1318,13 +1338,25 @@ return;
 
 try{
 
+/*
+SECURITY:
+Public show page will only return
+a show explicitly marked published.
+*/
+
 const showResult =
 await sb
 .from("shows")
-.select("*")
+.select(
+"id,title,description,thumbnail_url,is_published"
+)
 .eq(
 "id",
 showId
+)
+.eq(
+"is_published",
+true
 )
 .maybeSingle();
 
@@ -1335,7 +1367,7 @@ showResult.error ||
 ){
 
 throw new Error(
-"Show not found."
+"Published show not found."
 );
 
 }
@@ -1378,7 +1410,9 @@ document
 }
 
 
-/* LOAD SEASONS */
+/* =========================
+PUBLISHED SEASONS ONLY
+========================= */
 
 const seasonResult =
 await sb
@@ -1389,6 +1423,10 @@ await sb
 .eq(
 "show_id",
 showId
+)
+.eq(
+"is_published",
+true
 )
 .order(
 "season_number",
@@ -1434,7 +1472,9 @@ season.id
 );
 
 
-/* LOAD PUBLISHED EPISODES */
+/* =========================
+PUBLISHED EPISODES ONLY
+========================= */
 
 const episodeResult =
 await sb
@@ -1549,7 +1589,9 @@ episode => {
 const thumbStyle =
 episode.thumbnail_url
 ?
-`background-image:url('${escapeHtml(episode.thumbnail_url)}')`
+`background-image:url('${escapeHtml(
+episode.thumbnail_url
+)}')`
 :
 "";
 
@@ -1561,14 +1603,18 @@ return `
 class="thumb"
 style="${thumbStyle}"
 >
-▶
+${episode.thumbnail_url ? "" : "▶"}
 </div>
 
 <div class="card-body">
 
 <div class="meta">
-SEASON ${escapeHtml(season.season_number)}
-• EPISODE ${escapeHtml(episode.episode_number)}
+SEASON ${escapeHtml(
+season.season_number
+)}
+• EPISODE ${escapeHtml(
+episode.episode_number
+)}
 </div>
 
 <h3>
@@ -1589,7 +1635,9 @@ episode.description ||
 
 <a
 class="btn primary"
-href="/watch.html?id=${encodeURIComponent(episode.id)}"
+href="/watch.html?id=${encodeURIComponent(
+episode.id
+)}"
 >
 WATCH EPISODE
 </a>
@@ -1639,12 +1687,10 @@ document
 .style.display =
 "none";
 
-
 document
 .getElementById("errorView")
 .style.display =
 "none";
-
 
 document
 .getElementById("showApp")
@@ -1661,12 +1707,10 @@ document
 .style.display =
 "none";
 
-
 document
 .getElementById("showApp")
 .style.display =
 "none";
-
 
 document
 .getElementById("errorView")
@@ -1698,4 +1742,5 @@ initialize();
 </script>
 
 </body>
+
 </html>
