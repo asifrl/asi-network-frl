@@ -1,515 +1,574 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
 
-<title>ASI Network FRL | Members</title>
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
 
-<meta name="robots" content="noindex,nofollow">
+<title>ASI Network FRL | Original Reality Entertainment</title>
 
+<meta
+name="description"
+content="ASI Network FRL — original reality entertainment. Watch Family Behind The Trauma and exclusive ASI Network content."
+>
+
+<meta
+name="keywords"
+content="ASI Network FRL, Family Behind The Trauma, reality TV, reality show, streaming network"
+>
+
+<meta name="robots" content="index, follow">
+
+<link
+rel="canonical"
+href="https://asinetworkfrl.com/"
+>
+
+<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
-*{
-box-sizing:border-box;
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
 }
 
-html{
-scroll-behavior:smooth;
+html {
+scroll-behavior: smooth;
 }
 
-body{
-margin:0;
-background:#050505;
-color:#fff;
-font-family:Arial,Helvetica,sans-serif;
+body {
+background: #050505;
+color: #fff;
+font-family: Arial, Helvetica, sans-serif;
+min-height: 100vh;
 }
 
-a{
-color:inherit;
-text-decoration:none;
+a {
+text-decoration: none;
+color: inherit;
 }
 
-button,
-input{
-font:inherit;
+button {
+font-family: inherit;
 }
 
-header{
-position:sticky;
-top:0;
-z-index:50;
-min-height:72px;
-padding:0 4%;
-display:flex;
-align-items:center;
-gap:26px;
-background:rgba(5,5,5,.97);
-border-bottom:1px solid #222;
+/* NAV */
+
+nav {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+min-height: 72px;
+padding: 0 6%;
+display: flex;
+align-items: center;
+justify-content: space-between;
+background: rgba(0, 0, 0, 0.94);
+border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+z-index: 1000;
 }
 
-.logo{
-font-weight:900;
-letter-spacing:1px;
-white-space:nowrap;
+.brand {
+font-weight: 900;
+letter-spacing: 1px;
+font-size: 20px;
 }
 
-.logo span{
-color:#999;
-font-weight:500;
+.brand span {
+opacity: 0.6;
+font-weight: 500;
+margin-left: 5px;
 }
 
-.nav{
-display:flex;
-gap:22px;
-align-items:center;
-flex:1;
+.nav-links {
+display: flex;
+gap: 24px;
+align-items: center;
+font-size: 14px;
+font-weight: 700;
 }
 
-.nav a{
-font-size:12px;
-font-weight:900;
+.nav-links a:hover {
+opacity: 0.7;
 }
 
-.nav a:hover{
-opacity:.7;
+.nav-actions {
+display: flex;
+gap: 10px;
+align-items: center;
 }
 
-.right{
-display:flex;
-align-items:center;
-gap:10px;
-margin-left:auto;
+.btn {
+border: none;
+border-radius: 8px;
+padding: 12px 18px;
+cursor: pointer;
+font-weight: 800;
+transition: 0.2s ease;
 }
 
-.btn{
-display:inline-flex;
-align-items:center;
-justify-content:center;
-min-height:42px;
-padding:0 18px;
-border-radius:6px;
-border:1px solid #444;
-background:#111;
-color:#fff;
-font-size:12px;
-font-weight:900;
-cursor:pointer;
+.btn:hover {
+transform: translateY(-1px);
 }
 
-.btn.primary{
-background:#fff;
-color:#000;
-border-color:#fff;
+.btn-primary {
+background: #fff;
+color: #000;
 }
 
-main{
-width:min(1200px,92%);
-margin:40px auto 80px;
+.btn-secondary {
+background: rgba(255,255,255,0.12);
+color: #fff;
+border: 1px solid rgba(255,255,255,0.13);
 }
 
-.hero{
-padding:70px 0;
+.btn-outline {
+background: transparent;
+color: #fff;
+border: 1px solid rgba(255,255,255,0.4);
 }
 
-.eyebrow{
-font-size:12px;
-letter-spacing:4px;
-color:#999;
-font-weight:900;
-}
+/* HERO */
 
-.hero h1{
-font-size:clamp(44px,7vw,82px);
-line-height:.95;
-margin:10px 0 18px;
-}
-
-.hero p{
-max-width:660px;
-color:#bbb;
-line-height:1.65;
-}
-
-.actions{
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-margin-top:16px;
-}
-
-.section{
-margin-top:52px;
-}
-
-.section-head{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:15px;
-margin-bottom:18px;
-}
-
-.section-head h2{
-margin:0;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
-gap:18px;
-}
-
-.card{
-background:#101010;
-border:1px solid #222;
-border-radius:9px;
-overflow:hidden;
-}
-
-.thumb{
-aspect-ratio:16/9;
+.hero {
+min-height: 690px;
+padding: 150px 6% 80px;
+display: flex;
+align-items: center;
 background:
-linear-gradient(135deg,#242424,#090909);
-background-size:cover;
-background-position:center;
-display:grid;
-place-items:center;
-font-size:36px;
+linear-gradient(
+90deg,
+rgba(0,0,0,1) 0%,
+rgba(0,0,0,0.82) 45%,
+rgba(0,0,0,0.45) 100%
+),
+radial-gradient(
+circle at 80% 40%,
+rgba(255,255,255,0.14),
+transparent 40%
+);
 }
 
-.body{
-padding:16px;
+.hero-content {
+max-width: 720px;
 }
 
-.body h3{
-margin:0 0 7px;
+.eyebrow {
+font-size: 13px;
+letter-spacing: 3px;
+color: #aaa;
+margin-bottom: 15px;
+text-transform: uppercase;
 }
 
-.body p{
-margin:0;
-color:#999;
-line-height:1.5;
-font-size:13px;
+h1 {
+font-size: clamp(46px, 7vw, 92px);
+line-height: 0.95;
+margin-bottom: 22px;
 }
 
-.meta{
-color:#777;
-font-size:11px;
-margin-bottom:8px;
+.hero p {
+color: #c7c7c7;
+max-width: 620px;
+line-height: 1.6;
+font-size: 17px;
 }
 
-.empty{
-grid-column:1/-1;
-padding:26px;
-border:1px solid #222;
-background:#0d0d0d;
-color:#888;
-border-radius:8px;
+.hero-actions {
+display: flex;
+gap: 12px;
+flex-wrap: wrap;
+margin-top: 28px;
 }
 
-.loading{
-min-height:70vh;
-display:grid;
-place-items:center;
-color:#999;
-font-weight:900;
-letter-spacing:2px;
+/* SECTION */
+
+section {
+padding: 70px 6%;
 }
 
-#app{
-display:none;
+.section-heading {
+display: flex;
+justify-content: space-between;
+align-items: end;
+margin-bottom: 28px;
+gap: 20px;
 }
 
-.menu{
-position:absolute;
-right:4%;
-top:64px;
-width:260px;
-background:#111;
-border:1px solid #333;
-border-radius:8px;
-padding:8px;
-display:none;
-z-index:100;
+.section-heading h2 {
+font-size: 30px;
 }
 
-.menu.show{
-display:block;
+.section-heading p {
+color: #999;
+font-size: 14px;
 }
 
-.menu button,
-.menu a{
-display:block;
-width:100%;
-padding:12px;
-background:transparent;
-color:#fff;
-border:0;
-text-align:left;
-cursor:pointer;
-border-radius:5px;
+/* SHOW CARD */
+
+.show-card {
+background: #111;
+border: 1px solid rgba(255,255,255,0.08);
+border-radius: 16px;
+overflow: hidden;
 }
 
-.menu button:hover,
-.menu a:hover{
-background:#1c1c1c;
+.show-art {
+min-height: 320px;
+padding: 40px;
+display: flex;
+align-items: end;
+background:
+linear-gradient(
+0deg,
+rgba(0,0,0,0.9),
+rgba(0,0,0,0.1)
+),
+linear-gradient(135deg, #222, #070707);
 }
 
-.mail{
-padding:12px;
-color:#888;
-font-size:12px;
-border-bottom:1px solid #222;
-overflow-wrap:anywhere;
+.show-art h3 {
+font-size: 36px;
 }
 
-footer{
-padding:35px 4%;
-border-top:1px solid #181818;
-color:#666;
-font-size:12px;
-display:flex;
-justify-content:space-between;
-gap:15px;
-flex-wrap:wrap;
+.show-info {
+padding: 24px;
 }
 
-@media(max-width:820px){
-
-header{
-flex-wrap:wrap;
-padding-top:14px;
-padding-bottom:14px;
+.show-info p {
+color: #aaa;
+line-height: 1.6;
+margin-top: 8px;
 }
 
-.nav{
-order:3;
-width:100%;
-overflow-x:auto;
+/* EPISODES */
+
+.episodes-grid {
+display: grid;
+grid-template-columns: repeat(3, minmax(0, 1fr));
+gap: 18px;
 }
 
-.right{
-margin-left:0;
+.episode-card {
+background: #111;
+border: 1px solid rgba(255,255,255,0.08);
+border-radius: 14px;
+overflow: hidden;
 }
 
-.grid{
-grid-template-columns:repeat(2,minmax(0,1fr));
+.episode-thumb {
+aspect-ratio: 16 / 9;
+background: linear-gradient(135deg, #242424, #0b0b0b);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 42px;
 }
 
+.episode-body {
+padding: 18px;
 }
 
-@media(max-width:520px){
-
-.grid{
-grid-template-columns:1fr;
+.episode-label {
+color: #888;
+font-size: 12px;
+letter-spacing: 1px;
+text-transform: uppercase;
+margin-bottom: 7px;
 }
 
-.hero h1{
-font-size:48px;
+.episode-title {
+font-size: 19px;
+font-weight: 800;
+margin-bottom: 8px;
 }
 
+.episode-description {
+color: #aaa;
+line-height: 1.45;
+font-size: 14px;
 }
 
+.episode-actions {
+margin-top: 16px;
+}
+
+.status-message {
+grid-column: 1 / -1;
+padding: 26px;
+background: #0d0d0d;
+border: 1px solid rgba(255,255,255,0.08);
+border-radius: 12px;
+color: #aaa;
+}
+
+/* SUBSCRIBE */
+
+.subscribe {
+text-align: center;
+background: #0d0d0d;
+border-top: 1px solid rgba(255,255,255,0.08);
+border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.subscribe h2 {
+font-size: 38px;
+margin-bottom: 10px;
+}
+
+.price {
+font-size: 26px;
+font-weight: 900;
+margin: 18px 0;
+}
+
+.subscribe p {
+color: #aaa;
+max-width: 570px;
+margin: 0 auto;
+line-height: 1.6;
+}
+
+/* FOOTER */
+
+footer {
+padding: 44px 6%;
+color: #888;
+font-size: 13px;
+}
+
+.footer-inner {
+display: flex;
+justify-content: space-between;
+gap: 30px;
+flex-wrap: wrap;
+}
+
+.footer-links {
+display: flex;
+flex-wrap: wrap;
+gap: 18px;
+}
+
+.support-link {
+color: #fff;
+}
+
+.mobile-menu {
+display: none;
+}
+
+@media (max-width: 850px) {
+
+.nav-links {
+display: none;
+}
+
+.episodes-grid {
+grid-template-columns: 1fr;
+}
+
+nav {
+padding: 0 4%;
+}
+
+section,
+.hero,
+footer {
+padding-left: 5%;
+padding-right: 5%;
+}
+
+.hero {
+padding-top: 130px;
+min-height: 620px;
+}
+}
 </style>
 </head>
 
-
 <body>
 
-<div
-id="loading"
-class="loading"
->
-LOADING ASI NETWORK FRL...
+<nav>
+
+<a href="/" class="brand">
+ASI NETWORK <span>FRL</span>
+</a>
+
+<div class="nav-links">
+<a href="/">HOME</a>
+<a href="#shows">SHOWS</a>
+<a href="#episodes">EPISODES</a>
+<a href="#subscribe">SUBSCRIBE</a>
+<a href="mailto:support@asinetworkfrl.com">SUPPORT</a>
 </div>
 
-
-<div id="app">
-
-<header>
+<div class="nav-actions">
 
 <a
-class="logo"
-href="/members.html"
+id="signInBtn"
+class="btn btn-secondary"
+href="signin.html"
 >
-ASI NETWORK <span>FRL</span> 👁️
-</a>
-
-
-<nav class="nav">
-
-<a href="/members.html">
-HOME
-</a>
-
-<a href="/shows.html">
-SHOWS
-</a>
-
-<a href="#episodes">
-EPISODES
+SIGN IN
 </a>
 
 <a
-href="#"
-id="myList"
->
-MY LIST
-</a>
-
-<a
-href="#"
-id="history"
->
-WATCH HISTORY
-</a>
-
-</nav>
-
-
-<div class="right">
-
-<button
-id="accountBtn"
-class="btn"
->
-ACCOUNT ▾
-</button>
-
-</div>
-
-
-<div
-id="menu"
-class="menu"
->
-
-<div
-id="email"
-class="mail"
-></div>
-
-<button id="profile">
-My Profile
-</button>
-
-<button id="settings">
-Account Settings
-</button>
-
-<button id="support">
-Help & Support
-</button>
-
-<a
-id="admin"
-href="/admin-login.html"
+id="memberBtn"
+class="btn btn-primary"
+href="member.html"
 style="display:none;"
 >
-Admin Dashboard
+MEMBER ACCESS
 </a>
 
-<button id="logout">
-Log Out
+<button
+id="logoutBtn"
+class="btn btn-outline"
+style="display:none;"
+>
+LOG OUT
 </button>
 
 </div>
 
-</header>
+</nav>
 
 
 <main>
 
 <section class="hero">
 
+<div class="hero-content">
+
 <div class="eyebrow">
-ASI NETWORK FRL MEMBER ACCESS
+ASI NETWORK FRL • I SEE EVERYTHING
 </div>
 
 <h1>
-WELCOME<br>
-INSIDE.
+REAL LIFE.<br>
+REAL PEOPLE.
 </h1>
 
 <p>
-Browse ASI Network FRL originals and securely watch published episodes.
-Moving between Home, Shows and Watch will keep your account signed in.
+Original reality entertainment with unfiltered stories,
+exclusive episodes and real-life moments you won't see anywhere else.
 </p>
 
-<div class="actions">
+<div class="hero-actions">
 
 <a
-class="btn primary"
-href="/shows.html"
->
-BROWSE SHOWS
-</a>
-
-<a
-class="btn"
+id="watchHeroBtn"
 href="#episodes"
+class="btn btn-primary"
 >
-LATEST EPISODES
+WATCH NOW
 </a>
+
+<a
+id="subscribeHeroBtn"
+href="https://square.link/u/0l47AY8p"
+class="btn btn-secondary"
+>
+SUBSCRIBE • $5.99/MO
+</a>
+
+</div>
 
 </div>
 
 </section>
 
 
-<section class="section">
+<section id="shows">
 
-<div class="section-head">
+<div class="section-heading">
 
-<h2>
-Our Shows
-</h2>
+<div>
+<h2>ASI Originals</h2>
+<p>Original programming from ASI Network FRL.</p>
+</div>
 
-<a href="/shows.html">
-VIEW ALL →
-</a>
+</div>
+
+<article class="show-card">
+
+<div class="show-art">
+<h3>Family Behind The Trauma</h3>
+</div>
+
+<div class="show-info">
+
+<strong>
+Family Behind The Trauma
+</strong>
+
+<p>
+Follow ASI and her family through the conversations,
+conflict, history and real-life moments behind the trauma.
+</p>
+
+</div>
+
+</article>
+
+</section>
+
+
+<section id="episodes">
+
+<div class="section-heading">
+
+<div>
+<h2>Episodes</h2>
+<p>Family Behind The Trauma</p>
+</div>
 
 </div>
 
 <div
-id="shows"
-class="grid"
+id="episodesGrid"
+class="episodes-grid"
 >
-
-<div class="empty">
-Loading shows...
+<div class="status-message">
+Loading episodes...
 </div>
-
 </div>
 
 </section>
 
 
 <section
-id="episodes"
-class="section"
+id="subscribe"
+class="subscribe"
 >
 
-<div class="section-head">
+<h2>Join ASI Network FRL</h2>
 
-<h2>
-Latest Episodes
-</h2>
-
+<div class="price">
+$5.99 / month
 </div>
 
-<div
-id="eps"
-class="grid"
+<p>
+Subscribe for member access to ASI Network FRL original
+reality entertainment and exclusive episodes.
+</p>
+
+<div style="margin-top:25px;">
+
+<a
+href="https://square.link/u/0l47AY8p"
+class="btn btn-primary"
 >
-
-<div class="empty">
-Loading episodes...
-</div>
+SUBSCRIBE NOW
+</a>
 
 </div>
 
@@ -520,655 +579,479 @@ Loading episodes...
 
 <footer>
 
+<div class="footer-inner">
+
 <div>
-© 2026 ASI NETWORK FRL
+© <span id="year"></span> ASI Network FRL.
+All rights reserved.
 </div>
 
-<a href="mailto:support@asinetworkfrl.com">
+<div class="footer-links">
+
+<a href="/">
+Home
+</a>
+
+<a href="#shows">
+Shows
+</a>
+
+<a href="#episodes">
+Episodes
+</a>
+
+<a
+class="support-link"
+href="mailto:support@asinetworkfrl.com"
+>
 support@asinetworkfrl.com
 </a>
 
-</footer>
+</div>
 
 </div>
+
+</footer>
 
 
 <script>
 
+/*
+IMPORTANT:
+Replace these TWO placeholders with the SAME
+Supabase URL + publishable key already used by your
+working watch.html/member pages.
+
+NEVER put your service_role key here.
+*/
+
 const SUPABASE_URL =
-"https://gvvtwwrjfscaunczptpv.supabase.co";
+"PASTE_YOUR_SUPABASE_PROJECT_URL_HERE";
+
+const SUPABASE_PUBLISHABLE_KEY =
+"PASTE_YOUR_SUPABASE_PUBLISHABLE_KEY_HERE";
 
 
-const SUPABASE_KEY =
-"sb_publishable_iliNeR5tX_4X4KAh5ZjPpA_e6ueLnP-";
+let supabaseClient = null;
 
 
-const sb =
-supabase.createClient(
+if (
+!SUPABASE_URL.includes("PASTE_") &&
+!SUPABASE_PUBLISHABLE_KEY.includes("PASTE_")
+) {
+
+supabaseClient =
+window.supabase.createClient(
 SUPABASE_URL,
-SUPABASE_KEY
-);
-
-
-let session = null;
-
-let user = null;
-
-let isAdmin = false;
-
-
-function escapeHtml(value){
-
-return String(value ?? "")
-.replaceAll("&","&amp;")
-.replaceAll("<","&lt;")
-.replaceAll(">","&gt;")
-.replaceAll('"',"&quot;")
-.replaceAll("'","&#039;");
-
-}
-
-
-async function activeMembership(){
-
-const response =
-await fetch(
-`${SUPABASE_URL}/functions/v1/asi-link-subscription`,
-{
-
-method:"POST",
-
-headers:{
-
-"Content-Type":
-"application/json",
-
-"Authorization":
-`Bearer ${session.access_token}`,
-
-"apikey":
-SUPABASE_KEY
-
-},
-
-body:
-JSON.stringify({})
-
-}
-);
-
-
-let result = {};
-
-
-try{
-
-result =
-await response.json();
-
-}
-catch(error){}
-
-
-const status =
-String(
-result.status || ""
-).toUpperCase();
-
-
-return (
-
-response.ok &&
-
-(
-result.active === true ||
-result.isActive === true ||
-status === "ACTIVE"
-)
-
+SUPABASE_PUBLISHABLE_KEY
 );
 
 }
 
 
-async function initialize(){
+const signInBtn =
+document.getElementById("signInBtn");
 
-try{
+const memberBtn =
+document.getElementById("memberBtn");
 
-const sessionResult =
-await sb.auth.getSession();
+const logoutBtn =
+document.getElementById("logoutBtn");
+
+const watchHeroBtn =
+document.getElementById("watchHeroBtn");
+
+const subscribeHeroBtn =
+document.getElementById("subscribeHeroBtn");
 
 
-session =
-sessionResult.data.session;
+function showLoggedOutNavigation() {
+
+signInBtn.style.display = "inline-block";
+memberBtn.style.display = "none";
+logoutBtn.style.display = "none";
+
+}
 
 
-if(!session){
+function showLoggedInNavigation() {
 
-window.location.replace(
-"/login.html"
-);
+signInBtn.style.display = "none";
+memberBtn.style.display = "inline-block";
+logoutBtn.style.display = "inline-block";
 
+/*
+Logged-in members should go straight
+to member access instead of being asked
+to subscribe again.
+*/
+
+watchHeroBtn.href = "member.html";
+watchHeroBtn.textContent = "MEMBER ACCESS";
+
+subscribeHeroBtn.style.display = "none";
+
+}
+
+
+async function checkSession() {
+
+if (!supabaseClient) {
+
+showLoggedOutNavigation();
 return;
 
 }
 
+try {
 
-user =
-session.user;
+const {
+data,
+error
+} =
+await supabaseClient.auth.getSession();
 
+if (error) {
+throw error;
+}
 
-const adminResult =
-await sb
-.from("admins")
-.select("user_id")
-.eq(
-"user_id",
-user.id
-)
-.maybeSingle();
+const session =
+data?.session;
 
+if (session?.user) {
 
-isAdmin =
-!adminResult.error &&
-!!adminResult.data;
+showLoggedInNavigation();
 
+} else {
 
-if(isAdmin){
-
-document
-.getElementById("admin")
-.style.display =
-"block";
+showLoggedOutNavigation();
 
 }
 
-
-if(!isAdmin){
-
-const active =
-await activeMembership();
-
-
-if(!active){
-
-await sb.auth.signOut();
-
-window.location.replace(
-"/login.html"
-);
-
-return;
-
-}
-
-}
-
-
-document
-.getElementById("email")
-.textContent =
-user.email || "";
-
-
-document
-.getElementById("loading")
-.style.display =
-"none";
-
-
-document
-.getElementById("app")
-.style.display =
-"block";
-
-
-await loadContent();
-
-
-}catch(error){
+} catch (error) {
 
 console.error(
-"Member initialization error:",
+"Session check failed:",
 error
 );
 
+showLoggedOutNavigation();
 
-window.location.replace(
-"/login.html"
+}
+
+}
+
+
+logoutBtn.addEventListener(
+"click",
+async () => {
+
+if (!supabaseClient) {
+return;
+}
+
+try {
+
+await supabaseClient.auth.signOut();
+
+} catch (error) {
+
+console.error(
+"Logout error:",
+error
 );
 
 }
 
-}
+window.location.href = "/";
 
-
-async function loadContent(){
-
-const showResult =
-await sb
-.from("shows")
-.select("*")
-.order(
-"created_at",
-{
-ascending:true
 }
 );
 
 
-const episodeResult =
-await sb
+async function loadEpisodes() {
+
+const grid =
+document.getElementById("episodesGrid");
+
+if (!supabaseClient) {
+
+grid.innerHTML = `
+<div class="status-message">
+Episode information is being prepared.
+</div>
+`;
+
+return;
+}
+
+
+try {
+
+/*
+We intentionally request * so this page can work
+with your existing episodes table without assuming
+every column name.
+
+The code below checks several likely field names.
+*/
+
+const {
+data,
+error
+} =
+await supabaseClient
 .from("episodes")
-.select(
-"id,episode_number,title,description,thumbnail_url,is_published,video_id"
-)
-.eq(
-"is_published",
-true
-)
-.order(
-"episode_number",
-{
-ascending:false
+.select("*");
+
+
+if (error) {
+throw error;
 }
-)
-.limit(12);
-
-
-const shows =
-showResult.data || [];
 
 
 const episodes =
-episodeResult.data || [];
+Array.isArray(data)
+? data
+: [];
 
 
-renderShows(shows);
+if (!episodes.length) {
 
-renderEpisodes(episodes);
-
-}
-
-
-function renderShows(shows){
-
-const grid =
-document.getElementById("shows");
-
-
-if(!shows.length){
-
-grid.innerHTML =
-`
-<div class="empty">
-Shows are coming soon.
+grid.innerHTML = `
+<div class="status-message">
+Episode 1 is coming soon.
 </div>
 `;
 
 return;
+}
+
+
+episodes.sort(
+(a, b) => {
+
+const aNum =
+Number(
+a.episode_number ??
+a.episode ??
+a.number ??
+0
+);
+
+const bNum =
+Number(
+b.episode_number ??
+b.episode ??
+b.number ??
+0
+);
+
+return aNum - bNum;
+
+}
+);
+
+
+grid.innerHTML = "";
+
+
+episodes.forEach(
+episode => {
+
+const episodeNumber =
+episode.episode_number ??
+episode.episode ??
+episode.number ??
+"";
+
+const title =
+episode.title ??
+episode.name ??
+(
+episodeNumber
+? `Episode ${episodeNumber}`
+: "ASI Network Episode"
+);
+
+const description =
+episode.description ??
+episode.summary ??
+"Exclusive ASI Network FRL episode.";
+
+const videoId =
+episode.video_id ??
+episode.playback_id ??
+null;
+
+const id =
+episode.id ??
+"";
+
+const card =
+document.createElement("article");
+
+card.className =
+"episode-card";
+
+
+let buttonHTML = "";
+
+
+if (videoId || id) {
+
+/*
+Your watch page can receive the episode ID.
+If your current watch.html uses a different
+query parameter, we can change this next.
+*/
+
+buttonHTML = `
+<div class="episode-actions">
+<a
+class="btn btn-primary"
+href="watch.html?id=${encodeURIComponent(id)}"
+>
+WATCH EPISODE
+</a>
+</div>
+`;
+
+} else {
+
+buttonHTML = `
+<div class="episode-actions">
+<span
+class="btn btn-secondary"
+style="
+display:inline-block;
+cursor:default;
+"
+>
+COMING SOON
+</span>
+</div>
+`;
 
 }
 
 
-grid.innerHTML =
-shows
-.map(show => {
+card.innerHTML = `
 
-const thumbnailStyle =
-show.thumbnail_url
-?
-`background-image:url('${escapeHtml(show.thumbnail_url)}')`
-:
-"";
-
-
-return `
-<article class="card">
-
-<div
-class="thumb"
-style="${thumbnailStyle}"
->
+<div class="episode-thumb">
 👁️
 </div>
 
-<div class="body">
+<div class="episode-body">
 
-<h3>
-${escapeHtml(show.title)}
-</h3>
-
-<p>
-${escapeHtml(
-show.description ||
-"ASI Network FRL Original"
-)}
-</p>
-
-<div class="actions">
-
-<a
-class="btn primary"
-href="/show.html?id=${encodeURIComponent(show.id)}"
->
-VIEW SHOW
-</a>
-
-<button
-class="btn"
-onclick="addToMyList(
-'${show.id}',
-'${encodeURIComponent(show.title || "Show")}'
-)"
->
-+ MY LIST
-</button>
-
-</div>
-
-</div>
-
-</article>
-`;
-
-})
-.join("");
-
+<div class="episode-label">
+${
+episodeNumber
+? `Episode ${episodeNumber}`
+: "ASI Original"
 }
+</div>
 
+<div class="episode-title">
+${escapeHTML(title)}
+</div>
 
-function renderEpisodes(episodes){
+<div class="episode-description">
+${escapeHTML(description)}
+</div>
 
-const grid =
-document.getElementById("eps");
+${buttonHTML}
 
-
-if(!episodes.length){
-
-grid.innerHTML =
-`
-<div class="empty">
-No published episodes yet.
 </div>
 `;
 
-return;
+
+grid.appendChild(card);
 
 }
+);
 
 
-grid.innerHTML =
-episodes
-.map(episode => {
+} catch (error) {
 
-const thumbnailStyle =
-episode.thumbnail_url
-?
-`background-image:url('${escapeHtml(episode.thumbnail_url)}')`
-:
-"";
+console.error(
+"Episode loading error:",
+error
+);
 
+/*
+Don't show the ugly
+"Episodes could not be loaded"
+message to subscribers.
 
-return `
-<article class="card">
+The homepage stays professional
+even if Supabase is temporarily unavailable.
+*/
 
-<div
-class="thumb"
-style="${thumbnailStyle}"
->
-▶
+grid.innerHTML = `
+<div class="status-message">
+Episode 1 is coming soon.
 </div>
-
-<div class="body">
-
-<div class="meta">
-EPISODE ${episode.episode_number}
-</div>
-
-<h3>
-${escapeHtml(
-episode.title ||
-`Episode ${episode.episode_number}`
-)}
-</h3>
-
-<p>
-${escapeHtml(
-episode.description ||
-""
-)}
-</p>
-
-<div class="actions">
-
-<a
-class="btn primary"
-href="/watch.html?episode=${episode.episode_number}"
->
-WATCH
-</a>
-
-</div>
-
-</div>
-
-</article>
 `;
 
-})
-.join("");
+}
 
 }
 
 
-function addToMyList(
-id,
-encodedTitle
-){
+function escapeHTML(value) {
 
-const title =
-decodeURIComponent(
-encodedTitle
-);
-
-
-const storageKey =
-"asi_my_list";
-
-
-let list = [];
-
-
-try{
-
-list =
-JSON.parse(
-localStorage.getItem(
-storageKey
-) || "[]"
-);
-
-}
-catch(error){}
-
-
-if(
-!list.some(
-item =>
-item.id === id
-)
-){
-
-list.push({
-id,
-title
-});
+return String(value ?? "")
+.replaceAll("&", "&amp;")
+.replaceAll("<", "&lt;")
+.replaceAll(">", "&gt;")
+.replaceAll('"', "&quot;")
+.replaceAll("'", "&#039;");
 
 }
 
 
-localStorage.setItem(
-storageKey,
-JSON.stringify(list)
-);
+document.getElementById("year")
+.textContent =
+new Date().getFullYear();
 
 
-alert(
-`${title} added to My List.`
+/*
+Run both homepage jobs.
+*/
+
+checkSession();
+
+loadEpisodes();
+
+
+/*
+Update navigation instantly when
+Supabase login/logout state changes.
+*/
+
+if (supabaseClient) {
+
+supabaseClient.auth.onAuthStateChange(
+(
+event,
+session
+) => {
+
+if (session?.user) {
+
+showLoggedInNavigation();
+
+} else {
+
+showLoggedOutNavigation();
+
+}
+
+}
 );
 
 }
-
-
-document
-.getElementById("accountBtn")
-.onclick =
-function(){
-
-document
-.getElementById("menu")
-.classList
-.toggle("show");
-
-};
-
-
-document
-.getElementById("logout")
-.onclick =
-async function(){
-
-await sb.auth.signOut();
-
-window.location.replace(
-"/"
-);
-
-};
-
-
-document
-.getElementById("support")
-.onclick =
-function(){
-
-window.location.href =
-"mailto:support@asinetworkfrl.com?subject=ASI%20Network%20FRL%20Support";
-
-};
-
-
-document
-.getElementById("profile")
-.onclick =
-function(){
-
-alert(
-`Signed in as ${user?.email || ""}`
-);
-
-};
-
-
-document
-.getElementById("settings")
-.onclick =
-function(){
-
-window.location.href =
-"/login.html?forgot=1";
-
-};
-
-
-document
-.getElementById("myList")
-.onclick =
-function(event){
-
-event.preventDefault();
-
-
-let list = [];
-
-
-try{
-
-list =
-JSON.parse(
-localStorage.getItem(
-"asi_my_list"
-) || "[]"
-);
-
-}
-catch(error){}
-
-
-alert(
-
-list.length
-?
-list
-.map(
-item =>
-`• ${item.title}`
-)
-.join("\n")
-:
-"Your list is empty."
-
-);
-
-};
-
-
-document
-.getElementById("history")
-.onclick =
-function(event){
-
-event.preventDefault();
-
-
-let history = [];
-
-
-try{
-
-history =
-JSON.parse(
-localStorage.getItem(
-"asi_watch_history"
-) || "[]"
-);
-
-}
-catch(error){}
-
-
-alert(
-
-history.length
-?
-history
-.slice()
-.reverse()
-.map(
-item =>
-`• ${item.title}`
-)
-.join("\n")
-:
-"Your watch history is empty."
-
-);
-
-};
-
-
-initialize();
 
 </script>
 
