@@ -44,6 +44,10 @@ font:inherit;
 cursor:pointer;
 }
 
+/* =========================
+HEADER
+========================= */
+
 header{
 position:sticky;
 top:0;
@@ -92,8 +96,8 @@ margin-left:auto;
 display:inline-flex;
 align-items:center;
 justify-content:center;
-min-height:42px;
-padding:0 18px;
+min-height:44px;
+padding:0 20px;
 border-radius:6px;
 border:1px solid #444;
 background:#111;
@@ -108,8 +112,17 @@ color:#000;
 border-color:#fff;
 }
 
+.btn:hover{
+opacity:.88;
+}
+
+/* =========================
+ACCOUNT
+========================= */
+
 .account-wrap{
 position:relative;
+display:none;
 }
 
 .account-menu{
@@ -157,6 +170,10 @@ background:#1d1d1d;
 display:none;
 }
 
+/* =========================
+MAIN
+========================= */
+
 main{
 width:min(1200px,94%);
 margin:42px auto 90px;
@@ -192,12 +209,22 @@ font-size:16px;
 margin-bottom:28px;
 }
 
+/* =========================
+PLAYER / PAYWALL
+========================= */
+
 .player{
-background:#0b0b0b;
+background:
+radial-gradient(
+circle at center,
+rgba(255,255,255,.035),
+transparent 45%
+),
+#090909;
 border:1px solid #292929;
-border-radius:10px;
+border-radius:12px;
 overflow:hidden;
-min-height:360px;
+min-height:420px;
 }
 
 mux-player{
@@ -207,7 +234,7 @@ display:block;
 }
 
 #loading{
-min-height:360px;
+min-height:420px;
 display:grid;
 place-items:center;
 padding:30px;
@@ -217,34 +244,53 @@ font-weight:900;
 letter-spacing:1px;
 }
 
-#errorBox{
+.access-screen{
 display:none;
-min-height:360px;
-padding:50px 25px;
+min-height:420px;
+padding:55px 25px;
 text-align:center;
 align-items:center;
 justify-content:center;
 flex-direction:column;
 }
 
-#errorBox h2{
-margin:0 0 12px;
-font-size:30px;
+.lock{
+width:58px;
+height:58px;
+border-radius:50%;
+display:grid;
+place-items:center;
+margin-bottom:20px;
+border:1px solid #444;
+background:#111;
+font-size:24px;
 }
 
-#errorMessage{
-max-width:650px;
+.access-screen h2{
+margin:0 0 13px;
+font-size:clamp(30px,5vw,44px);
+}
+
+.access-screen p{
+max-width:600px;
 margin:0 auto;
 color:#aaa;
-line-height:1.6;
+line-height:1.7;
+font-size:16px;
 }
 
-#errorActions{
+.access-actions{
 display:flex;
-gap:10px;
+gap:11px;
 flex-wrap:wrap;
 justify-content:center;
-margin-top:22px;
+margin-top:27px;
+}
+
+.access-note{
+margin-top:18px;
+font-size:12px;
+color:#666;
 }
 
 .member-status{
@@ -254,6 +300,10 @@ font-weight:900;
 letter-spacing:1px;
 color:#777;
 }
+
+/* =========================
+SETTINGS MODAL
+========================= */
 
 .modal-overlay{
 position:fixed;
@@ -326,6 +376,10 @@ font-size:13px;
 line-height:1.5;
 }
 
+/* =========================
+MOBILE
+========================= */
+
 @media(max-width:760px){
 
 header{
@@ -338,6 +392,16 @@ padding-bottom:14px;
 order:3;
 width:100%;
 overflow-x:auto;
+}
+
+.player,
+#loading,
+.access-screen{
+min-height:390px;
+}
+
+.access-screen{
+padding:42px 20px;
 }
 
 }
@@ -357,15 +421,51 @@ ASI NETWORK <span>FRL</span> 👁️
 <nav class="nav">
 
 <a href="/">HOME</a>
-<a href="/shows.html">BROWSE</a>
-<a href="/members.html">MEMBER HOME</a>
-<a href="mailto:support@asinetworkfrl.com">SUPPORT</a>
+
+<a href="/shows.html">
+BROWSE
+</a>
+
+<a
+id="memberHomeNav"
+href="/members.html"
+style="display:none;"
+>
+MEMBER HOME
+</a>
+
+<a href="mailto:support@asinetworkfrl.com">
+SUPPORT
+</a>
 
 </nav>
 
+
 <div class="nav-actions">
 
-<div class="account-wrap">
+<a
+id="visitorSignIn"
+class="btn"
+href="/login.html"
+style="display:none;"
+>
+SIGN IN
+</a>
+
+<a
+id="visitorSubscribe"
+class="btn primary"
+href="https://square.link/u/0l47AY8p"
+style="display:none;"
+>
+SUBSCRIBE
+</a>
+
+
+<div
+id="accountWrap"
+class="account-wrap"
+>
 
 <button
 id="accountButton"
@@ -455,8 +555,9 @@ Loading Episode...
 </h1>
 
 <p id="episodeDescription">
-Checking your account and securely authorizing playback.
+Loading episode information...
 </p>
+
 
 <div
 id="playerWrap"
@@ -464,22 +565,126 @@ class="player"
 >
 
 <div id="loading">
-VERIFYING ACCOUNT & SUBSCRIPTION...
+LOADING EPISODE...
 </div>
 
-<div id="errorBox">
+
+<!-- LOGGED OUT VISITOR -->
+
+<div
+id="visitorPaywall"
+class="access-screen"
+>
+
+<div class="lock">
+🔒
+</div>
 
 <h2>
-Unable to Play This Episode
+Subscriber-Only Episode
 </h2>
 
-<p id="errorMessage"></p>
+<p>
+This full episode is available exclusively to ASI Network FRL members.
+Sign in with your existing membership or subscribe to start watching.
+</p>
 
-<div id="errorActions"></div>
+<div class="access-actions">
+
+<a
+class="btn primary"
+href="/login.html"
+>
+SIGN IN TO WATCH
+</a>
+
+<a
+class="btn"
+href="https://square.link/u/0l47AY8p"
+>
+SUBSCRIBE • $5.99/MO
+</a>
+
+</div>
+
+<div class="access-note">
+Full episodes require an active ASI Network FRL subscription.
+</div>
+
+</div>
+
+
+<!-- SIGNED IN BUT NOT ACTIVE -->
+
+<div
+id="inactivePaywall"
+class="access-screen"
+>
+
+<div class="lock">
+🔒
+</div>
+
+<h2>
+Membership Required
+</h2>
+
+<p>
+Your account is signed in, but an active ASI Network FRL subscription
+could not be verified. Reactivate your membership to continue watching.
+</p>
+
+<div class="access-actions">
+
+<a
+class="btn primary"
+href="https://square.link/u/0l47AY8p"
+>
+REACTIVATE MEMBERSHIP
+</a>
+
+<a
+class="btn"
+href="/members.html"
+>
+MY ACCOUNT
+</a>
 
 </div>
 
 </div>
+
+
+<!-- ACTUAL SYSTEM ERROR -->
+
+<div
+id="errorScreen"
+class="access-screen"
+>
+
+<h2>
+Episode Temporarily Unavailable
+</h2>
+
+<p id="errorMessage">
+We couldn't load this episode right now.
+</p>
+
+<div class="access-actions">
+
+<a
+class="btn primary"
+href="/shows.html"
+>
+BROWSE SHOWS
+</a>
+
+</div>
+
+</div>
+
+</div>
+
 
 <div
 id="memberStatus"
@@ -488,6 +693,8 @@ class="member-status"
 
 </main>
 
+
+<!-- ACCOUNT SETTINGS -->
 
 <div
 id="settingsModal"
@@ -585,80 +792,200 @@ let currentEpisode = null;
 
 
 /* =========================
-ERROR
+SCREEN HELPERS
 ========================= */
 
-function showError(
-message,
-type = ""
-){
+function hideAllPlayerStates(){
 
 document
 .getElementById("loading")
 .style.display =
 "none";
 
-const errorBox =
-document.getElementById(
-"errorBox"
-);
+document
+.getElementById("visitorPaywall")
+.style.display =
+"none";
 
-errorBox.style.display =
+document
+.getElementById("inactivePaywall")
+.style.display =
+"none";
+
+document
+.getElementById("errorScreen")
+.style.display =
+"none";
+
+}
+
+
+function showVisitorPaywall(){
+
+hideAllPlayerStates();
+
+document
+.getElementById("visitorPaywall")
+.style.display =
 "flex";
+
+document
+.getElementById("visitorSignIn")
+.style.display =
+"inline-flex";
+
+document
+.getElementById("visitorSubscribe")
+.style.display =
+"inline-flex";
+
+}
+
+
+function showInactivePaywall(){
+
+hideAllPlayerStates();
+
+document
+.getElementById("inactivePaywall")
+.style.display =
+"flex";
+
+}
+
+
+function showSystemError(
+message
+){
+
+hideAllPlayerStates();
 
 document
 .getElementById("errorMessage")
 .textContent =
-message;
+message ||
+"We couldn't load this episode right now.";
 
-const actions =
-document.getElementById(
-"errorActions"
+document
+.getElementById("errorScreen")
+.style.display =
+"flex";
+
+}
+
+
+/* =========================
+LOAD PUBLIC EPISODE INFO
+========================= */
+
+async function loadEpisode(){
+
+const params =
+new URLSearchParams(
+window.location.search
 );
 
-actions.innerHTML =
-"";
+const episodeId =
+params.get("id");
 
-if(type === "login"){
+if(!episodeId){
 
-actions.innerHTML =
-`
-<a class="btn primary" href="/login.html">
-MEMBER SIGN IN
-</a>
-
-<a class="btn" href="${SQUARE_CHECKOUT}">
-SUBSCRIBE • $5.99/MO
-</a>
-`;
+throw new Error(
+"Episode information is missing."
+);
 
 }
 
-if(type === "subscription"){
 
-actions.innerHTML =
-`
-<a class="btn primary" href="${SQUARE_CHECKOUT}">
-SUBSCRIBE / REACTIVATE
-</a>
+const result =
+await sb
+.from("episodes")
+.select(
+"id,season_id,episode_number,title,description,is_published"
+)
+.eq(
+"id",
+episodeId
+)
+.eq(
+"is_published",
+true
+)
+.maybeSingle();
 
-<a class="btn" href="/">
-RETURN HOME
-</a>
-`;
+
+if(result.error){
+
+throw result.error;
+
+}
+
+
+if(!result.data){
+
+throw new Error(
+"This episode is not currently available."
+);
 
 }
 
-if(type === "episode"){
 
-actions.innerHTML =
-`
-<a class="btn primary" href="/shows.html">
-BROWSE SHOWS
-</a>
-`;
+currentEpisode =
+result.data;
+
+
+document
+.getElementById("episodeTitle")
+.textContent =
+currentEpisode.title ||
+`Episode ${currentEpisode.episode_number}`;
+
+
+document
+.getElementById("episodeDescription")
+.textContent =
+currentEpisode.description ||
+"ASI Network FRL Original";
+
+
+document.title =
+`${currentEpisode.title || "Episode"} | ASI Network FRL`;
+
+
+/* FIND SHOW FOR BACK LINK */
+
+try{
+
+const seasonResult =
+await sb
+.from("seasons")
+.select("show_id")
+.eq(
+"id",
+currentEpisode.season_id
+)
+.maybeSingle();
+
+
+if(
+!seasonResult.error &&
+seasonResult.data?.show_id
+){
+
+document
+.getElementById("backToShow")
+.href =
+`/show.html?id=${encodeURIComponent(
+seasonResult.data.show_id
+)}`;
 
 }
+
+}
+catch(error){}
+
+
+return currentEpisode;
 
 }
 
@@ -675,30 +1002,43 @@ await sb.auth.getSession();
 currentSession =
 authResult.data.session;
 
-if(!currentSession){
 
-showError(
-"Sign in with your ASI Network FRL member account to watch this episode.",
-"login"
-);
+if(!currentSession){
 
 return false;
 
 }
 
+
 currentUser =
 currentSession.user;
+
 
 document
 .getElementById("accountEmail")
 .textContent =
 currentUser.email || "";
 
+
 document
 .getElementById("settingsEmail")
 .textContent =
 currentUser.email || "";
 
+
+document
+.getElementById("accountWrap")
+.style.display =
+"block";
+
+
+document
+.getElementById("memberHomeNav")
+.style.display =
+"inline";
+
+
+/* ADMIN CHECK */
 
 const adminResult =
 await sb
@@ -710,9 +1050,11 @@ currentUser.id
 )
 .maybeSingle();
 
+
 isAdmin =
 !adminResult.error &&
 !!adminResult.data;
+
 
 document
 .getElementById("adminLink")
@@ -722,6 +1064,7 @@ isAdmin
 "block"
 :
 "none";
+
 
 return true;
 
@@ -744,6 +1087,7 @@ document
 return true;
 
 }
+
 
 try{
 
@@ -776,7 +1120,9 @@ JSON.stringify({})
 
 );
 
+
 let membership = {};
+
 
 try{
 
@@ -786,10 +1132,12 @@ await response.json();
 }
 catch(error){}
 
+
 const status =
 String(
 membership.status || ""
 ).toUpperCase();
+
 
 const active =
 response.ok &&
@@ -798,6 +1146,7 @@ membership.active === true ||
 membership.isActive === true ||
 status === "ACTIVE"
 );
+
 
 if(active){
 
@@ -810,12 +1159,9 @@ return true;
 
 }
 
-showError(
-"Your ASI Network FRL account is signed in, but an active subscription could not be verified.",
-"subscription"
-);
 
 return false;
+
 
 }
 catch(error){
@@ -825,11 +1171,6 @@ console.error(
 error
 );
 
-showError(
-"We couldn't verify your ASI Network FRL subscription right now. Please try again.",
-"subscription"
-);
-
 return false;
 
 }
@@ -838,114 +1179,7 @@ return false;
 
 
 /* =========================
-LOAD EPISODE
-========================= */
-
-async function loadEpisode(){
-
-const params =
-new URLSearchParams(
-window.location.search
-);
-
-const episodeId =
-params.get("id");
-
-if(!episodeId){
-
-throw new Error(
-"Episode information is missing."
-);
-
-}
-
-const result =
-await sb
-.from("episodes")
-.select(
-"id,season_id,episode_number,title,description,is_published"
-)
-.eq(
-"id",
-episodeId
-)
-.eq(
-"is_published",
-true
-)
-.maybeSingle();
-
-if(result.error){
-
-throw result.error;
-
-}
-
-if(!result.data){
-
-throw new Error(
-"This episode is not available."
-);
-
-}
-
-currentEpisode =
-result.data;
-
-document
-.getElementById("episodeTitle")
-.textContent =
-currentEpisode.title ||
-`Episode ${currentEpisode.episode_number}`;
-
-document
-.getElementById("episodeDescription")
-.textContent =
-currentEpisode.description ||
-"ASI Network FRL Original";
-
-document.title =
-`${currentEpisode.title || "Episode"} | ASI Network FRL`;
-
-
-/* BACK TO SHOW */
-
-try{
-
-const seasonResult =
-await sb
-.from("seasons")
-.select("show_id")
-.eq(
-"id",
-currentEpisode.season_id
-)
-.maybeSingle();
-
-if(
-!seasonResult.error &&
-seasonResult.data?.show_id
-){
-
-document
-.getElementById("backToShow")
-.href =
-`/show.html?id=${encodeURIComponent(
-seasonResult.data.show_id
-)}`;
-
-}
-
-}
-catch(error){}
-
-return currentEpisode;
-
-}
-
-
-/* =========================
-SECURE MUX AUTHORIZATION
+SECURE PLAYBACK TOKEN
 ========================= */
 
 async function authorizePlayback(
@@ -954,6 +1188,7 @@ episode
 
 const episodeId =
 episode.id;
+
 
 const response =
 await fetch(
@@ -995,7 +1230,9 @@ episodeId
 
 );
 
+
 let result = {};
+
 
 try{
 
@@ -1005,10 +1242,6 @@ await response.json();
 }
 catch(error){}
 
-console.log(
-"Playback authorization response:",
-result
-);
 
 if(
 !response.ok ||
@@ -1023,28 +1256,22 @@ result.error ||
 
 }
 
+
 return result;
 
 }
 
 
 /* =========================
-CREATE PLAYER
+MUX PLAYER
 ========================= */
 
 function createPlayer(
 playback
 ){
 
-document
-.getElementById("loading")
-.style.display =
-"none";
+hideAllPlayerStates();
 
-document
-.getElementById("errorBox")
-.style.display =
-"none";
 
 const player =
 document.createElement(
@@ -1052,15 +1279,9 @@ document.createElement(
 );
 
 
-/*
-IMPORTANT:
-For signed Mux playback, set the
-Playback ID and JWT token directly
-on the player properties.
-*/
-
 player.playbackId =
 playback.playbackId;
+
 
 player.playbackToken =
 playback.token;
@@ -1071,39 +1292,47 @@ player.setAttribute(
 currentEpisode.id
 );
 
+
 player.setAttribute(
 "metadata-video-title",
 currentEpisode.title ||
 `Episode ${currentEpisode.episode_number}`
 );
 
+
 player.setAttribute(
 "accent-color",
 "#ffffff"
 );
+
 
 player.setAttribute(
 "primary-color",
 "#ffffff"
 );
 
+
 player.setAttribute(
 "secondary-color",
 "#000000"
 );
+
 
 player.setAttribute(
 "preload",
 "metadata"
 );
 
+
 const wrap =
 document.getElementById(
 "playerWrap"
 );
 
+
 wrap.innerHTML =
 "";
+
 
 wrap.appendChild(
 player
@@ -1124,6 +1353,7 @@ return;
 
 }
 
+
 try{
 
 const existing =
@@ -1133,11 +1363,13 @@ localStorage.getItem(
 ) || "[]"
 );
 
+
 const filtered =
 existing.filter(
 item =>
 item.id !== currentEpisode.id
 );
+
 
 filtered.unshift({
 
@@ -1154,6 +1386,7 @@ watched_at:
 new Date().toISOString()
 
 });
+
 
 localStorage.setItem(
 "asi_watch_history",
@@ -1201,6 +1434,7 @@ const button =
 document.getElementById(
 "accountButton"
 );
+
 
 if(
 !menu.contains(event.target) &&
@@ -1293,9 +1527,7 @@ this.classList.remove(
 );
 
 
-/* =========================
-PASSWORD RESET
-========================= */
+/* PASSWORD RESET */
 
 document
 .getElementById("resetPasswordButton")
@@ -1309,6 +1541,7 @@ return;
 
 }
 
+
 const button =
 this;
 
@@ -1318,10 +1551,12 @@ true;
 button.textContent =
 "SENDING...";
 
+
 const message =
 document.getElementById(
 "settingsMessage"
 );
+
 
 try{
 
@@ -1338,17 +1573,20 @@ window.location.origin +
 }
 );
 
+
 if(result.error){
 
 throw result.error;
 
 }
 
+
 message.style.display =
 "block";
 
 message.textContent =
 "Password reset email sent. Check your inbox and spam folder.";
+
 
 }
 catch(error){
@@ -1383,37 +1621,63 @@ async function initialize(){
 
 try{
 
-const hasAccount =
-await getAccount();
+/*
+Load episode information FIRST.
 
-if(!hasAccount){
-
-return;
-
-}
-
-const hasMembership =
-await verifyMembership();
-
-if(!hasMembership){
-
-return;
-
-}
+This is what makes the visitor page
+look like a real paywall instead of
+showing "Loading Episode..." forever.
+*/
 
 const episode =
 await loadEpisode();
+
+
+const hasAccount =
+await getAccount();
+
+
+/* LOGGED OUT VISITOR */
+
+if(!hasAccount){
+
+showVisitorPaywall();
+
+return;
+
+}
+
+
+/* SIGNED-IN USER */
+
+const active =
+await verifyMembership();
+
+
+if(!active){
+
+showInactivePaywall();
+
+return;
+
+}
+
+
+/* ACTIVE MEMBER / ADMIN */
 
 const playback =
 await authorizePlayback(
 episode
 );
 
+
 createPlayer(
 playback
 );
 
+
 saveWatchHistory();
+
 
 }
 catch(error){
@@ -1423,15 +1687,16 @@ console.error(
 error
 );
 
-showError(
+
+showSystemError(
 error.message ||
-"Unable to load this episode.",
-"episode"
+"This episode is temporarily unavailable."
 );
 
 }
 
 }
+
 
 initialize();
 
