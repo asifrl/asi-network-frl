@@ -120,12 +120,36 @@ background:#e8e8e8;
 }
 
 /* =========================
+AUTH LOADING STATE
+========================= */
+
+#navSubscribe,
+#signInButton,
+#subscribeNavButton,
+#accountWrap,
+#heroSubscribe,
+#heroSignIn,
+#heroAccount,
+#bottomSubscribeButton,
+#bottomSignInButton,
+#bottomAccountButton{
+display:none;
+}
+
+#membershipSection{
+visibility:hidden;
+}
+
+#membershipSection.auth-ready{
+visibility:visible;
+}
+
+/* =========================
 ACCOUNT MENU
 ========================= */
 
 .account-wrap{
 position:relative;
-display:none;
 }
 
 .account-menu{
@@ -544,7 +568,6 @@ ALREADY SUBSCRIBED? SIGN IN
 id="heroAccount"
 class="btn primary"
 href="/members.html"
-style="display:none;"
 >
 GO TO MY ACCOUNT
 </a>
@@ -584,12 +607,10 @@ class="membership"
 >
 
 <h2 id="membershipTitle">
-Watch Full Episodes
+ASI Network FRL
 </h2>
 
-<p id="membershipText">
-Subscribe for $5.99/month to unlock full ASI Network FRL episodes and member-only content.
-</p>
+<p id="membershipText"></p>
 
 <div class="membership-actions">
 
@@ -613,7 +634,6 @@ SIGN IN
 id="bottomAccountButton"
 class="btn primary"
 href="/members.html"
-style="display:none;"
 >
 GO TO MY ACCOUNT
 </a>
@@ -677,6 +697,14 @@ return String(value ?? "")
 
 }
 
+function revealMembershipSection(){
+
+document
+.getElementById("membershipSection")
+.classList.add("auth-ready");
+
+}
+
 
 /* =========================
 ACCOUNT STATE
@@ -684,11 +712,14 @@ ACCOUNT STATE
 
 async function determineAccountState(){
 
+try{
+
 const result =
 await sb.auth.getSession();
 
 currentSession =
 result.data.session;
+
 
 if(!currentSession){
 
@@ -698,8 +729,10 @@ return;
 
 }
 
+
 currentUser =
 currentSession.user;
+
 
 document
 .getElementById("accountEmail")
@@ -719,9 +752,11 @@ currentUser.id
 )
 .maybeSingle();
 
+
 isAdmin =
 !adminResult.error &&
 !!adminResult.data;
+
 
 if(isAdmin){
 
@@ -740,7 +775,9 @@ try{
 
 const response =
 await fetch(
+
 `${SUPABASE_URL}/functions/v1/asi-link-subscription`,
+
 {
 
 method:"POST",
@@ -762,9 +799,12 @@ body:
 JSON.stringify({})
 
 }
+
 );
 
+
 let membership = {};
+
 
 try{
 
@@ -774,10 +814,12 @@ await response.json();
 }
 catch(error){}
 
+
 const status =
 String(
 membership.status || ""
 ).toUpperCase();
+
 
 activeMember =
 response.ok &&
@@ -787,12 +829,19 @@ membership.isActive === true ||
 status === "ACTIVE"
 );
 
+
 }
 catch(error){
+
+console.error(
+"Membership check error:",
+error
+);
 
 activeMember = false;
 
 }
+
 
 if(activeMember){
 
@@ -802,6 +851,19 @@ showMemberState();
 else{
 
 showSignedInInactiveState();
+
+}
+
+
+}
+catch(error){
+
+console.error(
+"Account state error:",
+error
+);
+
+showVisitorState();
 
 }
 
@@ -850,6 +912,16 @@ document
 "none";
 
 document
+.getElementById("membershipTitle")
+.textContent =
+"Watch Full Episodes";
+
+document
+.getElementById("membershipText")
+.textContent =
+"Subscribe for $5.99/month to unlock full ASI Network FRL episodes and member-only content.";
+
+document
 .getElementById("bottomSubscribeButton")
 .style.display =
 "inline-flex";
@@ -863,6 +935,13 @@ document
 .getElementById("bottomAccountButton")
 .style.display =
 "none";
+
+document
+.getElementById("adminLink")
+.style.display =
+"none";
+
+revealMembershipSection();
 
 }
 
@@ -909,6 +988,16 @@ document
 "inline-flex";
 
 document
+.getElementById("membershipTitle")
+.textContent =
+"Your Member Access Is Active";
+
+document
+.getElementById("membershipText")
+.textContent =
+"Browse ASI Network FRL shows and select any available episode to continue watching.";
+
+document
 .getElementById("bottomSubscribeButton")
 .style.display =
 "none";
@@ -924,16 +1013,6 @@ document
 "inline-flex";
 
 document
-.getElementById("membershipTitle")
-.textContent =
-"Your Member Access Is Active";
-
-document
-.getElementById("membershipText")
-.textContent =
-"Browse ASI Network FRL shows and select any available episode to continue watching.";
-
-document
 .getElementById("adminLink")
 .style.display =
 isAdmin
@@ -941,6 +1020,8 @@ isAdmin
 "block"
 :
 "none";
+
+revealMembershipSection();
 
 }
 
@@ -987,9 +1068,24 @@ document
 "none";
 
 document
+.getElementById("membershipTitle")
+.textContent =
+"Reactivate Your Access";
+
+document
+.getElementById("membershipText")
+.textContent =
+"Your account is signed in, but an active subscription could not be verified. Subscribe to restore full episode access.";
+
+document
 .getElementById("bottomSubscribeButton")
 .style.display =
 "inline-flex";
+
+document
+.getElementById("bottomSubscribeButton")
+.textContent =
+"REACTIVATE ACCESS";
 
 document
 .getElementById("bottomSignInButton")
@@ -1002,19 +1098,11 @@ document
 "none";
 
 document
-.getElementById("membershipTitle")
-.textContent =
-"Reactivate Your Access";
-
-document
-.getElementById("membershipText")
-.textContent =
-"Your account is signed in, but an active subscription could not be verified. Subscribe to restore full episode access.";
-
-document
 .getElementById("adminLink")
 .style.display =
 "none";
+
+revealMembershipSection();
 
 }
 
@@ -1038,6 +1126,7 @@ document
 }
 );
 
+
 document.addEventListener(
 "click",
 function(event){
@@ -1047,6 +1136,7 @@ document.getElementById("accountMenu");
 
 const button =
 document.getElementById("accountButton");
+
 
 if(
 !menu.contains(event.target) &&
@@ -1059,6 +1149,11 @@ menu.classList.remove("show");
 
 }
 );
+
+
+/* =========================
+LOG OUT
+========================= */
 
 document
 .getElementById("logoutButton")
@@ -1085,6 +1180,7 @@ async function loadShows(){
 const grid =
 document.getElementById("showGrid");
 
+
 try{
 
 const result =
@@ -1098,14 +1194,17 @@ ascending:true
 }
 );
 
+
 if(result.error){
 
 throw result.error;
 
 }
 
+
 const shows =
 result.data || [];
+
 
 if(!shows.length){
 
@@ -1120,6 +1219,7 @@ return;
 
 }
 
+
 grid.innerHTML =
 shows.map(
 show => {
@@ -1130,6 +1230,7 @@ show.thumbnail_url
 `background-image:url('${escapeHtml(show.thumbnail_url)}')`
 :
 "";
+
 
 return `
 <article class="card">
@@ -1173,6 +1274,7 @@ VIEW SHOW
 }
 ).join("");
 
+
 }
 catch(error){
 
@@ -1180,6 +1282,7 @@ console.error(
 "Shows error:",
 error
 );
+
 
 grid.innerHTML =
 `
@@ -1209,6 +1312,7 @@ loadShows()
 ]);
 
 }
+
 
 initialize();
 
