@@ -22,6 +22,10 @@ src="https://cdn.jsdelivr.net/npm/@mux/mux-player/+esm"
 box-sizing:border-box;
 }
 
+html{
+scroll-behavior:smooth;
+}
+
 body{
 margin:0;
 background:#050505;
@@ -40,17 +44,21 @@ font:inherit;
 cursor:pointer;
 }
 
+/* =========================
+HEADER
+========================= */
+
 header{
 position:sticky;
 top:0;
-z-index:100;
+z-index:1000;
 min-height:72px;
-padding:0 4%;
+padding:0 5%;
 display:flex;
 align-items:center;
-gap:26px;
-background:rgba(0,0,0,.98);
-border-bottom:1px solid #292929;
+gap:25px;
+background:rgba(0,0,0,.97);
+border-bottom:1px solid #222;
 }
 
 .logo{
@@ -66,8 +74,8 @@ font-weight:500;
 
 .nav{
 display:flex;
-gap:20px;
 align-items:center;
+gap:22px;
 flex:1;
 }
 
@@ -81,9 +89,11 @@ white-space:nowrap;
 opacity:.7;
 }
 
-.right{
+.nav-actions{
+display:flex;
+align-items:center;
+gap:10px;
 margin-left:auto;
-position:relative;
 }
 
 .btn{
@@ -100,10 +110,26 @@ font-size:12px;
 font-weight:900;
 }
 
+.btn:hover{
+background:#1a1a1a;
+}
+
 .btn.primary{
 background:#fff;
 color:#000;
 border-color:#fff;
+}
+
+.btn.primary:hover{
+background:#e8e8e8;
+}
+
+/* =========================
+ACCOUNT MENU
+========================= */
+
+.account-wrap{
+position:relative;
 }
 
 .account-menu{
@@ -111,13 +137,12 @@ position:absolute;
 right:0;
 top:52px;
 width:270px;
+padding:8px;
 background:#101010;
 border:1px solid #333;
 border-radius:9px;
-padding:8px;
+box-shadow:0 22px 60px rgba(0,0,0,.65);
 display:none;
-z-index:300;
-box-shadow:0 22px 60px rgba(0,0,0,.6);
 }
 
 .account-menu.show{
@@ -126,8 +151,8 @@ display:block;
 
 .account-email{
 padding:13px;
-color:#999;
 font-size:12px;
+color:#888;
 border-bottom:1px solid #292929;
 overflow-wrap:anywhere;
 }
@@ -148,13 +173,17 @@ font-size:14px;
 background:#1d1d1d;
 }
 
-#adminDashboardLink{
+#adminLink{
 display:none;
 }
 
+/* =========================
+MAIN
+========================= */
+
 main{
 width:min(1200px,94%);
-margin:40px auto 70px;
+margin:42px auto 90px;
 }
 
 .back{
@@ -162,18 +191,19 @@ display:inline-block;
 margin-bottom:28px;
 color:#aaa;
 font-size:13px;
+font-weight:700;
 }
 
 .eyebrow{
-color:#999;
 font-size:12px;
 font-weight:900;
 letter-spacing:3px;
+color:#999;
 margin-bottom:10px;
 }
 
 h1{
-font-size:clamp(34px,6vw,66px);
+font-size:clamp(38px,6vw,70px);
 line-height:1;
 margin:0 0 15px;
 }
@@ -182,13 +212,18 @@ margin:0 0 15px;
 max-width:850px;
 color:#bbb;
 line-height:1.7;
+font-size:16px;
 margin-bottom:28px;
 }
 
+/* =========================
+PLAYER
+========================= */
+
 .player{
-background:#0c0c0c;
+background:#0b0b0b;
 border:1px solid #292929;
-border-radius:8px;
+border-radius:10px;
 overflow:hidden;
 min-height:360px;
 }
@@ -213,7 +248,7 @@ letter-spacing:1px;
 #errorBox{
 display:none;
 min-height:360px;
-padding:45px 25px;
+padding:50px 25px;
 text-align:center;
 align-items:center;
 justify-content:center;
@@ -222,11 +257,12 @@ flex-direction:column;
 
 #errorBox h2{
 margin:0 0 12px;
+font-size:30px;
 }
 
 #errorMessage{
 max-width:650px;
-margin:auto;
+margin:0 auto;
 color:#aaa;
 line-height:1.6;
 }
@@ -236,6 +272,7 @@ display:flex;
 gap:10px;
 flex-wrap:wrap;
 justify-content:center;
+margin-top:22px;
 }
 
 .member-status{
@@ -246,18 +283,22 @@ letter-spacing:1px;
 color:#777;
 }
 
-.modal-backdrop{
+/* =========================
+ACCOUNT SETTINGS MODAL
+========================= */
+
+.modal-overlay{
 position:fixed;
 inset:0;
+z-index:3000;
 background:rgba(0,0,0,.82);
 display:none;
 align-items:center;
 justify-content:center;
 padding:20px;
-z-index:1000;
 }
 
-.modal-backdrop.show{
+.modal-overlay.show{
 display:flex;
 }
 
@@ -265,50 +306,65 @@ display:flex;
 width:min(520px,100%);
 background:#101010;
 border:1px solid #333;
-border-radius:10px;
-padding:26px;
+border-radius:12px;
+padding:25px;
 }
 
-.modal h2{
-margin:0 0 8px;
+.modal-head{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:15px;
+margin-bottom:22px;
 }
 
-.modal p{
-color:#999;
-line-height:1.55;
+.modal-head h2{
+margin:0;
 }
 
-.modal-row{
-padding:14px 0;
-border-bottom:1px solid #252525;
+.close-button{
+width:38px;
+height:38px;
+border-radius:50%;
+border:1px solid #333;
+background:#171717;
+color:#fff;
 }
 
-.modal-label{
+.setting-box{
+padding:17px;
+background:#0b0b0b;
+border:1px solid #222;
+border-radius:8px;
+margin-top:14px;
+}
+
+.setting-label{
 font-size:11px;
 font-weight:900;
+letter-spacing:1px;
 color:#777;
-text-transform:uppercase;
-letter-spacing:.8px;
-margin-bottom:5px;
+margin-bottom:7px;
 }
 
-.modal-actions{
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-margin-top:20px;
+.setting-value{
+overflow-wrap:anywhere;
 }
 
-#modalStatus{
+.message{
 display:none;
 margin-top:15px;
 padding:12px;
-border:1px solid #333;
-background:#181818;
-border-radius:6px;
-color:#ccc;
+border-radius:7px;
+background:#151515;
+color:#ddd;
 font-size:13px;
+line-height:1.5;
 }
+
+/* =========================
+RESPONSIVE
+========================= */
 
 @media(max-width:760px){
 
@@ -324,14 +380,11 @@ width:100%;
 overflow-x:auto;
 }
 
-.account-menu{
-right:0;
-}
-
 }
 
 </style>
 </head>
+
 
 <body>
 
@@ -339,32 +392,40 @@ right:0;
 
 <a
 class="logo"
-href="/members.html"
+href="/"
 >
 ASI NETWORK <span>FRL</span> 👁️
 </a>
 
+
 <nav class="nav">
 
-<a href="/members.html">
+<a href="/">
 HOME
 </a>
 
 <a href="/shows.html">
-SHOWS
+BROWSE
 </a>
 
-<a href="/members.html#episodes">
-EPISODES
+<a href="/members.html">
+MEMBER HOME
+</a>
+
+<a href="mailto:support@asinetworkfrl.com">
+SUPPORT
 </a>
 
 </nav>
 
-<div class="right">
+
+<div class="nav-actions">
+
+<div class="account-wrap">
 
 <button
 id="accountButton"
-class="btn"
+class="btn primary"
 type="button"
 >
 ACCOUNT ▾
@@ -382,13 +443,12 @@ class="account-email"
 Loading account...
 </div>
 
-<button
-id="profileButton"
+<a
 class="menu-item"
-type="button"
+href="/members.html"
 >
-My Profile
-</button>
+Member Home
+</a>
 
 <button
 id="settingsButton"
@@ -398,16 +458,29 @@ type="button"
 Account Settings
 </button>
 
-<button
-id="supportButton"
+<a
 class="menu-item"
-type="button"
+href="/members.html#myList"
 >
-Help & Support
-</button>
+My List
+</a>
 
 <a
-id="adminDashboardLink"
+class="menu-item"
+href="/members.html#watchHistory"
+>
+Watch History
+</a>
+
+<a
+class="menu-item"
+href="mailto:support@asinetworkfrl.com"
+>
+Help & Support
+</a>
+
+<a
+id="adminLink"
 class="menu-item"
 href="/admin.html"
 >
@@ -426,15 +499,19 @@ Log Out
 
 </div>
 
+</div>
+
 </header>
+
 
 <main>
 
 <a
+id="backToShow"
 class="back"
-href="/members.html#episodes"
+href="/shows.html"
 >
-← Back to Episodes
+← Back to Show
 </a>
 
 <div class="eyebrow">
@@ -449,6 +526,7 @@ Loading Episode...
 Checking your account and securely authorizing playback.
 </p>
 
+
 <div
 id="playerWrap"
 class="player"
@@ -461,7 +539,7 @@ VERIFYING ACCOUNT & SUBSCRIPTION...
 <div id="errorBox">
 
 <h2>
-Unable to play this episode
+Unable to Play This Episode
 </h2>
 
 <p id="errorMessage"></p>
@@ -472,6 +550,7 @@ Unable to play this episode
 
 </div>
 
+
 <div
 id="memberStatus"
 class="member-status"
@@ -479,40 +558,99 @@ class="member-status"
 
 </main>
 
+
+<!-- =========================
+ACCOUNT SETTINGS
+========================= -->
+
 <div
-id="modalBackdrop"
-class="modal-backdrop"
+id="settingsModal"
+class="modal-overlay"
 >
 
 <div class="modal">
 
-<h2 id="modalTitle">
-Account
+<div class="modal-head">
+
+<h2>
+Account Settings
 </h2>
 
-<div id="modalContent"></div>
+<button
+id="closeSettingsButton"
+class="close-button"
+type="button"
+>
+✕
+</button>
+
+</div>
+
+
+<div class="setting-box">
+
+<div class="setting-label">
+EMAIL
+</div>
 
 <div
-id="modalActions"
-class="modal-actions"
+id="settingsEmail"
+class="setting-value"
+>
+—
+</div>
+
+</div>
+
+
+<div class="setting-box">
+
+<div class="setting-label">
+PASSWORD
+</div>
+
+<div class="setting-value">
+••••••••
+</div>
+
+<div style="margin-top:15px;">
+
+<button
+id="resetPasswordButton"
+class="btn"
+type="button"
+>
+SEND PASSWORD RESET EMAIL
+</button>
+
+</div>
+
+</div>
+
+
+<div
+id="settingsMessage"
+class="message"
 ></div>
 
-<div id="modalStatus"></div>
-
 </div>
 
 </div>
+
 
 <script>
 
 const SUPABASE_URL =
 "https://gvvtwwrjfscaunczptpv.supabase.co";
 
+
 const SUPABASE_KEY =
 "sb_publishable_iliNeR5tX_4X4KAh5ZjPpA_e6ueLnP-";
 
+
 const SQUARE_CHECKOUT =
 "https://square.link/u/0l47AY8p";
+
 
 const sb =
 supabase.createClient(
@@ -520,66 +658,57 @@ SUPABASE_URL,
 SUPABASE_KEY
 );
 
+
 let currentSession = null;
 let currentUser = null;
 let isAdmin = false;
+let currentEpisode = null;
 
-const loading =
-document.getElementById("loading");
 
-const errorBox =
-document.getElementById("errorBox");
-
-const errorMessage =
-document.getElementById("errorMessage");
-
-const errorActions =
-document.getElementById("errorActions");
-
-const playerWrap =
-document.getElementById("playerWrap");
+/* =========================
+ERROR STATE
+========================= */
 
 function showError(
 message,
 type = ""
 ){
 
-loading.style.display =
+document
+.getElementById("loading")
+.style.display =
 "none";
+
+
+const errorBox =
+document.getElementById(
+"errorBox"
+);
+
 
 errorBox.style.display =
 "flex";
 
-errorMessage.textContent =
+
+document
+.getElementById("errorMessage")
+.textContent =
 message;
 
-errorActions.innerHTML =
+
+const actions =
+document.getElementById(
+"errorActions"
+);
+
+
+actions.innerHTML =
 "";
 
-if(type === "subscription"){
-
-errorActions.innerHTML =
-`
-<a
-class="btn primary"
-href="${SQUARE_CHECKOUT}"
->
-SUBSCRIBE • $5.99/MO
-</a>
-
-<a
-class="btn"
-href="/login.html"
->
-SIGN IN
-</a>
-`;
-
-}
 
 if(type === "login"){
 
-errorActions.innerHTML =
+actions.innerHTML =
 `
 <a
 class="btn primary"
@@ -587,163 +716,101 @@ href="/login.html"
 >
 MEMBER SIGN IN
 </a>
+
+<a
+class="btn"
+href="${SQUARE_CHECKOUT}"
+>
+SUBSCRIBE • $5.99/MO
+</a>
+`;
+
+}
+
+
+if(type === "subscription"){
+
+actions.innerHTML =
+`
+<a
+class="btn primary"
+href="${SQUARE_CHECKOUT}"
+>
+SUBSCRIBE / REACTIVATE
+</a>
+
+<a
+class="btn"
+href="/"
+>
+RETURN HOME
+</a>
+`;
+
+}
+
+
+if(type === "episode"){
+
+actions.innerHTML =
+`
+<a
+class="btn primary"
+href="/shows.html"
+>
+BROWSE SHOWS
+</a>
 `;
 
 }
 
 }
 
-function closeMenu(){
 
-document
-.getElementById("accountMenu")
-.classList.remove("show");
-
-}
-
-function openModal(
-title,
-content,
-actions = []
-){
-
-closeMenu();
-
-document
-.getElementById("modalTitle")
-.textContent =
-title;
-
-document
-.getElementById("modalContent")
-.innerHTML =
-content;
-
-const actionBox =
-document.getElementById("modalActions");
-
-actionBox.innerHTML =
-"";
-
-actions.forEach(
-action => {
-
-const el =
-document.createElement(
-action.href ? "a" : "button"
-);
-
-el.className =
-action.primary
-?
-"btn primary"
-:
-"btn";
-
-el.textContent =
-action.label;
-
-if(action.href){
-
-el.href =
-action.href;
-
-}
-else{
-
-el.type =
-"button";
-
-el.addEventListener(
-"click",
-action.onClick
-);
-
-}
-
-actionBox.appendChild(
-el
-);
-
-}
-);
-
-const close =
-document.createElement("button");
-
-close.className =
-"btn";
-
-close.type =
-"button";
-
-close.textContent =
-"CLOSE";
-
-close.addEventListener(
-"click",
-closeModal
-);
-
-actionBox.appendChild(close);
-
-document
-.getElementById("modalStatus")
-.style.display =
-"none";
-
-document
-.getElementById("modalBackdrop")
-.classList.add("show");
-
-}
-
-function closeModal(){
-
-document
-.getElementById("modalBackdrop")
-.classList.remove("show");
-
-}
-
-function modalStatus(message){
-
-const box =
-document.getElementById("modalStatus");
-
-box.style.display =
-"block";
-
-box.textContent =
-message;
-
-}
+/* =========================
+ACCOUNT
+========================= */
 
 async function getAccount(){
 
-const sessionResult =
+const authResult =
 await sb.auth.getSession();
 
+
 currentSession =
-sessionResult.data.session;
+authResult.data.session;
+
 
 if(!currentSession){
 
-window.location.replace(
-"/login.html"
+showError(
+"Sign in with your ASI Network FRL member account to watch this episode.",
+"login"
 );
+
 
 return false;
 
 }
 
+
 currentUser =
 currentSession.user;
+
 
 document
 .getElementById("accountEmail")
 .textContent =
 currentUser.email || "";
+
+
+document
+.getElementById("settingsEmail")
+.textContent =
+currentUser.email || "";
+
+
+/* CHECK ADMIN */
 
 const adminResult =
 await sb
@@ -755,14 +822,14 @@ currentUser.id
 )
 .maybeSingle();
 
+
 isAdmin =
 !adminResult.error &&
 !!adminResult.data;
 
+
 document
-.getElementById(
-"adminDashboardLink"
-)
+.getElementById("adminLink")
 .style.display =
 isAdmin
 ?
@@ -770,9 +837,15 @@ isAdmin
 :
 "none";
 
+
 return true;
 
 }
+
+
+/* =========================
+SUBSCRIPTION CHECK
+========================= */
 
 async function verifyMembership(){
 
@@ -783,11 +856,15 @@ document
 .textContent =
 "ADMINISTRATOR ACCESS";
 
+
 return true;
 
 }
 
-const membershipResponse =
+
+try{
+
+const response =
 await fetch(
 
 `${SUPABASE_URL}/functions/v1/asi-link-subscription`,
@@ -816,28 +893,33 @@ JSON.stringify({})
 
 );
 
+
 let membership = {};
+
 
 try{
 
 membership =
-await membershipResponse.json();
+await response.json();
 
 }
 catch(error){}
 
-const membershipStatus =
+
+const status =
 String(
 membership.status || ""
 ).toUpperCase();
 
+
 const active =
-membershipResponse.ok &&
+response.ok &&
 (
 membership.active === true ||
 membership.isActive === true ||
-membershipStatus === "ACTIVE"
+status === "ACTIVE"
 );
+
 
 if(active){
 
@@ -846,11 +928,46 @@ document
 .textContent =
 "ACTIVE ASI NETWORK FRL MEMBER";
 
+
+return true;
+
 }
 
-return active;
+
+showError(
+"Your ASI Network FRL account is signed in, but an active subscription could not be verified.",
+"subscription"
+);
+
+
+return false;
+
 
 }
+catch(error){
+
+console.error(
+"Membership verification error:",
+error
+);
+
+
+showError(
+"We couldn't verify your ASI Network FRL subscription right now. Please try again.",
+"subscription"
+);
+
+
+return false;
+
+}
+
+}
+
+
+/* =========================
+LOAD EPISODE
+========================= */
 
 async function loadEpisode(){
 
@@ -859,44 +976,12 @@ new URLSearchParams(
 window.location.search
 );
 
+
 const episodeId =
 params.get("id");
 
-const episodeNumber =
-Number(
-params.get("episode")
-);
 
-let query =
-sb
-.from("episodes")
-.select(
-"id,season_id,episode_number,title,description,is_published"
-)
-.eq(
-"is_published",
-true
-);
-
-if(episodeId){
-
-query =
-query.eq(
-"id",
-episodeId
-);
-
-}
-else if(episodeNumber){
-
-query =
-query.eq(
-"episode_number",
-episodeNumber
-);
-
-}
-else{
+if(!episodeId){
 
 throw new Error(
 "Episode information is missing."
@@ -904,16 +989,32 @@ throw new Error(
 
 }
 
-const episodeResult =
-await query.maybeSingle();
 
-if(episodeResult.error){
+const result =
+await sb
+.from("episodes")
+.select(
+"id,season_id,episode_number,title,description,is_published"
+)
+.eq(
+"id",
+episodeId
+)
+.eq(
+"is_published",
+true
+)
+.maybeSingle();
 
-throw episodeResult.error;
+
+if(result.error){
+
+throw result.error;
 
 }
 
-if(!episodeResult.data){
+
+if(!result.data){
 
 throw new Error(
 "This episode is not available."
@@ -921,115 +1022,76 @@ throw new Error(
 
 }
 
-return episodeResult.data;
 
-}
+currentEpisode =
+result.data;
 
-function saveWatchHistory(
-episode
-){
-
-let history = [];
-
-try{
-
-history =
-JSON.parse(
-localStorage.getItem(
-"asi_watch_history"
-) || "[]"
-);
-
-}
-catch(error){}
-
-history =
-history.filter(
-item =>
-item.id !== episode.id
-);
-
-history.push({
-
-id:
-episode.id,
-
-title:
-episode.title ||
-`Episode ${episode.episode_number}`,
-
-episode:
-episode.episode_number,
-
-episodeId:
-episode.id,
-
-watchedAt:
-Date.now()
-
-});
-
-localStorage.setItem(
-
-"asi_watch_history",
-
-JSON.stringify(
-history.slice(-50)
-)
-
-);
-
-}
-
-async function initializePlayer(){
-
-try{
-
-const accountReady =
-await getAccount();
-
-if(!accountReady){
-
-return;
-
-}
-
-const active =
-await verifyMembership();
-
-if(!active){
-
-showError(
-
-"Your ASI Network FRL account is signed in, but an active subscription could not be verified. Full episodes require an active $5.99/month subscription.",
-
-"subscription"
-
-);
-
-return;
-
-}
-
-const episode =
-await loadEpisode();
 
 document
 .getElementById("episodeTitle")
 .textContent =
-episode.title ||
-`Episode ${episode.episode_number}`;
+currentEpisode.title ||
+`Episode ${currentEpisode.episode_number}`;
+
 
 document
 .getElementById("episodeDescription")
 .textContent =
-episode.description ||
+currentEpisode.description ||
 "ASI Network FRL Original";
 
-document.title =
-`${episode.title || "Episode"} | ASI Network FRL`;
 
-const tokenResponse =
+document.title =
+`${currentEpisode.title || "Episode"} | ASI Network FRL`;
+
+
+/* FIND SHOW FOR BACK BUTTON */
+
+try{
+
+const seasonResult =
+await sb
+.from("seasons")
+.select("show_id")
+.eq(
+"id",
+currentEpisode.season_id
+)
+.maybeSingle();
+
+
+if(
+!seasonResult.error &&
+seasonResult.data?.show_id
+){
+
+document
+.getElementById("backToShow")
+.href =
+`/show.html?id=${encodeURIComponent(
+seasonResult.data.show_id
+)}`;
+
+}
+
+}
+catch(error){}
+
+
+return currentEpisode;
+
+}
+
+
+/* =========================
+SECURE MUX PLAYBACK
+========================= */
+
+async function authorizePlayback(
+episode
+){
+
+const response =
 await fetch(
 
 `${SUPABASE_URL}/functions/v1/asi-mux-playback-token`,
@@ -1054,7 +1116,7 @@ SUPABASE_KEY,
 body:
 JSON.stringify({
 
-episodeId:
+episode_id:
 episode.id
 
 })
@@ -1063,198 +1125,376 @@ episode.id
 
 );
 
-let tokenResult = {};
+
+let result = {};
+
 
 try{
 
-tokenResult =
-await tokenResponse.json();
+result =
+await response.json();
 
 }
 catch(error){}
 
-if(!tokenResponse.ok){
-
-throw new Error(
-
-tokenResult.error ||
-"Secure playback could not be authorized."
-
-);
-
-}
 
 if(
-!tokenResult.playbackId ||
-!tokenResult.token
+!response.ok ||
+!result.playbackId ||
+!result.token
 ){
 
+console.error(
+"Playback authorization failed:",
+result
+);
+
+
 throw new Error(
-"Secure playback information is missing."
+result.error ||
+"Secure playback could not be authorized."
 );
 
 }
 
-loading.style.display =
+
+return result;
+
+}
+
+
+/* =========================
+CREATE PLAYER
+========================= */
+
+function createPlayer(
+playback
+){
+
+document
+.getElementById("loading")
+.style.display =
 "none";
+
+
+document
+.getElementById("errorBox")
+.style.display =
+"none";
+
 
 const player =
 document.createElement(
 "mux-player"
 );
 
+
 player.setAttribute(
 "playback-id",
-tokenResult.playbackId
+playback.playbackId
 );
 
-player.setAttribute(
-"playback-token",
-tokenResult.token
-);
 
 player.setAttribute(
-"controls",
-""
+"tokens",
+JSON.stringify({
+
+playback:
+playback.token
+
+})
 );
+
 
 player.setAttribute(
 "metadata-video-title",
-episode.title ||
-`Episode ${episode.episode_number}`
+currentEpisode.title ||
+`Episode ${currentEpisode.episode_number}`
 );
 
-playerWrap.appendChild(
+
+player.setAttribute(
+"accent-color",
+"#ffffff"
+);
+
+
+document
+.getElementById("playerWrap")
+.innerHTML =
+"";
+
+
+document
+.getElementById("playerWrap")
+.appendChild(
 player
 );
 
-saveWatchHistory(
-episode
-);
-
-}catch(error){
-
-console.error(
-"Playback error:",
-error
-);
-
-showError(
-error?.message ||
-"Something went wrong while loading this episode."
-);
-
 }
 
-}
 
-function openProfile(){
+/* =========================
+WATCH HISTORY
+========================= */
 
-openModal(
+function saveWatchHistory(){
 
-"My Profile",
-
-`
-<div class="modal-row">
-
-<div class="modal-label">
-Email Address
-</div>
-
-<div>
-${currentUser?.email || ""}
-</div>
-
-</div>
-
-<div class="modal-row">
-
-<div class="modal-label">
-Account Access
-</div>
-
-<div>
-${isAdmin
-? "Administrator / Member"
-: "Active Subscriber"}
-</div>
-
-</div>
-`
-
-);
-
-}
-
-function openSettings(){
-
-openModal(
-
-"Account Settings",
-
-`
-<div class="modal-row">
-
-<div class="modal-label">
-Signed In As
-</div>
-
-<div>
-${currentUser?.email || ""}
-</div>
-
-</div>
-
-<div class="modal-row">
-
-<div class="modal-label">
-Password
-</div>
-
-<div>
-Send yourself a secure password-reset email if you want to change your password.
-</div>
-
-</div>
-`,
-
-[
-{
-label:
-"SEND PASSWORD RESET EMAIL",
-
-primary:true,
-
-onClick:
-sendPasswordReset
-}
-]
-
-);
-
-}
-
-async function sendPasswordReset(){
-
-if(
-!currentUser ||
-!currentUser.email
-){
-
-modalStatus(
-"Unable to find your account email."
-);
+if(!currentEpisode){
 
 return;
 
 }
 
-modalStatus(
-"Sending password reset email..."
+
+let history = [];
+
+
+try{
+
+history =
+JSON.parse(
+localStorage.getItem(
+"asi_watch_history"
+) || "[]"
 );
 
+
+if(!Array.isArray(history)){
+
+history = [];
+
+}
+
+}
+catch(error){
+
+history = [];
+
+}
+
+
+history =
+history.filter(
+item =>
+item.id !== currentEpisode.id
+);
+
+
+history.unshift({
+
+id:
+currentEpisode.id,
+
+episodeId:
+currentEpisode.id,
+
+episode_number:
+currentEpisode.episode_number,
+
+title:
+currentEpisode.title ||
+`Episode ${currentEpisode.episode_number}`,
+
+description:
+currentEpisode.description ||
+"ASI Network FRL Original",
+
+watchedAt:
+Date.now()
+
+});
+
+
+history =
+history.slice(
+0,
+25
+);
+
+
+localStorage.setItem(
+
+"asi_watch_history",
+
+JSON.stringify(
+history
+)
+
+);
+
+}
+
+
+/* =========================
+ACCOUNT MENU
+========================= */
+
+const accountButton =
+document.getElementById(
+"accountButton"
+);
+
+
+const accountMenu =
+document.getElementById(
+"accountMenu"
+);
+
+
+accountButton.addEventListener(
+"click",
+function(event){
+
+event.stopPropagation();
+
+
+accountMenu
+.classList
+.toggle("show");
+
+}
+);
+
+
+document.addEventListener(
+"click",
+function(event){
+
+if(
+!accountMenu.contains(event.target) &&
+!accountButton.contains(event.target)
+){
+
+accountMenu
+.classList
+.remove("show");
+
+}
+
+}
+);
+
+
+/* =========================
+LOGOUT
+========================= */
+
+document
+.getElementById("logoutButton")
+.addEventListener(
+"click",
+async function(){
+
+await sb.auth.signOut();
+
+
+window.location.replace(
+"/"
+);
+
+}
+);
+
+
+/* =========================
+SETTINGS
+========================= */
+
+const settingsModal =
+document.getElementById(
+"settingsModal"
+);
+
+
+document
+.getElementById("settingsButton")
+.addEventListener(
+"click",
+function(){
+
+accountMenu
+.classList
+.remove("show");
+
+
+settingsModal
+.classList
+.add("show");
+
+}
+);
+
+
+document
+.getElementById("closeSettingsButton")
+.addEventListener(
+"click",
+function(){
+
+settingsModal
+.classList
+.remove("show");
+
+}
+);
+
+
+settingsModal.addEventListener(
+"click",
+function(event){
+
+if(event.target === settingsModal){
+
+settingsModal
+.classList
+.remove("show");
+
+}
+
+}
+);
+
+
+/* =========================
+PASSWORD RESET
+========================= */
+
+document
+.getElementById("resetPasswordButton")
+.addEventListener(
+"click",
+async function(){
+
+const button =
+document.getElementById(
+"resetPasswordButton"
+);
+
+
+const message =
+document.getElementById(
+"settingsMessage"
+);
+
+
+button.disabled =
+true;
+
+
+button.textContent =
+"SENDING...";
+
+
+message.style.display =
+"none";
+
+
+try{
+
 const result =
-await sb.auth.resetPasswordForEmail(
+await sb.auth
+.resetPasswordForEmail(
 
 currentUser.email,
 
@@ -1268,152 +1508,125 @@ window.location.origin +
 
 );
 
+
 if(result.error){
 
-modalStatus(
-result.error.message
+throw result.error;
+
+}
+
+
+message.textContent =
+"Password reset email sent. Check your inbox and spam folder.";
+
+
+message.style.display =
+"block";
+
+
+}
+catch(error){
+
+console.error(
+"Password reset error:",
+error
 );
+
+
+message.textContent =
+"We couldn't send the password reset email right now. Please try again.";
+
+
+message.style.display =
+"block";
+
+
+}
+finally{
+
+button.disabled =
+false;
+
+
+button.textContent =
+"SEND PASSWORD RESET EMAIL";
+
+}
+
+}
+);
+
+
+/* =========================
+INITIALIZE
+========================= */
+
+async function initialize(){
+
+try{
+
+
+const hasAccount =
+await getAccount();
+
+
+if(!hasAccount){
 
 return;
 
 }
 
-modalStatus(
-"Reset email sent. Check your inbox and spam folder."
+
+const hasMembership =
+await verifyMembership();
+
+
+if(!hasMembership){
+
+return;
+
+}
+
+
+const episode =
+await loadEpisode();
+
+
+const playback =
+await authorizePlayback(
+episode
+);
+
+
+createPlayer(
+playback
+);
+
+
+saveWatchHistory();
+
+
+}
+catch(error){
+
+console.error(
+"Watch page error:",
+error
+);
+
+
+showError(
+error.message ||
+"This episode could not be loaded.",
+"episode"
 );
 
 }
 
-function openSupport(){
-
-openModal(
-
-"Help & Support",
-
-`
-<div class="modal-row">
-
-<div class="modal-label">
-Support Email
-</div>
-
-<div>
-support@asinetworkfrl.com
-</div>
-
-</div>
-
-<p>
-Contact ASI Network FRL support for help with your account, subscription or playback.
-</p>
-`,
-
-[
-{
-label:
-"EMAIL SUPPORT",
-
-primary:true,
-
-href:
-"mailto:support@asinetworkfrl.com?subject=ASI%20Network%20FRL%20Support"
-}
-]
-
-);
-
 }
 
-document
-.getElementById("accountButton")
-.addEventListener(
-"click",
-function(event){
 
-event.stopPropagation();
-
-document
-.getElementById("accountMenu")
-.classList.toggle("show");
-
-}
-);
-
-document
-.addEventListener(
-"click",
-function(event){
-
-const menu =
-document.getElementById("accountMenu");
-
-const button =
-document.getElementById("accountButton");
-
-if(
-!menu.contains(event.target) &&
-!button.contains(event.target)
-){
-
-menu.classList.remove("show");
-
-}
-
-}
-);
-
-document
-.getElementById("profileButton")
-.addEventListener(
-"click",
-openProfile
-);
-
-document
-.getElementById("settingsButton")
-.addEventListener(
-"click",
-openSettings
-);
-
-document
-.getElementById("supportButton")
-.addEventListener(
-"click",
-openSupport
-);
-
-document
-.getElementById("logoutButton")
-.addEventListener(
-"click",
-async function(){
-
-await sb.auth.signOut();
-
-window.location.replace(
-"/"
-);
-
-}
-);
-
-document
-.getElementById("modalBackdrop")
-.addEventListener(
-"click",
-function(event){
-
-if(event.target === this){
-
-closeModal();
-
-}
-
-}
-);
-
-initializePlayer();
+initialize();
 
 </script>
 
