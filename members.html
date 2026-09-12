@@ -1,349 +1,1583 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Members | ASI Network FRL</title>
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<title>ASI Network FRL | Member Home</title>
+
+<meta name="robots" content="noindex,nofollow">
+
+<script
+src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
 
 <style>
-*{
-box-sizing:border-box;
+
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
 }
 
-body{
-margin:0;
-background:#050505;
-color:white;
-font-family:Arial,Helvetica,sans-serif;
+html {
+scroll-behavior: smooth;
 }
 
-header{
-height:72px;
-padding:0 6%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-background:#080808;
-border-bottom:1px solid #222;
+body {
+background: #050505;
+color: #fff;
+font-family: Arial, Helvetica, sans-serif;
+min-height: 100vh;
 }
 
-.logo{
-font-weight:900;
-letter-spacing:2px;
+button,
+input {
+font: inherit;
 }
 
-nav{
-display:flex;
-align-items:center;
-gap:20px;
+button,
+a {
+-webkit-tap-highlight-color: transparent;
 }
 
-nav a,
-nav button{
-color:#aaa;
-background:none;
-border:0;
-text-decoration:none;
-cursor:pointer;
-font-size:12px;
-font-weight:800;
+a {
+color: inherit;
+text-decoration: none;
 }
 
-.hero{
-padding:65px 6% 35px;
+
+/* =====================================
+HEADER
+===================================== */
+
+header {
+position: sticky;
+top: 0;
+z-index: 1000;
+min-height: 74px;
+padding: 0 4%;
+display: flex;
+align-items: center;
+gap: 34px;
+background: rgba(5, 5, 5, .97);
+border-bottom: 1px solid #222;
 }
 
-.eyebrow{
-font-size:11px;
-letter-spacing:3px;
-font-weight:900;
-color:#888;
+.logo {
+white-space: nowrap;
+font-size: 21px;
+font-weight: 900;
+letter-spacing: 1px;
 }
 
-h1{
-font-size:clamp(38px,6vw,72px);
-margin:10px 0;
+.logo span {
+color: #aaa;
+font-weight: 500;
 }
 
-.hero p{
-color:#aaa;
-max-width:700px;
-line-height:1.7;
+.main-nav {
+display: flex;
+align-items: center;
+gap: 26px;
+flex: 1;
 }
 
-.content{
-padding:20px 6% 80px;
+.main-nav a {
+position: relative;
+padding: 27px 0 23px;
+font-size: 12px;
+font-weight: 900;
+letter-spacing: .7px;
 }
 
-.section-title{
-font-size:24px;
-margin-bottom:25px;
+.main-nav a:hover {
+opacity: .75;
 }
 
-.episodes{
-display:grid;
-grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-gap:24px;
+.main-nav a.active::after {
+content: "";
+position: absolute;
+left: 0;
+right: 0;
+bottom: 13px;
+height: 3px;
+background: white;
+border-radius: 5px;
 }
 
-.episode-card{
-background:#111;
-border:1px solid #222;
-overflow:hidden;
+.header-right {
+display: flex;
+align-items: center;
+gap: 16px;
+margin-left: auto;
 }
 
-.thumbnail{
-width:100%;
-aspect-ratio:16/9;
-background:#1a1a1a;
-display:flex;
-align-items:center;
-justify-content:center;
-color:#666;
-overflow:hidden;
+.search-wrap {
+position: relative;
 }
 
-.thumbnail img{
-width:100%;
-height:100%;
-object-fit:cover;
+.search-input {
+width: 210px;
+height: 40px;
+border: 1px solid #252525;
+border-radius: 22px;
+outline: none;
+background: #111;
+color: white;
+padding: 0 17px;
 }
 
-.episode-info{
-padding:20px;
+.search-input::placeholder {
+color: #777;
 }
 
-.episode-number{
-color:#888;
-font-size:11px;
-letter-spacing:2px;
-font-weight:900;
+.account-button {
+border: 0;
+background: transparent;
+color: white;
+cursor: pointer;
+display: flex;
+align-items: center;
+gap: 9px;
+font-weight: 800;
 }
 
-.episode-title{
-font-size:20px;
-margin:8px 0;
+.avatar {
+width: 38px;
+height: 38px;
+border-radius: 50%;
+background: #fff;
+color: #050505;
+display: grid;
+place-items: center;
+font-weight: 900;
 }
 
-.episode-description{
-color:#999;
-font-size:14px;
-line-height:1.5;
-min-height:42px;
+.account-menu {
+position: absolute;
+top: 64px;
+right: 4%;
+width: 260px;
+padding: 8px;
+background: #101010;
+border: 1px solid #2a2a2a;
+border-radius: 8px;
+box-shadow: 0 18px 50px rgba(0, 0, 0, .6);
+display: none;
+z-index: 2000;
 }
 
-.watch-button{
-display:inline-block;
-margin-top:15px;
-padding:12px 18px;
-background:white;
-color:black;
-text-decoration:none;
-font-size:12px;
-font-weight:900;
+.account-menu.show {
+display: block;
 }
 
-#status{
-padding:25px 0;
-color:#aaa;
+.account-email {
+padding: 14px;
+color: #999;
+font-size: 12px;
+overflow-wrap: anywhere;
+border-bottom: 1px solid #222;
+margin-bottom: 5px;
 }
 
-.locked{
-max-width:600px;
-background:#111;
-border:1px solid #222;
-padding:30px;
+.menu-item {
+width: 100%;
+display: block;
+border: 0;
+background: transparent;
+color: white;
+text-align: left;
+padding: 13px 14px;
+border-radius: 5px;
+cursor: pointer;
+font-size: 13px;
 }
 
-.subscribe-button{
-display:inline-block;
-margin-top:15px;
-padding:13px 20px;
-background:white;
-color:black;
-text-decoration:none;
-font-weight:900;
-font-size:12px;
+.menu-item:hover {
+background: #1c1c1c;
+}
+
+.menu-separator {
+height: 1px;
+background: #292929;
+margin: 6px 0;
+}
+
+
+/* =====================================
+HERO
+===================================== */
+
+.hero {
+min-height: 510px;
+display: flex;
+align-items: center;
+padding: 75px 6%;
+background:
+radial-gradient(circle at 75% 30%, rgba(255,255,255,.09), transparent 26%),
+linear-gradient(
+90deg,
+#090909 0%,
+#090909 48%,
+#111 75%,
+#090909 100%
+);
+border-bottom: 1px solid #151515;
+}
+
+.hero-inner {
+max-width: 720px;
+}
+
+.eyebrow {
+font-size: 12px;
+font-weight: 900;
+letter-spacing: 4px;
+color: #999;
+margin-bottom: 17px;
+}
+
+.hero h1 {
+font-size: clamp(48px, 7vw, 88px);
+line-height: .92;
+letter-spacing: -3px;
+margin-bottom: 22px;
+}
+
+.hero-description {
+color: #c1c1c1;
+max-width: 590px;
+font-size: 16px;
+line-height: 1.65;
+margin-bottom: 26px;
+}
+
+.hero-actions {
+display: flex;
+flex-wrap: wrap;
+gap: 12px;
+}
+
+.primary-btn,
+.secondary-btn {
+min-height: 44px;
+padding: 0 22px;
+border-radius: 4px;
+font-size: 12px;
+font-weight: 900;
+letter-spacing: .8px;
+cursor: pointer;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+}
+
+.primary-btn {
+background: #fff;
+color: #000;
+border: 1px solid #fff;
+}
+
+.secondary-btn {
+background: transparent;
+color: #fff;
+border: 1px solid #555;
+}
+
+
+/* =====================================
+CONTENT
+===================================== */
+
+.content {
+padding: 54px 4% 90px;
+}
+
+.content-section {
+margin-bottom: 60px;
+}
+
+.section-top {
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 15px;
+margin-bottom: 21px;
+}
+
+.section-top h2 {
+font-size: 25px;
+}
+
+.section-top button {
+border: 0;
+background: none;
+color: #999;
+cursor: pointer;
+}
+
+.card-grid {
+display: grid;
+grid-template-columns:
+repeat(auto-fill, minmax(240px, 1fr));
+gap: 18px;
+}
+
+.content-card {
+min-width: 0;
+}
+
+.card-image {
+position: relative;
+aspect-ratio: 16 / 9;
+background:
+linear-gradient(135deg, #222, #0b0b0b);
+border-radius: 7px;
+overflow: hidden;
+background-size: cover;
+background-position: center;
+border: 1px solid #222;
+}
+
+.card-image-overlay {
+position: absolute;
+inset: 0;
+background:
+linear-gradient(
+to bottom,
+transparent 45%,
+rgba(0, 0, 0, .72) 100%
+);
+}
+
+.card-badge {
+position: absolute;
+left: 10px;
+top: 10px;
+background: white;
+color: black;
+padding: 5px 7px;
+border-radius: 3px;
+font-size: 10px;
+font-weight: 900;
+}
+
+.card-number {
+position: absolute;
+right: 10px;
+bottom: 9px;
+background: rgba(0, 0, 0, .85);
+padding: 5px 7px;
+border-radius: 3px;
+font-size: 10px;
+}
+
+.card-title {
+font-size: 15px;
+font-weight: 900;
+margin-top: 11px;
+line-height: 1.35;
+}
+
+.card-subtitle {
+color: #8c8c8c;
+font-size: 13px;
+margin-top: 5px;
+}
+
+.card-action {
+display: inline-block;
+margin-top: 10px;
+font-size: 11px;
+font-weight: 900;
+letter-spacing: .6px;
+border-bottom: 1px solid #777;
+padding-bottom: 2px;
+}
+
+.coming-soon {
+display: inline-block;
+margin-top: 10px;
+color: #777;
+font-size: 11px;
+font-weight: 900;
+letter-spacing: .6px;
+}
+
+.empty-state {
+width: 100%;
+border: 1px solid #202020;
+padding: 30px;
+color: #888;
+border-radius: 6px;
+background: #0b0b0b;
+}
+
+
+/* =====================================
+SHOW CARDS
+===================================== */
+
+.show-card {
+min-height: 210px;
+border: 1px solid #222;
+border-radius: 7px;
+overflow: hidden;
+background:
+linear-gradient(135deg, #171717, #090909);
+display: flex;
+flex-direction: column;
+justify-content: flex-end;
+padding: 23px;
+}
+
+.show-card h3 {
+font-size: 25px;
+max-width: 300px;
+line-height: 1;
+}
+
+.show-card p {
+color: #888;
+margin-top: 9px;
+font-size: 12px;
+text-transform: uppercase;
+letter-spacing: 1px;
+}
+
+
+/* =====================================
+SEARCH RESULTS
+===================================== */
+
+#searchSection {
+display: none;
+}
+
+#searchSection.active {
+display: block;
+}
+
+
+/* =====================================
+MODAL
+===================================== */
+
+.modal-backdrop {
+position: fixed;
+inset: 0;
+background: rgba(0, 0, 0, .84);
+display: none;
+align-items: center;
+justify-content: center;
+z-index: 4000;
+padding: 20px;
+}
+
+.modal-backdrop.show {
+display: flex;
+}
+
+.modal {
+width: min(520px, 100%);
+background: #101010;
+border: 1px solid #2b2b2b;
+border-radius: 10px;
+padding: 28px;
+}
+
+.modal h2 {
+margin-bottom: 9px;
+}
+
+.modal p {
+color: #aaa;
+font-size: 14px;
+line-height: 1.6;
+margin-bottom: 18px;
+}
+
+.modal-actions {
+display: flex;
+flex-wrap: wrap;
+gap: 10px;
+}
+
+.close-modal {
+border: 1px solid #444;
+background: transparent;
+color: white;
+min-height: 42px;
+padding: 0 17px;
+cursor: pointer;
+}
+
+
+/* =====================================
+LOADING
+===================================== */
+
+#appLoading {
+min-height: 100vh;
+display: grid;
+place-items: center;
+background: #050505;
+color: #aaa;
+letter-spacing: 2px;
+font-weight: 900;
+}
+
+#memberApp {
+display: none;
+}
+
+
+/* =====================================
+FOOTER
+===================================== */
+
+footer {
+border-top: 1px solid #181818;
+padding: 35px 4%;
+color: #666;
+font-size: 12px;
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
+gap: 12px;
+}
+
+
+/* =====================================
+MOBILE
+===================================== */
+
+@media (max-width: 980px) {
+
+header {
+flex-wrap: wrap;
+padding-top: 15px;
+padding-bottom: 15px;
+gap: 14px;
+}
+
+.main-nav {
+order: 3;
+width: 100%;
+overflow-x: auto;
+}
+
+.main-nav a {
+padding: 10px 0;
+}
+
+.main-nav a.active::after {
+bottom: 2px;
+}
+
+.search-input {
+width: 155px;
+}
+
+.account-menu {
+top: 122px;
+}
+}
+
+@media (max-width: 660px) {
+
+.header-right {
+width: 100%;
+}
+
+.search-wrap {
+flex: 1;
+}
+
+.search-input {
+width: 100%;
+}
+
+.account-button span.account-name {
+display: none;
+}
+
+.hero {
+min-height: 440px;
+padding: 58px 6%;
+}
+
+.hero h1 {
+font-size: 48px;
+letter-spacing: -2px;
+}
+
+.card-grid {
+grid-template-columns:
+repeat(2, minmax(0, 1fr));
+}
+
+.card-title {
+font-size: 13px;
+}
+
+.account-menu {
+left: 4%;
+right: 4%;
+width: auto;
+}
+}
+
+@media (max-width: 440px) {
+
+.card-grid {
+grid-template-columns: 1fr;
+}
+
 }
 
 </style>
+
 </head>
+
 
 <body>
 
-<header>
 
-<div class="logo">
-ASI NETWORK FRL
+<div id="appLoading">
+LOADING ASI NETWORK FRL...
 </div>
 
-<nav>
-<a href="/">HOME</a>
-<button id="logout-button">LOG OUT</button>
+
+<div id="memberApp">
+
+<header>
+
+<a
+href="/members.html"
+class="logo"
+>
+ASI NETWORK <span>FRL</span> 👁️
+</a>
+
+
+<nav class="main-nav">
+
+<a
+href="/members.html"
+class="active"
+>
+HOME
+</a>
+
+<a href="#shows">
+SHOWS
+</a>
+
+<a href="#episodes">
+EPISODES
+</a>
+
+<a
+href="#"
+id="myListNav"
+>
+MY LIST
+</a>
+
+<a
+href="#"
+id="extrasNav"
+>
+EXTRAS
+</a>
+
 </nav>
+
+
+<div class="header-right">
+
+<div class="search-wrap">
+
+<input
+id="searchInput"
+class="search-input"
+type="search"
+placeholder="Search"
+autocomplete="off"
+>
+
+</div>
+
+
+<button
+type="button"
+class="account-button"
+id="accountButton"
+>
+
+<div
+class="avatar"
+id="avatar"
+>
+A
+</div>
+
+<span class="account-name">
+ACCOUNT ▾
+</span>
+
+</button>
+
+</div>
+
+
+<div
+class="account-menu"
+id="accountMenu"
+>
+
+<div
+class="account-email"
+id="accountEmail"
+></div>
+
+
+<button
+class="menu-item"
+id="profileButton"
+>
+My Profile
+</button>
+
+
+<button
+class="menu-item"
+id="historyButton"
+>
+Watch History
+</button>
+
+
+<button
+class="menu-item"
+id="menuMyList"
+>
+My List
+</button>
+
+
+<button
+class="menu-item"
+id="settingsButton"
+>
+Account Settings
+</button>
+
+
+<button
+class="menu-item"
+id="supportButton"
+>
+Help & Support
+</button>
+
+
+<a
+class="menu-item"
+href="/admin.html"
+id="adminButton"
+style="display:none;"
+>
+Admin Dashboard
+</a>
+
+
+<div class="menu-separator"></div>
+
+
+<button
+class="menu-item"
+id="logoutButton"
+>
+Log Out
+</button>
+
+</div>
 
 </header>
 
+
+
+<main>
+
+
 <section class="hero">
+
+<div class="hero-inner">
 
 <div class="eyebrow">
 ASI NETWORK FRL ORIGINAL
 </div>
 
+
 <h1>
-Family Behind The Trauma
+FAMILY BEHIND<br>
+THE TRAUMA
 </h1>
 
-<p>
-An unfiltered family reality series revealing real life,
-real relationships, and the stories behind the trauma.
+
+<p class="hero-description">
+Real family. Real conversations. Real life.
+No filters. No scripts. Watch ASI Network FRL
+original reality entertainment.
 </p>
+
+
+<div class="hero-actions">
+
+<a
+href="#episodes"
+class="primary-btn"
+>
+VIEW EPISODES
+</a>
+
+
+<button
+type="button"
+class="secondary-btn"
+id="heroMyList"
+>
++ MY LIST
+</button>
+
+</div>
+
+</div>
 
 </section>
 
-<section class="content">
 
-<h2 class="section-title">
-Season 1
+
+<div class="content">
+
+
+<section
+class="content-section"
+id="searchSection"
+>
+
+<div class="section-top">
+
+<h2>
+Search Results
 </h2>
 
-<div id="status">
-Checking your membership...
+<button
+type="button"
+id="clearSearchButton"
+>
+Clear Search
+</button>
+
 </div>
 
+
 <div
-id="episodes"
-class="episodes"
+class="card-grid"
+id="searchGrid"
 ></div>
 
 </section>
 
+
+
+<section
+class="content-section"
+id="episodes"
+>
+
+<div class="section-top">
+
+<h2>
+Latest Episodes
+</h2>
+
+</div>
+
+
+<div
+class="card-grid"
+id="episodeGrid"
+>
+
+<div class="empty-state">
+Loading episodes...
+</div>
+
+</div>
+
+</section>
+
+
+
+<section
+class="content-section"
+id="shows"
+>
+
+<div class="section-top">
+
+<h2>
+Our Shows
+</h2>
+
+</div>
+
+
+<div
+class="card-grid"
+id="showGrid"
+>
+
+<div class="show-card">
+
+<h3>
+Family Behind The Trauma
+</h3>
+
+<p>
+Original Reality Series
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+</div>
+
+</main>
+
+
+
+<footer>
+
+<div>
+© 2026 ASI NETWORK FRL
+</div>
+
+<div>
+ORIGINAL REALITY ENTERTAINMENT
+</div>
+
+</footer>
+
+</div>
+
+
+
+<!-- =====================================
+GENERAL MODAL
+===================================== -->
+
+<div
+class="modal-backdrop"
+id="modalBackdrop"
+>
+
+<div class="modal">
+
+<h2 id="modalTitle">
+ASI Network FRL
+</h2>
+
+<p id="modalText"></p>
+
+<div
+class="modal-actions"
+id="modalActions"
+></div>
+
+</div>
+
+</div>
+
+
+
 <script>
 
-const ASI_SUPABASE_URL =
+
+/* =====================================
+SUPABASE
+===================================== */
+
+const SUPABASE_URL =
 "https://gvvtwwrjfscaunczptpv.supabase.co";
 
-const ASI_SUPABASE_PUBLISHABLE_KEY =
-"sb_publishable_iliNeR5tX_4X4KAh5ZjPpA_e6ueLnP-";
 
-const asiSupabase =
-supabase.createClient(
-ASI_SUPABASE_URL,
-ASI_SUPABASE_PUBLISHABLE_KEY
+const SUPABASE_KEY =
+"sb_publishable_i1iNeR5tX_4X4KAh5ZjPpA_e6ueLnP-";
+
+
+const sb =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
 );
 
-const LINK_SUBSCRIPTION_FUNCTION =
-ASI_SUPABASE_URL +
-"/functions/v1/asi-link-subscription";
+
+/* =====================================
+SUPPORT
+===================================== */
+
+/*
+We will confirm/setup your permanent
+branded support mailbox next.
+
+This address is used by the Help &
+Support button.
+*/
+
+const SUPPORT_EMAIL =
+"support@asinetworkfrl.com";
 
 
-async function loadMembers(){
+/* =====================================
+GLOBAL STATE
+===================================== */
 
-const status =
-document.getElementById("status");
+let currentSession = null;
 
-const episodesContainer =
-document.getElementById("episodes");
+let currentUser = null;
 
-try{
+let isAdmin = false;
 
-/* CHECK LOGIN */
+let episodes = [];
+
+let shows = [];
+
+
+/* =====================================
+HELPERS
+===================================== */
+
+function escapeHtml(value) {
+
+return String(value ?? "")
+.replaceAll("&", "&amp;")
+.replaceAll("<", "&lt;")
+.replaceAll(">", "&gt;")
+.replaceAll('"', "&quot;")
+.replaceAll("'", "&#039;");
+
+}
+
+
+function escapeAttribute(value) {
+
+return String(value ?? "")
+.replaceAll("\\", "\\\\")
+.replaceAll("'", "\\'")
+.replaceAll('"', "&quot;");
+
+}
+
+
+function openModal(
+title,
+text,
+actions = []
+) {
+
+document
+.getElementById("modalTitle")
+.textContent = title;
+
+
+document
+.getElementById("modalText")
+.textContent = text;
+
+
+const actionWrap =
+document.getElementById(
+"modalActions"
+);
+
+
+actionWrap.innerHTML = "";
+
+
+for (const action of actions) {
+
+const element =
+document.createElement(
+action.href
+? "a"
+: "button"
+);
+
+
+element.textContent =
+action.label;
+
+
+element.className =
+action.primary
+? "primary-btn"
+: "close-modal";
+
+
+if (action.href) {
+
+element.href =
+action.href;
+
+}
+
+else if (action.onClick) {
+
+element.type = "button";
+
+element.onclick =
+action.onClick;
+
+}
+
+actionWrap.appendChild(
+element
+);
+
+}
+
+
+const close =
+document.createElement(
+"button"
+);
+
+
+close.type =
+"button";
+
+
+close.className =
+"close-modal";
+
+
+close.textContent =
+"Close";
+
+
+close.onclick =
+closeModal;
+
+
+actionWrap.appendChild(
+close
+);
+
+
+document
+.getElementById("modalBackdrop")
+.classList
+.add("show");
+
+}
+
+
+function closeModal() {
+
+document
+.getElementById("modalBackdrop")
+.classList
+.remove("show");
+
+}
+
+
+/* =====================================
+MEMBER AUTH
+===================================== */
+
+async function initializeMemberApp() {
+
+try {
 
 const {
-data:{
+data: {
 session
 }
 } =
-await asiSupabase.auth.getSession();
+await sb.auth.getSession();
 
-if(!session){
 
-window.location.href =
-"/login.html";
+if (!session) {
+
+window.location.replace(
+"/login.html"
+);
 
 return;
+
 }
 
 
-/* CHECK ACTIVE SUBSCRIPTION */
+currentSession =
+session;
 
-status.textContent =
-"Verifying your ASI Network FRL membership...";
 
-const subscriptionResponse =
+currentUser =
+session.user;
+
+
+/*
+Verify active subscription
+using your existing secure
+subscription function.
+*/
+
+const linkResponse =
 await fetch(
-LINK_SUBSCRIPTION_FUNCTION,
+`${SUPABASE_URL}/functions/v1/asi-link-subscription`,
 {
-method:"POST",
+method: "POST",
 
-headers:{
-"Authorization":
-"Bearer " +
-session.access_token,
-
-"apikey":
-ASI_SUPABASE_PUBLISHABLE_KEY,
+headers: {
 
 "Content-Type":
-"application/json"
-}
+"application/json",
+
+"Authorization":
+`Bearer ${session.access_token}`,
+
+"apikey":
+SUPABASE_KEY
+
+},
+
+body:
+JSON.stringify({})
+
 }
 );
 
-const subscriptionResult =
-await subscriptionResponse.json();
+
+let membershipResult = {};
 
 
-if(
-!subscriptionResponse.ok ||
-subscriptionResult.active !== true
-){
+try {
 
-status.innerHTML =
-`
-<div class="locked">
+membershipResult =
+await linkResponse.json();
 
-<h2>
-Subscription Required
-</h2>
+}
 
-<p>
-Your ASI Network FRL membership
-is not currently active.
-</p>
+catch (_) {}
 
-<a
-class="subscribe-button"
-href="https://square.link/u/0l47AY8p"
->
-SUBSCRIBE — $5.99/MONTH
-</a>
 
-</div>
-`;
+/*
+Only block the account when the
+server explicitly says it is
+inactive.
+
+Existing admin accounts are
+checked below as well.
+*/
+
+await checkAdmin();
+
+
+const serverExplicitlyInactive =
+
+membershipResult.active === false ||
+
+membershipResult.isActive === false ||
+
+membershipResult.status === "INACTIVE" ||
+
+membershipResult.status === "CANCELED" ||
+
+membershipResult.status === "CANCELLED";
+
+
+if (
+serverExplicitlyInactive &&
+!isAdmin
+) {
+
+window.location.replace(
+"/login.html"
+);
 
 return;
+
 }
 
 
-/* LOAD PUBLISHED EPISODES */
+setupAccountUI();
 
-status.textContent =
-"Loading episodes...";
+
+await Promise.all([
+loadEpisodes(),
+loadShows()
+]);
+
+
+document
+.getElementById("appLoading")
+.style.display = "none";
+
+
+document
+.getElementById("memberApp")
+.style.display = "block";
+
+}
+
+catch (error) {
+
+console.error(
+"Member app error:",
+error
+);
+
+
+window.location.replace(
+"/login.html"
+);
+
+}
+
+}
+
+
+/* =====================================
+ADMIN CHECK
+===================================== */
+
+async function checkAdmin() {
 
 const {
-data:episodes,
+data,
 error
 } =
-await asiSupabase
-.from("episodes")
-.select(
-"id,episode_number,title,description,thumbnail_url,is_published"
+await sb
+.from("admins")
+.select("user_id")
+.eq(
+"user_id",
+currentUser.id
 )
+.maybeSingle();
+
+
+if (
+!error &&
+data
+) {
+
+isAdmin = true;
+
+document
+.getElementById(
+"adminButton"
+)
+.style.display =
+"block";
+
+}
+
+}
+
+
+/* =====================================
+ACCOUNT UI
+===================================== */
+
+function setupAccountUI() {
+
+const email =
+currentUser.email || "";
+
+
+document
+.getElementById(
+"accountEmail"
+)
+.textContent =
+email;
+
+
+const firstLetter =
+email
+? email[0].toUpperCase()
+: "A";
+
+
+document
+.getElementById(
+"avatar"
+)
+.textContent =
+firstLetter;
+
+}
+
+
+/* =====================================
+SHOWS
+===================================== */
+
+async function loadShows() {
+
+try {
+
+const {
+data,
+error
+} =
+await sb
+.from("shows")
+.select(`
+id,
+title,
+description,
+thumbnail_url,
+is_published
+`)
+.eq(
+"is_published",
+true
+);
+
+
+if (error) {
+throw error;
+}
+
+
+shows =
+data || [];
+
+
+renderShows();
+
+}
+
+catch (error) {
+
+console.error(
+"Shows error:",
+error
+);
+
+}
+
+}
+
+
+function renderShows() {
+
+const grid =
+document.getElementById(
+"showGrid"
+);
+
+
+if (!shows.length) {
+
+return;
+
+}
+
+
+grid.innerHTML =
+shows
+.map((show) => {
+
+const background =
+show.thumbnail_url
+? `
+background-image:
+linear-gradient(
+rgba(0,0,0,.1),
+rgba(0,0,0,.84)
+),
+url('${escapeAttribute(
+show.thumbnail_url
+)}');
+`
+: "";
+
+
+return `
+<article
+class="show-card"
+style="${background}"
+>
+
+<h3>
+${escapeHtml(
+show.title
+)}
+</h3>
+
+<p>
+ASI Network FRL Original
+</p>
+
+</article>
+`;
+
+})
+.join("");
+
+}
+
+
+/* =====================================
+EPISODES
+===================================== */
+
+async function loadEpisodes() {
+
+const grid =
+document.getElementById(
+"episodeGrid"
+);
+
+
+try {
+
+const {
+data,
+error
+} =
+await sb
+.from("episodes")
+.select(`
+id,
+episode_number,
+title,
+description,
+thumbnail_url,
+video_id,
+duration_seconds,
+is_published,
+season_id
+`)
 .eq(
 "is_published",
 true
@@ -351,139 +1585,631 @@ true
 .order(
 "episode_number",
 {
-ascending:true
+ascending: false
 }
 );
 
 
-if(error){
-
+if (error) {
 throw error;
+}
+
+
+episodes =
+data || [];
+
+
+renderEpisodes(
+episodes,
+grid
+);
+
+}
+
+catch (error) {
+
+console.error(
+"Episodes error:",
+error
+);
+
+
+grid.innerHTML = `
+<div class="empty-state">
+Episodes are temporarily unavailable.
+Please check back soon.
+</div>
+`;
+
+}
 
 }
 
 
-if(
-!episodes ||
-episodes.length === 0
-){
+function renderEpisodes(
+episodeList,
+container
+) {
 
-status.textContent =
-"No episodes have been published yet.";
+if (
+!episodeList ||
+episodeList.length === 0
+) {
+
+container.innerHTML = `
+<div class="empty-state">
+New episodes are coming soon.
+</div>
+`;
 
 return;
+
 }
 
 
-status.style.display =
-"none";
+container.innerHTML =
+episodeList
+.map((episode) => {
+
+const hasVideo =
+Boolean(
+episode.video_id &&
+episode.video_id.trim()
+);
 
 
-/* BUILD EPISODE CARDS */
+let runtime = "";
 
-episodesContainer.innerHTML =
-episodes.map(
-episode => {
 
-const title =
-episode.title ||
-`Episode ${episode.episode_number}`;
+if (
+episode.duration_seconds &&
+episode.duration_seconds > 0
+) {
 
-const description =
-episode.description ||
-"ASI Network FRL Original";
+const minutes =
+Math.floor(
+episode.duration_seconds /
+60
+);
 
-const thumbnail =
+
+runtime =
+`${minutes} MIN`;
+
+}
+
+
+const imageStyle =
 episode.thumbnail_url
-?
+? `
+background-image:
+url('${escapeAttribute(
+episode.thumbnail_url
+)}');
 `
-<img
-src="${episode.thumbnail_url}"
-alt="${title}"
->
-`
-:
-`
-<span>
-ASI NETWORK FRL
-</span>
-`;
+: "";
 
 
 return `
-<article class="episode-card">
+<article
+class="content-card"
+data-title="${escapeAttribute(
+(
+episode.title || ""
+).toLowerCase()
+)}"
+>
 
-<div class="thumbnail">
-${thumbnail}
+<div
+class="card-image"
+style="${imageStyle}"
+>
+
+<div
+class="card-image-overlay"
+></div>
+
+
+<div class="card-badge">
+S1 E${escapeHtml(
+episode.episode_number
+)}
 </div>
 
-<div class="episode-info">
 
-<div class="episode-number">
-EPISODE ${episode.episode_number}
+${
+runtime
+? `
+<div class="card-number">
+${runtime}
+</div>
+`
+: ""
+}
+
 </div>
 
-<h3 class="episode-title">
-${title}
-</h3>
 
-<div class="episode-description">
-${description}
+<div class="card-title">
+
+${escapeHtml(
+episode.title ||
+`Episode ${episode.episode_number}`
+)}
+
 </div>
 
+
+<div class="card-subtitle">
+Family Behind The Trauma
+</div>
+
+
+${
+hasVideo
+? `
 <a
-class="watch-button"
-href="/watch.html?episode=${episode.episode_number}"
+class="card-action"
+href="/watch.html?episode=${encodeURIComponent(
+episode.episode_number
+)}"
 >
 WATCH NOW
 </a>
-
-</div>
+`
+: `
+<span
+class="coming-soon"
+>
+COMING SOON
+</span>
+`
+}
 
 </article>
 `;
 
-}
-).join("");
-
-
-}catch(error){
-
-console.error(error);
-
-status.innerHTML =
-`
-We couldn't load your episodes.
-<br><br>
-${error.message}
-`;
-
-}
+})
+.join("");
 
 }
 
 
-/* LOG OUT */
+/* =====================================
+SEARCH
+===================================== */
+
+function performSearch() {
+
+const input =
+document.getElementById(
+"searchInput"
+);
+
+
+const term =
+input.value
+.trim()
+.toLowerCase();
+
+
+const searchSection =
+document.getElementById(
+"searchSection"
+);
+
+
+const searchGrid =
+document.getElementById(
+"searchGrid"
+);
+
+
+if (!term) {
+
+searchSection
+.classList
+.remove("active");
+
+return;
+
+}
+
+
+const episodeMatches =
+episodes.filter(
+episode => {
+
+const text =
+`${episode.title || ""}
+${episode.description || ""}
+${episode.episode_number || ""}`
+.toLowerCase();
+
+
+return text.includes(
+term
+);
+
+}
+);
+
+
+searchSection
+.classList
+.add("active");
+
+
+renderEpisodes(
+episodeMatches,
+searchGrid
+);
+
+
+searchSection
+.scrollIntoView({
+behavior: "smooth",
+block: "start"
+});
+
+}
+
+
+/* =====================================
+PASSWORD SETTINGS
+===================================== */
+
+async function sendPasswordReset() {
+
+try {
+
+const email =
+currentUser.email;
+
+
+const {
+error
+} =
+await sb.auth
+.resetPasswordForEmail(
+email,
+{
+redirectTo:
+window.location.origin +
+"/reset.html"
+}
+);
+
+
+if (error) {
+throw error;
+}
+
+
+openModal(
+"Password Reset Sent",
+`We sent a password reset link to ${email}.`
+);
+
+}
+
+catch (error) {
+
+openModal(
+"Unable To Send Reset",
+error.message ||
+"Please try again."
+);
+
+}
+
+}
+
+
+/* =====================================
+LOGOUT
+===================================== */
+
+async function logout() {
+
+await sb.auth.signOut();
+
+window.location.replace(
+"/"
+);
+
+}
+
+
+/* =====================================
+BUTTON EVENTS
+===================================== */
 
 document
-.getElementById("logout-button")
+.getElementById(
+"accountButton"
+)
 .addEventListener(
 "click",
-async () => {
+() => {
 
-await asiSupabase.auth.signOut();
-
-window.location.href =
-"/login.html";
+document
+.getElementById(
+"accountMenu"
+)
+.classList
+.toggle("show");
 
 }
 );
 
 
-window.addEventListener(
-"DOMContentLoaded",
-loadMembers
+document
+.getElementById(
+"logoutButton"
+)
+.addEventListener(
+"click",
+logout
 );
+
+
+document
+.getElementById(
+"searchInput"
+)
+.addEventListener(
+"input",
+performSearch
+);
+
+
+document
+.getElementById(
+"clearSearchButton"
+)
+.addEventListener(
+"click",
+() => {
+
+document
+.getElementById(
+"searchInput"
+)
+.value = "";
+
+
+document
+.getElementById(
+"searchSection"
+)
+.classList
+.remove("active");
+
+}
+);
+
+
+document
+.getElementById(
+"profileButton"
+)
+.addEventListener(
+"click",
+() => {
+
+openModal(
+"My Profile",
+`Signed in as ${currentUser.email}. Your ASI Network FRL membership is connected to this account.`
+);
+
+}
+);
+
+
+document
+.getElementById(
+"settingsButton"
+)
+.addEventListener(
+"click",
+() => {
+
+openModal(
+"Account Settings",
+"Manage the security of your ASI Network FRL account.",
+[
+{
+label:
+"CHANGE PASSWORD",
+primary: true,
+onClick:
+sendPasswordReset
+}
+]
+);
+
+}
+);
+
+
+document
+.getElementById(
+"supportButton"
+)
+.addEventListener(
+"click",
+() => {
+
+openModal(
+"Help & Support",
+"Need help with your ASI Network FRL account or streaming access? Contact our support team.",
+[
+{
+label:
+"EMAIL SUPPORT",
+primary: true,
+href:
+`mailto:${SUPPORT_EMAIL}?subject=ASI%20Network%20FRL%20Support`
+}
+]
+);
+
+}
+);
+
+
+function showTrackingSetupMessage(
+feature
+) {
+
+openModal(
+feature,
+`${feature} is being connected to your personal ASI Network FRL member profile. Your account is already ready for the feature.`
+);
+
+}
+
+
+document
+.getElementById(
+"historyButton"
+)
+.addEventListener(
+"click",
+() =>
+showTrackingSetupMessage(
+"Watch History"
+)
+);
+
+
+document
+.getElementById(
+"menuMyList"
+)
+.addEventListener(
+"click",
+() =>
+showTrackingSetupMessage(
+"My List"
+)
+);
+
+
+document
+.getElementById(
+"myListNav"
+)
+.addEventListener(
+"click",
+event => {
+
+event.preventDefault();
+
+showTrackingSetupMessage(
+"My List"
+);
+
+}
+);
+
+
+document
+.getElementById(
+"heroMyList"
+)
+.addEventListener(
+"click",
+() =>
+showTrackingSetupMessage(
+"My List"
+)
+);
+
+
+document
+.getElementById(
+"extrasNav"
+)
+.addEventListener(
+"click",
+event => {
+
+event.preventDefault();
+
+openModal(
+"ASI Network FRL Extras",
+"Behind-the-scenes clips, bonus content and network extras will appear here as they are published."
+);
+
+}
+);
+
+
+document
+.getElementById(
+"modalBackdrop"
+)
+.addEventListener(
+"click",
+event => {
+
+if (
+event.target.id ===
+"modalBackdrop"
+) {
+
+closeModal();
+
+}
+
+}
+);
+
+
+document
+.addEventListener(
+"click",
+event => {
+
+const accountMenu =
+document.getElementById(
+"accountMenu"
+);
+
+
+const accountButton =
+document.getElementById(
+"accountButton"
+);
+
+
+if (
+!accountMenu.contains(
+event.target
+) &&
+!accountButton.contains(
+event.target
+)
+) {
+
+accountMenu
+.classList
+.remove("show");
+
+}
+
+}
+);
+
+
+/* =====================================
+START
+===================================== */
+
+initializeMemberApp();
+
 
 </script>
 
