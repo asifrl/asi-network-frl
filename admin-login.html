@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Admin Sign In | ASI Network FRL</title>
+
+<meta name="robots" content="noindex,nofollow">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+min-height:100vh;
+display:grid;
+place-items:center;
+padding:20px;
+background:
+radial-gradient(circle at top,#242424,#080808 55%);
+color:#fff;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+a{
+color:inherit;
+text-decoration:none;
+}
+
+.box{
+width:min(430px,100%);
+padding:32px;
+border:1px solid #333;
+background:#111;
+border-radius:10px;
+box-shadow:0 20px 60px rgba(0,0,0,.45);
+}
+
+.eyebrow{
+font-size:11px;
+font-weight:900;
+letter-spacing:3px;
+color:#888;
+margin-bottom:10px;
+}
+
+h1{
+margin:0 0 10px;
+font-size:34px;
+}
+
+p{
+color:#999;
+line-height:1.6;
+margin-bottom:22px;
+}
+
+label{
+display:block;
+font-size:12px;
+font-weight:800;
+color:#aaa;
+margin:14px 0 7px;
+}
+
+input{
+width:100%;
+padding:14px;
+background:#080808;
+color:#fff;
+border:1px solid #3a3a3a;
+border-radius:6px;
+outline:none;
+}
+
+input:focus{
+border-color:#888;
+}
+
+.actions{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:20px;
+}
+
+.btn{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+min-height:44px;
+padding:0 18px;
+border-radius:6px;
+border:1px solid #444;
+background:#111;
+color:#fff;
+font-size:12px;
+font-weight:900;
+cursor:pointer;
+}
+
+.btn.primary{
+background:#fff;
+color:#000;
+border-color:#fff;
+}
+
+#status{
+margin-top:18px;
+padding:12px;
+border:1px solid #333;
+background:#181818;
+color:#bbb;
+border-radius:6px;
+line-height:1.5;
+display:none;
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="box">
+
+<div class="eyebrow">
+ASI NETWORK FRL • OWNER ACCESS
+</div>
+
+<h1>
+Admin Sign In
+</h1>
+
+<p>
+This login is separate from regular subscriber access.
+Only authorized administrator accounts can open the ASI Network FRL content dashboard.
+</p>
+
+
+<label for="email">
+Admin Email
+</label>
+
+<input
+id="email"
+type="email"
+autocomplete="email"
+placeholder="Enter admin email"
+>
+
+
+<label for="password">
+Password
+</label>
+
+<input
+id="password"
+type="password"
+autocomplete="current-password"
+placeholder="Enter password"
+>
+
+
+<div class="actions">
+
+<button
+id="signInButton"
+class="btn primary"
+>
+SIGN IN AS ADMIN
+</button>
+
+<a
+class="btn"
+href="/members.html"
+>
+BACK TO MEMBERS
+</a>
+
+</div>
+
+
+<div id="status"></div>
+
+</div>
+
+
+<script>
+
+const SUPABASE_URL =
+"https://gvvtwwrjfscaunczptpv.supabase.co";
+
+
+const SUPABASE_KEY =
+"sb_publishable_iliNeR5tX_4X4KAh5ZjPpA_e6ueLnP-";
+
+
+const sb =
+supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+
+const statusBox =
+document.getElementById(
+"status"
+);
+
+
+function showStatus(message){
+
+statusBox.style.display =
+"block";
+
+statusBox.textContent =
+message;
+
+}
+
+
+document
+.getElementById(
+"signInButton"
+)
+.addEventListener(
+"click",
+async function(){
+
+const email =
+document
+.getElementById("email")
+.value
+.trim();
+
+
+const password =
+document
+.getElementById("password")
+.value;
+
+
+if(!email || !password){
+
+showStatus(
+"Enter your administrator email and password."
+);
+
+return;
+
+}
+
+
+this.disabled =
+true;
+
+
+this.textContent =
+"CHECKING ACCESS...";
+
+
+showStatus(
+"Signing in and verifying administrator access..."
+);
+
+
+try{
+
+const loginResult =
+await sb.auth.signInWithPassword({
+email,
+password
+});
+
+
+if(loginResult.error){
+
+throw loginResult.error;
+
+}
+
+
+const user =
+loginResult.data.user;
+
+
+if(!user){
+
+throw new Error(
+"Unable to verify this account."
+);
+
+}
+
+
+const adminResult =
+await sb
+.from("admins")
+.select("user_id")
+.eq(
+"user_id",
+user.id
+)
+.maybeSingle();
+
+
+if(adminResult.error){
+
+throw new Error(
+"Administrator verification failed: " +
+adminResult.error.message
+);
+
+}
+
+
+if(!adminResult.data){
+
+await sb.auth.signOut();
+
+
+showStatus(
+"This account is not authorized as an ASI Network FRL administrator."
+);
+
+
+this.disabled =
+false;
+
+
+this.textContent =
+"SIGN IN AS ADMIN";
+
+
+return;
+
+}
+
+
+window.location.replace(
+"/admin.html"
+);
+
+
+}catch(error){
+
+console.error(
+"Admin login error:",
+error
+);
+
+
+showStatus(
+error.message ||
+"Unable to sign in."
+);
+
+
+this.disabled =
+false;
+
+
+this.textContent =
+"SIGN IN AS ADMIN";
+
+}
+
+}
+);
+
+</script>
+
+</body>
+</html>
