@@ -1,12 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create Account | ASI Network FRL</title>
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+Create Account | ASI Network FRL
+</title>
+
+<meta
+name="robots"
+content="noindex,nofollow"
+>
 
 <style>
+
 *{
 box-sizing:border-box;
 margin:0;
@@ -15,9 +29,18 @@ padding:0;
 
 body{
 min-height:100vh;
-background:radial-gradient(circle at top,#2a2a2a 0%,#111 35%,#050505 75%);
+background:
+radial-gradient(
+circle at top,
+#2a2a2a 0%,
+#111 35%,
+#050505 75%
+);
 color:#fff;
-font-family:Arial,Helvetica,sans-serif;
+font-family:
+Arial,
+Helvetica,
+sans-serif;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -52,7 +75,9 @@ background:#111;
 border:1px solid #333;
 padding:34px;
 border-radius:8px;
-box-shadow:0 20px 60px rgba(0,0,0,.45);
+box-shadow:
+0 20px 60px
+rgba(0,0,0,.45);
 }
 
 .card h2{
@@ -159,7 +184,8 @@ border-radius:4px;
 .signin-box{
 margin-top:24px;
 padding-top:22px;
-border-top:1px solid #2d2d2d;
+border-top:
+1px solid #2d2d2d;
 text-align:center;
 }
 
@@ -192,31 +218,53 @@ text-decoration:none;
 .back:hover{
 color:#fff;
 }
+
 </style>
+
 </head>
+
 
 <body>
 
 <div class="wrap">
 
+
 <div class="brand">
-<h1>ASI NETWORK FRL</h1>
-<p>I SEE EVERYTHING</p>
+
+<h1>
+ASI NETWORK FRL
+</h1>
+
+<p>
+I SEE EVERYTHING
+</p>
+
 </div>
+
 
 <div class="card">
 
-<h2>Create Account</h2>
+<h2>
+Create Account
+</h2>
 
 <p class="subtext">
-Your payment will be verified before your ASI Network FRL account is created.
+Complete your ASI Network FRL account after your successful Square subscription checkout.
 </p>
 
-<div class="paid-notice" id="paid-notice">
-Use the same email address you used when purchasing your $5.99 subscription.
+
+<div
+class="paid-notice"
+id="paidNotice"
+>
+Checking your Square checkout...
 </div>
 
-<label for="email">Email Address</label>
+
+<label for="email">
+Email Address
+</label>
+
 <input
 id="email"
 type="email"
@@ -224,7 +272,11 @@ placeholder="Email used at Square checkout"
 autocomplete="email"
 >
 
-<label for="password">Password</label>
+
+<label for="password">
+Password
+</label>
+
 <input
 id="password"
 type="password"
@@ -232,15 +284,23 @@ placeholder="Create a password"
 autocomplete="new-password"
 >
 
-<label for="confirm-password">Confirm Password</label>
+
+<label for="confirmPassword">
+Confirm Password
+</label>
+
 <input
-id="confirm-password"
+id="confirmPassword"
 type="password"
 placeholder="Confirm your password"
 autocomplete="new-password"
 >
 
-<label for="phone">Phone Number</label>
+
+<label for="phone">
+Phone Number
+</label>
+
 <input
 id="phone"
 type="tel"
@@ -248,33 +308,60 @@ placeholder="Enter your phone number"
 autocomplete="tel"
 >
 
+
 <label class="checkbox-row">
-<input id="alerts" type="checkbox">
+
+<input
+id="alerts"
+type="checkbox"
+>
 
 <span>
 Send me ASI Network FRL text alerts and show updates.
 </span>
+
 </label>
 
-<button id="create-button" onclick="asiCreateAccount()">
+
+<button
+id="createButton"
+type="button"
+>
 CREATE ACCOUNT
 </button>
 
-<div id="status" class="status"></div>
+
+<div
+id="status"
+class="status"
+></div>
+
 
 <div class="signin-box">
-<p>Already have an account?</p>
 
-<a class="signin-link" href="/login.html">
+<p>
+Already have an account?
+</p>
+
+<a
+class="signin-link"
+href="/login.html"
+>
 SIGN IN
 </a>
-</div>
 
 </div>
 
-<a class="back" href="/">
+</div>
+
+
+<a
+class="back"
+href="/"
+>
 ← BACK TO ASI NETWORK FRL
 </a>
+
 
 </div>
 
@@ -284,69 +371,134 @@ SIGN IN
 const CREATE_ACCOUNT_URL =
 "https://gvvtwwrjfscaunczptpv.supabase.co/functions/v1/asi-verify-paid-email";
 
+
 const ASI_PUBLISHABLE_KEY =
 "sb_publishable_iliNeR5tX_4X4KAh5ZjPpA_e6ueLnP-";
 
 
-/*
-Square adds the subscription ID to the URL
-after successful checkout.
+const params =
+new URLSearchParams(
+window.location.search
+);
 
-Example:
-create-account.html?subscriptionId=XXXXXXXX
+
+/*
+Square may append these after
+a successful checkout.
 */
 
-const urlParams =
-new URLSearchParams(window.location.search);
-
-const squareSubscriptionId =
-urlParams.get("subscriptionId") ||
-urlParams.get("subscription_id") ||
+const checkoutId =
+params.get("checkoutId") ||
+params.get("checkout_id") ||
 "";
 
 
-function showStatus(message){
-
-const status =
-document.getElementById("status");
-
-status.style.display = "block";
-status.textContent = message;
-
-}
+const orderId =
+params.get("orderId") ||
+params.get("order_id") ||
+"";
 
 
-function checkCheckout(){
-
-const button =
-document.getElementById("create-button");
-
-const notice =
-document.getElementById("paid-notice");
+const transactionId =
+params.get("transactionId") ||
+params.get("transaction_id") ||
+"";
 
 
-if(!squareSubscriptionId){
+const referenceId =
+params.get("referenceId") ||
+params.get("reference_id") ||
+"";
 
-notice.textContent =
-"We could not identify your Square checkout. Please create your account from the page Square sends you to after a successful subscription payment.";
 
-button.disabled = true;
+/*
+Keep legacy subscription ID support.
+*/
 
-showStatus(
-"Missing Square subscription information. Please return through your successful checkout."
+const subscriptionId =
+params.get("subscriptionId") ||
+params.get("subscription_id") ||
+"";
+
+
+const createButton =
+document.getElementById(
+"createButton"
 );
 
+
+const paidNotice =
+document.getElementById(
+"paidNotice"
+);
+
+
+const statusBox =
+document.getElementById(
+"status"
+);
+
+
+function showStatus(
+message
+){
+
+statusBox.style.display =
+"block";
+
+
+statusBox.textContent =
+message;
+
+}
+
+
+function hasCheckoutEvidence(){
+
+return Boolean(
+orderId ||
+transactionId ||
+subscriptionId
+);
+
+}
+
+
+function initializeCheckout(){
+
+if(
+!hasCheckoutEvidence()
+){
+
+paidNotice.textContent =
+"We could not identify a completed Square checkout. Please create your account from the page Square sends you to after payment.";
+
+
+createButton.disabled =
+true;
+
+
+showStatus(
+"Missing Square checkout information. Return through your successful $5.99 subscription checkout."
+);
+
+
 return;
-}
-
-
-notice.textContent =
-"Square checkout detected. Use the same email address you used when purchasing your $5.99 subscription.";
 
 }
 
 
-async function asiCreateAccount(){
+paidNotice.textContent =
+"Square checkout detected. Use the same email address you used when purchasing your ASI Network FRL subscription.";
+
+
+createButton.disabled =
+false;
+
+}
+
+
+async function createAccount(){
 
 const email =
 document
@@ -355,144 +507,222 @@ document
 .trim()
 .toLowerCase();
 
+
 const password =
-document.getElementById("password").value;
+document
+.getElementById("password")
+.value;
+
 
 const confirmPassword =
-document.getElementById("confirm-password").value;
+document
+.getElementById(
+"confirmPassword"
+)
+.value;
+
 
 const phone =
-document.getElementById("phone").value.trim();
+document
+.getElementById("phone")
+.value
+.trim();
+
 
 const smsAlerts =
-document.getElementById("alerts").checked;
+document
+.getElementById("alerts")
+.checked;
 
-const button =
-document.getElementById("create-button");
 
-
-if(!squareSubscriptionId){
+if(
+!hasCheckoutEvidence()
+){
 
 showStatus(
-"Your Square subscription could not be identified. Please return through the successful checkout page."
+"Your Square checkout could not be identified. Please return through the successful checkout page."
 );
 
 return;
+
 }
 
 
-if(!email || !password || !confirmPassword || !phone){
+if(
+!email ||
+!password ||
+!confirmPassword ||
+!phone
+){
 
 showStatus(
 "Please complete all required fields."
 );
 
 return;
+
 }
 
 
-if(password.length < 8){
+if(
+password.length < 8
+){
 
 showStatus(
 "Your password must be at least 8 characters."
 );
 
 return;
+
 }
 
 
-if(password !== confirmPassword){
+if(
+password !==
+confirmPassword
+){
 
 showStatus(
 "Your passwords do not match."
 );
 
 return;
+
 }
 
 
-button.disabled = true;
-button.textContent = "VERIFYING PAYMENT...";
+createButton.disabled =
+true;
+
+
+createButton.textContent =
+"VERIFYING PAYMENT...";
+
 
 showStatus(
-"Checking your Square payment and subscription..."
+"Checking your Square payment and active subscription..."
 );
 
 
 try{
 
-const response = await fetch(
+const response =
+await fetch(
 CREATE_ACCOUNT_URL,
 {
-method:"POST",
+
+method:
+"POST",
 
 headers:{
-"Content-Type":"application/json",
-"apikey":ASI_PUBLISHABLE_KEY
+
+"Content-Type":
+"application/json",
+
+"apikey":
+ASI_PUBLISHABLE_KEY
+
 },
 
-body:JSON.stringify({
-email:email,
-password:password,
-phone:phone,
-sms_alerts:smsAlerts,
-subscription_id:squareSubscriptionId
+body:
+JSON.stringify({
+
+email,
+
+password,
+
+phone,
+
+sms_alerts:
+smsAlerts,
+
+checkout_id:
+checkoutId,
+
+order_id:
+orderId,
+
+transaction_id:
+transactionId,
+
+reference_id:
+referenceId,
+
+subscription_id:
+subscriptionId
+
 })
+
 }
 );
 
 
 let result = {};
 
+
 try{
 
-result = await response.json();
-
-}catch(e){
-
-result = {};
+result =
+await response.json();
 
 }
+catch(error){}
 
 
-if(!response.ok || result.success !== true){
+if(
+!response.ok ||
+result.success !== true
+){
 
 throw new Error(
 result.error ||
-"We could not verify your Square payment."
+"We could not verify your Square subscription."
 );
 
 }
 
 
-button.textContent =
+createButton.textContent =
 "ACCOUNT CREATED";
+
 
 showStatus(
 "Payment verified! Your ASI Network FRL account has been created. Taking you to Sign In..."
 );
 
 
-setTimeout(function(){
+setTimeout(
+function(){
 
-window.location.href =
-"/login.html";
-
-},1800);
-
-
-}catch(error){
-
-console.error(error);
-
-showStatus(
-error && error.message
-? error.message
-: "Unable to create your account."
+window.location.replace(
+"/login.html"
 );
 
-button.disabled = false;
-button.textContent =
+},
+1500
+);
+
+
+}
+catch(error){
+
+console.error(
+"Account creation error:",
+error
+);
+
+
+showStatus(
+error?.message ||
+"Unable to create your ASI Network FRL account."
+);
+
+
+createButton.disabled =
+false;
+
+
+createButton.textContent =
 "CREATE ACCOUNT";
 
 }
@@ -500,9 +730,18 @@ button.textContent =
 }
 
 
-checkCheckout();
+createButton
+.addEventListener(
+"click",
+createAccount
+);
+
+
+initializeCheckout();
 
 </script>
 
+
 </body>
+
 </html>
