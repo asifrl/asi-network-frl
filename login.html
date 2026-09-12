@@ -1,32 +1,36 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Member Sign In | ASI Network FRL</title>
+<meta charset="UTF-8">
 
-<meta name="robots" content="noindex,nofollow">
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<title>
+ASI Network FRL | Sign In
+</title>
+
+<script
+src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
 
 <style>
 
 *{
 box-sizing:border-box;
+margin:0;
+padding:0;
 }
 
 body{
-margin:0;
-min-height:100vh;
-display:grid;
-place-items:center;
-padding:24px;
-background:
-radial-gradient(circle at top,#262626,#090909 55%);
+background:#050505;
 color:#fff;
 font-family:Arial,Helvetica,sans-serif;
+min-height:100vh;
 }
 
 a{
@@ -34,260 +38,273 @@ color:inherit;
 text-decoration:none;
 }
 
-button,
-input{
-font:inherit;
-}
-
-.page{
-width:min(460px,100%);
+header{
+height:72px;
+padding:0 6%;
+display:flex;
+align-items:center;
+justify-content:space-between;
+background:#000;
+border-bottom:1px solid #222;
 }
 
 .logo{
-display:block;
-text-align:center;
 font-weight:900;
 letter-spacing:2px;
-margin-bottom:22px;
 }
 
-.logo span{
-color:#888;
-font-weight:500;
+.logo small{
+display:block;
+font-size:9px;
+letter-spacing:1px;
+color:#777;
+margin-top:4px;
 }
 
-.box{
-padding:32px;
-background:#111;
-border:1px solid #333;
-border-radius:12px;
-box-shadow:0 25px 70px rgba(0,0,0,.55);
+.home-btn{
+padding:10px 14px;
+border:1px solid #444;
+border-radius:6px;
+font-size:12px;
+font-weight:900;
+}
+
+main{
+min-height:calc(100vh - 72px);
+display:flex;
+align-items:center;
+justify-content:center;
+padding:45px 18px;
+}
+
+.card{
+width:min(590px,100%);
+border:1px solid #292929;
+background:#0b0b0b;
+border-radius:14px;
+padding:34px;
 }
 
 .eyebrow{
-font-size:11px;
-letter-spacing:3px;
+font-size:12px;
 font-weight:900;
-color:#888;
+letter-spacing:3px;
+color:#aaa;
 margin-bottom:10px;
 }
 
 h1{
-margin:0 0 10px;
-font-size:34px;
+font-size:42px;
+margin-bottom:12px;
 }
 
 .intro{
-color:#999;
+color:#bbb;
 line-height:1.6;
-margin:0 0 24px;
-font-size:14px;
+margin-bottom:26px;
 }
 
 label{
 display:block;
-margin:15px 0 7px;
-font-size:12px;
+font-size:13px;
 font-weight:900;
-color:#aaa;
+margin:17px 0 8px;
+}
+
+.input-wrap{
+position:relative;
 }
 
 input{
 width:100%;
-padding:14px;
+padding:15px;
 border-radius:7px;
-border:1px solid #3a3a3a;
-background:#080808;
+border:1px solid #444;
+background:#050505;
 color:#fff;
+font-size:16px;
 outline:none;
 }
 
 input:focus{
-border-color:#888;
+border-color:#aaa;
 }
 
-.password-row{
-position:relative;
+.password-input{
+padding-right:78px;
 }
 
-.password-row input{
-padding-right:72px;
-}
-
-.toggle-password{
+.show-password{
 position:absolute;
-right:10px;
+right:12px;
 top:50%;
 transform:translateY(-50%);
 border:0;
 background:transparent;
-color:#999;
-font-size:11px;
+color:#ccc;
 font-weight:900;
-cursor:pointer;
-}
-
-.btn{
-width:100%;
-min-height:46px;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:0 18px;
-border-radius:7px;
-border:1px solid #444;
-background:#111;
-color:#fff;
 font-size:12px;
-font-weight:900;
 cursor:pointer;
 }
 
-.btn.primary{
+.primary{
+width:100%;
+margin-top:22px;
+padding:15px;
+border:0;
+border-radius:7px;
 background:#fff;
 color:#000;
-border-color:#fff;
+font-weight:900;
+font-size:14px;
+cursor:pointer;
 }
 
-.btn:disabled{
-opacity:.55;
+.primary:disabled{
+opacity:.5;
 cursor:not-allowed;
 }
 
-.login-actions{
-display:grid;
-gap:10px;
-margin-top:22px;
-}
-
-.text-button{
+.forgot{
 display:block;
-width:100%;
-border:0;
-background:transparent;
-color:#aaa;
-font-size:12px;
-font-weight:900;
-padding:8px;
-cursor:pointer;
-}
-
-.text-button:hover{
-color:#fff;
-}
-
-#status{
-display:none;
-margin-top:18px;
-padding:13px;
-background:#181818;
-border:1px solid #333;
-border-radius:7px;
-color:#ccc;
+text-align:center;
+margin-top:20px;
 font-size:13px;
-line-height:1.5;
-}
-
-.divider{
-display:flex;
-align-items:center;
-gap:12px;
-margin:25px 0;
-color:#666;
-font-size:11px;
 font-weight:900;
 }
 
-.divider::before,
-.divider::after{
-content:"";
-height:1px;
-background:#292929;
-flex:1;
+.notice{
+display:none;
+margin-top:22px;
+padding:16px;
+border:1px solid #3a3a3a;
+border-radius:8px;
+background:#111;
+color:#ddd;
+line-height:1.55;
+font-size:14px;
 }
 
-.subscribe-box{
-padding:18px;
-background:#0b0b0b;
-border:1px solid #292929;
-border-radius:9px;
+.membership-box{
+margin-top:30px;
+padding-top:28px;
+border-top:1px solid #292929;
 text-align:center;
 }
 
-.subscribe-box strong{
+.membership-label{
+font-size:12px;
+font-weight:900;
+letter-spacing:1px;
+color:#aaa;
+margin-bottom:16px;
+}
+
+.offer{
+border:1px solid #333;
+border-radius:10px;
+padding:24px 20px;
+background:#080808;
+}
+
+.offer h2{
+font-size:21px;
+margin-bottom:10px;
+}
+
+.offer p{
+color:#aaa;
+font-size:14px;
+line-height:1.55;
+margin-bottom:19px;
+}
+
+.subscribe-btn{
 display:block;
-font-size:15px;
-margin-bottom:7px;
+width:100%;
+padding:15px;
+background:#fff;
+color:#000;
+border-radius:7px;
+font-size:13px;
+font-weight:900;
 }
 
-.subscribe-box p{
-margin:0 0 14px;
-font-size:12px;
-color:#888;
-line-height:1.5;
-}
-
-.small-links{
+.bottom-row{
 display:flex;
+align-items:center;
 justify-content:space-between;
-gap:14px;
-flex-wrap:wrap;
-margin-top:20px;
-font-size:12px;
-color:#777;
+gap:15px;
+margin-top:28px;
+font-size:13px;
+color:#bbb;
 }
 
-.small-links a:hover{
-color:#fff;
+#inactiveSection{
+display:none;
 }
 
-.hidden{
-display:none !important;
+#newCustomerSection{
+display:block;
 }
 
-.success{
-border-color:#31533b !important;
-}
+@media(max-width:600px){
 
-@media(max-width:500px){
-
-.box{
-padding:25px 20px;
+.card{
+padding:26px 20px;
 }
 
 h1{
-font-size:30px;
+font-size:36px;
+}
+
+.bottom-row{
+flex-direction:column;
+align-items:flex-start;
 }
 
 }
 
 </style>
+
 </head>
+
 
 <body>
 
-<div class="page">
+<header>
 
-<a class="logo" href="/">
-ASI NETWORK <span>FRL</span> 👁️
+<div class="logo">
+ASI NETWORK FRL
+<small>I SEE EVERYTHING</small>
+</div>
+
+<a
+href="/"
+class="home-btn"
+>
+HOME
 </a>
 
-<div class="box">
+</header>
+
+
+<main>
+
+<div class="card">
 
 <div class="eyebrow">
 MEMBER ACCESS
 </div>
 
-<h1 id="pageTitle">
+<h1>
 Sign In
 </h1>
 
-<p id="pageIntro" class="intro">
+<p class="intro">
 Sign in to watch ASI Network FRL subscriber-only content.
 </p>
 
-
-<div id="loginView">
 
 <label for="email">
 Email Address
@@ -297,7 +314,7 @@ Email Address
 id="email"
 type="email"
 autocomplete="email"
-placeholder="Enter your email"
+placeholder="you@example.com"
 >
 
 
@@ -305,18 +322,19 @@ placeholder="Enter your email"
 Password
 </label>
 
-<div class="password-row">
+<div class="input-wrap">
 
 <input
 id="password"
+class="password-input"
 type="password"
 autocomplete="current-password"
 placeholder="Enter your password"
 >
 
 <button
-id="togglePassword"
-class="toggle-password"
+id="showPasswordBtn"
+class="show-password"
 type="button"
 >
 SHOW
@@ -325,88 +343,86 @@ SHOW
 </div>
 
 
-<div class="login-actions">
-
 <button
-id="loginButton"
-class="btn primary"
-type="button"
+id="signInBtn"
+class="primary"
 >
 SIGN IN
 </button>
 
-<button
-id="forgotButton"
-class="text-button"
-type="button"
+
+<a
+href="#"
+id="forgotPasswordBtn"
+class="forgot"
 >
 FORGOT PASSWORD?
-</button>
-
-</div>
-
-</div>
+</a>
 
 
-<div id="resetView" class="hidden">
+<div
+id="status"
+class="notice"
+></div>
 
-<label for="resetEmail">
-Email Address
-</label>
 
-<input
-id="resetEmail"
-type="email"
-autocomplete="email"
-placeholder="Enter your account email"
+<!-- INACTIVE / CANCELLED MEMBER -->
+
+<div
+id="inactiveSection"
+class="membership-box"
 >
 
-<div class="login-actions">
-
-<button
-id="sendResetButton"
-class="btn primary"
-type="button"
->
-SEND RESET EMAIL
-</button>
-
-<button
-id="backToSignInButton"
-class="text-button"
-type="button"
->
-← BACK TO SIGN IN
-</button>
-
+<div class="membership-label">
+MEMBERSHIP INACTIVE
 </div>
 
-</div>
+<div class="offer">
 
-
-<div id="status"></div>
-
-
-<div id="subscriberSection">
-
-<div class="divider">
-NEW TO ASI NETWORK FRL?
-</div>
-
-<div class="subscribe-box">
-
-<strong>
-Subscribe for $5.99/month
-</strong>
+<h2>
+Reactivate ASI Network FRL
+</h2>
 
 <p>
-Complete your subscription securely through Square.
-After payment, you'll be able to create your ASI Network FRL account.
+Your ASI Network FRL account still exists, but your membership is not currently active. Reactivate for $5.99/month to restore subscriber access.
 </p>
 
 <a
-class="btn primary"
 href="https://square.link/u/0l47AY8p"
+class="subscribe-btn"
+>
+REACTIVATE MEMBERSHIP • $5.99/MO
+</a>
+
+</div>
+
+</div>
+
+
+<!-- BRAND NEW VISITOR -->
+
+<div
+id="newCustomerSection"
+class="membership-box"
+>
+
+<div class="membership-label">
+NEW TO ASI NETWORK FRL?
+</div>
+
+<div class="offer">
+
+<h2>
+Subscribe for $5.99/month
+</h2>
+
+<p>
+Complete your subscription securely through Square. After payment, you'll be able to create your ASI Network FRL account.
+</p>
+
+<a
+href="https://square.link/u/0l47AY8p"
+class="subscribe-btn"
 >
 SUBSCRIBE • $5.99/MO
 </a>
@@ -416,7 +432,7 @@ SUBSCRIBE • $5.99/MO
 </div>
 
 
-<div class="small-links">
+<div class="bottom-row">
 
 <a href="/">
 ← Back Home
@@ -430,7 +446,7 @@ Need Help?
 
 </div>
 
-</div>
+</main>
 
 
 <script>
@@ -438,209 +454,266 @@ Need Help?
 const SUPABASE_URL =
 "https://gvvtwwrjfscaunczptpv.supabase.co";
 
-
 const SUPABASE_KEY =
 "sb_publishable_iliNeR5tX_4X4KAh5ZjPpA_e6ueLnP-";
 
 
-const sb =
-supabase.createClient(
+const db =
+window.supabase.createClient(
 SUPABASE_URL,
 SUPABASE_KEY
 );
 
 
 const emailInput =
-document.getElementById("email");
+document.getElementById(
+"email"
+);
 
 const passwordInput =
-document.getElementById("password");
+document.getElementById(
+"password"
+);
 
-const resetEmailInput =
-document.getElementById("resetEmail");
+const signInBtn =
+document.getElementById(
+"signInBtn"
+);
 
 const statusBox =
-document.getElementById("status");
+document.getElementById(
+"status"
+);
 
+const inactiveSection =
+document.getElementById(
+"inactiveSection"
+);
+
+const newCustomerSection =
+document.getElementById(
+"newCustomerSection"
+);
+
+
+/* =========================
+STATUS
+========================= */
 
 function showStatus(
-message,
-success = false
+text
 ){
+
+statusBox.textContent =
+text;
 
 statusBox.style.display =
 "block";
-
-statusBox.textContent =
-message;
-
-statusBox.classList.toggle(
-"success",
-success
-);
 
 }
 
 
 function clearStatus(){
 
-statusBox.style.display =
-"none";
-
 statusBox.textContent =
 "";
 
-statusBox.classList.remove(
-"success"
-);
+statusBox.style.display =
+"none";
 
 }
 
 
-function showResetView(){
+/* =========================
+PAGE MODE
+========================= */
 
-clearStatus();
+function showNewCustomerMode(){
 
-const existingEmail =
-emailInput.value.trim();
+inactiveSection.style.display =
+"none";
 
-if(existingEmail){
-
-resetEmailInput.value =
-existingEmail;
-
-}
-
-
-document
-.getElementById("loginView")
-.classList.add("hidden");
-
-
-document
-.getElementById("resetView")
-.classList.remove("hidden");
-
-
-document
-.getElementById("subscriberSection")
-.classList.add("hidden");
-
-
-document
-.getElementById("pageTitle")
-.textContent =
-"Reset Password";
-
-
-document
-.getElementById("pageIntro")
-.textContent =
-"Enter the email address connected to your ASI Network FRL account. We'll send you a secure password reset link.";
-
-
-resetEmailInput.focus();
+newCustomerSection.style.display =
+"block";
 
 }
 
 
-function showLoginView(){
+function showInactiveMode(){
 
-clearStatus();
+newCustomerSection.style.display =
+"none";
 
-
-document
-.getElementById("resetView")
-.classList.add("hidden");
-
-
-document
-.getElementById("loginView")
-.classList.remove("hidden");
-
-
-document
-.getElementById("subscriberSection")
-.classList.remove("hidden");
-
-
-document
-.getElementById("pageTitle")
-.textContent =
-"Sign In";
-
-
-document
-.getElementById("pageIntro")
-.textContent =
-"Sign in to watch ASI Network FRL subscriber-only content.";
+inactiveSection.style.display =
+"block";
 
 }
 
 
-document
-.getElementById("forgotButton")
-.addEventListener(
-"click",
-showResetView
-);
-
+/* =========================
+PASSWORD VISIBILITY
+========================= */
 
 document
-.getElementById("backToSignInButton")
-.addEventListener(
-"click",
-showLoginView
-);
-
-
-document
-.getElementById("togglePassword")
+.getElementById(
+"showPasswordBtn"
+)
 .addEventListener(
 "click",
 function(){
 
-const showing =
-passwordInput.type === "text";
-
+if(
+passwordInput.type ===
+"password"
+){
 
 passwordInput.type =
-showing
-?
-"password"
-:
 "text";
 
+this.textContent =
+"HIDE";
+
+}
+else{
+
+passwordInput.type =
+"password";
 
 this.textContent =
-showing
-?
-"SHOW"
-:
-"HIDE";
+"SHOW";
+
+}
 
 }
 );
 
 
 /* =========================
-MEMBER LOGIN
+REDIRECT HELPER
 ========================= */
 
-document
-.getElementById("loginButton")
+function destination(){
+
+const params =
+new URLSearchParams(
+window.location.search
+);
+
+const requested =
+params.get(
+"redirect"
+);
+
+
+if(
+requested &&
+requested.startsWith("/") &&
+!requested.startsWith("//")
+){
+
+return requested;
+
+}
+
+
+return "/members.html";
+
+}
+
+
+/* =========================
+CHECK ADMIN
+========================= */
+
+async function isAdmin(
+userId
+){
+
+const result =
+await db
+.from("admins")
+.select("user_id")
+.eq(
+"user_id",
+userId
+)
+.maybeSingle();
+
+
+return (
+!result.error &&
+!!result.data
+);
+
+}
+
+
+/* =========================
+CHECK MEMBERSHIP
+========================= */
+
+async function getMembership(
+userId
+){
+
+const result =
+await db
+.from("subscriptions")
+.select(
+"id,user_id,status,square_subscription_id,customer_email"
+)
+.eq(
+"user_id",
+userId
+)
+.maybeSingle();
+
+
+if(
+result.error
+){
+
+console.error(
+"Subscription check error:",
+result.error
+);
+
+return null;
+
+}
+
+
+return result.data;
+
+}
+
+
+/* =========================
+SIGN IN
+========================= */
+
+signInBtn
 .addEventListener(
 "click",
 async function(){
 
+clearStatus();
+
+
 const email =
-emailInput.value.trim();
+emailInput.value
+.trim()
+.toLowerCase();
+
 
 const password =
 passwordInput.value;
 
 
-if(!email || !password){
+if(
+!email ||
+!password
+){
 
 showStatus(
 "Enter your email address and password."
@@ -651,71 +724,58 @@ return;
 }
 
 
-this.disabled =
+signInBtn.disabled =
 true;
 
-this.textContent =
+signInBtn.textContent =
 "SIGNING IN...";
 
 
-showStatus(
-"Checking your account..."
-);
-
-
 try{
 
-const loginResult =
-await sb.auth.signInWithPassword({
+const result =
+await db.auth.signInWithPassword({
+
 email,
 password
+
 });
 
 
-if(loginResult.error){
+if(
+result.error
+){
 
-throw loginResult.error;
+throw result.error;
 
 }
 
 
-const session =
-loginResult.data.session;
+const user =
+result.data.user;
 
 
-if(!session){
+if(!user){
 
 throw new Error(
-"Unable to start your ASI Network FRL session."
+"Unable to sign in."
 );
 
 }
 
 
-/* CHECK IF ACCOUNT IS ADMIN */
+/* ADMIN */
 
-const adminResult =
-await sb
-.from("admins")
-.select("user_id")
-.eq(
-"user_id",
-session.user.id
-)
-.maybeSingle();
+const admin =
+await isAdmin(
+user.id
+);
 
 
-const isAdmin =
-!adminResult.error &&
-!!adminResult.data;
-
-
-/* ADMINS CAN ENTER */
-
-if(isAdmin){
+if(admin){
 
 window.location.replace(
-"/members.html"
+destination()
 );
 
 return;
@@ -723,95 +783,49 @@ return;
 }
 
 
-/* VERIFY ACTIVE SUBSCRIPTION */
+/* MEMBER */
 
-const response =
-await fetch(
-`${SUPABASE_URL}/functions/v1/asi-link-subscription`,
-{
-
-method:"POST",
-
-headers:{
-
-"Content-Type":
-"application/json",
-
-"Authorization":
-`Bearer ${session.access_token}`,
-
-"apikey":
-SUPABASE_KEY
-
-},
-
-body:
-JSON.stringify({})
-
-}
+const membership =
+await getMembership(
+user.id
 );
 
 
-let result = {};
-
-
-try{
-
-result =
-await response.json();
-
-}
-catch(error){}
-
-
-const status =
+if(
+membership &&
 String(
-result.status || ""
-).toUpperCase();
+membership.status || ""
+)
+.toUpperCase() ===
+"ACTIVE"
+){
 
-
-const active =
-response.ok &&
-(
-result.active === true ||
-result.isActive === true ||
-status === "ACTIVE"
+window.location.replace(
+destination()
 );
 
+return;
 
-if(!active){
+}
 
-await sb.auth.signOut();
+
+/* INACTIVE MEMBER */
+
+showInactiveMode();
 
 
 showStatus(
-"Your account does not currently have an active ASI Network FRL subscription. If you need help, contact support@asinetworkfrl.com."
+"Your account does not currently have an active ASI Network FRL subscription. Reactivate your membership below or contact support@asinetworkfrl.com if you need help."
 );
 
-
-this.disabled =
-false;
-
-this.textContent =
-"SIGN IN";
-
-
-return;
 
 }
+catch(error){
+
+console.error(error);
 
 
-window.location.replace(
-"/members.html"
-);
-
-
-}catch(error){
-
-console.error(
-"Login error:",
-error
-);
+showNewCustomerMode();
 
 
 showStatus(
@@ -819,11 +833,13 @@ error.message ||
 "Unable to sign in."
 );
 
+}
+finally{
 
-this.disabled =
+signInBtn.disabled =
 false;
 
-this.textContent =
+signInBtn.textContent =
 "SIGN IN";
 
 }
@@ -832,17 +848,19 @@ this.textContent =
 );
 
 
-/* ENTER KEY LOGIN */
+/* ENTER KEY */
 
-passwordInput.addEventListener(
+passwordInput
+.addEventListener(
 "keydown",
 function(event){
 
-if(event.key === "Enter"){
+if(
+event.key ===
+"Enter"
+){
 
-document
-.getElementById("loginButton")
-.click();
+signInBtn.click();
 
 }
 
@@ -851,23 +869,33 @@ document
 
 
 /* =========================
-PASSWORD RESET EMAIL
+FORGOT PASSWORD
 ========================= */
 
 document
-.getElementById("sendResetButton")
+.getElementById(
+"forgotPasswordBtn"
+)
 .addEventListener(
 "click",
-async function(){
+async function(event){
+
+event.preventDefault();
+
+
+clearStatus();
+
 
 const email =
-resetEmailInput.value.trim();
+emailInput.value
+.trim()
+.toLowerCase();
 
 
 if(!email){
 
 showStatus(
-"Enter your email address first."
+"Enter your email address first, then click Forgot Password."
 );
 
 return;
@@ -875,139 +903,111 @@ return;
 }
 
 
-this.disabled =
-true;
-
-this.textContent =
-"SENDING...";
-
-
-showStatus(
-"Sending your secure reset email..."
-);
-
-
 try{
 
 const result =
-await sb.auth.resetPasswordForEmail(
+await db.auth.resetPasswordForEmail(
 email,
 {
-
 redirectTo:
-window.location.origin +
-"/reset.html"
-
+"https://asinetworkfrl.com/reset.html"
 }
 );
 
 
-if(result.error){
+if(
+result.error
+){
 
 throw result.error;
 
 }
 
 
-/*
-Use a generic confirmation so the page
-doesn't reveal whether an email address
-has an account.
-*/
-
 showStatus(
-"If an ASI Network FRL account exists for that email, a secure password reset link has been sent. Check your inbox and spam folder.",
-true
+"Password reset email sent. Check your inbox and spam folder."
 );
 
 
-}catch(error){
+}
+catch(error){
 
-console.error(
-"Password reset error:",
-error
-);
+console.error(error);
 
 
 showStatus(
-"Unable to send the reset email right now. Please try again or contact support@asinetworkfrl.com."
+error.message ||
+"Unable to send password reset email."
 );
 
 }
-
-
-this.disabled =
-false;
-
-this.textContent =
-"SEND RESET EMAIL";
 
 }
 );
 
 
 /* =========================
-OPTIONAL ?forgot=1 SUPPORT
+EXISTING SESSION
 ========================= */
 
-const params =
-new URLSearchParams(
-window.location.search
-);
-
-
-if(
-params.get("forgot") === "1"
-){
-
-showResetView();
-
-}
-
-
-/* =========================
-IF ALREADY LOGGED IN
-========================= */
-
-(async function(){
+async function checkExistingSession(){
 
 const result =
-await sb.auth.getSession();
+await db.auth.getSession();
 
 
-if(
-result.data.session &&
-params.get("forgot") !== "1"
-){
-
-document
-.getElementById("pageIntro")
-.textContent =
-"You're already signed in to ASI Network FRL.";
+const session =
+result.data.session;
 
 
-document
-.getElementById("loginView")
-.innerHTML =
-`
-<a
-class="btn primary"
-href="/members.html"
->
-RETURN TO MEMBER ACCESS
-</a>
-`;
+if(!session){
 
+showNewCustomerMode();
 
-document
-.getElementById("subscriberSection")
-.classList.add("hidden");
+return;
 
 }
 
-})();
+
+const admin =
+await isAdmin(
+session.user.id
+);
+
+
+if(admin){
+
+return;
+
+}
+
+
+const membership =
+await getMembership(
+session.user.id
+);
+
+
+if(
+membership &&
+String(
+membership.status || ""
+)
+.toUpperCase() !==
+"ACTIVE"
+){
+
+showInactiveMode();
+
+}
+
+}
+
+
+checkExistingSession();
 
 </script>
 
 </body>
+
 </html>
