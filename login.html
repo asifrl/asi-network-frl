@@ -5,7 +5,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Sign In | ASI Network FRL</title>
+<title>Member Sign In | ASI Network FRL</title>
+
+<meta name="robots" content="noindex,nofollow">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -20,7 +22,7 @@ margin:0;
 min-height:100vh;
 display:grid;
 place-items:center;
-padding:20px;
+padding:24px;
 background:
 radial-gradient(circle at top,#262626,#090909 55%);
 color:#fff;
@@ -37,13 +39,29 @@ input{
 font:inherit;
 }
 
+.page{
+width:min(460px,100%);
+}
+
+.logo{
+display:block;
+text-align:center;
+font-weight:900;
+letter-spacing:2px;
+margin-bottom:22px;
+}
+
+.logo span{
+color:#888;
+font-weight:500;
+}
+
 .box{
-width:min(430px,100%);
 padding:32px;
 background:#111;
 border:1px solid #333;
-border-radius:10px;
-box-shadow:0 20px 60px rgba(0,0,0,.45);
+border-radius:12px;
+box-shadow:0 25px 70px rgba(0,0,0,.55);
 }
 
 .eyebrow{
@@ -62,12 +80,13 @@ font-size:34px;
 .intro{
 color:#999;
 line-height:1.6;
-margin-bottom:24px;
+margin:0 0 24px;
+font-size:14px;
 }
 
 label{
 display:block;
-margin:14px 0 7px;
+margin:15px 0 7px;
 font-size:12px;
 font-weight:900;
 color:#aaa;
@@ -76,7 +95,7 @@ color:#aaa;
 input{
 width:100%;
 padding:14px;
-border-radius:6px;
+border-radius:7px;
 border:1px solid #3a3a3a;
 background:#080808;
 color:#fff;
@@ -87,20 +106,35 @@ input:focus{
 border-color:#888;
 }
 
-.actions{
-display:flex;
-flex-wrap:wrap;
-gap:10px;
-margin-top:20px;
+.password-row{
+position:relative;
+}
+
+.password-row input{
+padding-right:72px;
+}
+
+.toggle-password{
+position:absolute;
+right:10px;
+top:50%;
+transform:translateY(-50%);
+border:0;
+background:transparent;
+color:#999;
+font-size:11px;
+font-weight:900;
+cursor:pointer;
 }
 
 .btn{
-display:inline-flex;
+width:100%;
+min-height:46px;
+display:flex;
 align-items:center;
 justify-content:center;
-min-height:44px;
 padding:0 18px;
-border-radius:6px;
+border-radius:7px;
 border:1px solid #444;
 background:#111;
 color:#fff;
@@ -116,69 +150,144 @@ border-color:#fff;
 }
 
 .btn:disabled{
-opacity:.5;
+opacity:.55;
 cursor:not-allowed;
 }
 
-#forgotBox{
-display:none;
+.login-actions{
+display:grid;
+gap:10px;
 margin-top:22px;
-padding-top:20px;
-border-top:1px solid #333;
 }
 
-#forgotBox p{
-color:#999;
-line-height:1.5;
-font-size:13px;
+.text-button{
+display:block;
+width:100%;
+border:0;
+background:transparent;
+color:#aaa;
+font-size:12px;
+font-weight:900;
+padding:8px;
+cursor:pointer;
+}
+
+.text-button:hover{
+color:#fff;
 }
 
 #status{
 display:none;
 margin-top:18px;
-padding:12px;
+padding:13px;
 background:#181818;
 border:1px solid #333;
-border-radius:6px;
+border-radius:7px;
 color:#ccc;
+font-size:13px;
+line-height:1.5;
+}
+
+.divider{
+display:flex;
+align-items:center;
+gap:12px;
+margin:25px 0;
+color:#666;
+font-size:11px;
+font-weight:900;
+}
+
+.divider::before,
+.divider::after{
+content:"";
+height:1px;
+background:#292929;
+flex:1;
+}
+
+.subscribe-box{
+padding:18px;
+background:#0b0b0b;
+border:1px solid #292929;
+border-radius:9px;
+text-align:center;
+}
+
+.subscribe-box strong{
+display:block;
+font-size:15px;
+margin-bottom:7px;
+}
+
+.subscribe-box p{
+margin:0 0 14px;
+font-size:12px;
+color:#888;
 line-height:1.5;
 }
 
 .small-links{
 display:flex;
 justify-content:space-between;
-gap:10px;
+gap:14px;
 flex-wrap:wrap;
-margin-top:22px;
+margin-top:20px;
 font-size:12px;
-color:#888;
+color:#777;
 }
 
 .small-links a:hover{
 color:#fff;
 }
 
+.hidden{
+display:none !important;
+}
+
+.success{
+border-color:#31533b !important;
+}
+
+@media(max-width:500px){
+
+.box{
+padding:25px 20px;
+}
+
+h1{
+font-size:30px;
+}
+
+}
+
 </style>
 </head>
 
-
 <body>
+
+<div class="page">
+
+<a class="logo" href="/">
+ASI NETWORK <span>FRL</span> 👁️
+</a>
 
 <div class="box">
 
 <div class="eyebrow">
-ASI NETWORK FRL
+MEMBER ACCESS
 </div>
 
-<h1>
-Member Sign In
+<h1 id="pageTitle">
+Sign In
 </h1>
 
-<p class="intro">
-Sign in to your ASI Network FRL account.
-Your active subscription will be verified before member access is granted.
+<p id="pageIntro" class="intro">
+Sign in to watch ASI Network FRL subscriber-only content.
 </p>
 
+
+<div id="loginView">
 
 <label for="email">
 Email Address
@@ -196,6 +305,8 @@ placeholder="Enter your email"
 Password
 </label>
 
+<div class="password-row">
+
 <input
 id="password"
 type="password"
@@ -203,19 +314,30 @@ autocomplete="current-password"
 placeholder="Enter your password"
 >
 
+<button
+id="togglePassword"
+class="toggle-password"
+type="button"
+>
+SHOW
+</button>
 
-<div class="actions">
+</div>
+
+
+<div class="login-actions">
 
 <button
 id="loginButton"
 class="btn primary"
+type="button"
 >
 SIGN IN
 </button>
 
 <button
 id="forgotButton"
-class="btn"
+class="text-button"
 type="button"
 >
 FORGOT PASSWORD?
@@ -223,12 +345,23 @@ FORGOT PASSWORD?
 
 </div>
 
+</div>
 
-<div id="forgotBox">
 
-<p>
-Enter your email address above and we'll send you a secure password reset link.
-</p>
+<div id="resetView" class="hidden">
+
+<label for="resetEmail">
+Email Address
+</label>
+
+<input
+id="resetEmail"
+type="email"
+autocomplete="email"
+placeholder="Enter your account email"
+>
+
+<div class="login-actions">
 
 <button
 id="sendResetButton"
@@ -238,21 +371,62 @@ type="button"
 SEND RESET EMAIL
 </button>
 
+<button
+id="backToSignInButton"
+class="text-button"
+type="button"
+>
+← BACK TO SIGN IN
+</button>
+
+</div>
+
 </div>
 
 
 <div id="status"></div>
 
 
+<div id="subscriberSection">
+
+<div class="divider">
+NEW TO ASI NETWORK FRL?
+</div>
+
+<div class="subscribe-box">
+
+<strong>
+Subscribe for $5.99/month
+</strong>
+
+<p>
+Complete your subscription securely through Square.
+After payment, you'll be able to create your ASI Network FRL account.
+</p>
+
+<a
+class="btn primary"
+href="https://square.link/u/0l47AY8p"
+>
+SUBSCRIBE • $5.99/MO
+</a>
+
+</div>
+
+</div>
+
+
 <div class="small-links">
 
-<a href="/create-account.html">
-Subscribe / Create Account
+<a href="/">
+← Back Home
 </a>
 
-<a href="/">
-Back Home
+<a href="mailto:support@asinetworkfrl.com">
+Need Help?
 </a>
+
+</div>
 
 </div>
 
@@ -276,17 +450,130 @@ SUPABASE_KEY
 );
 
 
+const emailInput =
+document.getElementById("email");
+
+const passwordInput =
+document.getElementById("password");
+
+const resetEmailInput =
+document.getElementById("resetEmail");
+
 const statusBox =
 document.getElementById("status");
 
 
-function showStatus(message){
+function showStatus(
+message,
+success = false
+){
 
 statusBox.style.display =
 "block";
 
 statusBox.textContent =
 message;
+
+statusBox.classList.toggle(
+"success",
+success
+);
+
+}
+
+
+function clearStatus(){
+
+statusBox.style.display =
+"none";
+
+statusBox.textContent =
+"";
+
+statusBox.classList.remove(
+"success"
+);
+
+}
+
+
+function showResetView(){
+
+clearStatus();
+
+const existingEmail =
+emailInput.value.trim();
+
+if(existingEmail){
+
+resetEmailInput.value =
+existingEmail;
+
+}
+
+
+document
+.getElementById("loginView")
+.classList.add("hidden");
+
+
+document
+.getElementById("resetView")
+.classList.remove("hidden");
+
+
+document
+.getElementById("subscriberSection")
+.classList.add("hidden");
+
+
+document
+.getElementById("pageTitle")
+.textContent =
+"Reset Password";
+
+
+document
+.getElementById("pageIntro")
+.textContent =
+"Enter the email address connected to your ASI Network FRL account. We'll send you a secure password reset link.";
+
+
+resetEmailInput.focus();
+
+}
+
+
+function showLoginView(){
+
+clearStatus();
+
+
+document
+.getElementById("resetView")
+.classList.add("hidden");
+
+
+document
+.getElementById("loginView")
+.classList.remove("hidden");
+
+
+document
+.getElementById("subscriberSection")
+.classList.remove("hidden");
+
+
+document
+.getElementById("pageTitle")
+.textContent =
+"Sign In";
+
+
+document
+.getElementById("pageIntro")
+.textContent =
+"Sign in to watch ASI Network FRL subscriber-only content.";
 
 }
 
@@ -295,30 +582,50 @@ document
 .getElementById("forgotButton")
 .addEventListener(
 "click",
-function(){
+showResetView
+);
+
 
 document
-.getElementById("forgotBox")
-.style.display =
-"block";
+.getElementById("backToSignInButton")
+.addEventListener(
+"click",
+showLoginView
+);
+
+
+document
+.getElementById("togglePassword")
+.addEventListener(
+"click",
+function(){
+
+const showing =
+passwordInput.type === "text";
+
+
+passwordInput.type =
+showing
+?
+"password"
+:
+"text";
+
+
+this.textContent =
+showing
+?
+"SHOW"
+:
+"HIDE";
 
 }
 );
 
 
-if(
-new URLSearchParams(
-window.location.search
-).get("forgot") === "1"
-){
-
-document
-.getElementById("forgotBox")
-.style.display =
-"block";
-
-}
-
+/* =========================
+MEMBER LOGIN
+========================= */
 
 document
 .getElementById("loginButton")
@@ -327,16 +634,10 @@ document
 async function(){
 
 const email =
-document
-.getElementById("email")
-.value
-.trim();
-
+emailInput.value.trim();
 
 const password =
-document
-.getElementById("password")
-.value;
+passwordInput.value;
 
 
 if(!email || !password){
@@ -391,7 +692,7 @@ throw new Error(
 }
 
 
-/* CHECK ADMIN */
+/* CHECK IF ACCOUNT IS ADMIN */
 
 const adminResult =
 await sb
@@ -409,7 +710,7 @@ const isAdmin =
 !!adminResult.data;
 
 
-/* ADMIN CAN ENTER WITHOUT SUBSCRIBER CHECK */
+/* ADMINS CAN ENTER */
 
 if(isAdmin){
 
@@ -484,7 +785,7 @@ await sb.auth.signOut();
 
 
 showStatus(
-"An active ASI Network FRL subscription is required."
+"Your account does not currently have an active ASI Network FRL subscription. If you need help, contact support@asinetworkfrl.com."
 );
 
 
@@ -531,6 +832,28 @@ this.textContent =
 );
 
 
+/* ENTER KEY LOGIN */
+
+passwordInput.addEventListener(
+"keydown",
+function(event){
+
+if(event.key === "Enter"){
+
+document
+.getElementById("loginButton")
+.click();
+
+}
+
+}
+);
+
+
+/* =========================
+PASSWORD RESET EMAIL
+========================= */
+
 document
 .getElementById("sendResetButton")
 .addEventListener(
@@ -538,10 +861,7 @@ document
 async function(){
 
 const email =
-document
-.getElementById("email")
-.value
-.trim();
+resetEmailInput.value.trim();
 
 
 if(!email){
@@ -563,7 +883,7 @@ this.textContent =
 
 
 showStatus(
-"Sending your reset email..."
+"Sending your secure reset email..."
 );
 
 
@@ -589,8 +909,15 @@ throw result.error;
 }
 
 
+/*
+Use a generic confirmation so the page
+doesn't reveal whether an email address
+has an account.
+*/
+
 showStatus(
-"Reset email sent. Check your inbox and spam folder."
+"If an ASI Network FRL account exists for that email, a secure password reset link has been sent. Check your inbox and spam folder.",
+true
 );
 
 
@@ -603,8 +930,7 @@ error
 
 
 showStatus(
-error.message ||
-"Unable to send reset email."
+"Unable to send the reset email right now. Please try again or contact support@asinetworkfrl.com."
 );
 
 }
@@ -618,6 +944,68 @@ this.textContent =
 
 }
 );
+
+
+/* =========================
+OPTIONAL ?forgot=1 SUPPORT
+========================= */
+
+const params =
+new URLSearchParams(
+window.location.search
+);
+
+
+if(
+params.get("forgot") === "1"
+){
+
+showResetView();
+
+}
+
+
+/* =========================
+IF ALREADY LOGGED IN
+========================= */
+
+(async function(){
+
+const result =
+await sb.auth.getSession();
+
+
+if(
+result.data.session &&
+params.get("forgot") !== "1"
+){
+
+document
+.getElementById("pageIntro")
+.textContent =
+"You're already signed in to ASI Network FRL.";
+
+
+document
+.getElementById("loginView")
+.innerHTML =
+`
+<a
+class="btn primary"
+href="/members.html"
+>
+RETURN TO MEMBER ACCESS
+</a>
+`;
+
+
+document
+.getElementById("subscriberSection")
+.classList.add("hidden");
+
+}
+
+})();
 
 </script>
 
