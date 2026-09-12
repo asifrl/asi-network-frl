@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Shows | ASI Network FRL</title>
+
+<meta name="robots" content="noindex,nofollow">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+background:#050505;
+color:#fff;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+a{
+color:inherit;
+text-decoration:none;
+}
+
+header{
+position:sticky;
+top:0;
+z-index:50;
+min-height:72px;
+padding:0 4%;
+display:flex;
+align-items:center;
+gap:26px;
+background:rgba(5,5,5,.97);
+border-bottom:1px solid #222;
+}
+
+.logo{
+font-weight:900;
+letter-spacing:1px;
+white-space:nowrap;
+}
+
+.logo span{
+color:#999;
+font-weight:500;
+}
+
+.nav{
+display:flex;
+gap:22px;
+align-items:center;
+flex:1;
+}
+
+.nav a{
+font-size:12px;
+font-weight:900;
+}
+
+.nav a:hover{
+opacity:.7;
+}
+
+.right{
+margin-left:auto;
+}
+
+.btn{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+min-height:42px;
+padding:0 18px;
+border-radius:6px;
+border:1px solid #444;
+background:#111;
+color:#fff;
+font-size:12px;
+font-weight:900;
+}
+
+main{
+width:min(1200px,92%);
+margin:40px auto 80px;
+}
+
+.hero{
+padding:60px 0 45px;
+}
+
+.eyebrow{
+font-size:12px;
+letter-spacing:4px;
+color:#999;
+font-weight:900;
+}
+
+.hero h1{
+font-size:clamp(46px,7vw,82px);
+line-height:.95;
+margin:10px 0 18px;
+}
+
+.hero p{
+max-width:680px;
+color:#bbb;
+line-height:1.65;
+}
+
+.grid{
+display:grid;
+grid-template-columns:
+repeat(auto-fill,minmax(250px,1fr));
+gap:18px;
+}
+
+.card{
+background:#101010;
+border:1px solid #222;
+border-radius:10px;
+overflow:hidden;
+}
+
+.thumb{
+aspect-ratio:16/9;
+background:
+linear-gradient(135deg,#242424,#090909);
+background-size:cover;
+background-position:center;
+display:grid;
+place-items:center;
+font-size:36px;
+}
+
+.body{
+padding:17px;
+}
+
+.body h3{
+margin:0 0 8px;
+font-size:20px;
+}
+
+.body p{
+margin:0;
+color:#999;
+line-height:1.55;
+font-size:13px;
+}
+
+.actions{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:16px;
+}
+
+.btn.primary{
+background:#fff;
+color:#000;
+border-color:#fff;
+}
+
+.empty{
+grid-column:1/-1;
+padding:28px;
+border:1px solid #222;
+background:#0d0d0d;
+color:#888;
+border-radius:8px;
+}
+
+.loading{
+min-height:75vh;
+display:grid;
+place-items:center;
+color:#999;
+font-weight:900;
+letter-spacing:2px;
+}
+
+#app{
+display:none;
+}
+
+footer{
+padding:35px 4%;
+border-top:1px solid #181818;
+color:#666;
+font-size:12px;
+display:flex;
+justify-content:space-between;
+gap:15px;
+flex-wrap:wrap;
+}
+
+@media(max-width:820px){
+
+header{
+flex-wrap:wrap;
+padding-top:14px;
+padding-bottom:14px;
+}
+
+.nav{
+order:3;
+width:100%;
+overflow-x:auto;
+}
+
+.grid{
+grid-template-columns:
+repeat(2,minmax(0,1fr));
+}
+
+}
+
+@media(max-width:520px){
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.hero h1{
+font-size:48px;
+}
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div
+id="loading"
+class="loading"
+>
+CHECKING MEMBER ACCESS...
+</div>
+
+
+<div id="app">
+
+<header>
+
+<a
+class="logo"
+href="/members.html"
+>
+ASI NETWORK <span>FRL</span> 👁️
+</a>
+
+
+<nav class="nav">
+
+<a href="/members.html">
+HOME
+</a>
+
+<a href="/shows.html">
+SHOWS
+</a>
+
+<a href="/members.html#episodes">
+EPISODES
+</a>
+
+</nav>
+
+
+<div class="right">
+
+<a
+class="btn"
+href="/members.html"
+>
+ACCOUNT
+</a>
+
+</div>
+
+</header>
+
+
+<main>
+
+<section class="hero">
+
+<div class="eyebrow">
+ASI NETWORK FRL
+</div>
+
+<h1>
+SHOWS
+</h1>
+
+<p>
+Every ASI Network FRL original lives here.
+When a new show is added from the Admin Dashboard,
+it will automatically appear on this page.
+</p>
+
+</section>
+
+
+<div
+id="grid"
+class="grid"
+>
+
+<div class="empty">
+Loading shows...
+</div>
+
+</div>
+
+</main>
+
+
+<footer>
+
+<div>
+© 2026 ASI NETWORK FRL
+</div>
+
+<a href="mailto:support@asinetworkfrl.com">
+support@asinetworkfrl.com
+</a>
+
+</footer>
+
+</div>
+
+
+<script>
+
+const SUPABASE_URL =
+"https://gvvtwwrjfscaunczptpv.supabase.co";
+
+
+const SUPABASE_KEY =
+"sb_publishable_iliNeR5tX_4X4KAh5ZjPpA_e6ueLnP-";
+
+
+const sb =
+supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+
+let session = null;
+
+
+function escapeHtml(value){
+
+return String(value ?? "")
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
+
+
+async function hasAccess(){
+
+const sessionResult =
+await sb.auth.getSession();
+
+
+session =
+sessionResult.data.session;
+
+
+if(!session){
+
+return false;
+
+}
+
+
+const adminResult =
+await sb
+.from("admins")
+.select("user_id")
+.eq(
+"user_id",
+session.user.id
+)
+.maybeSingle();
+
+
+if(
+!adminResult.error &&
+adminResult.data
+){
+
+return true;
+
+}
+
+
+const response =
+await fetch(
+`${SUPABASE_URL}/functions/v1/asi-link-subscription`,
+{
+
+method:"POST",
+
+headers:{
+
+"Authorization":
+`Bearer ${session.access_token}`,
+
+"apikey":
+SUPABASE_KEY,
+
+"Content-Type":
+"application/json"
+
+},
+
+body:
+JSON.stringify({})
+
+}
+);
+
+
+let result = {};
+
+
+try{
+
+result =
+await response.json();
+
+}
+catch(error){}
+
+
+const status =
+String(
+result.status || ""
+).toUpperCase();
+
+
+return (
+
+response.ok &&
+
+(
+result.active === true ||
+result.isActive === true ||
+status === "ACTIVE"
+)
+
+);
+
+}
+
+
+async function initialize(){
+
+try{
+
+const allowed =
+await hasAccess();
+
+
+if(!allowed){
+
+window.location.replace(
+"/login.html"
+);
+
+return;
+
+}
+
+
+document
+.getElementById("loading")
+.style.display =
+"none";
+
+
+document
+.getElementById("app")
+.style.display =
+"block";
+
+
+const result =
+await sb
+.from("shows")
+.select("*")
+.order(
+"created_at",
+{
+ascending:true
+}
+);
+
+
+const shows =
+result.data || [];
+
+
+renderShows(shows);
+
+
+}catch(error){
+
+console.error(
+"Shows page error:",
+error
+);
+
+
+window.location.replace(
+"/login.html"
+);
+
+}
+
+}
+
+
+function renderShows(shows){
+
+const grid =
+document.getElementById("grid");
+
+
+if(!shows.length){
+
+grid.innerHTML =
+`
+<div class="empty">
+No shows have been published yet.
+</div>
+`;
+
+return;
+
+}
+
+
+grid.innerHTML =
+shows
+.map(show => {
+
+const thumbnailStyle =
+show.thumbnail_url
+?
+`background-image:url('${escapeHtml(show.thumbnail_url)}')`
+:
+"";
+
+
+return `
+<article class="card">
+
+<div
+class="thumb"
+style="${thumbnailStyle}"
+>
+👁️
+</div>
+
+<div class="body">
+
+<h3>
+${escapeHtml(show.title)}
+</h3>
+
+<p>
+${escapeHtml(
+show.description ||
+"ASI Network FRL Original"
+)}
+</p>
+
+<div class="actions">
+
+<a
+class="btn primary"
+href="/show.html?id=${encodeURIComponent(show.id)}"
+>
+OPEN SHOW
+</a>
+
+</div>
+
+</div>
+
+</article>
+`;
+
+})
+.join("");
+
+}
+
+
+initialize();
+
+</script>
+
+</body>
+</html>
