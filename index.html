@@ -2,17 +2,27 @@
 <html lang="en">
 
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>ASI Network FRL | Original Reality Entertainment</title>
+<meta charset="utf-8">
+
+<meta
+name="viewport"
+content="width=device-width,initial-scale=1"
+>
+
+<title>
+ASI Network FRL | Original Reality Entertainment
+</title>
 
 <meta
 name="description"
 content="ASI Network FRL — original reality entertainment, exclusive shows and subscriber-only episodes."
 >
 
-<meta name="robots" content="index,follow">
+<meta
+name="robots"
+content="index,follow"
+>
 
 <link
 rel="canonical"
@@ -132,12 +142,40 @@ background:#e8e8e8;
 }
 
 /* =========================
+AUTH LOADING STATE
+
+IMPORTANT:
+Conditional account/subscription buttons
+start hidden. JS shows ONLY the correct
+state after Supabase finishes checking.
+========================= */
+
+#navSubscribe,
+#signInButton,
+#subscribeNavButton,
+#accountWrap,
+#heroSubscribe,
+#heroMember,
+#bottomSubscribeButton,
+#bottomSignInButton,
+#bottomAccountButton{
+display:none;
+}
+
+#subscribePanel{
+visibility:hidden;
+}
+
+#subscribePanel.auth-ready{
+visibility:visible;
+}
+
+/* =========================
 ACCOUNT MENU
 ========================= */
 
 .account-wrap{
 position:relative;
-display:none;
 }
 
 .account-menu{
@@ -340,7 +378,7 @@ color:#888;
 }
 
 /* =========================
-SUBSCRIPTION
+SUBSCRIPTION / MEMBER PANEL
 ========================= */
 
 .subscribe{
@@ -445,10 +483,12 @@ padding:0 12px;
 }
 
 </style>
+
 </head>
 
 
 <body>
+
 
 <header>
 
@@ -498,6 +538,7 @@ href="/login.html"
 SIGN IN
 </a>
 
+
 <a
 id="subscribeNavButton"
 class="btn primary"
@@ -531,6 +572,7 @@ id="accountEmail"
 class="account-email"
 ></div>
 
+
 <a
 class="menu-item"
 href="/members.html"
@@ -538,12 +580,14 @@ href="/members.html"
 Member Home
 </a>
 
+
 <a
 class="menu-item"
 href="/members.html"
 >
 Account Settings
 </a>
+
 
 <a
 id="adminLink"
@@ -553,12 +597,14 @@ href="/admin.html"
 Admin Dashboard
 </a>
 
+
 <a
 class="menu-item"
 href="mailto:support@asinetworkfrl.com"
 >
 Help & Support
 </a>
+
 
 <button
 id="logoutButton"
@@ -597,6 +643,7 @@ Browse exclusive shows, discover new episodes and subscribe
 for full access to member-only content.
 </p>
 
+
 <div class="hero-actions">
 
 <a
@@ -606,6 +653,7 @@ href="/shows.html"
 BROWSE SHOWS
 </a>
 
+
 <a
 id="heroSubscribe"
 class="btn"
@@ -614,11 +662,11 @@ href="https://square.link/u/0l47AY8p"
 SUBSCRIBE • $5.99/MO
 </a>
 
+
 <a
 id="heroMember"
 class="btn"
 href="/members.html"
-style="display:none;"
 >
 GO TO MY ACCOUNT
 </a>
@@ -631,6 +679,7 @@ GO TO MY ACCOUNT
 
 
 <main>
+
 
 <!-- =========================
 ASI ORIGINALS
@@ -649,6 +698,7 @@ VIEW ALL →
 </a>
 
 </div>
+
 
 <div
 id="showGrid"
@@ -681,6 +731,7 @@ Latest Episodes
 
 </div>
 
+
 <div
 id="episodeGrid"
 class="grid"
@@ -696,26 +747,29 @@ Loading latest episodes...
 
 
 <!-- =========================
-SUBSCRIPTION CTA
+SUBSCRIPTION / MEMBER PANEL
 ========================= -->
 
 <section
-id="subscribe"
+id="subscribePanel"
 class="subscribe"
 >
 
 <h2 id="subscribeTitle">
-Watch ASI Network FRL
+ASI Network FRL
 </h2>
 
-<div class="price">
-$5.99 / month
+
+<div
+id="priceDisplay"
+class="price"
+>
 </div>
 
+
 <p id="subscribeText">
-Subscribe for full access to ASI Network FRL original shows,
-exclusive episodes and member-only entertainment.
 </p>
+
 
 <div class="subscribe-actions">
 
@@ -727,6 +781,7 @@ href="https://square.link/u/0l47AY8p"
 START SUBSCRIPTION
 </a>
 
+
 <a
 id="bottomSignInButton"
 class="btn"
@@ -735,11 +790,11 @@ href="/login.html"
 ALREADY SUBSCRIBED? SIGN IN
 </a>
 
+
 <a
 id="bottomAccountButton"
 class="btn primary"
 href="/members.html"
-style="display:none;"
 >
 GO TO MY ACCOUNT
 </a>
@@ -811,11 +866,22 @@ return String(value ?? "")
 }
 
 
+function revealAuthPanel(){
+
+document
+.getElementById("subscribePanel")
+.classList.add("auth-ready");
+
+}
+
+
 /* =========================
 ACCOUNT STATE
 ========================= */
 
 async function determineAccountState(){
+
+try{
 
 const result =
 await sb.auth.getSession();
@@ -844,7 +910,9 @@ document
 currentUser.email || "";
 
 
-/* CHECK ADMIN */
+/* =========================
+CHECK ADMIN
+========================= */
 
 const adminResult =
 await sb
@@ -873,7 +941,9 @@ return;
 }
 
 
-/* CHECK ACTIVE SUBSCRIPTION */
+/* =========================
+CHECK ACTIVE SUBSCRIPTION
+========================= */
 
 try{
 
@@ -934,7 +1004,13 @@ status === "ACTIVE"
 );
 
 
-}catch(error){
+}
+catch(error){
+
+console.error(
+"Membership check error:",
+error
+);
 
 activeMember = false;
 
@@ -952,11 +1028,24 @@ showSignedInInactiveState();
 
 }
 
+
+}
+catch(error){
+
+console.error(
+"Account state error:",
+error
+);
+
+showVisitorState();
+
+}
+
 }
 
 
 /* =========================
-VISITOR
+VISITOR STATE
 ========================= */
 
 function showVisitorState(){
@@ -971,6 +1060,12 @@ document
 .getElementById("subscribeNavButton")
 .style.display =
 "inline-flex";
+
+
+document
+.getElementById("navSubscribe")
+.style.display =
+"inline";
 
 
 document
@@ -992,6 +1087,24 @@ document
 
 
 document
+.getElementById("subscribeTitle")
+.textContent =
+"Watch ASI Network FRL";
+
+
+document
+.getElementById("priceDisplay")
+.textContent =
+"$5.99 / month";
+
+
+document
+.getElementById("subscribeText")
+.textContent =
+"Subscribe for full access to ASI Network FRL original shows, exclusive episodes and member-only entertainment.";
+
+
+document
 .getElementById("bottomSubscribeButton")
 .style.display =
 "inline-flex";
@@ -1007,6 +1120,15 @@ document
 .getElementById("bottomAccountButton")
 .style.display =
 "none";
+
+
+document
+.getElementById("adminLink")
+.style.display =
+"none";
+
+
+revealAuthPanel();
 
 }
 
@@ -1054,6 +1176,24 @@ document
 
 
 document
+.getElementById("subscribeTitle")
+.textContent =
+"Welcome Back";
+
+
+document
+.getElementById("priceDisplay")
+.textContent =
+"";
+
+
+document
+.getElementById("subscribeText")
+.textContent =
+"Your ASI Network FRL member access is active. Browse shows, continue watching and manage your account.";
+
+
+document
 .getElementById("bottomSubscribeButton")
 .style.display =
 "none";
@@ -1072,18 +1212,6 @@ document
 
 
 document
-.getElementById("subscribeTitle")
-.textContent =
-"Welcome Back";
-
-
-document
-.getElementById("subscribeText")
-.textContent =
-"Your ASI Network FRL account has member access. Continue browsing or return to your account.";
-
-
-document
 .getElementById("adminLink")
 .style.display =
 isAdmin
@@ -1091,6 +1219,9 @@ isAdmin
 "block"
 :
 "none";
+
+
+revealAuthPanel();
 
 }
 
@@ -1108,15 +1239,21 @@ document
 
 
 document
-.getElementById("accountWrap")
-.style.display =
-"block";
-
-
-document
 .getElementById("subscribeNavButton")
 .style.display =
 "inline-flex";
+
+
+document
+.getElementById("navSubscribe")
+.style.display =
+"inline";
+
+
+document
+.getElementById("accountWrap")
+.style.display =
+"block";
 
 
 document
@@ -1132,9 +1269,33 @@ document
 
 
 document
+.getElementById("subscribeTitle")
+.textContent =
+"Reactivate Your Access";
+
+
+document
+.getElementById("priceDisplay")
+.textContent =
+"$5.99 / month";
+
+
+document
+.getElementById("subscribeText")
+.textContent =
+"Your ASI Network FRL account is signed in, but an active subscription could not be verified. Subscribe to restore full episode access.";
+
+
+document
 .getElementById("bottomSubscribeButton")
 .style.display =
 "inline-flex";
+
+
+document
+.getElementById("bottomSubscribeButton")
+.textContent =
+"REACTIVATE ACCESS";
 
 
 document
@@ -1150,21 +1311,12 @@ document
 
 
 document
-.getElementById("subscribeTitle")
-.textContent =
-"Reactivate Your Access";
-
-
-document
-.getElementById("subscribeText")
-.textContent =
-"Your account is signed in, but an active subscription could not be verified. Subscribe to restore full episode access.";
-
-
-document
 .getElementById("adminLink")
 .style.display =
 "none";
+
+
+revealAuthPanel();
 
 }
 
@@ -1197,6 +1349,7 @@ function(event){
 const menu =
 document.getElementById("accountMenu");
 
+
 const button =
 document.getElementById("accountButton");
 
@@ -1213,6 +1366,10 @@ menu.classList.remove("show");
 }
 );
 
+
+/* =========================
+LOG OUT
+========================= */
 
 document
 .getElementById("logoutButton")
@@ -1335,7 +1492,8 @@ VIEW SHOW
 ).join("");
 
 
-}catch(error){
+}
+catch(error){
 
 console.error(
 "Shows error:",
@@ -1436,7 +1594,7 @@ style="${thumbnailStyle}"
 <div class="card-body">
 
 <div class="meta">
-EPISODE ${episode.episode_number}
+EPISODE ${escapeHtml(episode.episode_number)}
 </div>
 
 <h3>
@@ -1473,7 +1631,8 @@ WATCH
 ).join("");
 
 
-}catch(error){
+}
+catch(error){
 
 console.error(
 "Episodes error:",
@@ -1517,4 +1676,5 @@ initialize();
 </script>
 
 </body>
+
 </html>
