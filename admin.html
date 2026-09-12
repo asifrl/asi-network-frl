@@ -467,13 +467,11 @@ LOG OUT
 
 </header>
 
-
 <main>
 
 <div id="loading">
 VERIFYING ADMINISTRATOR ACCESS...
 </div>
-
 
 <div id="loginBox" class="message-box">
 
@@ -494,7 +492,6 @@ SIGN IN
 
 </div>
 
-
 <div id="deniedBox" class="message-box">
 
 <h2>
@@ -510,7 +507,6 @@ RETURN HOME
 </a>
 
 </div>
-
 
 <div id="dashboard">
 
@@ -529,7 +525,6 @@ Create, upload, publish, replace and remove ASI Network FRL programming from one
 </p>
 
 </div>
-
 
 <div class="stats">
 
@@ -550,9 +545,7 @@ Create, upload, publish, replace and remove ASI Network FRL programming from one
 
 </div>
 
-
 <div class="grid">
-
 
 <!-- CREATE SHOW -->
 
@@ -578,7 +571,6 @@ placeholder="Show title"
 id="showDescription"
 placeholder="Show description"
 ></textarea>
-
 
 <label>Show Artwork</label>
 
@@ -613,7 +605,6 @@ class="preview"
 alt=""
 >
 
-
 <div class="check-row">
 
 <input
@@ -626,7 +617,6 @@ Publish show immediately
 </label>
 
 </div>
-
 
 <button
 id="createShowBtn"
@@ -641,7 +631,6 @@ class="status"
 ></div>
 
 </section>
-
 
 <!-- MANAGE SHOW -->
 
@@ -659,7 +648,6 @@ Edit, publish, replace artwork or completely delete a show.
 <option value="">Select show</option>
 </select>
 
-
 <label>Show Title</label>
 
 <input
@@ -668,14 +656,12 @@ type="text"
 disabled
 >
 
-
 <label>Description</label>
 
 <textarea
 id="editShowDescription"
 disabled
 ></textarea>
-
 
 <label>Replace Artwork</label>
 
@@ -710,7 +696,6 @@ class="preview"
 alt=""
 >
 
-
 <div class="check-row">
 
 <input
@@ -725,7 +710,6 @@ Published
 
 </div>
 
-
 <button
 id="saveShowBtn"
 class="action"
@@ -733,7 +717,6 @@ disabled
 >
 SAVE SHOW
 </button>
-
 
 <button
 id="deleteShowBtn"
@@ -749,7 +732,6 @@ class="status"
 ></div>
 
 </section>
-
 
 <!-- CREATE SEASON -->
 
@@ -784,7 +766,6 @@ type="text"
 placeholder="Optional season name"
 >
 
-
 <div class="check-row">
 
 <input
@@ -797,7 +778,6 @@ Publish season immediately
 </label>
 
 </div>
-
 
 <button
 id="createSeasonBtn"
@@ -812,7 +792,6 @@ class="status"
 ></div>
 
 </section>
-
 
 <!-- MANAGE SEASON -->
 
@@ -856,7 +835,6 @@ type="text"
 disabled
 >
 
-
 <div class="check-row">
 
 <input
@@ -870,7 +848,6 @@ Published
 </label>
 
 </div>
-
 
 <button
 id="saveSeasonBtn"
@@ -894,7 +871,6 @@ class="status"
 ></div>
 
 </section>
-
 
 <!-- CREATE EPISODE -->
 
@@ -936,7 +912,6 @@ placeholder="1"
 
 </div>
 
-
 <div>
 
 <label>Episode Title</label>
@@ -953,7 +928,6 @@ placeholder="Episode title"
 id="episodeDescription"
 placeholder="Episode description"
 ></textarea>
-
 
 <label>Episode Artwork</label>
 
@@ -992,7 +966,6 @@ alt=""
 
 </div>
 
-
 <button
 id="createEpisodeBtn"
 class="action"
@@ -1007,7 +980,6 @@ class="status"
 
 </section>
 
-
 <!-- MANAGE EPISODE -->
 
 <section class="panel full">
@@ -1020,9 +992,7 @@ Episode + Video Manager
 Edit the episode, upload or replace the finished Mux video, publish it, remove the video, or delete the episode completely.
 </p>
 
-
 <div class="manage-grid">
-
 
 <div>
 
@@ -1050,7 +1020,6 @@ disabled
 <option value="">Select episode</option>
 </select>
 
-
 <label>Episode Title</label>
 
 <input
@@ -1059,14 +1028,12 @@ type="text"
 disabled
 >
 
-
 <label>Description</label>
 
 <textarea
 id="editDescription"
 disabled
 ></textarea>
-
 
 <label>Replace Episode Artwork</label>
 
@@ -1101,7 +1068,6 @@ class="preview"
 alt=""
 >
 
-
 <div class="check-row">
 
 <input
@@ -1116,7 +1082,6 @@ Published / Live
 
 </div>
 
-
 <div
 id="episodePublishWarning"
 class="warning"
@@ -1125,7 +1090,6 @@ style="display:none;"
 This episode does not have a finished Mux video attached yet. Upload the video before publishing.
 </div>
 
-
 <button
 id="saveEpisodeBtn"
 class="action"
@@ -1133,7 +1097,6 @@ disabled
 >
 SAVE EPISODE
 </button>
-
 
 <button
 id="deleteEpisodeBtn"
@@ -1149,9 +1112,6 @@ class="status"
 ></div>
 
 </div>
-
-
-<!-- VIDEO SIDE -->
 
 <div>
 
@@ -1184,7 +1144,6 @@ type="file"
 accept="video/*"
 >
 
-
 <button
 id="uploadVideoBtn"
 class="action"
@@ -1192,7 +1151,6 @@ disabled
 >
 UPLOAD VIDEO TO MUX
 </button>
-
 
 <button
 id="replaceVideoBtn"
@@ -1202,7 +1160,6 @@ disabled
 REPLACE CURRENT VIDEO
 </button>
 
-
 <button
 id="removeVideoBtn"
 class="action danger"
@@ -1210,7 +1167,6 @@ disabled
 >
 REMOVE VIDEO FROM MUX
 </button>
-
 
 <div
 id="progressBox"
@@ -1235,12 +1191,10 @@ class="progress-text"
 
 </div>
 
-
 <div
 id="uploadStatus"
 class="status"
 ></div>
-
 
 <div class="warning">
 
@@ -1256,6 +1210,56 @@ Replacing removes the current Mux video first, returns the episode to Draft, the
 
 </section>
 
+<!-- SUBSCRIBER SUPPORT -->
+
+<section class="panel full">
+
+<h2>
+Subscriber Support
+</h2>
+
+<p class="note">
+Send a secure ASI Network FRL password reset email directly from your Admin Dashboard.
+The subscriber's reset link will open the official ASI password reset page.
+</p>
+
+<div class="manage-grid">
+
+<div>
+
+<label>
+Subscriber Email Address
+</label>
+
+<input
+id="supportResetEmail"
+type="email"
+placeholder="subscriber@example.com"
+autocomplete="off"
+>
+
+</div>
+
+<div style="display:flex;align-items:flex-end;">
+
+<button
+id="sendResetBtn"
+class="action"
+style="margin-top:0;"
+>
+SEND PASSWORD RESET
+</button>
+
+</div>
+
+</div>
+
+<div
+id="supportResetStatus"
+class="status"
+></div>
+
+</section>
 
 <!-- STATUS -->
 
@@ -1275,13 +1279,11 @@ Loading content...
 
 </section>
 
-
 </div>
 
 </div>
 
 </main>
-
 
 <script>
 
@@ -1291,13 +1293,11 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_iliNeR5tX_4X4KAh5ZjPpA_e6ueLnP-";
 
-
 const db =
 window.supabase.createClient(
 SUPABASE_URL,
 SUPABASE_KEY
 );
-
 
 let currentSession = null;
 
@@ -1312,7 +1312,6 @@ let newEpisodeImage = null;
 let editEpisodeImage = null;
 
 let selectedVideo = null;
-
 
 /* ===============================
 GENERAL HELPERS
@@ -1334,7 +1333,6 @@ text;
 
 }
 
-
 function hideMessage(id){
 
 const element =
@@ -1348,7 +1346,6 @@ element.textContent =
 
 }
 
-
 function escapeHtml(value){
 
 const div =
@@ -1361,7 +1358,6 @@ return div.innerHTML;
 
 }
 
-
 function getShow(id){
 
 return shows.find(
@@ -1370,7 +1366,6 @@ item.id === id
 );
 
 }
-
 
 function getSeason(id){
 
@@ -1381,7 +1376,6 @@ item.id === id
 
 }
 
-
 function getEpisode(id){
 
 return episodes.find(
@@ -1390,7 +1384,6 @@ item.id === id
 );
 
 }
-
 
 function sortData(){
 
@@ -1402,13 +1395,11 @@ String(b.title || "")
 )
 );
 
-
 seasons.sort(
 (a,b) =>
 Number(a.season_number || 0) -
 Number(b.season_number || 0)
 );
-
 
 episodes.sort(
 (a,b) =>
@@ -1417,7 +1408,6 @@ Number(b.episode_number || 0)
 );
 
 }
-
 
 /* ===============================
 ADMIN LOGIN
@@ -1428,12 +1418,10 @@ async function initializeAdmin(){
 const loading =
 document.getElementById("loading");
 
-
 try{
 
 const sessionResult =
 await db.auth.getSession();
-
 
 if(sessionResult.error){
 
@@ -1441,10 +1429,8 @@ throw sessionResult.error;
 
 }
 
-
 currentSession =
 sessionResult.data.session;
-
 
 if(!currentSession){
 
@@ -1460,7 +1446,6 @@ return;
 
 }
 
-
 const adminResult =
 await db
 .from("admins")
@@ -1470,7 +1455,6 @@ await db
 currentSession.user.id
 )
 .maybeSingle();
-
 
 if(
 adminResult.error ||
@@ -1489,42 +1473,34 @@ return;
 
 }
 
-
 loading.style.display =
 "none";
-
 
 document
 .getElementById("dashboard")
 .style.display =
 "block";
 
-
 document
 .getElementById("logoutBtn")
 .style.display =
 "block";
 
-
 await loadEverything();
-
 
 }
 catch(error){
 
 console.error(error);
 
-
 loading.style.display =
 "none";
-
 
 document
 .getElementById("deniedText")
 .textContent =
 error.message ||
 "Administrator verification failed.";
-
 
 document
 .getElementById("deniedBox")
@@ -1534,7 +1510,6 @@ document
 }
 
 }
-
 
 /* ===============================
 LOG OUT
@@ -1552,7 +1527,6 @@ window.location.replace("/");
 
 }
 );
-
 
 /* ===============================
 LOAD DATABASE
@@ -1581,13 +1555,11 @@ db
 
 ]);
 
-
 if(showResult.error){
 
 throw showResult.error;
 
 }
-
 
 if(seasonResult.error){
 
@@ -1595,13 +1567,11 @@ throw seasonResult.error;
 
 }
 
-
 if(episodeResult.error){
 
 throw episodeResult.error;
 
 }
-
 
 shows =
 showResult.data || [];
@@ -1612,34 +1582,28 @@ seasonResult.data || [];
 episodes =
 episodeResult.data || [];
 
-
 sortData();
-
 
 document
 .getElementById("showCount")
 .textContent =
 shows.length;
 
-
 document
 .getElementById("seasonCount")
 .textContent =
 seasons.length;
-
 
 document
 .getElementById("episodeCount")
 .textContent =
 episodes.length;
 
-
 populateShowSelectors();
 
 renderContentStatus();
 
 }
-
 
 /* ===============================
 SHOW SELECTORS
@@ -1657,7 +1621,6 @@ const selectors = [
 
 ];
 
-
 selectors.forEach(
 id => {
 
@@ -1666,7 +1629,6 @@ document.getElementById(id);
 
 const current =
 select.value;
-
 
 select.innerHTML =
 `
@@ -1683,7 +1645,6 @@ ${escapeHtml(show.title)}
 `
 ).join("")}
 `;
-
 
 if(
 current &&
@@ -1703,7 +1664,6 @@ current;
 
 }
 
-
 /* ===============================
 MEDIA UPLOAD
 =============================== */
@@ -1719,22 +1679,18 @@ return null;
 
 }
 
-
 const form =
 new FormData();
-
 
 form.append(
 "file",
 file
 );
 
-
 form.append(
 "folder",
 folder
 );
-
 
 const response =
 await fetch(
@@ -1759,10 +1715,8 @@ form
 }
 );
 
-
 const data =
 await response.json();
-
 
 if(
 !response.ok ||
@@ -1776,11 +1730,9 @@ data.error ||
 
 }
 
-
 return data.url;
 
 }
-
 
 /* ===============================
 IMAGE PICKERS
@@ -1800,13 +1752,11 @@ document.getElementById(pickerId);
 const input =
 document.getElementById(inputId);
 
-
 picker.addEventListener(
 "click",
 () =>
 input.click()
 );
-
 
 input.addEventListener(
 "change",
@@ -1815,9 +1765,7 @@ function(){
 const file =
 this.files?.[0] || null;
 
-
 setter(file);
-
 
 document
 .getElementById(nameId)
@@ -1828,10 +1776,8 @@ file.name
 :
 "";
 
-
 const preview =
 document.getElementById(previewId);
-
 
 if(file){
 
@@ -1856,7 +1802,6 @@ preview.style.display =
 
 }
 
-
 setupImagePicker(
 "newShowImagePicker",
 "newShowImage",
@@ -1865,7 +1810,6 @@ setupImagePicker(
 file =>
 newShowImage = file
 );
-
 
 setupImagePicker(
 "editShowImagePicker",
@@ -1876,7 +1820,6 @@ file =>
 editShowImage = file
 );
 
-
 setupImagePicker(
 "newEpisodeImagePicker",
 "newEpisodeImage",
@@ -1886,7 +1829,6 @@ file =>
 newEpisodeImage = file
 );
 
-
 setupImagePicker(
 "editEpisodeImagePicker",
 "editEpisodeImage",
@@ -1895,7 +1837,6 @@ setupImagePicker(
 file =>
 editEpisodeImage = file
 );
-
 
 /* ===============================
 CREATE SHOW
@@ -1913,7 +1854,6 @@ document
 .value
 .trim();
 
-
 if(!title){
 
 message(
@@ -1925,19 +1865,15 @@ return;
 
 }
 
-
 this.disabled =
 true;
-
 
 this.textContent =
 "CREATING...";
 
-
 try{
 
 let artworkUrl = null;
-
 
 if(newShowImage){
 
@@ -1946,7 +1882,6 @@ message(
 "Uploading show artwork..."
 );
 
-
 artworkUrl =
 await uploadImage(
 newShowImage,
@@ -1954,7 +1889,6 @@ newShowImage,
 );
 
 }
-
 
 const result =
 await db
@@ -1979,68 +1913,56 @@ document
 
 });
 
-
 if(result.error){
 
 throw result.error;
 
 }
 
-
 document
 .getElementById("showTitle")
 .value =
 "";
-
 
 document
 .getElementById("showDescription")
 .value =
 "";
 
-
 document
 .getElementById("showPublished")
 .checked =
 false;
-
 
 document
 .getElementById("newShowImage")
 .value =
 "";
 
-
 document
 .getElementById("newShowImageName")
 .textContent =
 "";
-
 
 document
 .getElementById("newShowPreview")
 .style.display =
 "none";
 
-
 newShowImage =
 null;
-
 
 message(
 "showStatus",
 "Show created successfully."
 );
 
-
 await loadEverything();
-
 
 }
 catch(error){
 
 console.error(error);
-
 
 message(
 "showStatus",
@@ -2062,7 +1984,6 @@ this.textContent =
 }
 );
 
-
 /* ===============================
 MANAGE SHOW
 =============================== */
@@ -2078,10 +1999,8 @@ getShow(
 this.value
 );
 
-
 const enabled =
 !!show;
-
 
 [
 "editShowTitle",
@@ -2097,27 +2016,22 @@ document
 !enabled
 );
 
-
 editShowImage =
 null;
-
 
 document
 .getElementById("editShowImage")
 .value =
 "";
 
-
 document
 .getElementById("editShowImageName")
 .textContent =
 "";
 
-
 const preview =
 document
 .getElementById("editShowPreview");
-
 
 if(!show){
 
@@ -2126,18 +2040,15 @@ document
 .value =
 "";
 
-
 document
 .getElementById("editShowDescription")
 .value =
 "";
 
-
 document
 .getElementById("editShowPublished")
 .checked =
 false;
-
 
 preview.style.display =
 "none";
@@ -2146,24 +2057,20 @@ return;
 
 }
 
-
 document
 .getElementById("editShowTitle")
 .value =
 show.title || "";
-
 
 document
 .getElementById("editShowDescription")
 .value =
 show.description || "";
 
-
 document
 .getElementById("editShowPublished")
 .checked =
 show.is_published === true;
-
 
 if(show.thumbnail_url){
 
@@ -2184,7 +2091,6 @@ preview.style.display =
 }
 );
 
-
 document
 .getElementById("saveShowBtn")
 .addEventListener(
@@ -2196,10 +2102,8 @@ document
 .getElementById("manageShowEdit")
 .value;
 
-
 const show =
 getShow(showId);
-
 
 if(!show){
 
@@ -2207,13 +2111,11 @@ return;
 
 }
 
-
 const title =
 document
 .getElementById("editShowTitle")
 .value
 .trim();
-
 
 if(!title){
 
@@ -2226,20 +2128,16 @@ return;
 
 }
 
-
 this.disabled =
 true;
 
-
 this.textContent =
 "SAVING...";
-
 
 try{
 
 let artworkUrl =
 show.thumbnail_url || null;
-
 
 if(editShowImage){
 
@@ -2248,7 +2146,6 @@ message(
 "Uploading new show artwork..."
 );
 
-
 artworkUrl =
 await uploadImage(
 editShowImage,
@@ -2256,7 +2153,6 @@ editShowImage,
 );
 
 }
-
 
 const result =
 await db
@@ -2285,28 +2181,23 @@ document
 showId
 );
 
-
 if(result.error){
 
 throw result.error;
 
 }
 
-
 message(
 "manageShowStatus",
 "Show saved successfully."
 );
 
-
 await loadEverything();
-
 
 document
 .getElementById("manageShowEdit")
 .value =
 showId;
-
 
 document
 .getElementById("manageShowEdit")
@@ -2314,12 +2205,10 @@ document
 new Event("change")
 );
 
-
 }
 catch(error){
 
 console.error(error);
-
 
 message(
 "manageShowStatus",
@@ -2341,7 +2230,6 @@ this.textContent =
 }
 );
 
-
 /* DELETE SHOW */
 
 document
@@ -2355,10 +2243,8 @@ document
 .getElementById("manageShowEdit")
 .value;
 
-
 const show =
 getShow(showId);
-
 
 if(!show){
 
@@ -2366,12 +2252,10 @@ return;
 
 }
 
-
 const first =
 confirm(
 `DELETE "${show.title}"?\n\nThis will permanently remove the show, every season, every episode, and every Mux video underneath it.`
 );
-
 
 if(!first){
 
@@ -2379,12 +2263,10 @@ return;
 
 }
 
-
 const second =
 confirm(
 "FINAL CONFIRMATION:\n\nThis cannot be undone. Delete the entire show?"
 );
-
 
 if(!second){
 
@@ -2392,14 +2274,11 @@ return;
 
 }
 
-
 this.disabled =
 true;
 
-
 this.textContent =
 "DELETING EVERYTHING...";
-
 
 try{
 
@@ -2408,27 +2287,22 @@ await adminDelete(
 showId
 );
 
-
 message(
 "manageShowStatus",
 "Show and all associated content deleted."
 );
-
 
 document
 .getElementById("manageShowEdit")
 .value =
 "";
 
-
 await loadEverything();
-
 
 }
 catch(error){
 
 console.error(error);
-
 
 message(
 "manageShowStatus",
@@ -2450,7 +2324,6 @@ this.textContent =
 }
 );
 
-
 /* ===============================
 CREATE SEASON
 =============================== */
@@ -2466,14 +2339,12 @@ document
 .getElementById("seasonShow")
 .value;
 
-
 const number =
 Number(
 document
 .getElementById("seasonNumber")
 .value
 );
-
 
 if(
 !showId ||
@@ -2489,10 +2360,8 @@ return;
 
 }
 
-
 this.disabled =
 true;
-
 
 try{
 
@@ -2520,46 +2389,38 @@ document
 
 });
 
-
 if(result.error){
 
 throw result.error;
 
 }
 
-
 document
 .getElementById("seasonNumber")
 .value =
 "";
-
 
 document
 .getElementById("seasonTitle")
 .value =
 "";
 
-
 document
 .getElementById("seasonPublished")
 .checked =
 false;
-
 
 message(
 "seasonStatus",
 "Season created successfully."
 );
 
-
 await loadEverything();
-
 
 }
 catch(error){
 
 console.error(error);
-
 
 message(
 "seasonStatus",
@@ -2578,7 +2439,6 @@ false;
 }
 );
 
-
 /* ===============================
 MANAGE SEASON
 =============================== */
@@ -2592,11 +2452,9 @@ function(){
 const showId =
 this.value;
 
-
 const select =
 document
 .getElementById("manageSeasonEdit");
-
 
 const matches =
 seasons.filter(
@@ -2604,10 +2462,8 @@ season =>
 season.show_id === showId
 );
 
-
 select.disabled =
 !showId;
-
 
 select.innerHTML =
 `
@@ -2626,14 +2482,12 @@ ${season.title ? " — " + escapeHtml(season.title) : ""}
 ).join("")}
 `;
 
-
 select.dispatchEvent(
 new Event("change")
 );
 
 }
 );
-
 
 document
 .getElementById("manageSeasonEdit")
@@ -2646,10 +2500,8 @@ getSeason(
 this.value
 );
 
-
 const enabled =
 !!season;
-
 
 [
 "editSeasonNumber",
@@ -2665,7 +2517,6 @@ document
 !enabled
 );
 
-
 if(!season){
 
 document
@@ -2673,35 +2524,29 @@ document
 .value =
 "";
 
-
 document
 .getElementById("editSeasonTitle")
 .value =
 "";
-
 
 document
 .getElementById("editSeasonPublished")
 .checked =
 false;
 
-
 return;
 
 }
-
 
 document
 .getElementById("editSeasonNumber")
 .value =
 season.season_number || "";
 
-
 document
 .getElementById("editSeasonTitle")
 .value =
 season.title || "";
-
 
 document
 .getElementById("editSeasonPublished")
@@ -2710,7 +2555,6 @@ season.is_published === true;
 
 }
 );
-
 
 document
 .getElementById("saveSeasonBtn")
@@ -2723,13 +2567,11 @@ document
 .getElementById("manageSeasonEdit")
 .value;
 
-
 if(!seasonId){
 
 return;
 
 }
-
 
 const number =
 Number(
@@ -2737,7 +2579,6 @@ document
 .getElementById("editSeasonNumber")
 .value
 );
-
 
 if(!number){
 
@@ -2750,10 +2591,8 @@ return;
 
 }
 
-
 this.disabled =
 true;
-
 
 try{
 
@@ -2782,28 +2621,23 @@ document
 seasonId
 );
 
-
 if(result.error){
 
 throw result.error;
 
 }
 
-
 message(
 "manageSeasonStatus",
 "Season saved."
 );
 
-
 await loadEverything();
-
 
 }
 catch(error){
 
 console.error(error);
-
 
 message(
 "manageSeasonStatus",
@@ -2822,7 +2656,6 @@ false;
 }
 );
 
-
 /* DELETE SEASON */
 
 document
@@ -2836,17 +2669,14 @@ document
 .getElementById("manageSeasonEdit")
 .value;
 
-
 const season =
 getSeason(seasonId);
-
 
 if(!season){
 
 return;
 
 }
-
 
 if(
 !confirm(
@@ -2858,14 +2688,11 @@ return;
 
 }
 
-
 this.disabled =
 true;
 
-
 this.textContent =
 "DELETING...";
-
 
 try{
 
@@ -2874,15 +2701,12 @@ await adminDelete(
 seasonId
 );
 
-
 message(
 "manageSeasonStatus",
 "Season and its content deleted."
 );
 
-
 await loadEverything();
-
 
 document
 .getElementById("manageSeasonShow")
@@ -2890,12 +2714,10 @@ document
 new Event("change")
 );
 
-
 }
 catch(error){
 
 console.error(error);
-
 
 message(
 "manageSeasonStatus",
@@ -2917,7 +2739,6 @@ this.textContent =
 }
 );
 
-
 /* ===============================
 EPISODE SHOW → SEASON
 =============================== */
@@ -2936,7 +2757,6 @@ this.value,
 }
 );
 
-
 /* ===============================
 CREATE EPISODE
 =============================== */
@@ -2952,7 +2772,6 @@ document
 .getElementById("episodeSeason")
 .value;
 
-
 const number =
 Number(
 document
@@ -2960,13 +2779,11 @@ document
 .value
 );
 
-
 const title =
 document
 .getElementById("episodeTitle")
 .value
 .trim();
-
 
 if(
 !seasonId ||
@@ -2983,20 +2800,16 @@ return;
 
 }
 
-
 this.disabled =
 true;
 
-
 this.textContent =
 "CREATING...";
-
 
 try{
 
 let artworkUrl =
 null;
-
 
 if(newEpisodeImage){
 
@@ -3005,7 +2818,6 @@ message(
 "Uploading episode artwork..."
 );
 
-
 artworkUrl =
 await uploadImage(
 newEpisodeImage,
@@ -3013,7 +2825,6 @@ newEpisodeImage,
 );
 
 }
-
 
 const result =
 await db
@@ -3045,68 +2856,56 @@ false
 
 });
 
-
 if(result.error){
 
 throw result.error;
 
 }
 
-
 document
 .getElementById("episodeNumber")
 .value =
 "";
-
 
 document
 .getElementById("episodeTitle")
 .value =
 "";
 
-
 document
 .getElementById("episodeDescription")
 .value =
 "";
-
 
 document
 .getElementById("newEpisodeImage")
 .value =
 "";
 
-
 document
 .getElementById("newEpisodeImageName")
 .textContent =
 "";
-
 
 document
 .getElementById("newEpisodePreview")
 .style.display =
 "none";
 
-
 newEpisodeImage =
 null;
-
 
 message(
 "episodeStatus",
 "Episode draft created. Select it below to upload the finished video."
 );
 
-
 await loadEverything();
-
 
 }
 catch(error){
 
 console.error(error);
-
 
 message(
 "episodeStatus",
@@ -3128,7 +2927,6 @@ this.textContent =
 }
 );
 
-
 /* ===============================
 SEASON SELECTOR HELPER
 =============================== */
@@ -3143,17 +2941,14 @@ document.getElementById(
 selectId
 );
 
-
 const matches =
 seasons.filter(
 season =>
 season.show_id === showId
 );
 
-
 select.disabled =
 !showId;
-
 
 select.innerHTML =
 `
@@ -3174,7 +2969,6 @@ ${season.title ? " — " + escapeHtml(season.title) : ""}
 
 }
 
-
 /* ===============================
 MANAGE EPISODE SELECTORS
 =============================== */
@@ -3190,12 +2984,10 @@ this.value,
 "manageSeason"
 );
 
-
 document
 .getElementById("manageEpisode")
 .disabled =
 true;
-
 
 document
 .getElementById("manageEpisode")
@@ -3206,12 +2998,10 @@ Select episode
 </option>
 `;
 
-
 clearEpisodeEditor();
 
 }
 );
-
 
 document
 .getElementById("manageSeason")
@@ -3222,11 +3012,9 @@ function(){
 const seasonId =
 this.value;
 
-
 const select =
 document
 .getElementById("manageEpisode");
-
 
 const matches =
 episodes.filter(
@@ -3234,10 +3022,8 @@ episode =>
 episode.season_id === seasonId
 );
 
-
 select.disabled =
 !seasonId;
-
 
 select.innerHTML =
 `
@@ -3256,12 +3042,10 @@ Episode ${episode.episode_number}
 ).join("")}
 `;
 
-
 clearEpisodeEditor();
 
 }
 );
-
 
 document
 .getElementById("manageEpisode")
@@ -3275,7 +3059,6 @@ this.value
 
 }
 );
-
 
 /* ===============================
 EPISODE EDITOR
@@ -3297,54 +3080,45 @@ document
 true
 );
 
-
 document
 .getElementById("editTitle")
 .value =
 "";
-
 
 document
 .getElementById("editDescription")
 .value =
 "";
 
-
 document
 .getElementById("editPublished")
 .checked =
 false;
-
 
 document
 .getElementById("editEpisodePreview")
 .style.display =
 "none";
 
-
 document
 .getElementById("episodePublishWarning")
 .style.display =
 "none";
-
 
 document
 .getElementById("uploadVideoBtn")
 .disabled =
 true;
 
-
 document
 .getElementById("replaceVideoBtn")
 .disabled =
 true;
 
-
 document
 .getElementById("removeVideoBtn")
 .disabled =
 true;
-
 
 editEpisodeImage =
 null;
@@ -3353,7 +3127,6 @@ selectedVideo =
 null;
 
 }
-
 
 function loadEpisodeEditor(
 episodeId
@@ -3364,7 +3137,6 @@ getEpisode(
 episodeId
 );
 
-
 if(!episode){
 
 clearEpisodeEditor();
@@ -3373,59 +3145,49 @@ return;
 
 }
 
-
 document
 .getElementById("editTitle")
 .disabled =
 false;
-
 
 document
 .getElementById("editDescription")
 .disabled =
 false;
 
-
 document
 .getElementById("editPublished")
 .disabled =
 false;
-
 
 document
 .getElementById("saveEpisodeBtn")
 .disabled =
 false;
 
-
 document
 .getElementById("deleteEpisodeBtn")
 .disabled =
 false;
-
 
 document
 .getElementById("editTitle")
 .value =
 episode.title || "";
 
-
 document
 .getElementById("editDescription")
 .value =
 episode.description || "";
-
 
 document
 .getElementById("editPublished")
 .checked =
 episode.is_published === true;
 
-
 const preview =
 document
 .getElementById("editEpisodePreview");
-
 
 if(episode.thumbnail_url){
 
@@ -3443,7 +3205,6 @@ preview.style.display =
 
 }
 
-
 document
 .getElementById("episodePublishWarning")
 .style.display =
@@ -3453,12 +3214,10 @@ episode.video_id
 :
 "block";
 
-
 document
 .getElementById("removeVideoBtn")
 .disabled =
 !episode.video_id;
-
 
 document
 .getElementById("replaceVideoBtn")
@@ -3467,7 +3226,6 @@ document
 episode.video_id &&
 selectedVideo
 );
-
 
 document
 .getElementById("uploadVideoBtn")
@@ -3478,7 +3236,6 @@ selectedVideo
 );
 
 }
-
 
 /* ===============================
 SAVE EPISODE
@@ -3495,12 +3252,10 @@ document
 .getElementById("manageEpisode")
 .value;
 
-
 const episode =
 getEpisode(
 episodeId
 );
-
 
 if(!episode){
 
@@ -3508,12 +3263,10 @@ return;
 
 }
 
-
 const wantsPublished =
 document
 .getElementById("editPublished")
 .checked;
-
 
 if(
 wantsPublished &&
@@ -3525,31 +3278,25 @@ document
 .checked =
 false;
 
-
 message(
 "editStatus",
 "Upload the finished Mux video before publishing."
 );
 
-
 return;
 
 }
 
-
 this.disabled =
 true;
 
-
 this.textContent =
 "SAVING...";
-
 
 try{
 
 let artworkUrl =
 episode.thumbnail_url || null;
-
 
 if(editEpisodeImage){
 
@@ -3558,7 +3305,6 @@ message(
 "Uploading new episode artwork..."
 );
 
-
 artworkUrl =
 await uploadImage(
 editEpisodeImage,
@@ -3566,7 +3312,6 @@ editEpisodeImage,
 );
 
 }
-
 
 const result =
 await db
@@ -3597,13 +3342,11 @@ wantsPublished
 episodeId
 );
 
-
 if(result.error){
 
 throw result.error;
 
 }
-
 
 message(
 "editStatus",
@@ -3614,26 +3357,21 @@ wantsPublished
 "Episode saved as draft."
 );
 
-
 await loadEverything();
-
 
 document
 .getElementById("manageEpisode")
 .value =
 episodeId;
 
-
 loadEpisodeEditor(
 episodeId
 );
-
 
 }
 catch(error){
 
 console.error(error);
-
 
 message(
 "editStatus",
@@ -3655,7 +3393,6 @@ this.textContent =
 }
 );
 
-
 /* ===============================
 DELETE EPISODE
 =============================== */
@@ -3671,17 +3408,14 @@ document
 .getElementById("manageEpisode")
 .value;
 
-
 const episode =
 getEpisode(episodeId);
-
 
 if(!episode){
 
 return;
 
 }
-
 
 if(
 !confirm(
@@ -3693,14 +3427,11 @@ return;
 
 }
 
-
 this.disabled =
 true;
 
-
 this.textContent =
 "DELETING...";
-
 
 try{
 
@@ -3709,15 +3440,12 @@ await adminDelete(
 episodeId
 );
 
-
 message(
 "editStatus",
 "Episode and Mux video deleted."
 );
 
-
 await loadEverything();
-
 
 document
 .getElementById("manageSeason")
@@ -3725,12 +3453,10 @@ document
 new Event("change")
 );
 
-
 }
 catch(error){
 
 console.error(error);
-
 
 message(
 "editStatus",
@@ -3751,7 +3477,6 @@ this.textContent =
 
 }
 );
-
 
 /* ===============================
 DELETE BACKEND
@@ -3793,9 +3518,7 @@ id
 }
 );
 
-
 let data = {};
-
 
 try{
 
@@ -3804,7 +3527,6 @@ await response.json();
 
 }
 catch(error){}
-
 
 if(!response.ok){
 
@@ -3815,11 +3537,9 @@ data.error ||
 
 }
 
-
 return data;
 
 }
-
 
 /* ===============================
 VIDEO PICKER
@@ -3838,7 +3558,6 @@ document
 }
 );
 
-
 document
 .getElementById("videoInput")
 .addEventListener(
@@ -3847,7 +3566,6 @@ function(){
 
 selectedVideo =
 this.files?.[0] || null;
-
 
 document
 .getElementById("videoFileName")
@@ -3858,18 +3576,15 @@ selectedVideo.name
 :
 "";
 
-
 const episodeId =
 document
 .getElementById("manageEpisode")
 .value;
 
-
 const episode =
 getEpisode(
 episodeId
 );
-
 
 document
 .getElementById("uploadVideoBtn")
@@ -3879,7 +3594,6 @@ selectedVideo &&
 episode &&
 !episode.video_id
 );
-
 
 document
 .getElementById("replaceVideoBtn")
@@ -3892,7 +3606,6 @@ episode.video_id
 
 }
 );
-
 
 /* ===============================
 NORMAL VIDEO UPLOAD
@@ -3909,7 +3622,6 @@ document
 .getElementById("manageEpisode")
 .value;
 
-
 if(
 !episodeId ||
 !selectedVideo
@@ -3919,14 +3631,12 @@ return;
 
 }
 
-
 await uploadEpisodeVideo(
 episodeId
 );
 
 }
 );
-
 
 /* ===============================
 REPLACE VIDEO
@@ -3943,12 +3653,10 @@ document
 .getElementById("manageEpisode")
 .value;
 
-
 const episode =
 getEpisode(
 episodeId
 );
-
 
 if(
 !episode ||
@@ -3958,7 +3666,6 @@ if(
 return;
 
 }
-
 
 if(
 !confirm(
@@ -3970,14 +3677,11 @@ return;
 
 }
 
-
 this.disabled =
 true;
 
-
 this.textContent =
 "REMOVING OLD VIDEO...";
-
 
 try{
 
@@ -3986,26 +3690,21 @@ message(
 "Removing old Mux video..."
 );
 
-
 await adminDelete(
 "video",
 episodeId
 );
 
-
 await loadEverything();
-
 
 await uploadEpisodeVideo(
 episodeId
 );
 
-
 }
 catch(error){
 
 console.error(error);
-
 
 message(
 "uploadStatus",
@@ -4027,7 +3726,6 @@ this.textContent =
 }
 );
 
-
 /* ===============================
 REMOVE VIDEO ONLY
 =============================== */
@@ -4043,13 +3741,11 @@ document
 .getElementById("manageEpisode")
 .value;
 
-
 if(!episodeId){
 
 return;
 
 }
-
 
 if(
 !confirm(
@@ -4061,14 +3757,11 @@ return;
 
 }
 
-
 this.disabled =
 true;
 
-
 this.textContent =
 "REMOVING...";
-
 
 try{
 
@@ -4077,32 +3770,26 @@ await adminDelete(
 episodeId
 );
 
-
 message(
 "uploadStatus",
 "Mux video removed. Episode returned to Draft."
 );
 
-
 await loadEverything();
-
 
 document
 .getElementById("manageEpisode")
 .value =
 episodeId;
 
-
 loadEpisodeEditor(
 episodeId
 );
-
 
 }
 catch(error){
 
 console.error(error);
-
 
 message(
 "uploadStatus",
@@ -4124,7 +3811,6 @@ this.textContent =
 }
 );
 
-
 /* ===============================
 MUX UPLOAD
 =============================== */
@@ -4141,33 +3827,27 @@ throw new Error(
 
 }
 
-
 const progressBox =
 document
 .getElementById("progressBox");
 
-
 progressBox.style.display =
 "block";
-
 
 document
 .getElementById("progressBar")
 .style.width =
 "0%";
 
-
 document
 .getElementById("progressText")
 .textContent =
 "0%";
 
-
 message(
 "uploadStatus",
 "Creating secure Mux upload..."
 );
-
 
 const response =
 await fetch(
@@ -4199,9 +3879,7 @@ episodeId
 }
 );
 
-
 let data = {};
-
 
 try{
 
@@ -4210,7 +3888,6 @@ await response.json();
 
 }
 catch(error){}
-
 
 if(
 !response.ok ||
@@ -4224,65 +3901,53 @@ data.error ||
 
 }
 
-
 message(
 "uploadStatus",
 "Uploading finished episode to Mux..."
 );
-
 
 await uploadFileToMux(
 data.uploadUrl,
 selectedVideo
 );
 
-
 message(
 "uploadStatus",
 "Upload complete. Mux is processing the video..."
 );
-
 
 document
 .getElementById("progressText")
 .textContent =
 "PROCESSING";
 
-
 await waitForVideo(
 episodeId
 );
 
-
 await loadEverything();
-
 
 document
 .getElementById("manageEpisode")
 .value =
 episodeId;
 
-
 loadEpisodeEditor(
 episodeId
 );
 
-
 selectedVideo =
 null;
-
 
 document
 .getElementById("videoInput")
 .value =
 "";
 
-
 document
 .getElementById("videoFileName")
 .textContent =
 "";
-
 
 message(
 "uploadStatus",
@@ -4290,7 +3955,6 @@ message(
 );
 
 }
-
 
 /* ===============================
 UPLOAD FILE TO MUX
@@ -4307,12 +3971,10 @@ return new Promise(
 const xhr =
 new XMLHttpRequest();
 
-
 xhr.open(
 "PUT",
 url
 );
-
 
 xhr.upload.addEventListener(
 "progress",
@@ -4324,18 +3986,15 @@ return;
 
 }
 
-
 const percent =
 Math.round(
 (event.loaded / event.total) * 100
 );
 
-
 document
 .getElementById("progressBar")
 .style.width =
 `${percent}%`;
-
 
 document
 .getElementById("progressText")
@@ -4344,7 +4003,6 @@ document
 
 }
 );
-
 
 xhr.addEventListener(
 "load",
@@ -4371,7 +4029,6 @@ new Error(
 }
 );
 
-
 xhr.addEventListener(
 "error",
 () => {
@@ -4385,14 +4042,12 @@ new Error(
 }
 );
 
-
 xhr.send(file);
 
 }
 );
 
 }
-
 
 /* ===============================
 WAIT FOR MUX WEBHOOK
@@ -4416,7 +4071,6 @@ resolve,
 )
 );
 
-
 const result =
 await db
 .from("episodes")
@@ -4429,7 +4083,6 @@ episodeId
 )
 .maybeSingle();
 
-
 if(
 !result.error &&
 result.data?.video_id
@@ -4439,7 +4092,6 @@ return true;
 
 }
 
-
 document
 .getElementById("progressText")
 .textContent =
@@ -4447,13 +4099,11 @@ document
 
 }
 
-
 throw new Error(
 "Upload finished, but Mux is still processing. Refresh Admin in a few minutes."
 );
 
 }
-
 
 /* ===============================
 NETWORK STATUS
@@ -4464,7 +4114,6 @@ function renderContentStatus(){
 const container =
 document
 .getElementById("contentList");
-
 
 if(!shows.length){
 
@@ -4479,7 +4128,6 @@ return;
 
 }
 
-
 container.innerHTML =
 shows.map(
 show => {
@@ -4489,7 +4137,6 @@ seasons.filter(
 season =>
 season.show_id === show.id
 );
-
 
 return `
 <div class="content-row">
@@ -4517,7 +4164,6 @@ ${show.is_published ? "SHOW LIVE" : "SHOW DRAFT"}
 
 </div>
 
-
 ${showSeasons.map(
 season => {
 
@@ -4526,7 +4172,6 @@ episodes.filter(
 episode =>
 episode.season_id === season.id
 );
-
 
 return `
 <div class="content-row">
@@ -4554,7 +4199,6 @@ ${season.is_published ? "SEASON LIVE" : "SEASON DRAFT"}
 </div>
 
 </div>
-
 
 ${seasonEpisodes.map(
 episode =>
@@ -4603,6 +4247,152 @@ ${episode.is_published ? "EPISODE LIVE" : "EPISODE DRAFT"}
 
 }
 
+/* ===============================
+SUBSCRIBER PASSWORD RESET
+=============================== */
+
+document
+.getElementById("sendResetBtn")
+.addEventListener(
+"click",
+async function(){
+
+const email =
+document
+.getElementById("supportResetEmail")
+.value
+.trim()
+.toLowerCase();
+
+hideMessage(
+"supportResetStatus"
+);
+
+if(
+!email ||
+!email.includes("@")
+){
+
+message(
+"supportResetStatus",
+"Enter a valid subscriber email address."
+);
+
+return;
+
+}
+
+if(!currentSession){
+
+message(
+"supportResetStatus",
+"Administrator session expired. Sign in again."
+);
+
+return;
+
+}
+
+const confirmed =
+confirm(
+`Send a password reset email to:\n\n${email}?`
+);
+
+if(!confirmed){
+
+return;
+
+}
+
+this.disabled =
+true;
+
+this.textContent =
+"SENDING RESET...";
+
+try{
+
+const response =
+await fetch(
+`${SUPABASE_URL}/functions/v1/asi-admin-password-reset`,
+{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":
+"application/json",
+
+"Authorization":
+`Bearer ${currentSession.access_token}`,
+
+"apikey":
+SUPABASE_KEY
+
+},
+
+body:
+JSON.stringify({
+email
+})
+
+}
+);
+
+let data = {};
+
+try{
+
+data =
+await response.json();
+
+}
+catch(error){}
+
+if(!response.ok){
+
+throw new Error(
+data.error ||
+"Unable to send password reset."
+);
+
+}
+
+message(
+"supportResetStatus",
+`Password reset email sent to ${email}.`
+);
+
+document
+.getElementById("supportResetEmail")
+.value =
+"";
+
+}
+catch(error){
+
+console.error(error);
+
+message(
+"supportResetStatus",
+error.message ||
+"Unable to send password reset."
+);
+
+}
+finally{
+
+this.disabled =
+false;
+
+this.textContent =
+"SEND PASSWORD RESET";
+
+}
+
+}
+);
 
 /* ===============================
 START
