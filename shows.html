@@ -309,7 +309,7 @@ color:#888;
 }
 
 /* =========================
-MEMBERSHIP CTA
+MEMBERSHIP
 ========================= */
 
 .membership{
@@ -405,10 +405,7 @@ padding:0 12px;
 
 <header>
 
-<a
-class="logo"
-href="/"
->
+<a class="logo" href="/">
 ASI NETWORK <span>FRL</span> 👁️
 </a>
 
@@ -457,7 +454,6 @@ href="https://square.link/u/0l47AY8p"
 >
 SUBSCRIBE
 </a>
-
 
 <div
 id="accountWrap"
@@ -542,7 +538,7 @@ BROWSE
 
 <p>
 Explore ASI Network FRL original reality programming.
-Anyone can browse shows and episode information.
+Browse published shows and episode information.
 Full episode playback requires an active subscription.
 </p>
 
@@ -740,7 +736,7 @@ document
 currentUser.email || "";
 
 
-/* CHECK ADMIN */
+/* ADMIN CHECK */
 
 const adminResult =
 await sb
@@ -769,7 +765,7 @@ return;
 }
 
 
-/* CHECK SUBSCRIPTION */
+/* MEMBERSHIP CHECK */
 
 try{
 
@@ -871,7 +867,7 @@ showVisitorState();
 
 
 /* =========================
-VISITOR STATE
+VISITOR
 ========================= */
 
 function showVisitorState(){
@@ -1027,7 +1023,7 @@ revealMembershipSection();
 
 
 /* =========================
-SIGNED IN BUT INACTIVE
+SIGNED IN / INACTIVE
 ========================= */
 
 function showSignedInInactiveState(){
@@ -1172,7 +1168,7 @@ window.location.replace(
 
 
 /* =========================
-LOAD SHOWS
+LOAD PUBLISHED SHOWS ONLY
 ========================= */
 
 async function loadShows(){
@@ -1186,7 +1182,13 @@ try{
 const result =
 await sb
 .from("shows")
-.select("*")
+.select(
+"id,title,description,thumbnail_url,is_published,created_at"
+)
+.eq(
+"is_published",
+true
+)
 .order(
 "created_at",
 {
@@ -1227,7 +1229,9 @@ show => {
 const thumbnailStyle =
 show.thumbnail_url
 ?
-`background-image:url('${escapeHtml(show.thumbnail_url)}')`
+`background-image:url('${escapeHtml(
+show.thumbnail_url
+)}')`
 :
 "";
 
@@ -1239,7 +1243,7 @@ return `
 class="thumb"
 style="${thumbnailStyle}"
 >
-👁️
+${show.thumbnail_url ? "" : "👁️"}
 </div>
 
 <div class="card-body">
@@ -1259,7 +1263,9 @@ show.description ||
 
 <a
 class="btn primary"
-href="/show.html?id=${encodeURIComponent(show.id)}"
+href="/show.html?id=${encodeURIComponent(
+show.id
+)}"
 >
 VIEW SHOW
 </a>
