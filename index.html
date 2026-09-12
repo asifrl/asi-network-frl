@@ -58,6 +58,7 @@ font:inherit;
 cursor:pointer;
 }
 
+
 /* =========================
 NAVIGATION
 ========================= */
@@ -141,13 +142,9 @@ border-color:#fff;
 background:#e8e8e8;
 }
 
+
 /* =========================
 AUTH LOADING STATE
-
-IMPORTANT:
-Conditional account/subscription buttons
-start hidden. JS shows ONLY the correct
-state after Supabase finishes checking.
 ========================= */
 
 #navSubscribe,
@@ -169,6 +166,7 @@ visibility:hidden;
 #subscribePanel.auth-ready{
 visibility:visible;
 }
+
 
 /* =========================
 ACCOUNT MENU
@@ -222,6 +220,7 @@ background:#1d1d1d;
 #adminLink{
 display:none;
 }
+
 
 /* =========================
 HERO
@@ -278,6 +277,7 @@ gap:10px;
 flex-wrap:wrap;
 margin-top:26px;
 }
+
 
 /* =========================
 CONTENT
@@ -377,6 +377,7 @@ border-radius:8px;
 color:#888;
 }
 
+
 /* =========================
 SUBSCRIPTION / MEMBER PANEL
 ========================= */
@@ -421,6 +422,7 @@ flex-wrap:wrap;
 margin-top:24px;
 }
 
+
 /* =========================
 FOOTER
 ========================= */
@@ -435,6 +437,7 @@ justify-content:space-between;
 gap:15px;
 flex-wrap:wrap;
 }
+
 
 /* =========================
 RESPONSIVE
@@ -572,7 +575,6 @@ id="accountEmail"
 class="account-email"
 ></div>
 
-
 <a
 class="menu-item"
 href="/members.html"
@@ -580,14 +582,12 @@ href="/members.html"
 Member Home
 </a>
 
-
 <a
 class="menu-item"
 href="/members.html"
 >
 Account Settings
 </a>
-
 
 <a
 id="adminLink"
@@ -597,14 +597,12 @@ href="/admin.html"
 Admin Dashboard
 </a>
 
-
 <a
 class="menu-item"
 href="mailto:support@asinetworkfrl.com"
 >
 Help & Support
 </a>
-
 
 <button
 id="logoutButton"
@@ -653,7 +651,6 @@ href="/shows.html"
 BROWSE SHOWS
 </a>
 
-
 <a
 id="heroSubscribe"
 class="btn"
@@ -661,7 +658,6 @@ href="https://square.link/u/0l47AY8p"
 >
 SUBSCRIBE • $5.99/MO
 </a>
-
 
 <a
 id="heroMember"
@@ -680,10 +676,6 @@ GO TO MY ACCOUNT
 
 <main>
 
-
-<!-- =========================
-ASI ORIGINALS
-========================= -->
 
 <section class="section">
 
@@ -714,10 +706,6 @@ Loading ASI Network FRL originals...
 </section>
 
 
-<!-- =========================
-LATEST EPISODES
-========================= -->
-
 <section
 id="episodes"
 class="section"
@@ -746,10 +734,6 @@ Loading latest episodes...
 </section>
 
 
-<!-- =========================
-SUBSCRIPTION / MEMBER PANEL
-========================= -->
-
 <section
 id="subscribePanel"
 class="subscribe"
@@ -759,16 +743,12 @@ class="subscribe"
 ASI Network FRL
 </h2>
 
-
 <div
 id="priceDisplay"
 class="price"
->
-</div>
+></div>
 
-
-<p id="subscribeText">
-</p>
+<p id="subscribeText"></p>
 
 
 <div class="subscribe-actions">
@@ -781,7 +761,6 @@ href="https://square.link/u/0l47AY8p"
 START SUBSCRIPTION
 </a>
 
-
 <a
 id="bottomSignInButton"
 class="btn"
@@ -789,7 +768,6 @@ href="/login.html"
 >
 ALREADY SUBSCRIBED? SIGN IN
 </a>
-
 
 <a
 id="bottomAccountButton"
@@ -802,6 +780,7 @@ GO TO MY ACCOUNT
 </div>
 
 </section>
+
 
 </main>
 
@@ -828,14 +807,8 @@ support@asinetworkfrl.com
 const SUPABASE_URL =
 "https://gvvtwwrjfscaunczptpv.supabase.co";
 
-
 const SUPABASE_KEY =
 "sb_publishable_iliNeR5tX_4X4KAh5ZjPpA_e6ueLnP-";
-
-
-const SQUARE_CHECKOUT =
-"https://square.link/u/0l47AY8p";
-
 
 const sb =
 supabase.createClient(
@@ -886,7 +859,6 @@ try{
 const result =
 await sb.auth.getSession();
 
-
 currentSession =
 result.data.session;
 
@@ -910,9 +882,7 @@ document
 currentUser.email || "";
 
 
-/* =========================
-CHECK ADMIN
-========================= */
+/* ADMIN */
 
 const adminResult =
 await sb
@@ -941,9 +911,7 @@ return;
 }
 
 
-/* =========================
-CHECK ACTIVE SUBSCRIPTION
-========================= */
+/* ACTIVE SUBSCRIPTION */
 
 try{
 
@@ -1024,7 +992,7 @@ showMemberState();
 }
 else{
 
-showSignedInInactiveState();
+showInactiveState();
 
 }
 
@@ -1045,7 +1013,7 @@ showVisitorState();
 
 
 /* =========================
-VISITOR STATE
+VISITOR
 ========================= */
 
 function showVisitorState(){
@@ -1055,30 +1023,25 @@ document
 .style.display =
 "inline-flex";
 
-
 document
 .getElementById("subscribeNavButton")
 .style.display =
 "inline-flex";
-
 
 document
 .getElementById("navSubscribe")
 .style.display =
 "inline";
 
-
 document
 .getElementById("accountWrap")
 .style.display =
 "none";
 
-
 document
 .getElementById("heroSubscribe")
 .style.display =
 "inline-flex";
-
 
 document
 .getElementById("heroMember")
@@ -1089,19 +1052,19 @@ document
 document
 .getElementById("subscribeTitle")
 .textContent =
-"Watch ASI Network FRL";
+"Stream ASI Network FRL";
 
 
 document
 .getElementById("priceDisplay")
 .textContent =
-"$5.99 / month";
+"$5.99 / MONTH";
 
 
 document
 .getElementById("subscribeText")
 .textContent =
-"Subscribe for full access to ASI Network FRL original shows, exclusive episodes and member-only entertainment.";
+"Subscribe for full access to ASI Network FRL original shows and subscriber-only episodes.";
 
 
 document
@@ -1144,30 +1107,25 @@ document
 .style.display =
 "none";
 
-
 document
 .getElementById("subscribeNavButton")
 .style.display =
 "none";
-
 
 document
 .getElementById("navSubscribe")
 .style.display =
 "none";
 
-
 document
 .getElementById("accountWrap")
 .style.display =
 "block";
 
-
 document
 .getElementById("heroSubscribe")
 .style.display =
 "none";
-
 
 document
 .getElementById("heroMember")
@@ -1178,7 +1136,7 @@ document
 document
 .getElementById("subscribeTitle")
 .textContent =
-"Welcome Back";
+"Your Member Access Is Active";
 
 
 document
@@ -1190,7 +1148,7 @@ document
 document
 .getElementById("subscribeText")
 .textContent =
-"Your ASI Network FRL member access is active. Browse shows, continue watching and manage your account.";
+"Your ASI Network FRL membership is active. Browse shows and watch available subscriber episodes.";
 
 
 document
@@ -1227,40 +1185,35 @@ revealAuthPanel();
 
 
 /* =========================
-SIGNED IN BUT INACTIVE
+SIGNED-IN INACTIVE
 ========================= */
 
-function showSignedInInactiveState(){
+function showInactiveState(){
 
 document
 .getElementById("signInButton")
 .style.display =
 "none";
 
-
 document
 .getElementById("subscribeNavButton")
 .style.display =
 "inline-flex";
-
 
 document
 .getElementById("navSubscribe")
 .style.display =
 "inline";
 
-
 document
 .getElementById("accountWrap")
 .style.display =
 "block";
 
-
 document
 .getElementById("heroSubscribe")
 .style.display =
 "inline-flex";
-
 
 document
 .getElementById("heroMember")
@@ -1277,13 +1230,13 @@ document
 document
 .getElementById("priceDisplay")
 .textContent =
-"$5.99 / month";
+"$5.99 / MONTH";
 
 
 document
 .getElementById("subscribeText")
 .textContent =
-"Your ASI Network FRL account is signed in, but an active subscription could not be verified. Subscribe to restore full episode access.";
+"Your account is signed in, but an active subscription could not be verified. Reactivate to watch full episodes.";
 
 
 document
@@ -1333,7 +1286,6 @@ function(event){
 
 event.stopPropagation();
 
-
 document
 .getElementById("accountMenu")
 .classList.toggle("show");
@@ -1348,7 +1300,6 @@ function(event){
 
 const menu =
 document.getElementById("accountMenu");
-
 
 const button =
 document.getElementById("accountButton");
@@ -1379,7 +1330,6 @@ async function(){
 
 await sb.auth.signOut();
 
-
 window.location.replace(
 "/"
 );
@@ -1389,7 +1339,7 @@ window.location.replace(
 
 
 /* =========================
-LOAD SHOWS
+LOAD PUBLISHED SHOWS
 ========================= */
 
 async function loadShows(){
@@ -1403,13 +1353,20 @@ try{
 const result =
 await sb
 .from("shows")
-.select("*")
+.select(
+"id,title,description,thumbnail_url,is_published,created_at"
+)
+.eq(
+"is_published",
+true
+)
 .order(
 "created_at",
 {
 ascending:true
 }
-);
+)
+.limit(8);
 
 
 if(result.error){
@@ -1441,10 +1398,12 @@ grid.innerHTML =
 shows.map(
 show => {
 
-const thumbnailStyle =
+const thumbStyle =
 show.thumbnail_url
 ?
-`background-image:url('${escapeHtml(show.thumbnail_url)}')`
+`background-image:url('${escapeHtml(
+show.thumbnail_url
+)}')`
 :
 "";
 
@@ -1454,12 +1413,16 @@ return `
 
 <div
 class="thumb"
-style="${thumbnailStyle}"
+style="${thumbStyle}"
 >
-👁️
+${show.thumbnail_url ? "" : "👁️"}
 </div>
 
 <div class="card-body">
+
+<div class="meta">
+ASI NETWORK FRL ORIGINAL
+</div>
 
 <h3>
 ${escapeHtml(show.title)}
@@ -1475,8 +1438,10 @@ show.description ||
 <div class="card-actions">
 
 <a
-class="btn"
-href="/show.html?id=${encodeURIComponent(show.id)}"
+class="btn primary"
+href="/show.html?id=${encodeURIComponent(
+show.id
+)}"
 >
 VIEW SHOW
 </a>
@@ -1496,7 +1461,7 @@ VIEW SHOW
 catch(error){
 
 console.error(
-"Shows error:",
+"Homepage shows error:",
 error
 );
 
@@ -1514,53 +1479,57 @@ Shows are temporarily unavailable.
 
 
 /* =========================
-LOAD EPISODES
+LOAD LATEST PUBLISHED
+EPISODES FROM PUBLISHED
+SHOWS + SEASONS ONLY
 ========================= */
 
 async function loadEpisodes(){
 
 const grid =
-document.getElementById("episodeGrid");
+document.getElementById(
+"episodeGrid"
+);
 
 
 try{
 
-const result =
+/*
+STEP 1:
+Get published shows.
+*/
+
+const showResult =
 await sb
-.from("episodes")
-.select(
-"id,episode_number,title,description,thumbnail_url,is_published"
-)
+.from("shows")
+.select("id")
 .eq(
 "is_published",
 true
-)
-.order(
-"episode_number",
-{
-ascending:false
-}
-)
-.limit(6);
+);
 
 
-if(result.error){
+if(showResult.error){
 
-throw result.error;
+throw showResult.error;
 
 }
 
 
-const episodes =
-result.data || [];
+const showIds =
+(showResult.data || [])
+.map(
+show =>
+show.id
+);
 
 
-if(!episodes.length){
+if(!showIds.length){
 
 grid.innerHTML =
 `
 <div class="empty">
-Published episodes are coming soon.
+Episodes are coming soon.
 </div>
 `;
 
@@ -1569,14 +1538,141 @@ return;
 }
 
 
+/*
+STEP 2:
+Only published seasons belonging
+to published shows.
+*/
+
+const seasonResult =
+await sb
+.from("seasons")
+.select(
+"id,show_id,season_number,title"
+)
+.in(
+"show_id",
+showIds
+)
+.eq(
+"is_published",
+true
+);
+
+
+if(seasonResult.error){
+
+throw seasonResult.error;
+
+}
+
+
+const seasons =
+seasonResult.data || [];
+
+
+const seasonIds =
+seasons.map(
+season =>
+season.id
+);
+
+
+if(!seasonIds.length){
+
+grid.innerHTML =
+`
+<div class="empty">
+Episodes are coming soon.
+</div>
+`;
+
+return;
+
+}
+
+
+/*
+STEP 3:
+Only published episodes belonging
+to those published seasons.
+*/
+
+const episodeResult =
+await sb
+.from("episodes")
+.select(
+"id,season_id,episode_number,title,description,thumbnail_url,is_published,created_at"
+)
+.in(
+"season_id",
+seasonIds
+)
+.eq(
+"is_published",
+true
+)
+.order(
+"created_at",
+{
+ascending:false
+}
+)
+.limit(8);
+
+
+if(episodeResult.error){
+
+throw episodeResult.error;
+
+}
+
+
+const episodes =
+episodeResult.data || [];
+
+
+if(!episodes.length){
+
+grid.innerHTML =
+`
+<div class="empty">
+New episodes are coming soon.
+</div>
+`;
+
+return;
+
+}
+
+
+const seasonMap =
+new Map(
+seasons.map(
+season => [
+season.id,
+season
+]
+)
+);
+
+
 grid.innerHTML =
 episodes.map(
 episode => {
 
-const thumbnailStyle =
+const season =
+seasonMap.get(
+episode.season_id
+);
+
+
+const thumbStyle =
 episode.thumbnail_url
 ?
-`background-image:url('${escapeHtml(episode.thumbnail_url)}')`
+`background-image:url('${escapeHtml(
+episode.thumbnail_url
+)}')`
 :
 "";
 
@@ -1586,21 +1682,26 @@ return `
 
 <div
 class="thumb"
-style="${thumbnailStyle}"
+style="${thumbStyle}"
 >
-▶
+${episode.thumbnail_url ? "" : "▶"}
 </div>
 
 <div class="card-body">
 
 <div class="meta">
-EPISODE ${escapeHtml(episode.episode_number)}
+SEASON ${escapeHtml(
+season?.season_number || ""
+)}
+• EPISODE ${escapeHtml(
+episode.episode_number || ""
+)}
 </div>
 
 <h3>
 ${escapeHtml(
 episode.title ||
-`Episode ${episode.episode_number}`
+`Episode ${episode.episode_number || ""}`
 )}
 </h3>
 
@@ -1615,9 +1716,11 @@ episode.description ||
 
 <a
 class="btn primary"
-href="/watch.html?id=${encodeURIComponent(episode.id)}"
+href="/watch.html?id=${encodeURIComponent(
+episode.id
+)}"
 >
-WATCH
+WATCH EPISODE
 </a>
 
 </div>
@@ -1635,7 +1738,7 @@ WATCH
 catch(error){
 
 console.error(
-"Episodes error:",
+"Homepage episodes error:",
 error
 );
 
