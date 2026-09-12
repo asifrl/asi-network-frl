@@ -2,12 +2,22 @@
 <html lang="en">
 
 <head>
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Watch | ASI Network FRL</title>
+<meta
+name="viewport"
+content="width=device-width,initial-scale=1"
+>
 
-<meta name="robots" content="noindex,nofollow">
+<title>
+Watch | ASI Network FRL
+</title>
+
+<meta
+name="robots"
+content="noindex,nofollow"
+>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -15,6 +25,7 @@
 type="module"
 src="https://cdn.jsdelivr.net/npm/@mux/mux-player/+esm"
 ></script>
+
 
 <style>
 
@@ -43,6 +54,7 @@ button{
 font:inherit;
 cursor:pointer;
 }
+
 
 /* =========================
 HEADER
@@ -85,10 +97,6 @@ font-weight:900;
 white-space:nowrap;
 }
 
-.nav a:hover{
-opacity:.7;
-}
-
 .nav-actions{
 display:flex;
 align-items:center;
@@ -110,19 +118,12 @@ font-size:12px;
 font-weight:900;
 }
 
-.btn:hover{
-background:#1a1a1a;
-}
-
 .btn.primary{
 background:#fff;
 color:#000;
 border-color:#fff;
 }
 
-.btn.primary:hover{
-background:#e8e8e8;
-}
 
 /* =========================
 ACCOUNT MENU
@@ -177,6 +178,7 @@ background:#1d1d1d;
 display:none;
 }
 
+
 /* =========================
 MAIN
 ========================= */
@@ -215,6 +217,7 @@ line-height:1.7;
 font-size:16px;
 margin-bottom:28px;
 }
+
 
 /* =========================
 PLAYER
@@ -283,8 +286,9 @@ letter-spacing:1px;
 color:#777;
 }
 
+
 /* =========================
-ACCOUNT SETTINGS MODAL
+ACCOUNT SETTINGS
 ========================= */
 
 .modal-overlay{
@@ -316,10 +320,6 @@ justify-content:space-between;
 align-items:center;
 gap:15px;
 margin-bottom:22px;
-}
-
-.modal-head h2{
-margin:0;
 }
 
 .close-button{
@@ -362,9 +362,6 @@ font-size:13px;
 line-height:1.5;
 }
 
-/* =========================
-RESPONSIVE
-========================= */
 
 @media(max-width:760px){
 
@@ -383,10 +380,12 @@ overflow-x:auto;
 }
 
 </style>
+
 </head>
 
 
 <body>
+
 
 <header>
 
@@ -430,6 +429,7 @@ type="button"
 >
 ACCOUNT ▾
 </button>
+
 
 <div
 id="accountMenu"
@@ -514,13 +514,16 @@ href="/shows.html"
 ← Back to Show
 </a>
 
+
 <div class="eyebrow">
 ASI NETWORK FRL ORIGINAL
 </div>
 
+
 <h1 id="episodeTitle">
 Loading Episode...
 </h1>
+
 
 <p id="episodeDescription">
 Checking your account and securely authorizing playback.
@@ -535,6 +538,7 @@ class="player"
 <div id="loading">
 VERIFYING ACCOUNT & SUBSCRIPTION...
 </div>
+
 
 <div id="errorBox">
 
@@ -558,10 +562,6 @@ class="member-status"
 
 </main>
 
-
-<!-- =========================
-ACCOUNT SETTINGS
-========================= -->
 
 <div
 id="settingsModal"
@@ -666,7 +666,7 @@ let currentEpisode = null;
 
 
 /* =========================
-ERROR STATE
+ERROR
 ========================= */
 
 function showError(
@@ -788,7 +788,6 @@ showError(
 "login"
 );
 
-
 return false;
 
 }
@@ -810,7 +809,7 @@ document
 currentUser.email || "";
 
 
-/* CHECK ADMIN */
+/* ADMIN CHECK */
 
 const adminResult =
 await sb
@@ -844,7 +843,7 @@ return true;
 
 
 /* =========================
-SUBSCRIPTION CHECK
+MEMBERSHIP
 ========================= */
 
 async function verifyMembership(){
@@ -1045,7 +1044,7 @@ document.title =
 `${currentEpisode.title || "Episode"} | ASI Network FRL`;
 
 
-/* FIND SHOW FOR BACK BUTTON */
+/* BACK TO SHOW */
 
 try{
 
@@ -1084,12 +1083,16 @@ return currentEpisode;
 
 
 /* =========================
-SECURE MUX PLAYBACK
+SECURE MUX AUTHORIZATION
 ========================= */
 
 async function authorizePlayback(
 episode
 ){
+
+const episodeId =
+episode.id;
+
 
 const response =
 await fetch(
@@ -1117,7 +1120,13 @@ body:
 JSON.stringify({
 
 episode_id:
-episode.id
+episodeId,
+
+episodeId:
+episodeId,
+
+id:
+episodeId
 
 })
 
@@ -1138,17 +1147,17 @@ await response.json();
 catch(error){}
 
 
+console.log(
+"Playback authorization response:",
+result
+);
+
+
 if(
 !response.ok ||
 !result.playbackId ||
 !result.token
 ){
-
-console.error(
-"Playback authorization failed:",
-result
-);
-
 
 throw new Error(
 result.error ||
@@ -1164,7 +1173,7 @@ return result;
 
 
 /* =========================
-CREATE PLAYER
+CREATE MUX PLAYER
 ========================= */
 
 function createPlayer(
@@ -1219,6 +1228,18 @@ player.setAttribute(
 );
 
 
+player.setAttribute(
+"primary-color",
+"#ffffff"
+);
+
+
+player.setAttribute(
+"secondary-color",
+"#000000"
+);
+
+
 document
 .getElementById("playerWrap")
 .innerHTML =
@@ -1247,12 +1268,9 @@ return;
 }
 
 
-let history = [];
-
-
 try{
 
-history =
+const existing =
 JSON.parse(
 localStorage.getItem(
 "asi_watch_history"
@@ -1260,68 +1278,39 @@ localStorage.getItem(
 );
 
 
-if(!Array.isArray(history)){
-
-history = [];
-
-}
-
-}
-catch(error){
-
-history = [];
-
-}
-
-
-history =
-history.filter(
+const filtered =
+existing.filter(
 item =>
 item.id !== currentEpisode.id
 );
 
 
-history.unshift({
+filtered.unshift({
 
 id:
 currentEpisode.id,
 
-episodeId:
-currentEpisode.id,
+title:
+currentEpisode.title,
 
 episode_number:
 currentEpisode.episode_number,
 
-title:
-currentEpisode.title ||
-`Episode ${currentEpisode.episode_number}`,
-
-description:
-currentEpisode.description ||
-"ASI Network FRL Original",
-
-watchedAt:
-Date.now()
+watched_at:
+new Date().toISOString()
 
 });
 
 
-history =
-history.slice(
-0,
-25
-);
-
-
 localStorage.setItem(
-
 "asi_watch_history",
-
 JSON.stringify(
-history
+filtered.slice(0,25)
 )
-
 );
+
+}
+catch(error){}
 
 }
 
@@ -1330,28 +1319,18 @@ history
 ACCOUNT MENU
 ========================= */
 
-const accountButton =
-document.getElementById(
-"accountButton"
-);
-
-
-const accountMenu =
-document.getElementById(
-"accountMenu"
-);
-
-
-accountButton.addEventListener(
+document
+.getElementById("accountButton")
+.addEventListener(
 "click",
 function(event){
 
 event.stopPropagation();
 
 
-accountMenu
-.classList
-.toggle("show");
+document
+.getElementById("accountMenu")
+.classList.toggle("show");
 
 }
 );
@@ -1361,14 +1340,26 @@ document.addEventListener(
 "click",
 function(event){
 
+const menu =
+document.getElementById(
+"accountMenu"
+);
+
+
+const button =
+document.getElementById(
+"accountButton"
+);
+
+
 if(
-!accountMenu.contains(event.target) &&
-!accountButton.contains(event.target)
+!menu.contains(event.target) &&
+!button.contains(event.target)
 ){
 
-accountMenu
-.classList
-.remove("show");
+menu.classList.remove(
+"show"
+);
 
 }
 
@@ -1377,7 +1368,7 @@ accountMenu
 
 
 /* =========================
-LOGOUT
+LOG OUT
 ========================= */
 
 document
@@ -1401,26 +1392,20 @@ window.location.replace(
 SETTINGS
 ========================= */
 
-const settingsModal =
-document.getElementById(
-"settingsModal"
-);
-
-
 document
 .getElementById("settingsButton")
 .addEventListener(
 "click",
 function(){
 
-accountMenu
-.classList
-.remove("show");
+document
+.getElementById("accountMenu")
+.classList.remove("show");
 
 
-settingsModal
-.classList
-.add("show");
+document
+.getElementById("settingsModal")
+.classList.add("show");
 
 }
 );
@@ -1432,23 +1417,27 @@ document
 "click",
 function(){
 
-settingsModal
-.classList
-.remove("show");
+document
+.getElementById("settingsModal")
+.classList.remove("show");
 
 }
 );
 
 
-settingsModal.addEventListener(
+document
+.getElementById("settingsModal")
+.addEventListener(
 "click",
 function(event){
 
-if(event.target === settingsModal){
+if(
+event.target === this
+){
 
-settingsModal
-.classList
-.remove("show");
+this.classList.remove(
+"show"
+);
 
 }
 
@@ -1456,9 +1445,7 @@ settingsModal
 );
 
 
-/* =========================
-PASSWORD RESET
-========================= */
+/* PASSWORD RESET */
 
 document
 .getElementById("resetPasswordButton")
@@ -1466,16 +1453,15 @@ document
 "click",
 async function(){
 
+if(!currentUser?.email){
+
+return;
+
+}
+
+
 const button =
-document.getElementById(
-"resetPasswordButton"
-);
-
-
-const message =
-document.getElementById(
-"settingsMessage"
-);
+this;
 
 
 button.disabled =
@@ -1486,8 +1472,10 @@ button.textContent =
 "SENDING...";
 
 
-message.style.display =
-"none";
+const message =
+document.getElementById(
+"settingsMessage"
+);
 
 
 try{
@@ -1495,9 +1483,7 @@ try{
 const result =
 await sb.auth
 .resetPasswordForEmail(
-
 currentUser.email,
-
 {
 
 redirectTo:
@@ -1505,7 +1491,6 @@ window.location.origin +
 "/reset.html"
 
 }
-
 );
 
 
@@ -1516,30 +1501,24 @@ throw result.error;
 }
 
 
-message.textContent =
-"Password reset email sent. Check your inbox and spam folder.";
-
-
 message.style.display =
 "block";
+
+
+message.textContent =
+"Password reset email sent. Check your inbox and spam folder.";
 
 
 }
 catch(error){
 
-console.error(
-"Password reset error:",
-error
-);
-
-
-message.textContent =
-"We couldn't send the password reset email right now. Please try again.";
-
-
 message.style.display =
 "block";
 
+
+message.textContent =
+error.message ||
+"Unable to send password reset email.";
 
 }
 finally{
@@ -1564,7 +1543,6 @@ INITIALIZE
 async function initialize(){
 
 try{
-
 
 const hasAccount =
 await getAccount();
@@ -1617,7 +1595,7 @@ error
 
 showError(
 error.message ||
-"This episode could not be loaded.",
+"Unable to load this episode.",
 "episode"
 );
 
@@ -1631,4 +1609,5 @@ initialize();
 </script>
 
 </body>
+
 </html>
