@@ -1,18 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>ASI Network FRL | Admin</title>
-
 <meta name="robots" content="noindex,nofollow">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
 *{
 box-sizing:border-box;
 margin:0;
@@ -547,8 +543,6 @@ Create, upload, publish, replace and remove ASI Network FRL programming from one
 
 <div class="grid">
 
-<!-- CREATE SHOW -->
-
 <section class="panel">
 
 <h2>Create Show</h2>
@@ -631,8 +625,6 @@ class="status"
 ></div>
 
 </section>
-
-<!-- MANAGE SHOW -->
 
 <section class="panel">
 
@@ -733,8 +725,6 @@ class="status"
 
 </section>
 
-<!-- CREATE SEASON -->
-
 <section class="panel">
 
 <h2>Create Season</h2>
@@ -792,8 +782,6 @@ class="status"
 ></div>
 
 </section>
-
-<!-- MANAGE SEASON -->
 
 <section class="panel">
 
@@ -871,8 +859,6 @@ class="status"
 ></div>
 
 </section>
-
-<!-- CREATE EPISODE -->
 
 <section class="panel full">
 
@@ -979,8 +965,6 @@ class="status"
 ></div>
 
 </section>
-
-<!-- MANAGE EPISODE -->
 
 <section class="panel full">
 
@@ -1174,12 +1158,10 @@ class="progress"
 >
 
 <div class="track">
-
 <div
 id="progressBar"
 class="bar"
 ></div>
-
 </div>
 
 <div
@@ -1210,26 +1192,19 @@ Replacing removes the current Mux video first, returns the episode to Draft, the
 
 </section>
 
-<!-- SUBSCRIBER SUPPORT -->
-
 <section class="panel full">
 
-<h2>
-Subscriber Support
-</h2>
+<h2>Subscriber Support</h2>
 
 <p class="note">
-Send a secure ASI Network FRL password reset email directly from your Admin Dashboard.
-The subscriber's reset link will open the official ASI password reset page.
+Send a secure ASI Network FRL password-reset email to a subscriber. The reset link will open the official ASI password reset page.
 </p>
 
 <div class="manage-grid">
 
 <div>
 
-<label>
-Subscriber Email Address
-</label>
+<label>Subscriber Email</label>
 
 <input
 id="supportResetEmail"
@@ -1260,8 +1235,6 @@ class="status"
 ></div>
 
 </section>
-
-<!-- STATUS -->
 
 <section class="panel full">
 
@@ -1307,20 +1280,11 @@ let episodes = [];
 
 let newShowImage = null;
 let editShowImage = null;
-
 let newEpisodeImage = null;
 let editEpisodeImage = null;
-
 let selectedVideo = null;
 
-/* ===============================
-GENERAL HELPERS
-=============================== */
-
-function message(
-id,
-text
-){
+function message(id,text){
 
 const element =
 document.getElementById(id);
@@ -1359,30 +1323,15 @@ return div.innerHTML;
 }
 
 function getShow(id){
-
-return shows.find(
-item =>
-item.id === id
-);
-
+return shows.find(item => item.id === id);
 }
 
 function getSeason(id){
-
-return seasons.find(
-item =>
-item.id === id
-);
-
+return seasons.find(item => item.id === id);
 }
 
 function getEpisode(id){
-
-return episodes.find(
-item =>
-item.id === id
-);
-
+return episodes.find(item => item.id === id);
 }
 
 function sortData(){
@@ -1409,10 +1358,6 @@ Number(b.episode_number || 0)
 
 }
 
-/* ===============================
-ADMIN LOGIN
-=============================== */
-
 async function initializeAdmin(){
 
 const loading =
@@ -1424,9 +1369,7 @@ const sessionResult =
 await db.auth.getSession();
 
 if(sessionResult.error){
-
 throw sessionResult.error;
-
 }
 
 currentSession =
@@ -1511,10 +1454,6 @@ document
 
 }
 
-/* ===============================
-LOG OUT
-=============================== */
-
 document
 .getElementById("logoutBtn")
 .addEventListener(
@@ -1527,10 +1466,6 @@ window.location.replace("/");
 
 }
 );
-
-/* ===============================
-LOAD DATABASE
-=============================== */
 
 async function loadEverything(){
 
@@ -1556,21 +1491,15 @@ db
 ]);
 
 if(showResult.error){
-
 throw showResult.error;
-
 }
 
 if(seasonResult.error){
-
 throw seasonResult.error;
-
 }
 
 if(episodeResult.error){
-
 throw episodeResult.error;
-
 }
 
 shows =
@@ -1605,20 +1534,14 @@ renderContentStatus();
 
 }
 
-/* ===============================
-SHOW SELECTORS
-=============================== */
-
 function populateShowSelectors(){
 
 const selectors = [
-
 "manageShowEdit",
 "seasonShow",
 "manageSeasonShow",
 "episodeShow",
 "manageShow"
-
 ];
 
 selectors.forEach(
@@ -1664,19 +1587,13 @@ current;
 
 }
 
-/* ===============================
-MEDIA UPLOAD
-=============================== */
-
 async function uploadImage(
 file,
 folder
 ){
 
 if(!file){
-
 return null;
-
 }
 
 const form =
@@ -1696,22 +1613,15 @@ const response =
 await fetch(
 `${SUPABASE_URL}/functions/v1/asi-admin-media`,
 {
-
 method:"POST",
-
 headers:{
-
 "Authorization":
 `Bearer ${currentSession.access_token}`,
-
 "apikey":
 SUPABASE_KEY
-
 },
-
 body:
 form
-
 }
 );
 
@@ -1733,10 +1643,6 @@ data.error ||
 return data.url;
 
 }
-
-/* ===============================
-IMAGE PICKERS
-=============================== */
 
 function setupImagePicker(
 pickerId,
@@ -1838,10 +1744,6 @@ file =>
 editEpisodeImage = file
 );
 
-/* ===============================
-CREATE SHOW
-=============================== */
-
 document
 .getElementById("createShowBtn")
 .addEventListener(
@@ -1914,9 +1816,7 @@ document
 });
 
 if(result.error){
-
 throw result.error;
-
 }
 
 document
@@ -1983,10 +1883,6 @@ this.textContent =
 
 }
 );
-
-/* ===============================
-MANAGE SHOW
-=============================== */
 
 document
 .getElementById("manageShowEdit")
@@ -2106,9 +2002,7 @@ const show =
 getShow(showId);
 
 if(!show){
-
 return;
-
 }
 
 const title =
@@ -2182,9 +2076,7 @@ showId
 );
 
 if(result.error){
-
 throw result.error;
-
 }
 
 message(
@@ -2230,8 +2122,6 @@ this.textContent =
 }
 );
 
-/* DELETE SHOW */
-
 document
 .getElementById("deleteShowBtn")
 .addEventListener(
@@ -2247,9 +2137,7 @@ const show =
 getShow(showId);
 
 if(!show){
-
 return;
-
 }
 
 const first =
@@ -2258,9 +2146,7 @@ confirm(
 );
 
 if(!first){
-
 return;
-
 }
 
 const second =
@@ -2269,9 +2155,7 @@ confirm(
 );
 
 if(!second){
-
 return;
-
 }
 
 this.disabled =
@@ -2323,10 +2207,6 @@ this.textContent =
 
 }
 );
-
-/* ===============================
-CREATE SEASON
-=============================== */
 
 document
 .getElementById("createSeasonBtn")
@@ -2390,9 +2270,7 @@ document
 });
 
 if(result.error){
-
 throw result.error;
-
 }
 
 document
@@ -2438,10 +2316,6 @@ false;
 
 }
 );
-
-/* ===============================
-MANAGE SEASON
-=============================== */
 
 document
 .getElementById("manageSeasonShow")
@@ -2568,9 +2442,7 @@ document
 .value;
 
 if(!seasonId){
-
 return;
-
 }
 
 const number =
@@ -2622,9 +2494,7 @@ seasonId
 );
 
 if(result.error){
-
 throw result.error;
-
 }
 
 message(
@@ -2656,8 +2526,6 @@ false;
 }
 );
 
-/* DELETE SEASON */
-
 document
 .getElementById("deleteSeasonBtn")
 .addEventListener(
@@ -2673,9 +2541,7 @@ const season =
 getSeason(seasonId);
 
 if(!season){
-
 return;
-
 }
 
 if(
@@ -2683,9 +2549,7 @@ if(
 `Delete Season ${season.season_number}?\n\nEvery episode and Mux video inside this season will also be permanently deleted.`
 )
 ){
-
 return;
-
 }
 
 this.disabled =
@@ -2739,10 +2603,6 @@ this.textContent =
 }
 );
 
-/* ===============================
-EPISODE SHOW → SEASON
-=============================== */
-
 document
 .getElementById("episodeShow")
 .addEventListener(
@@ -2756,10 +2616,6 @@ this.value,
 
 }
 );
-
-/* ===============================
-CREATE EPISODE
-=============================== */
 
 document
 .getElementById("createEpisodeBtn")
@@ -2857,9 +2713,7 @@ false
 });
 
 if(result.error){
-
 throw result.error;
-
 }
 
 document
@@ -2927,10 +2781,6 @@ this.textContent =
 }
 );
 
-/* ===============================
-SEASON SELECTOR HELPER
-=============================== */
-
 function populateSeasonSelector(
 showId,
 selectId
@@ -2968,10 +2818,6 @@ ${season.title ? " — " + escapeHtml(season.title) : ""}
 `;
 
 }
-
-/* ===============================
-MANAGE EPISODE SELECTORS
-=============================== */
 
 document
 .getElementById("manageShow")
@@ -3059,10 +2905,6 @@ this.value
 
 }
 );
-
-/* ===============================
-EPISODE EDITOR
-=============================== */
 
 function clearEpisodeEditor(){
 
@@ -3237,10 +3079,6 @@ selectedVideo
 
 }
 
-/* ===============================
-SAVE EPISODE
-=============================== */
-
 document
 .getElementById("saveEpisodeBtn")
 .addEventListener(
@@ -3258,9 +3096,7 @@ episodeId
 );
 
 if(!episode){
-
 return;
-
 }
 
 const wantsPublished =
@@ -3343,9 +3179,7 @@ episodeId
 );
 
 if(result.error){
-
 throw result.error;
-
 }
 
 message(
@@ -3393,10 +3227,6 @@ this.textContent =
 }
 );
 
-/* ===============================
-DELETE EPISODE
-=============================== */
-
 document
 .getElementById("deleteEpisodeBtn")
 .addEventListener(
@@ -3412,9 +3242,7 @@ const episode =
 getEpisode(episodeId);
 
 if(!episode){
-
 return;
-
 }
 
 if(
@@ -3422,9 +3250,7 @@ if(
 `Delete Episode ${episode.episode_number} — ${episode.title || ""}?\n\nIts Mux video will also be permanently deleted.`
 )
 ){
-
 return;
-
 }
 
 this.disabled =
@@ -3478,10 +3304,6 @@ this.textContent =
 }
 );
 
-/* ===============================
-DELETE BACKEND
-=============================== */
-
 async function adminDelete(
 type,
 id
@@ -3509,10 +3331,8 @@ SUPABASE_KEY
 
 body:
 JSON.stringify({
-
 type,
 id
-
 })
 
 }
@@ -3521,10 +3341,8 @@ id
 let data = {};
 
 try{
-
 data =
 await response.json();
-
 }
 catch(error){}
 
@@ -3540,10 +3358,6 @@ data.error ||
 return data;
 
 }
-
-/* ===============================
-VIDEO PICKER
-=============================== */
 
 document
 .getElementById("videoPicker")
@@ -3576,14 +3390,11 @@ selectedVideo.name
 :
 "";
 
-const episodeId =
-document
-.getElementById("manageEpisode")
-.value;
-
 const episode =
 getEpisode(
-episodeId
+document
+.getElementById("manageEpisode")
+.value
 );
 
 document
@@ -3607,10 +3418,6 @@ episode.video_id
 }
 );
 
-/* ===============================
-NORMAL VIDEO UPLOAD
-=============================== */
-
 document
 .getElementById("uploadVideoBtn")
 .addEventListener(
@@ -3626,9 +3433,7 @@ if(
 !episodeId ||
 !selectedVideo
 ){
-
 return;
-
 }
 
 await uploadEpisodeVideo(
@@ -3637,10 +3442,6 @@ episodeId
 
 }
 );
-
-/* ===============================
-REPLACE VIDEO
-=============================== */
 
 document
 .getElementById("replaceVideoBtn")
@@ -3662,9 +3463,7 @@ if(
 !episode ||
 !selectedVideo
 ){
-
 return;
-
 }
 
 if(
@@ -3672,9 +3471,7 @@ if(
 "Replace the current finished video?\n\nThe existing Mux video will be permanently deleted first and the episode will return to Draft."
 )
 ){
-
 return;
-
 }
 
 this.disabled =
@@ -3726,10 +3523,6 @@ this.textContent =
 }
 );
 
-/* ===============================
-REMOVE VIDEO ONLY
-=============================== */
-
 document
 .getElementById("removeVideoBtn")
 .addEventListener(
@@ -3742,9 +3535,7 @@ document
 .value;
 
 if(!episodeId){
-
 return;
-
 }
 
 if(
@@ -3752,9 +3543,7 @@ if(
 "Remove this episode's current Mux video?\n\nThe episode will automatically return to Draft."
 )
 ){
-
 return;
-
 }
 
 this.disabled =
@@ -3811,10 +3600,6 @@ this.textContent =
 }
 );
 
-/* ===============================
-MUX UPLOAD
-=============================== */
-
 async function uploadEpisodeVideo(
 episodeId
 ){
@@ -3827,11 +3612,9 @@ throw new Error(
 
 }
 
-const progressBox =
 document
-.getElementById("progressBox");
-
-progressBox.style.display =
+.getElementById("progressBox")
+.style.display =
 "block";
 
 document
@@ -3871,9 +3654,7 @@ SUPABASE_KEY,
 
 body:
 JSON.stringify({
-
 episodeId
-
 })
 
 }
@@ -3882,10 +3663,8 @@ episodeId
 let data = {};
 
 try{
-
 data =
 await response.json();
-
 }
 catch(error){}
 
@@ -3956,10 +3735,6 @@ message(
 
 }
 
-/* ===============================
-UPLOAD FILE TO MUX
-=============================== */
-
 function uploadFileToMux(
 url,
 file
@@ -3981,9 +3756,7 @@ xhr.upload.addEventListener(
 event => {
 
 if(!event.lengthComputable){
-
 return;
-
 }
 
 const percent =
@@ -4049,10 +3822,6 @@ xhr.send(file);
 
 }
 
-/* ===============================
-WAIT FOR MUX WEBHOOK
-=============================== */
-
 async function waitForVideo(
 episodeId
 ){
@@ -4104,10 +3873,6 @@ throw new Error(
 );
 
 }
-
-/* ===============================
-NETWORK STATUS
-=============================== */
 
 function renderContentStatus(){
 
@@ -4247,9 +4012,7 @@ ${episode.is_published ? "EPISODE LIVE" : "EPISODE DRAFT"}
 
 }
 
-/* ===============================
-SUBSCRIBER PASSWORD RESET
-=============================== */
+/* UPDATED PASSWORD RESET CALL */
 
 document
 .getElementById("sendResetBtn")
@@ -4299,9 +4062,7 @@ confirm(
 );
 
 if(!confirmed){
-
 return;
-
 }
 
 this.disabled =
@@ -4312,49 +4073,27 @@ this.textContent =
 
 try{
 
-const response =
-await fetch(
-`${SUPABASE_URL}/functions/v1/asi-admin-password-reset`,
+const {
+data,
+error
+} =
+await db.functions.invoke(
+"asi-admin-password-reset",
 {
-
-method:"POST",
-
-headers:{
-
-"Content-Type":
-"application/json",
-
-"Authorization":
-`Bearer ${currentSession.access_token}`,
-
-"apikey":
-SUPABASE_KEY
-
-},
-
-body:
-JSON.stringify({
+body:{
 email
-})
-
+}
 }
 );
 
-let data = {};
-
-try{
-
-data =
-await response.json();
-
+if(error){
+throw error;
 }
-catch(error){}
 
-if(!response.ok){
+if(data?.error){
 
 throw new Error(
-data.error ||
-"Unable to send password reset."
+data.error
 );
 
 }
@@ -4393,10 +4132,6 @@ this.textContent =
 
 }
 );
-
-/* ===============================
-START
-=============================== */
 
 initializeAdmin();
 
