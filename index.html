@@ -45,9 +45,14 @@ text-decoration:none;
 
 button{
 font:inherit;
+cursor:pointer;
 }
 
-nav{
+/* =========================
+NAVIGATION
+========================= */
+
+header{
 position:fixed;
 top:0;
 left:0;
@@ -56,7 +61,7 @@ min-height:72px;
 padding:0 5%;
 display:flex;
 align-items:center;
-gap:24px;
+gap:25px;
 background:rgba(0,0,0,.96);
 border-bottom:1px solid #222;
 z-index:1000;
@@ -73,19 +78,20 @@ color:#999;
 font-weight:500;
 }
 
-.nav-links{
+.nav{
 display:flex;
 gap:22px;
 align-items:center;
 flex:1;
 }
 
-.nav-links a{
+.nav a{
 font-size:12px;
 font-weight:900;
+white-space:nowrap;
 }
 
-.nav-links a:hover{
+.nav a:hover{
 opacity:.7;
 }
 
@@ -111,34 +117,100 @@ font-weight:900;
 cursor:pointer;
 }
 
+.btn:hover{
+background:#1a1a1a;
+}
+
 .btn.primary{
 background:#fff;
 color:#000;
 border-color:#fff;
 }
 
+.btn.primary:hover{
+background:#e8e8e8;
+}
+
+/* =========================
+ACCOUNT MENU
+========================= */
+
+.account-wrap{
+position:relative;
+display:none;
+}
+
+.account-menu{
+position:absolute;
+right:0;
+top:52px;
+width:260px;
+padding:8px;
+background:#101010;
+border:1px solid #333;
+border-radius:9px;
+box-shadow:0 22px 60px rgba(0,0,0,.6);
+display:none;
+}
+
+.account-menu.show{
+display:block;
+}
+
+.account-email{
+padding:13px;
+font-size:12px;
+color:#888;
+border-bottom:1px solid #292929;
+overflow-wrap:anywhere;
+}
+
+.menu-item{
+display:block;
+width:100%;
+padding:13px;
+border:0;
+border-radius:5px;
+background:transparent;
+color:#fff;
+text-align:left;
+font-size:14px;
+}
+
+.menu-item:hover{
+background:#1d1d1d;
+}
+
+#adminLink{
+display:none;
+}
+
+/* =========================
+HERO
+========================= */
+
 .hero{
-min-height:690px;
-padding:150px 5% 80px;
+min-height:720px;
+padding:150px 5% 85px;
 display:flex;
 align-items:center;
 
 background:
 radial-gradient(
-circle at 78% 32%,
-rgba(255,255,255,.12),
-transparent 28%
+circle at 78% 30%,
+rgba(255,255,255,.13),
+transparent 30%
 ),
 linear-gradient(
 90deg,
 #050505,
-#101010 75%,
+#101010 72%,
 #050505
 );
 }
 
 .hero-content{
-max-width:720px;
+max-width:760px;
 }
 
 .eyebrow{
@@ -150,29 +222,33 @@ margin-bottom:14px;
 }
 
 .hero h1{
-font-size:clamp(48px,7vw,90px);
-line-height:.94;
+font-size:clamp(52px,8vw,96px);
+line-height:.91;
 margin:0 0 22px;
 }
 
 .hero p{
-max-width:650px;
+max-width:660px;
 color:#bbb;
 line-height:1.65;
 font-size:17px;
 }
 
-.actions{
+.hero-actions{
 display:flex;
 gap:10px;
 flex-wrap:wrap;
-margin-top:24px;
+margin-top:26px;
 }
 
+/* =========================
+CONTENT
+========================= */
+
 main{
-width:min(1200px,92%);
+width:min(1240px,92%);
 margin:auto;
-padding-bottom:80px;
+padding-bottom:90px;
 }
 
 .section{
@@ -190,6 +266,12 @@ margin-bottom:22px;
 .section-head h2{
 margin:0;
 font-size:30px;
+}
+
+.section-head a{
+font-size:12px;
+font-weight:900;
+color:#aaa;
 }
 
 .grid{
@@ -217,68 +299,96 @@ place-items:center;
 font-size:36px;
 }
 
-.body{
+.card-body{
 padding:17px;
 }
 
 .meta{
 font-size:11px;
 font-weight:900;
-letter-spacing:.7px;
+letter-spacing:.8px;
 color:#777;
 margin-bottom:8px;
 }
 
-.body h3{
+.card-body h3{
 margin:0 0 8px;
+font-size:19px;
 }
 
-.body p{
+.card-body p{
 margin:0;
 color:#999;
 font-size:13px;
 line-height:1.55;
 }
 
+.card-actions{
+display:flex;
+gap:9px;
+flex-wrap:wrap;
+margin-top:16px;
+}
+
 .empty{
 grid-column:1/-1;
 padding:28px;
-border:1px solid #222;
 background:#0d0d0d;
-color:#888;
+border:1px solid #222;
 border-radius:8px;
+color:#888;
 }
 
+/* =========================
+SUBSCRIPTION
+========================= */
+
 .subscribe{
-margin-top:70px;
-padding:55px 25px;
+margin-top:80px;
+padding:60px 25px;
 text-align:center;
 border:1px solid #222;
-background:#0d0d0d;
+background:
+linear-gradient(
+135deg,
+#111,
+#080808
+);
 border-radius:12px;
 }
 
 .subscribe h2{
-font-size:38px;
+font-size:clamp(32px,5vw,48px);
 margin:0;
 }
 
 .price{
-font-size:28px;
+font-size:30px;
 font-weight:900;
 margin:18px 0;
 }
 
 .subscribe p{
-max-width:620px;
+max-width:650px;
 margin:auto;
 color:#aaa;
-line-height:1.6;
+line-height:1.65;
 }
 
+.subscribe-actions{
+display:flex;
+justify-content:center;
+gap:10px;
+flex-wrap:wrap;
+margin-top:24px;
+}
+
+/* =========================
+FOOTER
+========================= */
+
 footer{
-margin-top:70px;
-padding:35px 5%;
+padding:36px 5%;
 border-top:1px solid #181818;
 color:#666;
 font-size:12px;
@@ -288,15 +398,19 @@ gap:15px;
 flex-wrap:wrap;
 }
 
-@media(max-width:850px){
+/* =========================
+RESPONSIVE
+========================= */
 
-nav{
+@media(max-width:900px){
+
+header{
 flex-wrap:wrap;
 padding-top:14px;
 padding-bottom:14px;
 }
 
-.nav-links{
+.nav{
 order:3;
 width:100%;
 overflow-x:auto;
@@ -304,7 +418,7 @@ overflow-x:auto;
 
 .hero{
 padding-top:190px;
-min-height:650px;
+min-height:660px;
 }
 
 .grid{
@@ -314,14 +428,14 @@ repeat(2,minmax(0,1fr));
 
 }
 
-@media(max-width:520px){
+@media(max-width:540px){
+
+.hero h1{
+font-size:50px;
+}
 
 .grid{
 grid-template-columns:1fr;
-}
-
-.hero h1{
-font-size:48px;
 }
 
 .nav-actions .btn{
@@ -336,7 +450,7 @@ padding:0 12px;
 
 <body>
 
-<nav>
+<header>
 
 <a
 class="logo"
@@ -346,21 +460,24 @@ ASI NETWORK <span>FRL</span> 👁️
 </a>
 
 
-<div class="nav-links">
+<nav class="nav">
 
 <a href="/">
 HOME
 </a>
 
 <a href="/shows.html">
-SHOWS
+BROWSE
 </a>
 
 <a href="#episodes">
 EPISODES
 </a>
 
-<a href="#subscribe">
+<a
+id="navSubscribe"
+href="https://square.link/u/0l47AY8p"
+>
 SUBSCRIBE
 </a>
 
@@ -368,7 +485,7 @@ SUBSCRIBE
 SUPPORT
 </a>
 
-</div>
+</nav>
 
 
 <div class="nav-actions">
@@ -382,25 +499,82 @@ SIGN IN
 </a>
 
 <a
-id="memberButton"
+id="subscribeNavButton"
 class="btn primary"
-href="/members.html"
-style="display:none;"
+href="https://square.link/u/0l47AY8p"
 >
-MEMBER ACCESS
+SUBSCRIBE
+</a>
+
+
+<div
+id="accountWrap"
+class="account-wrap"
+>
+
+<button
+id="accountButton"
+class="btn primary"
+type="button"
+>
+ACCOUNT ▾
+</button>
+
+
+<div
+id="accountMenu"
+class="account-menu"
+>
+
+<div
+id="accountEmail"
+class="account-email"
+></div>
+
+<a
+class="menu-item"
+href="/members.html"
+>
+Member Home
+</a>
+
+<a
+class="menu-item"
+href="/members.html"
+>
+Account Settings
+</a>
+
+<a
+id="adminLink"
+class="menu-item"
+href="/admin.html"
+>
+Admin Dashboard
+</a>
+
+<a
+class="menu-item"
+href="mailto:support@asinetworkfrl.com"
+>
+Help & Support
 </a>
 
 <button
 id="logoutButton"
-class="btn"
-style="display:none;"
+class="menu-item"
+type="button"
 >
-LOG OUT
+Log Out
 </button>
 
 </div>
 
-</nav>
+</div>
+
+</div>
+
+</header>
 
 
 <section class="hero">
@@ -413,19 +587,19 @@ ASI NETWORK FRL • I SEE EVERYTHING
 
 <h1>
 REAL LIFE.<br>
-REAL PEOPLE.
+REAL PEOPLE.<br>
+UNFILTERED.
 </h1>
 
 <p>
-Original reality entertainment.
-Discover ASI Network FRL originals,
-exclusive series and subscriber-only episodes.
+Original reality entertainment from ASI Network FRL.
+Browse exclusive shows, discover new episodes and subscribe
+for full access to member-only content.
 </p>
 
-<div class="actions">
+<div class="hero-actions">
 
 <a
-id="browseButton"
 class="btn primary"
 href="/shows.html"
 >
@@ -433,11 +607,20 @@ BROWSE SHOWS
 </a>
 
 <a
-id="subscribeHeroButton"
+id="heroSubscribe"
 class="btn"
 href="https://square.link/u/0l47AY8p"
 >
 SUBSCRIBE • $5.99/MO
+</a>
+
+<a
+id="heroMember"
+class="btn"
+href="/members.html"
+style="display:none;"
+>
+GO TO MY ACCOUNT
 </a>
 
 </div>
@@ -448,6 +631,10 @@ SUBSCRIBE • $5.99/MO
 
 
 <main>
+
+<!-- =========================
+ASI ORIGINALS
+========================= -->
 
 <section class="section">
 
@@ -463,20 +650,23 @@ VIEW ALL →
 
 </div>
 
-
 <div
 id="showGrid"
 class="grid"
 >
 
 <div class="empty">
-Loading shows...
+Loading ASI Network FRL originals...
 </div>
 
 </div>
 
 </section>
 
+
+<!-- =========================
+LATEST EPISODES
+========================= -->
 
 <section
 id="episodes"
@@ -491,14 +681,13 @@ Latest Episodes
 
 </div>
 
-
 <div
 id="episodeGrid"
 class="grid"
 >
 
 <div class="empty">
-Loading episodes...
+Loading latest episodes...
 </div>
 
 </div>
@@ -506,35 +695,53 @@ Loading episodes...
 </section>
 
 
+<!-- =========================
+SUBSCRIPTION CTA
+========================= -->
+
 <section
 id="subscribe"
 class="subscribe"
 >
 
-<h2>
-Join ASI Network FRL
+<h2 id="subscribeTitle">
+Watch ASI Network FRL
 </h2>
 
 <div class="price">
 $5.99 / month
 </div>
 
-<p>
-Subscribe for access to ASI Network FRL
-original shows, exclusive content and
-full member-only episodes.
+<p id="subscribeText">
+Subscribe for full access to ASI Network FRL original shows,
+exclusive episodes and member-only entertainment.
 </p>
 
-<div
-class="actions"
-style="justify-content:center;"
->
+<div class="subscribe-actions">
 
 <a
+id="bottomSubscribeButton"
 class="btn primary"
 href="https://square.link/u/0l47AY8p"
 >
-SUBSCRIBE NOW
+START SUBSCRIPTION
+</a>
+
+<a
+id="bottomSignInButton"
+class="btn"
+href="/login.html"
+>
+ALREADY SUBSCRIBED? SIGN IN
+</a>
+
+<a
+id="bottomAccountButton"
+class="btn primary"
+href="/members.html"
+style="display:none;"
+>
+GO TO MY ACCOUNT
 </a>
 
 </div>
@@ -548,6 +755,10 @@ SUBSCRIBE NOW
 
 <div>
 © 2026 ASI NETWORK FRL
+</div>
+
+<div>
+Original Reality Entertainment
 </div>
 
 <a href="mailto:support@asinetworkfrl.com">
@@ -567,12 +778,26 @@ const SUPABASE_KEY =
 "sb_publishable_iliNeR5tX_4X4KAh5ZjPpA_e6ueLnP-";
 
 
+const SQUARE_CHECKOUT =
+"https://square.link/u/0l47AY8p";
+
+
 const sb =
 supabase.createClient(
 SUPABASE_URL,
 SUPABASE_KEY
 );
 
+
+let currentSession = null;
+let currentUser = null;
+let isAdmin = false;
+let activeMember = false;
+
+
+/* =========================
+HELPERS
+========================= */
 
 function escapeHtml(value){
 
@@ -586,80 +811,407 @@ return String(value ?? "")
 }
 
 
-function showLoggedOut(){
+/* =========================
+ACCOUNT STATE
+========================= */
 
-document
-.getElementById("signInButton")
-.style.display =
-"inline-flex";
-
-
-document
-.getElementById("memberButton")
-.style.display =
-"none";
-
-
-document
-.getElementById("logoutButton")
-.style.display =
-"none";
-
-
-document
-.getElementById("subscribeHeroButton")
-.style.display =
-"inline-flex";
-
-}
-
-
-function showLoggedIn(){
-
-document
-.getElementById("signInButton")
-.style.display =
-"none";
-
-
-document
-.getElementById("memberButton")
-.style.display =
-"inline-flex";
-
-
-document
-.getElementById("logoutButton")
-.style.display =
-"inline-flex";
-
-
-document
-.getElementById("subscribeHeroButton")
-.style.display =
-"none";
-
-}
-
-
-async function checkSession(){
+async function determineAccountState(){
 
 const result =
 await sb.auth.getSession();
 
 
-if(result.data.session){
+currentSession =
+result.data.session;
 
-showLoggedIn();
+
+if(!currentSession){
+
+showVisitorState();
+
+return;
+
+}
+
+
+currentUser =
+currentSession.user;
+
+
+document
+.getElementById("accountEmail")
+.textContent =
+currentUser.email || "";
+
+
+/* CHECK ADMIN */
+
+const adminResult =
+await sb
+.from("admins")
+.select("user_id")
+.eq(
+"user_id",
+currentUser.id
+)
+.maybeSingle();
+
+
+isAdmin =
+!adminResult.error &&
+!!adminResult.data;
+
+
+if(isAdmin){
+
+activeMember = true;
+
+showMemberState();
+
+return;
+
+}
+
+
+/* CHECK ACTIVE SUBSCRIPTION */
+
+try{
+
+const response =
+await fetch(
+
+`${SUPABASE_URL}/functions/v1/asi-link-subscription`,
+
+{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":
+"application/json",
+
+"Authorization":
+`Bearer ${currentSession.access_token}`,
+
+"apikey":
+SUPABASE_KEY
+
+},
+
+body:
+JSON.stringify({})
+
+}
+
+);
+
+
+let membership = {};
+
+
+try{
+
+membership =
+await response.json();
+
+}
+catch(error){}
+
+
+const status =
+String(
+membership.status || ""
+).toUpperCase();
+
+
+activeMember =
+response.ok &&
+(
+membership.active === true ||
+membership.isActive === true ||
+status === "ACTIVE"
+);
+
+
+}catch(error){
+
+activeMember = false;
+
+}
+
+
+if(activeMember){
+
+showMemberState();
 
 }
 else{
 
-showLoggedOut();
+showSignedInInactiveState();
 
 }
 
 }
+
+
+/* =========================
+VISITOR
+========================= */
+
+function showVisitorState(){
+
+document
+.getElementById("signInButton")
+.style.display =
+"inline-flex";
+
+
+document
+.getElementById("subscribeNavButton")
+.style.display =
+"inline-flex";
+
+
+document
+.getElementById("accountWrap")
+.style.display =
+"none";
+
+
+document
+.getElementById("heroSubscribe")
+.style.display =
+"inline-flex";
+
+
+document
+.getElementById("heroMember")
+.style.display =
+"none";
+
+
+document
+.getElementById("bottomSubscribeButton")
+.style.display =
+"inline-flex";
+
+
+document
+.getElementById("bottomSignInButton")
+.style.display =
+"inline-flex";
+
+
+document
+.getElementById("bottomAccountButton")
+.style.display =
+"none";
+
+}
+
+
+/* =========================
+ACTIVE MEMBER / ADMIN
+========================= */
+
+function showMemberState(){
+
+document
+.getElementById("signInButton")
+.style.display =
+"none";
+
+
+document
+.getElementById("subscribeNavButton")
+.style.display =
+"none";
+
+
+document
+.getElementById("navSubscribe")
+.style.display =
+"none";
+
+
+document
+.getElementById("accountWrap")
+.style.display =
+"block";
+
+
+document
+.getElementById("heroSubscribe")
+.style.display =
+"none";
+
+
+document
+.getElementById("heroMember")
+.style.display =
+"inline-flex";
+
+
+document
+.getElementById("bottomSubscribeButton")
+.style.display =
+"none";
+
+
+document
+.getElementById("bottomSignInButton")
+.style.display =
+"none";
+
+
+document
+.getElementById("bottomAccountButton")
+.style.display =
+"inline-flex";
+
+
+document
+.getElementById("subscribeTitle")
+.textContent =
+"Welcome Back";
+
+
+document
+.getElementById("subscribeText")
+.textContent =
+"Your ASI Network FRL account has member access. Continue browsing or return to your account.";
+
+
+document
+.getElementById("adminLink")
+.style.display =
+isAdmin
+?
+"block"
+:
+"none";
+
+}
+
+
+/* =========================
+SIGNED IN BUT INACTIVE
+========================= */
+
+function showSignedInInactiveState(){
+
+document
+.getElementById("signInButton")
+.style.display =
+"none";
+
+
+document
+.getElementById("accountWrap")
+.style.display =
+"block";
+
+
+document
+.getElementById("subscribeNavButton")
+.style.display =
+"inline-flex";
+
+
+document
+.getElementById("heroSubscribe")
+.style.display =
+"inline-flex";
+
+
+document
+.getElementById("heroMember")
+.style.display =
+"none";
+
+
+document
+.getElementById("bottomSubscribeButton")
+.style.display =
+"inline-flex";
+
+
+document
+.getElementById("bottomSignInButton")
+.style.display =
+"none";
+
+
+document
+.getElementById("bottomAccountButton")
+.style.display =
+"none";
+
+
+document
+.getElementById("subscribeTitle")
+.textContent =
+"Reactivate Your Access";
+
+
+document
+.getElementById("subscribeText")
+.textContent =
+"Your account is signed in, but an active subscription could not be verified. Subscribe to restore full episode access.";
+
+
+document
+.getElementById("adminLink")
+.style.display =
+"none";
+
+}
+
+
+/* =========================
+ACCOUNT MENU
+========================= */
+
+document
+.getElementById("accountButton")
+.addEventListener(
+"click",
+function(event){
+
+event.stopPropagation();
+
+
+document
+.getElementById("accountMenu")
+.classList.toggle("show");
+
+}
+);
+
+
+document.addEventListener(
+"click",
+function(event){
+
+const menu =
+document.getElementById("accountMenu");
+
+const button =
+document.getElementById("accountButton");
+
+
+if(
+!menu.contains(event.target) &&
+!button.contains(event.target)
+){
+
+menu.classList.remove("show");
+
+}
+
+}
+);
 
 
 document
@@ -670,6 +1222,7 @@ async function(){
 
 await sb.auth.signOut();
 
+
 window.location.replace(
 "/"
 );
@@ -678,7 +1231,17 @@ window.location.replace(
 );
 
 
+/* =========================
+LOAD SHOWS
+========================= */
+
 async function loadShows(){
+
+const grid =
+document.getElementById("showGrid");
+
+
+try{
 
 const result =
 await sb
@@ -692,14 +1255,15 @@ ascending:true
 );
 
 
+if(result.error){
+
+throw result.error;
+
+}
+
+
 const shows =
 result.data || [];
-
-
-const grid =
-document.getElementById(
-"showGrid"
-);
 
 
 if(!shows.length){
@@ -717,8 +1281,8 @@ return;
 
 
 grid.innerHTML =
-shows
-.map(show => {
+shows.map(
+show => {
 
 const thumbnailStyle =
 show.thumbnail_url
@@ -738,7 +1302,7 @@ style="${thumbnailStyle}"
 👁️
 </div>
 
-<div class="body">
+<div class="card-body">
 
 <h3>
 ${escapeHtml(show.title)}
@@ -751,13 +1315,13 @@ show.description ||
 )}
 </p>
 
-<div class="actions">
+<div class="card-actions">
 
 <a
 class="btn"
 href="/show.html?id=${encodeURIComponent(show.id)}"
 >
-SHOW DETAILS
+VIEW SHOW
 </a>
 
 </div>
@@ -767,19 +1331,47 @@ SHOW DETAILS
 </article>
 `;
 
-})
-.join("");
+}
+).join("");
+
+
+}catch(error){
+
+console.error(
+"Shows error:",
+error
+);
+
+
+grid.innerHTML =
+`
+<div class="empty">
+Shows are temporarily unavailable.
+</div>
+`;
+
+}
 
 }
 
 
+/* =========================
+LOAD EPISODES
+========================= */
+
 async function loadEpisodes(){
+
+const grid =
+document.getElementById("episodeGrid");
+
+
+try{
 
 const result =
 await sb
 .from("episodes")
 .select(
-"episode_number,title,description,thumbnail_url,is_published"
+"id,episode_number,title,description,thumbnail_url,is_published"
 )
 .eq(
 "is_published",
@@ -794,14 +1386,15 @@ ascending:false
 .limit(6);
 
 
+if(result.error){
+
+throw result.error;
+
+}
+
+
 const episodes =
 result.data || [];
-
-
-const grid =
-document.getElementById(
-"episodeGrid"
-);
 
 
 if(!episodes.length){
@@ -819,8 +1412,8 @@ return;
 
 
 grid.innerHTML =
-episodes
-.map(episode => {
+episodes.map(
+episode => {
 
 const thumbnailStyle =
 episode.thumbnail_url
@@ -840,7 +1433,7 @@ style="${thumbnailStyle}"
 ▶
 </div>
 
-<div class="body">
+<div class="card-body">
 
 <div class="meta">
 EPISODE ${episode.episode_number}
@@ -860,13 +1453,13 @@ episode.description ||
 )}
 </p>
 
-<div class="actions">
+<div class="card-actions">
 
 <a
 class="btn primary"
-href="/login.html"
+href="/watch.html?id=${encodeURIComponent(episode.id)}"
 >
-SIGN IN TO WATCH
+WATCH
 </a>
 
 </div>
@@ -876,20 +1469,44 @@ SIGN IN TO WATCH
 </article>
 `;
 
-})
-.join("");
+}
+).join("");
+
+
+}catch(error){
+
+console.error(
+"Episodes error:",
+error
+);
+
+
+grid.innerHTML =
+`
+<div class="empty">
+Episodes are temporarily unavailable.
+</div>
+`;
+
+}
 
 }
 
 
+/* =========================
+INITIALIZE
+========================= */
+
 async function initialize(){
 
-await checkSession();
-
-
 await Promise.all([
+
+determineAccountState(),
+
 loadShows(),
+
 loadEpisodes()
+
 ]);
 
 }
