@@ -2142,13 +2142,49 @@ return;
 
 const first =
 confirm(
-`DELETE "${show.title}"?\n\nThis will permanently remove the show, every season, every episode, and every Mux video underneath it.`
+`DANGER — DELETE ENTIRE SHOW\n\nYou are about to permanently delete:\n\n"${show.title}"\n\nThis will permanently remove the show, every season, every episode, and every Mux video underneath it.\n\nPress OK only if you intentionally want to continue.`
 );
 
 if(!first){
 return;
 }
 
+
+/* REQUIRE EXACT SHOW TITLE */
+
+const typedTitle =
+prompt(
+`FINAL SECURITY CHECK\n\nType the EXACT show title to continue:\n\n${show.title}`
+);
+
+if(typedTitle === null){
+return;
+}
+
+if(
+typedTitle.trim() !==
+String(show.title || "").trim()
+){
+
+message(
+"manageShowStatus",
+`DELETION STOPPED. You must type the exact show title: ${show.title}`
+);
+
+return;
+}
+
+
+/* FINAL CONFIRMATION */
+
+const finalConfirmation =
+confirm(
+`FINAL CONFIRMATION\n\n"${show.title}" and ALL seasons, episodes, and videos underneath it will be permanently deleted.\n\nThis cannot be undone.\n\nDelete everything now?`
+);
+
+if(!finalConfirmation){
+return;
+}
 const second =
 confirm(
 "FINAL CONFIRMATION:\n\nThis cannot be undone. Delete the entire show?"
