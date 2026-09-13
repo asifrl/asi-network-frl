@@ -363,6 +363,49 @@ color:#888;
 
 
 /* =========================
+EPISODE ACCESS MESSAGE
+========================= */
+
+.access-panel{
+padding:38px 25px;
+border:1px solid #222;
+border-radius:10px;
+background:
+linear-gradient(135deg,#111,#080808);
+text-align:center;
+}
+
+.access-panel .access-eyebrow{
+font-size:11px;
+font-weight:900;
+letter-spacing:2px;
+color:#888;
+margin-bottom:8px;
+}
+
+.access-panel h3{
+margin:0;
+font-size:28px;
+}
+
+.access-panel p{
+max-width:620px;
+margin:12px auto 0;
+color:#aaa;
+line-height:1.6;
+font-size:14px;
+}
+
+.access-actions{
+display:flex;
+justify-content:center;
+gap:10px;
+flex-wrap:wrap;
+margin-top:20px;
+}
+
+
+/* =========================
 MEMBERSHIP CTA
 ========================= */
 
@@ -495,6 +538,10 @@ font-size:48px;
 padding:0 12px;
 }
 
+.access-panel h3{
+font-size:24px;
+}
+
 }
 
 </style>
@@ -506,27 +553,17 @@ padding:0 12px;
 
 <header>
 
-<a
-class="logo"
-href="/"
->
+<a class="logo" href="/">
 ASI NETWORK <span>FRL</span> 👁️
 </a>
 
-
 <nav class="nav">
 
-<a href="/">
-HOME
-</a>
+<a href="/">HOME</a>
 
-<a href="/shows.html">
-BROWSE
-</a>
+<a href="/shows.html">BROWSE</a>
 
-<a href="#episodes">
-EPISODES
-</a>
+<a href="#episodes">EPISODES</a>
 
 <a
 id="navSubscribe"
@@ -821,6 +858,11 @@ let currentUser = null;
 let isAdmin = false;
 let activeMember = false;
 
+let loadedSeasons = [];
+let loadedEpisodes = [];
+let contentLoaded = false;
+let accountStateLoaded = false;
+
 
 /* =========================
 HELPERS
@@ -866,6 +908,9 @@ if(!currentSession){
 
 showVisitorState();
 
+accountStateLoaded = true;
+renderEpisodeArea();
+
 return;
 
 }
@@ -904,6 +949,9 @@ if(isAdmin){
 activeMember = true;
 
 showMemberState();
+
+accountStateLoaded = true;
+renderEpisodeArea();
 
 return;
 
@@ -944,29 +992,40 @@ JSON.stringify({})
 );
 
 
-let membership = {};
+let data = {};
 
 
 try{
 
-membership =
+data =
 await response.json();
 
 }
 catch(error){}
 
 
+const membership =
+data.membership ||
+data.subscription ||
+data;
+
+
 const status =
 String(
-membership.status || ""
-).toUpperCase();
+membership.status ||
+data.status ||
+""
+)
+.trim()
+.toUpperCase();
 
 
 activeMember =
 response.ok &&
 (
+data.active === true ||
+data.isActive === true ||
 membership.active === true ||
-membership.isActive === true ||
 status === "ACTIVE"
 );
 
@@ -1004,7 +1063,19 @@ console.error(
 error
 );
 
+currentSession = null;
+currentUser = null;
+isAdmin = false;
+activeMember = false;
+
 showVisitorState();
+
+}
+finally{
+
+accountStateLoaded = true;
+
+renderEpisodeArea();
 
 }
 
@@ -1016,6 +1087,8 @@ VISITOR
 ========================= */
 
 function showVisitorState(){
+
+activeMember = false;
 
 document
 .getElementById("signInButton")
@@ -1066,6 +1139,11 @@ document
 .getElementById("bottomSubscribeButton")
 .style.display =
 "inline-flex";
+
+document
+.getElementById("bottomSubscribeButton")
+.textContent =
+"START SUBSCRIPTION";
 
 document
 .getElementById("bottomSignInButton")
@@ -1136,7 +1214,7 @@ document
 document
 .getElementById("membershipText")
 .textContent =
-"Select any available episode below to continue watching ASI Network FRL.";
+"Select any available episode to continue watching ASI Network FRL.";
 
 document
 .getElementById("bottomSubscribeButton")
@@ -1172,6 +1250,8 @@ SIGNED-IN INACTIVE
 ========================= */
 
 function showSignedInInactiveState(){
+
+activeMember = false;
 
 document
 .getElementById("signInButton")
@@ -1216,7 +1296,7 @@ document
 document
 .getElementById("membershipText")
 .textContent =
-"Your account is signed in, but an active subscription could not be verified. Subscribe to restore full episode access.";
+"Your account is signed in, but an active subscription could not be verified. Reactivate your membership to restore full episode access.";
 
 document
 .getElementById("bottomSubscribeButton")
@@ -1338,12 +1418,6 @@ return;
 
 try{
 
-/*
-SECURITY:
-Public show page will only return
-a show explicitly marked published.
-*/
-
 const showResult =
 await sb
 .from("shows")
@@ -1443,20 +1517,21 @@ throw seasonResult.error;
 }
 
 
-const seasons =
+loadedSeasons =
 seasonResult.data || [];
 
 
-if(!seasons.length){
+/* =========================
+NO PUBLISHED SEASONS
+========================= */
 
-document
-.getElementById("seasonContainer")
-.innerHTML =
-`
-<div class="empty">
-Episodes are coming soon.
-</div>
-`;
+if(!loadedSeasons.length){
+
+loadedEpisodes = [];
+
+contentLoaded = true;
+
+renderEpisodeArea();
 
 showApp();
 
@@ -1466,7 +1541,7 @@ return;
 
 
 const seasonIds =
-seasons.map(
+loadedSeasons.map(
 season =>
 season.id
 );
@@ -1505,15 +1580,12 @@ throw episodeResult.error;
 }
 
 
-const episodes =
+loadedEpisodes =
 episodeResult.data || [];
 
+contentLoaded = true;
 
-renderSeasons(
-seasons,
-episodes
-);
-
+renderEpisodeArea();
 
 showApp();
 
@@ -1534,10 +1606,158 @@ showError();
 
 
 /* =========================
-RENDER SEASONS
+EPISODE AREA
 ========================= */
 
-function renderSeasons(
+function renderEpisodeArea(){
+
+if(
+!contentLoaded ||
+!accountStateLoaded
+){
+
+return;
+
+}
+
+
+const container =
+document.getElementById(
+"seasonContainer"
+);
+
+
+/*
+ACTIVE SUBSCRIBER / ADMIN
+
+They should never see the visitor paywall.
+If no episode is released yet, show a clean
+Coming Soon message instead.
+*/
+
+if(activeMember || isAdmin){
+
+if(!loadedSeasons.length){
+
+container.innerHTML =
+`
+<div class="empty">
+New episodes are coming soon.
+</div>
+`;
+
+return;
+
+}
+
+
+renderMemberSeasons(
+loadedSeasons,
+loadedEpisodes
+);
+
+return;
+
+}
+
+
+/*
+LOGGED-OUT VISITOR
+*/
+
+if(!currentSession){
+
+container.innerHTML =
+`
+<div class="access-panel">
+
+<div class="access-eyebrow">
+ASI NETWORK FRL EXCLUSIVE
+</div>
+
+<h3>
+ONLY ASI SUBSCRIBERS HAVE ACCESS
+</h3>
+
+<p>
+Subscribe to ASI Network FRL for $5.99/month to watch full episodes and exclusive member content.
+</p>
+
+<div class="access-actions">
+
+<a
+class="btn primary"
+href="https://square.link/u/0l47AY8p"
+>
+SUBSCRIBE • $5.99/MO
+</a>
+
+<a
+class="btn"
+href="/login.html"
+>
+ALREADY SUBSCRIBED? SIGN IN
+</a>
+
+</div>
+
+</div>
+`;
+
+return;
+
+}
+
+
+/*
+SIGNED-IN BUT INACTIVE
+*/
+
+container.innerHTML =
+`
+<div class="access-panel">
+
+<div class="access-eyebrow">
+ASI NETWORK FRL MEMBERSHIP
+</div>
+
+<h3>
+REACTIVATE YOUR ACCESS
+</h3>
+
+<p>
+Your ASI Network FRL account is signed in, but an active membership could not be verified. Reactivate your subscription to watch full episodes.
+</p>
+
+<div class="access-actions">
+
+<a
+class="btn primary"
+href="https://square.link/u/0l47AY8p"
+>
+REACTIVATE • $5.99/MO
+</a>
+
+<a
+class="btn"
+href="/members.html"
+>
+ACCOUNT SETTINGS
+</a>
+
+</div>
+
+</div>
+`;
+
+}
+
+
+/* =========================
+ACTIVE MEMBER EPISODES
+========================= */
+
+function renderMemberSeasons(
 seasons,
 episodes
 ){
@@ -1571,58 +1791,8 @@ if(!seasonEpisodes.length){
 
 episodeMarkup =
 `
-<div class="empty" style="text-align:center;padding:45px 25px;">
-
-<div style="
-font-size:12px;
-font-weight:900;
-letter-spacing:2px;
-color:#888;
-margin-bottom:12px;
-">
-ASI NETWORK FRL EXCLUSIVE
-</div>
-
-<h3 style="
-margin:0 0 12px;
-font-size:26px;
-color:#fff;
-">
-ONLY ASI SUBSCRIBERS HAVE ACCESS
-</h3>
-
-<p style="
-margin:0 auto 22px;
-max-width:560px;
-color:#999;
-line-height:1.6;
-">
-Subscribe to ASI Network FRL for $5.99/month to watch full episodes and exclusive member content.
-</p>
-
-<div style="
-display:flex;
-justify-content:center;
-gap:10px;
-flex-wrap:wrap;
-">
-
-<a
-class="btn primary"
-href="https://square.link/u/0l47AY8p"
->
-SUBSCRIBE • $5.99/MO
-</a>
-
-<a
-class="btn"
-href="/login.html"
->
-ALREADY SUBSCRIBED? SIGN IN
-</a>
-
-</div>
-
+<div class="empty">
+New episodes are coming soon.
 </div>
 `;
 
