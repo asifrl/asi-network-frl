@@ -130,6 +130,21 @@ color:#000;
 border-color:#fff;
 }
 
+.btn.danger{
+background:#2a0909;
+border-color:#702020;
+color:#fff;
+}
+
+.btn.danger:hover{
+background:#3b0d0d;
+}
+
+.btn:disabled{
+opacity:.45;
+cursor:not-allowed;
+}
+
 
 /* =========================
 ACCOUNT
@@ -399,6 +414,7 @@ display:none;
 align-items:center;
 justify-content:center;
 padding:20px;
+overflow-y:auto;
 }
 
 .modal-overlay.show{
@@ -406,7 +422,9 @@ display:flex;
 }
 
 .modal{
-width:min(520px,100%);
+width:min(540px,100%);
+max-height:90vh;
+overflow-y:auto;
 background:#101010;
 border:1px solid #333;
 border-radius:12px;
@@ -452,6 +470,36 @@ margin-bottom:7px;
 
 .setting-value{
 overflow-wrap:anywhere;
+}
+
+.setting-copy{
+margin-top:8px;
+font-size:12px;
+line-height:1.55;
+color:#888;
+}
+
+.cancel-box{
+display:none;
+border-color:#4a2222;
+}
+
+.cancel-note{
+font-size:12px;
+color:#aaa;
+line-height:1.55;
+margin:10px 0 15px;
+}
+
+.cancel-scheduled{
+display:none;
+padding:13px;
+border:1px solid #49412a;
+background:#15130b;
+border-radius:7px;
+font-size:13px;
+line-height:1.55;
+color:#ddd;
 }
 
 .message{
@@ -699,6 +747,7 @@ MEMBER ACCESS ACTIVE
 class="quick-card"
 href="/shows.html"
 >
+
 <strong>
 Browse Shows
 </strong>
@@ -706,6 +755,7 @@ Browse Shows
 <span>
 Explore all ASI Network FRL originals.
 </span>
+
 </a>
 
 
@@ -713,6 +763,7 @@ Explore all ASI Network FRL originals.
 class="quick-card"
 href="#continueWatching"
 >
+
 <strong>
 Continue Watching
 </strong>
@@ -720,6 +771,7 @@ Continue Watching
 <span>
 Return to episodes you recently opened.
 </span>
+
 </a>
 
 
@@ -727,6 +779,7 @@ Return to episodes you recently opened.
 class="quick-card"
 href="#myList"
 >
+
 <strong>
 My List
 </strong>
@@ -734,6 +787,7 @@ My List
 <span>
 Your saved ASI Network content.
 </span>
+
 </a>
 
 
@@ -753,15 +807,13 @@ Account Settings
 </strong>
 
 <span>
-Manage your login and password.
+Manage your login, password and membership.
 </span>
 
 </button>
 
 </section>
 
-
-<!-- CONTINUE WATCHING -->
 
 <section
 id="continueWatching"
@@ -794,8 +846,6 @@ Checking your recent episodes...
 </section>
 
 
-<!-- LATEST -->
-
 <section class="section">
 
 <div class="section-head">
@@ -824,8 +874,6 @@ Loading published episodes...
 </section>
 
 
-<!-- MY LIST -->
-
 <section
 id="myList"
 class="section"
@@ -852,8 +900,6 @@ Checking your saved content...
 
 </section>
 
-
-<!-- HISTORY -->
 
 <section
 id="watchHistory"
@@ -954,6 +1000,70 @@ SEND PASSWORD RESET EMAIL
 </div>
 
 
+<!-- MEMBERSHIP -->
+
+<div
+id="membershipSettingsBox"
+class="setting-box"
+style="display:none;"
+>
+
+<div class="setting-label">
+MEMBERSHIP
+</div>
+
+<div
+id="membershipSettingsStatus"
+class="setting-value"
+>
+Active • $5.99/month
+</div>
+
+<div
+id="membershipSettingsDetail"
+class="setting-copy"
+>
+Your ASI Network FRL membership is active.
+</div>
+
+</div>
+
+
+<!-- CANCEL MEMBERSHIP -->
+
+<div
+id="cancelMembershipBox"
+class="setting-box cancel-box"
+>
+
+<div class="setting-label">
+CANCEL MEMBERSHIP
+</div>
+
+<div class="setting-value">
+ASI Network FRL • $5.99/month
+</div>
+
+<p class="cancel-note">
+Cancelling stops future renewals. You will continue to have member access through the remainder of your current paid billing period.
+</p>
+
+<div
+id="cancelScheduledBox"
+class="cancel-scheduled"
+></div>
+
+<button
+id="cancelMembershipButton"
+class="btn danger"
+type="button"
+>
+CANCEL MEMBERSHIP
+</button>
+
+</div>
+
+
 <div
 id="settingsMessage"
 class="message"
@@ -998,6 +1108,7 @@ SUPABASE_KEY
 let currentSession = null;
 let currentUser = null;
 let isAdmin = false;
+let currentSubscription = null;
 
 
 /* =========================
@@ -1062,14 +1173,6 @@ catch(error){}
 }
 
 
-/*
-Saved items have historically been
-stored as objects.
-
-This also supports plain ID strings
-in case one is ever stored that way.
-*/
-
 function savedItemId(
 item
 ){
@@ -1087,6 +1190,43 @@ item?.id ||
 item?.episode_id ||
 item?.episodeId ||
 ""
+);
+
+}
+
+
+function formatDate(
+value
+){
+
+if(!value){
+
+return "";
+
+}
+
+const date =
+new Date(
+`${value}T12:00:00`
+);
+
+if(
+Number.isNaN(
+date.getTime()
+)
+){
+
+return value;
+
+}
+
+return date.toLocaleDateString(
+undefined,
+{
+year:"numeric",
+month:"long",
+day:"numeric"
+}
 );
 
 }
@@ -1238,6 +1378,18 @@ document
 "ADMINISTRATOR ACCESS";
 
 
+document
+.getElementById("cancelMembershipBox")
+.style.display =
+"none";
+
+
+document
+.getElementById("membershipSettingsBox")
+.style.display =
+"none";
+
+
 return true;
 
 }
@@ -1347,6 +1499,388 @@ return false;
 
 
 /* =========================
+SUBSCRIPTION SETTINGS
+========================= */
+
+async function loadSubscriptionSettings(){
+
+if(
+isAdmin ||
+!currentUser
+){
+
+return;
+
+}
+
+
+const membershipBox =
+document.getElementById(
+"membershipSettingsBox"
+);
+
+const cancelBox =
+document.getElementById(
+"cancelMembershipBox"
+);
+
+const statusText =
+document.getElementById(
+"membershipSettingsStatus"
+);
+
+const detail =
+document.getElementById(
+"membershipSettingsDetail"
+);
+
+const scheduled =
+document.getElementById(
+"cancelScheduledBox"
+);
+
+const cancelButton =
+document.getElementById(
+"cancelMembershipButton"
+);
+
+
+membershipBox.style.display =
+"block";
+
+cancelBox.style.display =
+"block";
+
+
+const result =
+await sb
+.from("subscriptions")
+.select(
+"id,status,square_subscription_id,cancel_at_period_end,canceled_date"
+)
+.eq(
+"user_id",
+currentUser.id
+)
+.maybeSingle();
+
+
+if(result.error){
+
+console.error(
+"Subscription settings error:",
+result.error
+);
+
+statusText.textContent =
+"Membership";
+
+detail.textContent =
+"Membership information is temporarily unavailable.";
+
+cancelBox.style.display =
+"none";
+
+return;
+
+}
+
+
+currentSubscription =
+result.data;
+
+
+if(!currentSubscription){
+
+statusText.textContent =
+"Membership record unavailable";
+
+detail.textContent =
+"Contact support@asinetworkfrl.com if you need assistance.";
+
+cancelBox.style.display =
+"none";
+
+return;
+
+}
+
+
+const status =
+String(
+currentSubscription.status || ""
+)
+.toUpperCase();
+
+
+if(status === "ACTIVE"){
+
+statusText.textContent =
+"Active • $5.99/month";
+
+}
+else{
+
+statusText.textContent =
+status || "Membership";
+
+}
+
+
+if(
+currentSubscription.cancel_at_period_end === true
+){
+
+const readable =
+formatDate(
+currentSubscription.canceled_date
+);
+
+
+detail.textContent =
+readable
+?
+`Your membership remains active until ${readable}.`
+:
+"Your membership cancellation is scheduled at the end of your current paid billing period.";
+
+
+scheduled.style.display =
+"block";
+
+
+scheduled.textContent =
+readable
+?
+`CANCELLATION SCHEDULED — Member access ends ${readable}.`
+:
+"CANCELLATION SCHEDULED — You will keep access through your current paid billing period.";
+
+
+cancelButton.style.display =
+"none";
+
+return;
+
+}
+
+
+detail.textContent =
+"Your ASI Network FRL membership is active and renews automatically until cancelled.";
+
+
+scheduled.style.display =
+"none";
+
+
+cancelButton.style.display =
+"inline-flex";
+
+
+if(
+!currentSubscription.square_subscription_id
+){
+
+cancelButton.disabled =
+true;
+
+
+detail.textContent =
+"Your membership is active, but online cancellation is not available for this account yet. Contact support@asinetworkfrl.com for assistance.";
+
+}
+else{
+
+cancelButton.disabled =
+false;
+
+}
+
+}
+
+
+/* =========================
+CANCEL MEMBERSHIP
+========================= */
+
+document
+.getElementById(
+"cancelMembershipButton"
+)
+.addEventListener(
+"click",
+async function(){
+
+if(
+isAdmin ||
+!currentSession
+){
+
+return;
+
+}
+
+
+const first =
+confirm(
+"Cancel your ASI Network FRL membership?\n\nYou will keep access through the remainder of your current paid billing period. Your membership will not renew after that."
+);
+
+
+if(!first){
+
+return;
+
+}
+
+
+const second =
+confirm(
+"FINAL CONFIRMATION\n\nSchedule cancellation of your $5.99/month ASI Network FRL membership?"
+);
+
+
+if(!second){
+
+return;
+
+}
+
+
+const button =
+this;
+
+
+const message =
+document.getElementById(
+"settingsMessage"
+);
+
+
+button.disabled =
+true;
+
+
+button.textContent =
+"CANCELLING...";
+
+
+message.style.display =
+"block";
+
+
+message.textContent =
+"Scheduling your membership cancellation...";
+
+
+try{
+
+const response =
+await fetch(
+
+`${SUPABASE_URL}/functions/v1/asi-cancel-subscription`,
+
+{
+
+method:"POST",
+
+headers:{
+
+"Authorization":
+`Bearer ${currentSession.access_token}`,
+
+"apikey":
+SUPABASE_KEY,
+
+"Content-Type":
+"application/json"
+
+},
+
+body:
+JSON.stringify({})
+
+}
+
+);
+
+
+let data = {};
+
+
+try{
+
+data =
+await response.json();
+
+}
+catch(error){}
+
+
+if(!response.ok){
+
+throw new Error(
+data.error ||
+"Unable to cancel membership."
+);
+
+}
+
+
+const readable =
+formatDate(
+data.canceled_date
+);
+
+
+message.textContent =
+readable
+?
+`Cancellation scheduled successfully. You will keep ASI Network FRL access through ${readable}.`
+:
+"Cancellation scheduled successfully. You will keep access through your current paid billing period.";
+
+
+await loadSubscriptionSettings();
+
+
+}
+catch(error){
+
+console.error(
+"Cancellation error:",
+error
+);
+
+
+message.textContent =
+error.message ||
+"Unable to cancel your membership. Contact support@asinetworkfrl.com for assistance.";
+
+
+}
+finally{
+
+if(
+button.style.display !== "none"
+){
+
+button.disabled =
+false;
+
+
+button.textContent =
+"CANCEL MEMBERSHIP";
+
+}
+
+}
+
+}
+);
+
+
+/* =========================
 FETCH VALID EPISODES
 ========================= */
 
@@ -1403,10 +1937,6 @@ const episodes =
 result.data || [];
 
 
-/*
-Preserve the local-storage ordering.
-*/
-
 const map =
 new Map(
 episodes.map(
@@ -1429,7 +1959,7 @@ map.get(id)
 
 
 /* =========================
-CLEAN CONTINUE WATCHING
+CONTINUE WATCHING
 ========================= */
 
 async function loadContinueWatching(){
@@ -1451,15 +1981,6 @@ await getValidEpisodes(
 saved
 );
 
-
-/*
-Rewrite local storage with ONLY
-episodes that still exist and are
-published.
-
-This permanently removes deleted
-content like the old TEST SHOW card.
-*/
 
 saveStorageArray(
 "asi_watch_history",
@@ -1576,7 +2097,7 @@ episode,
 
 
 /* =========================
-MY LIST CLEANUP
+MY LIST
 ========================= */
 
 async function loadMyList(){
@@ -1598,11 +2119,6 @@ await getValidEpisodes(
 saved
 );
 
-
-/*
-Remove deleted/unpublished episodes
-from the saved list automatically.
-*/
 
 saveStorageArray(
 "asi_my_list",
@@ -1796,7 +2312,7 @@ menu.classList.remove(
 SETTINGS
 ========================= */
 
-function openSettings(){
+async function openSettings(){
 
 document
 .getElementById("accountMenu")
@@ -1806,6 +2322,13 @@ document
 document
 .getElementById("settingsModal")
 .classList.add("show");
+
+
+if(!isAdmin){
+
+await loadSubscriptionSettings();
+
+}
 
 }
 
@@ -1993,11 +2516,6 @@ return;
 }
 
 
-/*
-Display member app once access is
-confirmed.
-*/
-
 document
 .getElementById("loadingScreen")
 .style.display =
@@ -2009,13 +2527,6 @@ document
 .style.display =
 "block";
 
-
-/*
-Run cleanup and page loading.
-
-Deleted episodes disappear
-automatically from browser history.
-*/
 
 await Promise.all([
 
