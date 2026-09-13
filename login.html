@@ -366,7 +366,7 @@ class="notice"
 ></div>
 
 
-<!-- INACTIVE / CANCELLED MEMBER -->
+<!-- INACTIVE MEMBER -->
 
 <div
 id="inactiveSection"
@@ -399,7 +399,7 @@ REACTIVATE MEMBERSHIP • $5.99/MO
 </div>
 
 
-<!-- BRAND NEW VISITOR -->
+<!-- NEW CUSTOMER -->
 
 <div
 id="newCustomerSection"
@@ -500,9 +500,7 @@ document.getElementById(
 STATUS
 ========================= */
 
-function showStatus(
-text
-){
+function showStatus(text){
 
 statusBox.textContent =
 text;
@@ -525,7 +523,7 @@ statusBox.style.display =
 
 
 /* =========================
-PAGE MODE
+PAGE MODES
 ========================= */
 
 function showNewCustomerMode(){
@@ -589,7 +587,7 @@ this.textContent =
 
 
 /* =========================
-REDIRECT HELPER
+DESTINATION
 ========================= */
 
 function destination(){
@@ -622,7 +620,7 @@ return "/members.html";
 
 
 /* =========================
-CHECK ADMIN
+ADMIN CHECK
 ========================= */
 
 async function isAdmin(
@@ -649,41 +647,131 @@ return (
 
 
 /* =========================
-CHECK MEMBERSHIP
+AUTHORITATIVE MEMBERSHIP CHECK
 ========================= */
 
-async function getMembership(
-userId
+async function checkMembership(
+session
 ){
 
-const result =
-await db
-.from("subscriptions")
-.select(
-"id,user_id,status,square_subscription_id,customer_email"
-)
-.eq(
-"user_id",
-userId
-)
-.maybeSingle();
+try{
 
+const response =
+await fetch(
 
-if(
-result.error
-){
+`${SUPABASE_URL}/functions/v1/asi-link-subscription`,
 
-console.error(
-"Subscription check error:",
-result.error
+{
+
+method:"POST",
+
+headers:{
+
+"Authorization":
+`Bearer ${session.access_token}`,
+
+"apikey":
+SUPABASE_KEY,
+
+"Content-Type":
+"application/json"
+
+},
+
+body:
+JSON.stringify({})
+
+}
+
 );
 
-return null;
+
+let data = {};
+
+
+try{
+
+data =
+await response.json();
+
+}
+catch(error){
+
+console.error(
+"Membership response parse error:",
+error
+);
 
 }
 
 
-return result.data;
+if(!response.ok){
+
+console.error(
+"Membership check failed:",
+data
+);
+
+return {
+active:false,
+data
+};
+
+}
+
+
+/*
+Support the response formats already used
+throughout ASI Network.
+*/
+
+const membership =
+data.membership ||
+data.subscription ||
+data;
+
+
+const status =
+String(
+membership.status ||
+data.status ||
+""
+)
+.trim()
+.toUpperCase();
+
+
+const active =
+(
+data.active === true ||
+data.isActive === true ||
+membership.active === true ||
+status === "ACTIVE"
+);
+
+
+return {
+active,
+status,
+data
+};
+
+
+}
+catch(error){
+
+console.error(
+"Membership request failed:",
+error
+);
+
+
+return {
+active:false,
+error
+};
+
+}
 
 }
 
@@ -742,29 +830,35 @@ password
 });
 
 
-if(
-result.error
-){
+if(result.error){
 
 throw result.error;
 
 }
 
 
+const session =
+result.data.session;
+
 const user =
 result.data.user;
 
 
-if(!user){
+if(
+!user ||
+!session
+){
 
 throw new Error(
-"Unable to sign in."
+"Unable to start your member session."
 );
 
 }
 
 
-/* ADMIN */
+/* =========================
+ADMIN
+========================= */
 
 const admin =
 await isAdmin(
@@ -783,21 +877,18 @@ return;
 }
 
 
-/* MEMBER */
+/* =========================
+MEMBERSHIP
+========================= */
 
 const membership =
-await getMembership(
-user.id
+await checkMembership(
+session
 );
 
 
 if(
-membership &&
-String(
-membership.status || ""
-)
-.toUpperCase() ===
-"ACTIVE"
+membership.active
 ){
 
 window.location.replace(
@@ -809,7 +900,9 @@ return;
 }
 
 
-/* INACTIVE MEMBER */
+/* =========================
+INACTIVE
+========================= */
 
 showInactiveMode();
 
@@ -822,7 +915,10 @@ showStatus(
 }
 catch(error){
 
-console.error(error);
+console.error(
+"Sign in error:",
+error
+);
 
 
 showNewCustomerMode();
@@ -848,7 +944,9 @@ signInBtn.textContent =
 );
 
 
-/* ENTER KEY */
+/* =========================
+ENTER KEY
+========================= */
 
 passwordInput
 .addEventListener(
@@ -915,9 +1013,7 @@ redirectTo:
 );
 
 
-if(
-result.error
-){
+if(result.error){
 
 throw result.error;
 
@@ -932,7 +1028,10 @@ showStatus(
 }
 catch(error){
 
-console.error(error);
+console.error(
+"Password reset error:",
+error
+);
 
 
 showStatus(
@@ -952,8 +1051,17 @@ EXISTING SESSION
 
 async function checkExistingSession(){
 
+try{
+
 const result =
 await db.auth.getSession();
+
+
+if(result.error){
+
+throw result.error;
+
+}
 
 
 const session =
@@ -983,21 +1091,36 @@ return;
 
 
 const membership =
-await getMembership(
-session.user.id
+await checkMembership(
+session
 );
 
 
 if(
-membership &&
-String(
-membership.status || ""
-)
-.toUpperCase() !==
-"ACTIVE"
+membership.active
 ){
 
+newCustomerSection.style.display =
+"none";
+
+inactiveSection.style.display =
+"none";
+
+return;
+
+}
+
+
 showInactiveMode();
+
+
+}
+catch(error){
+
+console.error(
+"Existing session check failed:",
+error
+);
 
 }
 
