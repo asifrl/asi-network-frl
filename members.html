@@ -53,11 +53,6 @@ button{
 cursor:pointer;
 }
 
-
-/* =========================
-HEADER
-========================= */
-
 header{
 position:sticky;
 top:0;
@@ -145,11 +140,6 @@ opacity:.45;
 cursor:not-allowed;
 }
 
-
-/* =========================
-ACCOUNT
-========================= */
-
 .account-wrap{
 position:relative;
 }
@@ -199,11 +189,6 @@ background:#1d1d1d;
 display:none;
 }
 
-
-/* =========================
-LOADING
-========================= */
-
 #loadingScreen{
 min-height:70vh;
 display:grid;
@@ -218,11 +203,6 @@ letter-spacing:2px;
 #memberApp{
 display:none;
 }
-
-
-/* =========================
-MAIN
-========================= */
 
 main{
 width:min(1240px,92%);
@@ -276,11 +256,6 @@ border-radius:50%;
 background:#fff;
 }
 
-
-/* =========================
-QUICK LINKS
-========================= */
-
 .quick-grid{
 display:grid;
 grid-template-columns:repeat(4,minmax(0,1fr));
@@ -306,11 +281,6 @@ color:#888;
 font-size:12px;
 line-height:1.5;
 }
-
-
-/* =========================
-CONTENT
-========================= */
 
 .section{
 padding-top:42px;
@@ -399,11 +369,6 @@ border:1px solid #222;
 border-radius:8px;
 color:#888;
 }
-
-
-/* =========================
-MODAL
-========================= */
 
 .modal-overlay{
 position:fixed;
@@ -513,11 +478,6 @@ font-size:13px;
 line-height:1.5;
 }
 
-
-/* =========================
-FOOTER
-========================= */
-
 footer{
 padding:35px 5%;
 border-top:1px solid #181818;
@@ -528,11 +488,6 @@ justify-content:space-between;
 gap:15px;
 flex-wrap:wrap;
 }
-
-
-/* =========================
-MOBILE
-========================= */
 
 @media(max-width:900px){
 
@@ -581,9 +536,7 @@ padding:0 12px;
 
 </head>
 
-
 <body>
-
 
 <header>
 
@@ -593,7 +546,6 @@ href="/"
 >
 ASI NETWORK <span>FRL</span> 👁️
 </a>
-
 
 <nav class="nav">
 
@@ -618,7 +570,6 @@ SUPPORT
 </a>
 
 </nav>
-
 
 <div class="nav-actions">
 
@@ -702,16 +653,13 @@ Log Out
 
 </header>
 
-
 <div id="loadingScreen">
 VERIFYING MEMBER ACCESS...
 </div>
 
-
 <div id="memberApp">
 
 <main>
-
 
 <section class="hero">
 
@@ -740,7 +688,6 @@ MEMBER ACCESS ACTIVE
 
 </section>
 
-
 <section class="quick-grid">
 
 <a
@@ -758,7 +705,6 @@ Explore all ASI Network FRL originals.
 
 </a>
 
-
 <a
 class="quick-card"
 href="#continueWatching"
@@ -774,7 +720,6 @@ Return to episodes you recently opened.
 
 </a>
 
-
 <a
 class="quick-card"
 href="#myList"
@@ -789,7 +734,6 @@ Your saved ASI Network content.
 </span>
 
 </a>
-
 
 <button
 id="settingsCardButton"
@@ -813,7 +757,6 @@ Manage your login, password and membership.
 </button>
 
 </section>
-
 
 <section
 id="continueWatching"
@@ -845,7 +788,6 @@ Checking your recent episodes...
 
 </section>
 
-
 <section class="section">
 
 <div class="section-head">
@@ -873,7 +815,6 @@ Loading published episodes...
 
 </section>
 
-
 <section
 id="myList"
 class="section"
@@ -899,7 +840,6 @@ Checking your saved content...
 </div>
 
 </section>
-
 
 <section
 id="watchHistory"
@@ -927,13 +867,9 @@ Checking your watch history...
 
 </section>
 
-
 </main>
 
 </div>
-
-
-<!-- ACCOUNT SETTINGS -->
 
 <div
 id="settingsModal"
@@ -958,7 +894,6 @@ type="button"
 
 </div>
 
-
 <div class="setting-box">
 
 <div class="setting-label">
@@ -973,7 +908,6 @@ class="setting-value"
 </div>
 
 </div>
-
 
 <div class="setting-box">
 
@@ -998,9 +932,6 @@ SEND PASSWORD RESET EMAIL
 </div>
 
 </div>
-
-
-<!-- MEMBERSHIP -->
 
 <div
 id="membershipSettingsBox"
@@ -1027,9 +958,6 @@ Your ASI Network FRL membership is active.
 </div>
 
 </div>
-
-
-<!-- CANCEL MEMBERSHIP -->
 
 <div
 id="cancelMembershipBox"
@@ -1063,7 +991,6 @@ CANCEL MEMBERSHIP
 
 </div>
 
-
 <div
 id="settingsMessage"
 class="message"
@@ -1072,7 +999,6 @@ class="message"
 </div>
 
 </div>
-
 
 <footer>
 
@@ -1089,7 +1015,6 @@ support@asinetworkfrl.com
 </a>
 
 </footer>
-
 
 <script>
 
@@ -1110,11 +1035,6 @@ let currentUser = null;
 let isAdmin = false;
 let currentSubscription = null;
 
-
-/* =========================
-HELPERS
-========================= */
-
 function escapeHtml(value){
 
 return String(value ?? "")
@@ -1125,7 +1045,6 @@ return String(value ?? "")
 .replaceAll("'","&#039;");
 
 }
-
 
 function getStorageArray(
 key
@@ -1154,7 +1073,6 @@ return [];
 
 }
 
-
 function saveStorageArray(
 key,
 items
@@ -1171,7 +1089,6 @@ JSON.stringify(items)
 catch(error){}
 
 }
-
 
 function savedItemId(
 item
@@ -1193,7 +1110,6 @@ item?.episodeId ||
 );
 
 }
-
 
 function formatDate(
 value
@@ -1231,11 +1147,6 @@ day:"numeric"
 
 }
 
-
-/* =========================
-CARD
-========================= */
-
 function episodeCard(
 episode,
 metaText = ""
@@ -1249,7 +1160,6 @@ episode.thumbnail_url
 )}')`
 :
 "";
-
 
 return `
 <article class="card">
@@ -1304,20 +1214,13 @@ WATCH
 
 }
 
-
-/* =========================
-SESSION
-========================= */
-
 async function verifyAccess(){
 
 const authResult =
 await sb.auth.getSession();
 
-
 currentSession =
 authResult.data.session;
-
 
 if(!currentSession){
 
@@ -1329,24 +1232,18 @@ return false;
 
 }
 
-
 currentUser =
 currentSession.user;
-
 
 document
 .getElementById("accountEmail")
 .textContent =
 currentUser.email || "";
 
-
 document
 .getElementById("settingsEmail")
 .textContent =
 currentUser.email || "";
-
-
-/* ADMIN */
 
 const adminResult =
 await sb
@@ -1358,11 +1255,9 @@ currentUser.id
 )
 .maybeSingle();
 
-
 isAdmin =
 !adminResult.error &&
 !!adminResult.data;
-
 
 if(isAdmin){
 
@@ -1371,31 +1266,24 @@ document
 .style.display =
 "block";
 
-
 document
 .getElementById("memberStatus")
 .textContent =
 "ADMINISTRATOR ACCESS";
-
 
 document
 .getElementById("cancelMembershipBox")
 .style.display =
 "none";
 
-
 document
 .getElementById("membershipSettingsBox")
 .style.display =
 "none";
 
-
 return true;
 
 }
-
-
-/* NORMAL MEMBER */
 
 try{
 
@@ -1428,9 +1316,7 @@ JSON.stringify({})
 
 );
 
-
 let result = {};
-
 
 try{
 
@@ -1440,39 +1326,42 @@ await response.json();
 }
 catch(error){}
 
+const membership =
+result.membership ||
+result.subscription ||
+result;
 
 const status =
 String(
-result.status || ""
-).toUpperCase();
-
+membership.status ||
+result.status ||
+""
+)
+.trim()
+.toUpperCase();
 
 const active =
 response.ok &&
 (
 result.active === true ||
 result.isActive === true ||
+membership.active === true ||
 status === "ACTIVE"
 );
-
 
 if(!active){
 
 await sb.auth.signOut();
 
-
 window.location.replace(
 "/login.html?inactive=1"
 );
-
 
 return false;
 
 }
 
-
 return true;
-
 
 }
 catch(error){
@@ -1482,14 +1371,11 @@ console.error(
 error
 );
 
-
 await sb.auth.signOut();
-
 
 window.location.replace(
 "/login.html?inactive=1"
 );
-
 
 return false;
 
@@ -1497,22 +1383,16 @@ return false;
 
 }
 
-
-/* =========================
-SUBSCRIPTION SETTINGS
-========================= */
-
 async function loadSubscriptionSettings(){
 
 if(
 isAdmin ||
-!currentUser
+!currentSession
 ){
 
 return;
 
 }
-
 
 const membershipBox =
 document.getElementById(
@@ -1544,32 +1424,177 @@ document.getElementById(
 "cancelMembershipButton"
 );
 
-
 membershipBox.style.display =
 "block";
 
 cancelBox.style.display =
 "block";
 
+statusText.textContent =
+"Checking membership...";
 
-const result =
-await sb
-.from("subscriptions")
-.select(
-"id,status,square_subscription_id,cancel_at_period_end,canceled_date"
+detail.textContent =
+"Loading your ASI Network FRL membership.";
+
+scheduled.style.display =
+"none";
+
+cancelButton.style.display =
+"none";
+
+try{
+
+const response =
+await fetch(
+
+`${SUPABASE_URL}/functions/v1/asi-link-subscription`,
+
+{
+
+method:"POST",
+
+headers:{
+
+"Authorization":
+`Bearer ${currentSession.access_token}`,
+
+"apikey":
+SUPABASE_KEY,
+
+"Content-Type":
+"application/json"
+
+},
+
+body:
+JSON.stringify({})
+
+}
+
+);
+
+let data = {};
+
+try{
+
+data =
+await response.json();
+
+}
+catch(error){}
+
+if(!response.ok){
+
+throw new Error(
+data.error ||
+"Unable to load membership."
+);
+
+}
+
+const membership =
+data.membership ||
+data.subscription ||
+data;
+
+const status =
+String(
+membership.status ||
+data.status ||
+""
 )
-.eq(
-"user_id",
-currentUser.id
-)
-.maybeSingle();
+.trim()
+.toUpperCase();
 
+const active =
+(
+data.active === true ||
+data.isActive === true ||
+membership.active === true ||
+status === "ACTIVE"
+);
 
-if(result.error){
+if(!active){
+
+statusText.textContent =
+"Membership Inactive";
+
+detail.textContent =
+"Your ASI Network FRL membership is not currently active.";
+
+cancelBox.style.display =
+"none";
+
+return;
+
+}
+
+currentSubscription =
+membership;
+
+statusText.textContent =
+"Active • $5.99/month";
+
+const cancelScheduled =
+(
+membership.cancel_at_period_end === true ||
+data.cancel_at_period_end === true
+);
+
+const canceledDate =
+membership.canceled_date ||
+data.canceled_date ||
+null;
+
+if(cancelScheduled){
+
+const readable =
+formatDate(
+canceledDate
+);
+
+detail.textContent =
+readable
+?
+`Your membership remains active until ${readable}.`
+:
+"Your cancellation is scheduled for the end of your current paid billing period.";
+
+scheduled.style.display =
+"block";
+
+scheduled.textContent =
+readable
+?
+`CANCELLATION SCHEDULED — Member access ends ${readable}.`
+:
+"CANCELLATION SCHEDULED — You will keep access through your current paid billing period.";
+
+cancelButton.style.display =
+"none";
+
+return;
+
+}
+
+detail.textContent =
+"Your ASI Network FRL membership is active and renews automatically until cancelled.";
+
+scheduled.style.display =
+"none";
+
+cancelButton.style.display =
+"inline-flex";
+
+cancelButton.disabled =
+false;
+
+}
+catch(error){
 
 console.error(
-"Subscription settings error:",
-result.error
+"Membership settings error:",
+error
 );
 
 statusText.textContent =
@@ -1581,127 +1606,9 @@ detail.textContent =
 cancelBox.style.display =
 "none";
 
-return;
-
-}
-
-
-currentSubscription =
-result.data;
-
-
-if(!currentSubscription){
-
-statusText.textContent =
-"Membership record unavailable";
-
-detail.textContent =
-"Contact support@asinetworkfrl.com if you need assistance.";
-
-cancelBox.style.display =
-"none";
-
-return;
-
-}
-
-
-const status =
-String(
-currentSubscription.status || ""
-)
-.toUpperCase();
-
-
-if(status === "ACTIVE"){
-
-statusText.textContent =
-"Active • $5.99/month";
-
-}
-else{
-
-statusText.textContent =
-status || "Membership";
-
-}
-
-
-if(
-currentSubscription.cancel_at_period_end === true
-){
-
-const readable =
-formatDate(
-currentSubscription.canceled_date
-);
-
-
-detail.textContent =
-readable
-?
-`Your membership remains active until ${readable}.`
-:
-"Your membership cancellation is scheduled at the end of your current paid billing period.";
-
-
-scheduled.style.display =
-"block";
-
-
-scheduled.textContent =
-readable
-?
-`CANCELLATION SCHEDULED — Member access ends ${readable}.`
-:
-"CANCELLATION SCHEDULED — You will keep access through your current paid billing period.";
-
-
-cancelButton.style.display =
-"none";
-
-return;
-
-}
-
-
-detail.textContent =
-"Your ASI Network FRL membership is active and renews automatically until cancelled.";
-
-
-scheduled.style.display =
-"none";
-
-
-cancelButton.style.display =
-"inline-flex";
-
-
-if(
-!currentSubscription.square_subscription_id
-){
-
-cancelButton.disabled =
-true;
-
-
-detail.textContent =
-"Your membership is active, but online cancellation is not available for this account yet. Contact support@asinetworkfrl.com for assistance.";
-
-}
-else{
-
-cancelButton.disabled =
-false;
-
 }
 
 }
-
-
-/* =========================
-CANCEL MEMBERSHIP
-========================= */
 
 document
 .getElementById(
@@ -1720,12 +1627,10 @@ return;
 
 }
 
-
 const first =
 confirm(
 "Cancel your ASI Network FRL membership?\n\nYou will keep access through the remainder of your current paid billing period. Your membership will not renew after that."
 );
-
 
 if(!first){
 
@@ -1733,12 +1638,10 @@ return;
 
 }
 
-
 const second =
 confirm(
 "FINAL CONFIRMATION\n\nSchedule cancellation of your $5.99/month ASI Network FRL membership?"
 );
-
 
 if(!second){
 
@@ -1746,32 +1649,25 @@ return;
 
 }
 
-
 const button =
 this;
-
 
 const message =
 document.getElementById(
 "settingsMessage"
 );
 
-
 button.disabled =
 true;
-
 
 button.textContent =
 "CANCELLING...";
 
-
 message.style.display =
 "block";
 
-
 message.textContent =
 "Scheduling your membership cancellation...";
-
 
 try{
 
@@ -1804,9 +1700,7 @@ JSON.stringify({})
 
 );
 
-
 let data = {};
-
 
 try{
 
@@ -1815,7 +1709,6 @@ await response.json();
 
 }
 catch(error){}
-
 
 if(!response.ok){
 
@@ -1826,12 +1719,10 @@ data.error ||
 
 }
 
-
 const readable =
 formatDate(
 data.canceled_date
 );
-
 
 message.textContent =
 readable
@@ -1840,9 +1731,7 @@ readable
 :
 "Cancellation scheduled successfully. You will keep access through your current paid billing period.";
 
-
 await loadSubscriptionSettings();
-
 
 }
 catch(error){
@@ -1852,11 +1741,9 @@ console.error(
 error
 );
 
-
 message.textContent =
 error.message ||
 "Unable to cancel your membership. Contact support@asinetworkfrl.com for assistance.";
-
 
 }
 finally{
@@ -1868,7 +1755,6 @@ button.style.display !== "none"
 button.disabled =
 false;
 
-
 button.textContent =
 "CANCEL MEMBERSHIP";
 
@@ -1878,11 +1764,6 @@ button.textContent =
 
 }
 );
-
-
-/* =========================
-FETCH VALID EPISODES
-========================= */
 
 async function getValidEpisodes(
 savedItems
@@ -1897,13 +1778,11 @@ savedItems
 )
 ];
 
-
 if(!ids.length){
 
 return [];
 
 }
-
 
 const result =
 await sb
@@ -1920,7 +1799,6 @@ ids
 true
 );
 
-
 if(result.error){
 
 console.error(
@@ -1932,10 +1810,8 @@ return [];
 
 }
 
-
 const episodes =
 result.data || [];
-
 
 const map =
 new Map(
@@ -1947,7 +1823,6 @@ episode
 )
 );
 
-
 return ids
 .map(
 id =>
@@ -1957,11 +1832,6 @@ map.get(id)
 
 }
 
-
-/* =========================
-CONTINUE WATCHING
-========================= */
-
 async function loadContinueWatching(){
 
 const grid =
@@ -1969,18 +1839,15 @@ document.getElementById(
 "continueGrid"
 );
 
-
 const saved =
 getStorageArray(
 "asi_watch_history"
 );
 
-
 const valid =
 await getValidEpisodes(
 saved
 );
-
 
 saveStorageArray(
 "asi_watch_history",
@@ -1992,7 +1859,6 @@ saved.find(
 item =>
 savedItemId(item) === episode.id
 );
-
 
 return {
 
@@ -2015,7 +1881,6 @@ new Date().toISOString()
 )
 );
 
-
 if(!valid.length){
 
 grid.innerHTML =
@@ -2028,7 +1893,6 @@ You don't have anything in Continue Watching yet.
 return;
 
 }
-
 
 grid.innerHTML =
 valid
@@ -2044,11 +1908,6 @@ episode,
 
 }
 
-
-/* =========================
-WATCH HISTORY
-========================= */
-
 async function loadHistory(){
 
 const grid =
@@ -2056,18 +1915,15 @@ document.getElementById(
 "historyGrid"
 );
 
-
 const saved =
 getStorageArray(
 "asi_watch_history"
 );
 
-
 const valid =
 await getValidEpisodes(
 saved
 );
-
 
 if(!valid.length){
 
@@ -2082,7 +1938,6 @@ return;
 
 }
 
-
 grid.innerHTML =
 valid.map(
 episode =>
@@ -2095,11 +1950,6 @@ episode,
 
 }
 
-
-/* =========================
-MY LIST
-========================= */
-
 async function loadMyList(){
 
 const grid =
@@ -2107,18 +1957,15 @@ document.getElementById(
 "myListGrid"
 );
 
-
 const saved =
 getStorageArray(
 "asi_my_list"
 );
 
-
 const valid =
 await getValidEpisodes(
 saved
 );
-
 
 saveStorageArray(
 "asi_my_list",
@@ -2138,7 +1985,6 @@ episode.episode_number
 )
 );
 
-
 if(!valid.length){
 
 grid.innerHTML =
@@ -2152,7 +1998,6 @@ return;
 
 }
 
-
 grid.innerHTML =
 valid.map(
 episode =>
@@ -2165,18 +2010,12 @@ episode,
 
 }
 
-
-/* =========================
-LATEST EPISODES
-========================= */
-
 async function loadLatest(){
 
 const grid =
 document.getElementById(
 "latestGrid"
 );
-
 
 try{
 
@@ -2198,17 +2037,14 @@ ascending:false
 )
 .limit(8);
 
-
 if(result.error){
 
 throw result.error;
 
 }
 
-
 const episodes =
 result.data || [];
-
 
 if(!episodes.length){
 
@@ -2223,7 +2059,6 @@ return;
 
 }
 
-
 grid.innerHTML =
 episodes.map(
 episode =>
@@ -2234,7 +2069,6 @@ episode,
 )
 .join("");
 
-
 }
 catch(error){
 
@@ -2242,7 +2076,6 @@ console.error(
 "Latest episodes error:",
 error
 );
-
 
 grid.innerHTML =
 `
@@ -2255,11 +2088,6 @@ Latest episodes are temporarily unavailable.
 
 }
 
-
-/* =========================
-ACCOUNT MENU
-========================= */
-
 document
 .getElementById("accountButton")
 .addEventListener(
@@ -2268,14 +2096,12 @@ function(event){
 
 event.stopPropagation();
 
-
 document
 .getElementById("accountMenu")
 .classList.toggle("show");
 
 }
 );
-
 
 document.addEventListener(
 "click",
@@ -2286,12 +2112,10 @@ document.getElementById(
 "accountMenu"
 );
 
-
 const button =
 document.getElementById(
 "accountButton"
 );
-
 
 if(
 !menu.contains(event.target) &&
@@ -2307,22 +2131,15 @@ menu.classList.remove(
 }
 );
 
-
-/* =========================
-SETTINGS
-========================= */
-
 async function openSettings(){
 
 document
 .getElementById("accountMenu")
 .classList.remove("show");
 
-
 document
 .getElementById("settingsModal")
 .classList.add("show");
-
 
 if(!isAdmin){
 
@@ -2332,7 +2149,6 @@ await loadSubscriptionSettings();
 
 }
 
-
 document
 .getElementById("settingsMenuButton")
 .addEventListener(
@@ -2340,14 +2156,12 @@ document
 openSettings
 );
 
-
 document
 .getElementById("settingsCardButton")
 .addEventListener(
 "click",
 openSettings
 );
-
 
 document
 .getElementById("closeSettingsButton")
@@ -2361,7 +2175,6 @@ document
 
 }
 );
-
 
 document
 .getElementById("settingsModal")
@@ -2382,11 +2195,6 @@ this.classList.remove(
 }
 );
 
-
-/* =========================
-PASSWORD RESET
-========================= */
-
 document
 .getElementById("resetPasswordButton")
 .addEventListener(
@@ -2399,24 +2207,19 @@ return;
 
 }
 
-
 const button =
 this;
-
 
 button.disabled =
 true;
 
-
 button.textContent =
 "SENDING...";
-
 
 const message =
 document.getElementById(
 "settingsMessage"
 );
-
 
 try{
 
@@ -2433,28 +2236,23 @@ window.location.origin +
 }
 );
 
-
 if(result.error){
 
 throw result.error;
 
 }
 
-
 message.style.display =
 "block";
 
-
 message.textContent =
 "Password reset email sent. Check your inbox and spam folder.";
-
 
 }
 catch(error){
 
 message.style.display =
 "block";
-
 
 message.textContent =
 error.message ||
@@ -2466,7 +2264,6 @@ finally{
 button.disabled =
 false;
 
-
 button.textContent =
 "SEND PASSWORD RESET EMAIL";
 
@@ -2474,11 +2271,6 @@ button.textContent =
 
 }
 );
-
-
-/* =========================
-LOG OUT
-========================= */
 
 document
 .getElementById("logoutButton")
@@ -2488,18 +2280,12 @@ async function(){
 
 await sb.auth.signOut();
 
-
 window.location.replace(
 "/"
 );
 
 }
 );
-
-
-/* =========================
-INITIALIZE
-========================= */
 
 async function initialize(){
 
@@ -2508,25 +2294,21 @@ try{
 const allowed =
 await verifyAccess();
 
-
 if(!allowed){
 
 return;
 
 }
 
-
 document
 .getElementById("loadingScreen")
 .style.display =
 "none";
 
-
 document
 .getElementById("memberApp")
 .style.display =
 "block";
-
 
 await Promise.all([
 
@@ -2540,7 +2322,6 @@ loadLatest()
 
 ]);
 
-
 }
 catch(error){
 
@@ -2548,7 +2329,6 @@ console.error(
 "Member page initialization error:",
 error
 );
-
 
 document
 .getElementById("loadingScreen")
@@ -2558,7 +2338,6 @@ document
 }
 
 }
-
 
 initialize();
 
