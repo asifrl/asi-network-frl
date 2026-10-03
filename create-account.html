@@ -298,13 +298,13 @@ autocomplete="new-password"
 
 
 <label for="phone">
-Phone Number
+Phone Number (Optional)
 </label>
 
 <input
 id="phone"
 type="tel"
-placeholder="Enter your phone number"
+placeholder="Enter your phone number (optional)"
 autocomplete="tel"
 >
 
@@ -551,8 +551,7 @@ return;
 if(
 !email ||
 !password ||
-!confirmPassword ||
-!phone
+!confirmPassword
 ){
 
 showStatus(
